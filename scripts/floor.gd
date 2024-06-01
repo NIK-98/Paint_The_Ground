@@ -2,14 +2,14 @@ extends TileMap
 
 @onready var main = $"../"
 
-var ID = 0
 var with_tiles = 1280*2
 var hight_tiles = 800*2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	reset_floor()
-	
+	reset_floor.rpc()
+
+@rpc("any_peer","call_local")
 func reset_floor():
 	for x in range(with_tiles):
 		for y in range(hight_tiles):
