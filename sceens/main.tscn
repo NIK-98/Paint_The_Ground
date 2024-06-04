@@ -1,28 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=2 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
-[ext_resource type="PackedScene" uid="uid://bd2en7ayi4qef" path="res://sceens/floor.tscn" id="3_raunn"]
-[ext_resource type="PackedScene" uid="uid://dqai1xwsq1oo2" path="res://sceens/menu.tscn" id="3_ukx8c"]
 
-[node name="main" type="Node2D" groups=["main"]]
+[node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
 
-[node name="floor" parent="." instance=ExtResource("3_raunn")]
+[node name="Level" type="Node" parent="."]
 
-[node name="Control" type="Control" parent="."]
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://sceens/level.tscn")
+spawn_path = NodePath("../Level")
+spawn_limit = 1
+
+[node name="UI" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 168.0
+offset_top = -24.0
+offset_right = 208.0
+offset_bottom = 16.0
+grow_vertical = 2
+
+[node name="Net" type="VBoxContainer" parent="UI"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+[node name="Options" type="HBoxContainer" parent="UI/Net"]
+layout_mode = 2
 
-[node name="fps" type="Label" parent="Control/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 42
+[node name="Label" type="Label" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Verbinden:"
 
-[node name="menu" parent="." instance=ExtResource("3_ukx8c")]
-ip = "localhost"
-port = 11111
+[node name="Host" type="Button" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Host"
+
+[node name="Connect" type="Button" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Connect"
+
+[node name="Remote" type="LineEdit" parent="UI/Net/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "127.0.0.1"
+expand_to_text_length = true
+
+[connection signal="pressed" from="UI/Net/Options/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Net/Options/Connect" to="." method="_on_connect_pressed"]

@@ -1,30 +1,60 @@
-extends Node2D
+extends Node
+	
+const PORT = 11111
 
-@onready var map = $floor
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	get_tree().paused = true
+	multiplayer.server_relay = false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed("reset"):
-		wertung()
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
-		
-	var fps = Engine.get_frames_per_second()
-	$"Control/CanvasLayer/fps".text = str("FPS: ", fps)
+	if DisplayServer.get_name() == "headless":
+		print("Automatically starting dedicated server.")
+		_on_host_pressed.call_deferred()
 	
 
-func wertung():
-	var player1_cells = 0
-	var player2_cells = 0
-	for i in map.get_used_cells(0):
-		var check_cell = map.get_cell_source_id(0,i)
-		if check_cell == 1:
-			player1_cells += 1
-		if check_cell == 2:
-			player2_cells += 1
-	prints(str("Player1: ", player1_cells))
-	prints(str("Player2: ", player2_cells))
+func _on_host_pressed():
+	var peer = ENetMultiplayerPeer.new()
+	peer.create_server(PORT)
+	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+		OS.alert("Failed to start multiplayer server.")
+		return
+	multiplayer.multiplayer_peer = peer
+	start_game()
+
+
+func _on_connect_pressed():
+	var txt : String = $UI/Net/Options/Remote.text
+	if txt == "":
+		OS.alert("Need a remote to connect to.")
+		return
+	var peer = ENetMultiplayerPeer.new()
+	peer.create_client(txt, PORT)
+	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+		OS.alert("Failed to start multiplayer client.")
+		return
+	multiplayer.multiplayer_peer = peer
+	start_game()
+
+
+func start_game():
+	$UI.hide()
+	get_tree().paused = false
+	if multiplayer.is_server():
+		change_level.call_deferred(load("res://sceens/level.tscn"))
+	
+
+
+func change_level(scene: PackedScene):
+	var level = $Level
+	for c in level.get_children():
+		level.remove_child(c)
+		c.queue_free()
+	level.add_child(scene.instantiate())
+
+
+# Der Server kann Das Level mit R Restarten
+func _input(event):
+	if not multiplayer.is_server():
+		return
+	if event.is_action("reset") and Input.is_action_just_pressed("reset"):
+		change_level.call_deferred(load("res://sceens/level.tscn"))
+
