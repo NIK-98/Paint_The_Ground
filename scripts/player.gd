@@ -22,7 +22,6 @@ var tile_size_multipl = 1.5
 func _ready():
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
-	reste_score.rpc()
 	color_change()
 	map.reset_floor.rpc()
 	
@@ -45,10 +44,14 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
 			paint.rpc(1)
+			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(0).wertung.rpc()
 		if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
 			paint.rpc(2)
+			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(1).wertung.rpc()
 		if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
 			paint.rpc(3)
+			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(2).wertung.rpc()
+
 
 @rpc("any_peer","call_local")
 func paint(tile: int):
@@ -69,8 +72,8 @@ func color_change():
 @rpc("any_peer","call_local")
 func reste_score():
 	if len(Global.score_list) == 1 and get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		get_parent().get_parent().get_node("Control/CanvasLayer/Wertung").get_child(0).queue_free()
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(0).queue_free()
 	if len(Global.score_list) == 2 and get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		get_parent().get_parent().get_node("Control/CanvasLayer/Wertung").get_child(1).queue_free()
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(1).queue_free()
 	if len(Global.score_list) == 3 and get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		get_parent().get_parent().get_node("Control/CanvasLayer/Wertung").get_child(2).queue_free()
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(2).queue_free()
