@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
+@onready var main = get_parent().get_parent().get_parent().get_parent()
 
 const SPEED = 20
 var spawn = position
@@ -8,6 +9,8 @@ var last_position = position
 var is_moving = true
 var tile_size = 64
 var tile_size_multipl = 1.5
+var color_cell = 1
+@export var score = 0
 
 @onready var camera = $Camera2D
 
@@ -24,7 +27,8 @@ func _ready():
 		camera.make_current()
 	color_change()
 	map.reset_floor.rpc()
-	
+	reset_scores.rpc() #### keine funktonaktuell
+
 
 func _physics_process(delta):
 	if position.x < 0:
@@ -44,14 +48,29 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
 			paint.rpc(1)
-			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(0).wertung.rpc()
+			color_cell = 1
 		if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
 			paint.rpc(2)
-			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(1).wertung.rpc()
+			color_cell = 2
 		if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
 			paint.rpc(3)
-			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(2).wertung.rpc()
+			color_cell = 3
+	score_counter.rpc()
 
+
+@rpc("any_peer","call_local")
+func score_counter():
+	score = 0
+	for i in map.get_used_cells(0):
+		var check_cell = map.get_cell_source_id(0,i)
+		if check_cell == color_cell:
+			score+=1
+			
+			
+@rpc("any_peer","call_local")
+func reset_scores():
+	pass
+		
 
 @rpc("any_peer","call_local")
 func paint(tile: int):

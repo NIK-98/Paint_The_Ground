@@ -37,6 +37,6 @@ anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
 
-[node name="ScoreSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
 _spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
 spawn_path = NodePath("../Wertung")
