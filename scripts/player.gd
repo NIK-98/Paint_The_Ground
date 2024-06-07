@@ -27,8 +27,14 @@ func _ready():
 		camera.make_current()
 	color_change()
 	map.reset_floor.rpc()
-	reset_scores.rpc() #### keine funktonaktuell
+	painter()
+	score_counter.rpc()
 
+
+func _exit_tree():
+	get_tree().paused = true
+	map.reset_floor()
+	get_tree().paused = false
 
 func _physics_process(delta):
 	if position.x < 0:
@@ -46,18 +52,21 @@ func _physics_process(delta):
 	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 	move_and_collide(velocity)
 	if (velocity.x != 0 or velocity.y != 0):
-		if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-			paint.rpc(1)
-			color_cell = 1
-		if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-			paint.rpc(2)
-			color_cell = 2
-		if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-			paint.rpc(3)
-			color_cell = 3
+		painter()
 	score_counter.rpc()
 
-
+func painter():
+	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
+		paint.rpc(1)
+		color_cell = 1
+	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
+		paint.rpc(2)
+		color_cell = 2
+	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
+		paint.rpc(3)
+		color_cell = 3
+	
+	
 @rpc("any_peer","call_local")
 func score_counter():
 	score = 0
@@ -65,11 +74,6 @@ func score_counter():
 		var check_cell = map.get_cell_source_id(0,i)
 		if check_cell == color_cell:
 			score+=1
-			
-			
-@rpc("any_peer","call_local")
-func reset_scores():
-	pass
 		
 
 @rpc("any_peer","call_local")
@@ -86,13 +90,3 @@ func color_change():
 		get_node("Color").set_color(Color(0,0,255))
 	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
 		get_node("Color").set_color(Color(0,255,0))
-		
-		
-@rpc("any_peer","call_local")
-func reste_score():
-	if len(Global.score_list) == 1 and get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(0).queue_free()
-	if len(Global.score_list) == 2 and get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(1).queue_free()
-	if len(Global.score_list) == 3 and get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_child(2).queue_free()

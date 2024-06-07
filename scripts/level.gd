@@ -14,17 +14,14 @@ func _ready():
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
-	multiplayer.peer_connected.connect(add_score)
 
 	# Spawn already connected players.
 	for id in multiplayer.get_peers():
 		add_player(id)
-		add_score(id)
 
 	# Spawn the local player unless this is a dedicated server export.
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
-		add_score(1)
 
 
 func _process(delta):
@@ -38,25 +35,22 @@ func _exit_tree():
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
-	multiplayer.peer_connected.disconnect(add_score)
 	
 func add_player(id: int):
 	var player = player_sceen.instantiate()
-	player.reste_score.rpc()
 	player.player = id
 	var randpos = Vector2(randi_range(0,Global.Spielfeld_Size.x-player.get_node("Color").size.x),randi_range(0,Global.Spielfeld_Size.y-player.get_node("Color").size.y))
 	
 	player.position = randpos
 	if randpos == old_spawn:
 		del_player(id)
-		del_score(id)
 		add_player(id)
-		add_score(id)
 		return
 		
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	old_spawn = randpos
+	add_score(id)
 	
 	
 func add_score(id: int):

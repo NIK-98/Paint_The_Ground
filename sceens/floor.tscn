@@ -44,5 +44,6 @@ sources/3 = SubResource("TileSetAtlasSource_wcno6")
 
 [node name="floor" type="TileMap"]
 tile_set = SubResource("TileSet_6pxfk")
+collision_animatable = true
 format = 2
 script = ExtResource("1_6wjps")
