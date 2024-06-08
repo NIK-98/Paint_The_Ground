@@ -39,7 +39,7 @@ func start_game():
 	$UI.hide()
 	get_tree().paused = false
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://sceens/level.tscn"))
+		change_level(preload("res://sceens/level.tscn"))
 	
 
 

@@ -40,13 +40,14 @@ func add_player(id: int):
 	var player = player_sceen.instantiate()
 	player.player = id
 	var randpos = Vector2(randi_range(0,Global.Spielfeld_Size.x-player.get_node("Color").size.x),randi_range(0,Global.Spielfeld_Size.y-player.get_node("Color").size.y))
-	
-	player.position = randpos
+	print(randpos)
 	if randpos == old_spawn:
+		old_spawn = randpos
 		del_player(id)
 		add_player(id)
 		return
 		
+	player.position = randpos
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	old_spawn = randpos

@@ -26,7 +26,6 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 	color_change()
-	map.reset_floor.rpc()
 	painter()
 	score_counter.rpc()
 
@@ -78,8 +77,15 @@ func score_counter():
 
 @rpc("any_peer","call_local")
 func paint(tile: int):
-	for x in range(tile_size*tile_size_multipl):
-		for y in range(tile_size*tile_size_multipl):
+	var radius = Vector2i($Color.size.x,$Color.size.y)
+	var tile_position_top_left = map.local_to_map(Vector2i(position.x,position.y))
+	var tile_position_down_right = map.local_to_map(Vector2i(position.x+radius.x,position.y+radius.y))
+	if tile_position_down_right not in map.get_used_cells(0):
+		return
+	if tile_position_top_left not in map.get_used_cells(0):
+		return
+	for x in range(0, radius.x):
+		for y in range(0, radius.y):
 			var tile_position = map.local_to_map(Vector2i(position.x+x,position.y+y))
 			map.set_cell(0,tile_position,tile,Vector2i(0,0))
 		
