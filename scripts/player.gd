@@ -91,8 +91,8 @@ func paint(tile: int):
 		
 func color_change():
 	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		get_node("Color").set_color(Color(255,0,0))
-	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		get_node("Color").set_color(Color(0,0,255))
-	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
 		get_node("Color").set_color(Color(0,255,0))
+	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
+		get_node("Color").set_color(Color(255,0,0))
+	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
+		get_node("Color").set_color(Color(0,0,255))

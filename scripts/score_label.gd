@@ -5,7 +5,7 @@ extends Label
 var player_list = []
 
 func _process(delta):
-	wertung()
+	call_deferred("wertung")
 
 
 func wertung():
