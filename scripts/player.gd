@@ -23,17 +23,20 @@ var color_cell = 1
 @onready var input = $PlayerInput
 
 func _ready():
+	map.reset_floor()
+	get_tree().paused = false
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 	color_change()
 	painter()
 	score_counter.rpc()
-
-
+	
+	
 func _exit_tree():
 	get_tree().paused = true
 	map.reset_floor()
 	get_tree().paused = false
+		
 
 func _physics_process(delta):
 	if position.x < 0:

@@ -4,11 +4,8 @@ extends TileMap
 
 var with_tiles = 1280*2
 var hight_tiles = 800*2
-
-func _ready():
-	reset_floor.rpc()
-
-@rpc("any_peer","call_local")
+	
+	
 func reset_floor():
 	for x in range(with_tiles):
 		for y in range(hight_tiles):

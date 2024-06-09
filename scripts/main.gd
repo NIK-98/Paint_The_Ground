@@ -1,7 +1,7 @@
 extends Node
 	
 const PORT = 11111
-var connect_counter = 0
+var peer = ENetMultiplayerPeer.new()
 
 func _ready():
 	get_tree().paused = true
@@ -10,11 +10,16 @@ func _ready():
 	if DisplayServer.get_name() == "headless":
 		print("Startet Dedicated Server.")
 		_on_host_pressed.call_deferred()
+		
+
+func _process(delta):
+	if get_node("Level/level") == null:
+		OS.alert("Multiplayer Server wurde beendet.")
+		get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 
 func _on_host_pressed():
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT,2)
+	peer.create_server(PORT,Global.Max_clients)
 	var txt : String = $UI/Net/Options/Remote.text
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
@@ -37,16 +42,18 @@ func _on_connect_pressed():
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Konnte Multiplayer client nicht starten.")
 		return
+	var udp_server = UDPServer.new()
+	if udp_server.listen(PORT) == 0:
+		OS.alert("Kein Multiplayer Server gefunden.")
+		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
 
 
 func start_game():
 	$UI.hide()
-	get_tree().paused = false
 	if multiplayer.is_server():
 		change_level(preload("res://sceens/level.tscn"))
-	
 
 
 func change_level(scene: PackedScene):

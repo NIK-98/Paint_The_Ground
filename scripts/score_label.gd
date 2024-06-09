@@ -3,10 +3,11 @@ extends Label
 @onready var map = get_parent().get_parent().get_parent().get_node("floor")
 @onready var Players = get_parent().get_parent().get_parent().get_node("Players")
 var player_list = []
-
+		
+		
 func _process(delta):
 	call_deferred("wertung")
-
+	
 
 func wertung():
 	player_list = []

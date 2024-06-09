@@ -36,8 +36,22 @@ func _exit_tree():
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
 	
-		
+	
+func _enter_tree():
+	if len(multiplayer.get_peers()) == Global.Max_clients:
+		return
+	get_node("floor").reset_floor()
+	
+	
+@rpc("call_local")
+func voll():
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	
+	
 func add_player(id: int):
+	if len(multiplayer.get_peers()) == Global.Max_clients:
+		voll.rpc_id(id)
+		return
 	var player = player_sceen.instantiate()
 	player.player = id
 	var randpos = Vector2(randi_range(0,Global.Spielfeld_Size.x-player.get_node("Color").size.x),randi_range(0,Global.Spielfeld_Size.y-player.get_node("Color").size.y))
