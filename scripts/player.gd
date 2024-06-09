@@ -23,7 +23,9 @@ var color_cell = 1
 @onready var input = $PlayerInput
 
 func _ready():
+	main.get_node("UI").hide()
 	map.reset_floor()
+	map.reset_bomb.rpc()
 	get_tree().paused = false
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
@@ -56,6 +58,10 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		painter()
 	score_counter.rpc()
+	
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("boom"):
+			map.aktivate_bombe.rpc(color_cell, area.get_parent())
 
 func painter():
 	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
