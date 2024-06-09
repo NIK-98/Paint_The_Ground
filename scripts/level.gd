@@ -36,6 +36,7 @@ func _exit_tree():
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
 	
+		
 func add_player(id: int):
 	var player = player_sceen.instantiate()
 	player.player = id

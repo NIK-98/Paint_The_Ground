@@ -1,35 +1,41 @@
 extends Node
 	
 const PORT = 11111
+var connect_counter = 0
 
 func _ready():
 	get_tree().paused = true
 	multiplayer.server_relay = false
 
 	if DisplayServer.get_name() == "headless":
-		print("Automatically starting dedicated server.")
+		print("Startet Dedicated Server.")
 		_on_host_pressed.call_deferred()
 	
 
 func _on_host_pressed():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT,2)
+	var txt : String = $UI/Net/Options/Remote.text
+	if not txt.is_valid_ip_address():
+		OS.alert("Ist keine richtiege ip adresse.")
+		return
+		
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Failed to start multiplayer server.")
+		OS.alert("Multiplayer Server läuft bereits.")
 		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
-
-
+		
+		
 func _on_connect_pressed():
 	var txt : String = $UI/Net/Options/Remote.text
-	if txt == "":
-		OS.alert("Need a remote to connect to.")
+	if not txt.is_valid_ip_address():
+		OS.alert("Ist keine richtiege ip adresse.")
 		return
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(txt, PORT)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Failed to start multiplayer client.")
+		OS.alert("Konnte Multiplayer client nicht starten.")
 		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
