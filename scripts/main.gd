@@ -1,6 +1,5 @@
 extends Node
 	
-const PORT = 11111
 var peer = ENetMultiplayerPeer.new()
 
 func _ready():
@@ -19,10 +18,14 @@ func _process(delta):
 	
 
 func _on_host_pressed():
-	peer.create_server(PORT,Global.Max_clients)
 	var txt : String = $UI/Net/Options/Remote.text
+	var port : String = $UI/Net/Options/port.text
+	peer.create_server(port.to_int(),Global.Max_clients)
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
+		return
+	if not port.is_valid_int():
+		OS.alert("Ist keine richtieger port.")
 		return
 		
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
@@ -34,16 +37,20 @@ func _on_host_pressed():
 		
 func _on_connect_pressed():
 	var txt : String = $UI/Net/Options/Remote.text
+	var port : String = $UI/Net/Options/port.text
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
 		return
+	if not port.is_valid_int():
+		OS.alert("Ist keine richtieger port.")
+		return
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(txt, PORT)
+	peer.create_client(txt, port.to_int())
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Konnte Multiplayer client nicht starten.")
 		return
 	var udp_server = UDPServer.new()
-	if udp_server.listen(PORT) == 0:
+	if udp_server.listen(port.to_int()) == 0:
 		OS.alert("Kein Multiplayer Server gefunden.")
 		return
 	multiplayer.multiplayer_peer = peer
