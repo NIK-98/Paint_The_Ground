@@ -66,7 +66,7 @@ func _physics_process(delta):
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):
-			area.get_parent().aktivate_bombe(name.to_int(), color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
 
 
 func painter():

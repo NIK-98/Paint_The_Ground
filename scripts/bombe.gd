@@ -6,6 +6,7 @@ extends Node2D
 const  bomb_radius = 64*3
 	
 
+@rpc("any_peer","call_local")
 func aktivate_bombe(id: int, cell: int, clean:Node2D):
 	for x in range(-bomb_radius,bomb_radius):
 		for y in range(-bomb_radius,bomb_radius):
