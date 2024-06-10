@@ -59,7 +59,7 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		painter()
 	score_counter.rpc()
-	get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
+	get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
 	bombe_attack()
 	
 	
