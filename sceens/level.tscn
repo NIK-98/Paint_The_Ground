@@ -61,6 +61,8 @@ collision_animatable = true
 format = 2
 script = ExtResource("8_ul4n7")
 
+[node name="Bomben" type="Node" parent="."]
+
 [node name="Players" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
