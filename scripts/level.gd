@@ -3,6 +3,11 @@ extends Node2D
 @onready var main = get_parent().get_parent()
 @export var player_sceen: PackedScene
 @export var score_label: PackedScene
+@onready var map = get_node("floor")
+@onready var bombe = preload("res://sceens/bombe.tscn")
+
+var old_spawn_bomb: Vector2
+const bomb_spawn_genzen = 64
 
 var old_spawn: Vector2
 
@@ -10,7 +15,7 @@ func _ready():
 	# We only need to spawn players on the server.
 	if not multiplayer.is_server():
 		return
-
+	
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
@@ -22,6 +27,8 @@ func _ready():
 	# Spawn the local player unless this is a dedicated server export.
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
+		
+	reset_bomben(name.to_int(), 4)
 
 
 func _process(delta):
@@ -40,7 +47,6 @@ func _exit_tree():
 func _enter_tree():
 	if len(multiplayer.get_peers()) == Global.Max_clients:
 		return
-	get_node("floor").reset_floor()
 	
 	
 @rpc("call_local")
@@ -55,7 +61,6 @@ func add_player(id: int):
 	var player = player_sceen.instantiate()
 	player.player = id
 	var randpos = Vector2(randi_range(0,Global.Spielfeld_Size.x-player.get_node("Color").size.x),randi_range(0,Global.Spielfeld_Size.y-player.get_node("Color").size.y))
-	print(randpos)
 	if randpos == old_spawn:
 		old_spawn = randpos
 		del_player(id)
@@ -67,6 +72,26 @@ func add_player(id: int):
 	get_node("Players").add_child(player, true)
 	old_spawn = randpos
 	add_score(id)
+
+
+func reset_bomben(id: int,anzahl: int):	
+	for c in map.get_child_count()-1:
+		if map.get_child(c).is_in_group("boom"):
+			map.get_child(c).queue_free()
+	for i in range(anzahl):
+		spawn_new_bombe(id, 8)
+
+
+func spawn_new_bombe(id: int,abstand: int):
+	var new_bombe = bombe.instantiate()
+	var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+	if randpos == old_spawn_bomb*abstand:
+		old_spawn_bomb = randpos
+		reset_bomben(id, 4)
+		return
+	new_bombe.name = "bombe"
+	new_bombe.position = randpos
+	map.add_child(new_bombe)
 	
 	
 func add_score(id: int):

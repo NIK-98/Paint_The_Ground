@@ -25,7 +25,7 @@ var color_cell = 1
 func _ready():
 	main.get_node("UI").hide()
 	map.reset_floor()
-	map.reset_bomb.rpc()
+	get_parent().get_parent().reset_bomben(name.to_int(), 4)
 	get_tree().paused = false
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
@@ -37,6 +37,7 @@ func _ready():
 func _exit_tree():
 	get_tree().paused = true
 	map.reset_floor()
+	get_parent().get_parent().reset_bomben(name.to_int(), 4)
 	get_tree().paused = false
 		
 
@@ -58,10 +59,15 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		painter()
 	score_counter.rpc()
+	get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
+	bombe_attack()
 	
+	
+func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):
-			map.aktivate_bombe.rpc(color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe(name.to_int(), color_cell, area.get_parent())
+
 
 func painter():
 	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:

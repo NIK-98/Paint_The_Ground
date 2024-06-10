@@ -1,9 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=14 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
 [ext_resource type="PackedScene" uid="uid://dqayoki230ek2" path="res://sceens/score_label.tscn" id="3_eqqiv"]
-[ext_resource type="PackedScene" uid="uid://bd2en7ayi4qef" path="res://sceens/floor.tscn" id="3_k1wie"]
+[ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="4_1vpo6"]
+[ext_resource type="Texture2D" uid="uid://dg2r7hn28jxmt" path="res://assets/ground/ground_green.png" id="5_jvivo"]
+[ext_resource type="Texture2D" uid="uid://btju3bebchq0u" path="res://assets/ground/ground_red.png" id="6_n3m5v"]
+[ext_resource type="Texture2D" uid="uid://cequksmqsxf4e" path="res://assets/ground/ground_blue.png" id="7_khuld"]
+[ext_resource type="Script" path="res://scripts/floor.gd" id="8_ul4n7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
+texture = ExtResource("4_1vpo6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_owtyi"]
+texture = ExtResource("5_jvivo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0kvp"]
+texture = ExtResource("6_n3m5v")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wcno6"]
+texture = ExtResource("7_khuld")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_6pxfk"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_wfxpn")
+sources/1 = SubResource("TileSetAtlasSource_owtyi")
+sources/2 = SubResource("TileSetAtlasSource_l0kvp")
+sources/3 = SubResource("TileSetAtlasSource_wcno6")
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_5145t")
@@ -15,7 +55,11 @@ limit_left = 0
 limit_top = 0
 position_smoothing_enabled = true
 
-[node name="floor" parent="." instance=ExtResource("3_k1wie")]
+[node name="floor" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_6pxfk")
+collision_animatable = true
+format = 2
+script = ExtResource("8_ul4n7")
 
 [node name="Players" type="Node" parent="."]
 
