@@ -50,6 +50,7 @@ func _enter_tree():
 	
 @rpc("call_local")
 func voll():
+	OS.alert("Server Voll!")
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 	

@@ -75,14 +75,23 @@ func bombe_attack():
 
 func painter():
 	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		paint.rpc(1)
 		color_cell = 1
+		paint.rpc(1)
 	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		paint.rpc(2)
 		color_cell = 2
+		paint.rpc(2)
 	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		paint.rpc(3)
 		color_cell = 3
+		paint.rpc(3)
+	if get_parent().get_child(3) != null and get_parent().get_child(3).name == name:
+		color_cell = 4
+		paint.rpc(4)
+	if get_parent().get_child(4) != null and get_parent().get_child(4).name == name:
+		color_cell = 5
+		paint.rpc(5)
+	if get_parent().get_child(5) != null and get_parent().get_child(5).name == name:
+		color_cell = 6
+		paint.rpc(6)
 	
 	
 @rpc("any_peer","call_local")
@@ -110,8 +119,14 @@ func paint(tile: int):
 		
 func color_change():
 	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		get_node("Color").set_color(Color(0,255,0))
+		get_node("Color").set_color(Color.GREEN)
 	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		get_node("Color").set_color(Color(255,0,0))
+		get_node("Color").set_color(Color.DARK_RED)
 	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		get_node("Color").set_color(Color(0,0,255))
+		get_node("Color").set_color(Color.DARK_BLUE)
+	if get_parent().get_child(3) != null and get_parent().get_child(3).name == name:
+		get_node("Color").set_color(Color.DEEP_SKY_BLUE)
+	if get_parent().get_child(4) != null and get_parent().get_child(4).name == name:
+		get_node("Color").set_color(Color.VIOLET)
+	if get_parent().get_child(5) != null and get_parent().get_child(5).name == name:
+		get_node("Color").set_color(Color.YELLOW)

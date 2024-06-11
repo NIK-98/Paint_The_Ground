@@ -1,49 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://fv2dn4il1f71"]
+[gd_scene load_steps=3 format=3 uid="uid://fv2dn4il1f71"]
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_6wjps"]
-[ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="1_st2ff"]
-[ext_resource type="Texture2D" uid="uid://dg2r7hn28jxmt" path="res://assets/ground/ground_green.png" id="2_iw0u2"]
-[ext_resource type="Texture2D" uid="uid://btju3bebchq0u" path="res://assets/ground/ground_red.png" id="3_i5g11"]
-[ext_resource type="Texture2D" uid="uid://cequksmqsxf4e" path="res://assets/ground/ground_blue.png" id="4_awuae"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
-texture = ExtResource("1_st2ff")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_owtyi"]
-texture = ExtResource("2_iw0u2")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0kvp"]
-texture = ExtResource("3_i5g11")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wcno6"]
-texture = ExtResource("4_awuae")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-
-[sub_resource type="TileSet" id="TileSet_6pxfk"]
-tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_wfxpn")
-sources/1 = SubResource("TileSetAtlasSource_owtyi")
-sources/2 = SubResource("TileSetAtlasSource_l0kvp")
-sources/3 = SubResource("TileSetAtlasSource_wcno6")
+[ext_resource type="TileSet" uid="uid://cjt3ud8m2ug5l" path="res://resources/tilesets/floor.tres" id="1_hpd4v"]
 
 [node name="floor" type="TileMap"]
-tile_set = SubResource("TileSet_6pxfk")
+tile_set = ExtResource("1_hpd4v")
+rendering_quadrant_size = 64
 collision_animatable = true
 format = 2
 script = ExtResource("1_6wjps")

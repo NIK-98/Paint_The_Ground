@@ -13,3 +13,9 @@ func wertung(id: int):
 			get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
 		if check_cell == 3 and Players.get_node(str(id)).visible:
 			get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
+		if check_cell == 4 and Players.get_node(str(id)).visible:
+			get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
+		if check_cell == 5 and Players.get_node(str(id)).visible:
+			get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
+		if check_cell == 6 and Players.get_node(str(id)).visible:
+			get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
