@@ -10,6 +10,7 @@ var is_moving = true
 var tile_size = 64
 var tile_size_multipl = 1.5
 var color_cell = 1
+var loaded = false
 @export var score = 0
 
 @onready var camera = $Camera2D
@@ -30,9 +31,7 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 	color_change()
-	painter()
-	score_counter.rpc()
-	
+
 	
 func _exit_tree():
 	get_tree().paused = true
@@ -42,6 +41,11 @@ func _exit_tree():
 		
 
 func _physics_process(delta):
+	if not loaded:
+		loaded = true
+		painter()
+		score_counter.rpc()
+	
 	if position.x < 0:
 		velocity.x += 10
 	elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
@@ -61,8 +65,8 @@ func _physics_process(delta):
 	score_counter.rpc()
 	get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
 	bombe_attack()
-	
-	
+
+
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):

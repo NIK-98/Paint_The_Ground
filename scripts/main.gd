@@ -5,8 +5,10 @@ var peer = ENetMultiplayerPeer.new()
 func _ready():
 	get_tree().paused = true
 	multiplayer.server_relay = false
-
+	
+	Global.Max_clients = 3
 	if DisplayServer.get_name() == "headless":
+		Global.Max_clients = 4
 		print("Startet Dedicated Server.")
 		_on_host_pressed.call_deferred()
 		
