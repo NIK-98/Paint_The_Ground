@@ -20,7 +20,7 @@ func _process(delta):
 	
 
 func _on_host_pressed():
-	var txt : String = $UI/Net/Options/o3/Remote.text
+	var txt : String = $UI/Net/Options/o3/remote1/Remote.text
 	var port : String = $UI/Net/Options/o4/port.text
 	peer.create_server(port.to_int(),Global.Max_clients)
 	if not txt.is_valid_ip_address():
@@ -38,7 +38,7 @@ func _on_host_pressed():
 		
 		
 func _on_connect_pressed():
-	var txt : String = $UI/Net/Options/o3/Remote.text
+	var txt : String = $UI/Net/Options/o3/remote1/Remote.text
 	var port : String = $UI/Net/Options/o4/port.text
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")

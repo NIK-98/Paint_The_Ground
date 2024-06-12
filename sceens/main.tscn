@@ -1,7 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=14 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
+
+[sub_resource type="Theme" id="Theme_lp7i3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2dh5"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83vjx"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="Theme" id="Theme_lvwad"]
+Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
+Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
+Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
+Button/styles/pressed = null
+
+[sub_resource type="Theme" id="Theme_s33f1"]
+Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
+Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
+Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
+Button/styles/pressed = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tww"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8ive"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfxwm"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="Theme" id="Theme_ihe75"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
+
+[sub_resource type="Theme" id="Theme_4377g"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
 
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
@@ -17,60 +63,120 @@ spawn_limit = 1
 [node name="UI" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 32.0
-offset_top = -40.0
-offset_right = 72.0
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 296.0
+offset_top = 120.0
+offset_right = 336.0
+offset_bottom = 160.0
+theme = SubResource("Theme_lp7i3")
 
 [node name="Net" type="VBoxContainer" parent="UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Steuerung" type="Label" parent="UI/Net"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Steuerung Tastatur:
+________________________________
+- wasd = laufen
+- esc = exit
+- R = reset (nur für den server)
+
+Steuerung Gamepad(Xbox Controller beispiel):
+________________________________
+- Linker Stick = laufen
+- exit = menu button
+- Reset mit A button"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UI/Net"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.639216, 0.980392, 1)
+theme_override_font_sizes/font_size = 42
+text = "Verbinden:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Options" type="HBoxContainer" parent="UI/Net"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Net/Options"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 60
-text = "Verbinden:"
 
 [node name="o1" type="VBoxContainer" parent="UI/Net/Options"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="UI/Net/Options/o1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Hosten"
+horizontal_alignment = 1
+
 [node name="Host" type="Button" parent="UI/Net/Options/o1"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme = SubResource("Theme_lvwad")
+theme_override_font_sizes/font_size = 42
 text = "Host"
 script = ExtResource("2_rf3o8")
 
 [node name="o2" type="VBoxContainer" parent="UI/Net/Options"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="UI/Net/Options/o2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Joinen"
+horizontal_alignment = 1
+
 [node name="Connect" type="Button" parent="UI/Net/Options/o2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme = SubResource("Theme_s33f1")
+theme_override_font_sizes/font_size = 42
 text = "Connect"
 
 [node name="o3" type="VBoxContainer" parent="UI/Net/Options"]
 layout_mode = 2
 
-[node name="Remote" type="LineEdit" parent="UI/Net/Options/o3"]
+[node name="Label" type="Label" parent="UI/Net/Options/o3"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Addresse"
+horizontal_alignment = 1
+
+[node name="remote1" type="HBoxContainer" parent="UI/Net/Options/o3"]
+layout_mode = 2
+
+[node name="Remote" type="LineEdit" parent="UI/Net/Options/o3/remote1"]
+layout_mode = 2
+theme = SubResource("Theme_ihe75")
+theme_override_font_sizes/font_size = 42
 text = "127.0.0.1"
 expand_to_text_length = true
 virtual_keyboard_type = 2
 
+[node name="punkt" type="Label" parent="UI/Net/Options/o3/remote1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = ":"
+
 [node name="o4" type="VBoxContainer" parent="UI/Net/Options"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="UI/Net/Options/o4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Port"
+horizontal_alignment = 1
+
 [node name="port" type="LineEdit" parent="UI/Net/Options/o4"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme = SubResource("Theme_4377g")
+theme_override_font_sizes/font_size = 42
 text = "11111"
 max_length = 5
 expand_to_text_length = true
