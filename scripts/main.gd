@@ -57,6 +57,7 @@ func _on_connect_pressed():
 		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
+	await get_tree().create_timer(2).timeout
 
 
 func start_game():
