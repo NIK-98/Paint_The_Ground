@@ -53,12 +53,6 @@ func _enter_tree():
 func voll(id: int):
 	OS.alert("Server Voll!")
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
-	
-	
-func _input(event):
-	if event.is_action("start") and Input.is_action_just_pressed("start"):
-		global_alert.rpc("Game Gestartet!")
-		reset_game_status.rpc()
 		
 
 @rpc("any_peer","call_local")
@@ -129,3 +123,9 @@ func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
 	get_node("Players").get_node(str(id)).queue_free()
+
+
+func _on_start_pressed():
+	global_alert.rpc("Game Gestartet!")
+	reset_game_status.rpc()
+	$CanvasLayer/Start.visible = false

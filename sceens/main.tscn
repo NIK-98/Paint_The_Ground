@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=3 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
+[ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
@@ -37,24 +38,37 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Verbinden:"
 
-[node name="Host" type="Button" parent="UI/Net/Options"]
+[node name="o1" type="VBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="UI/Net/Options/o1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Host"
+script = ExtResource("2_rf3o8")
 
-[node name="Connect" type="Button" parent="UI/Net/Options"]
+[node name="o2" type="VBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Connect" type="Button" parent="UI/Net/Options/o2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Connect"
 
-[node name="Remote" type="LineEdit" parent="UI/Net/Options"]
+[node name="o3" type="VBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Remote" type="LineEdit" parent="UI/Net/Options/o3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "127.0.0.1"
 expand_to_text_length = true
 virtual_keyboard_type = 2
 
-[node name="port" type="LineEdit" parent="UI/Net/Options"]
+[node name="o4" type="VBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="port" type="LineEdit" parent="UI/Net/Options/o4"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "11111"
@@ -62,5 +76,5 @@ max_length = 5
 expand_to_text_length = true
 virtual_keyboard_type = 2
 
-[connection signal="pressed" from="UI/Net/Options/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/Net/Options/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="UI/Net/Options/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Net/Options/o2/Connect" to="." method="_on_connect_pressed"]
