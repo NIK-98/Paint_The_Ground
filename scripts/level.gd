@@ -38,6 +38,7 @@ func _process(delta):
 func _exit_tree():
 	if not multiplayer.is_server():
 		return
+		
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
@@ -49,14 +50,31 @@ func _enter_tree():
 	
 	
 @rpc("call_local")
-func voll():
+func voll(id: int):
 	OS.alert("Server Voll!")
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 	
+func _input(event):
+	if event.is_action("start") and Input.is_action_just_pressed("start"):
+		global_alert.rpc("Game Gestartet!")
+		reset_game_status.rpc()
+		
+
+@rpc("any_peer","call_local")
+func global_alert(alert: String):
+	OS.alert(alert)	
+		
+		
+@rpc("any_peer","call_local")
+func reset_game_status():
+	Global.Game_running = true
+	Global.Max_clients = len(multiplayer.get_peers())
+	
+		
 func add_player(id: int):
-	if len(multiplayer.get_peers()) == Global.Max_clients:
-		voll.rpc_id(id)
+	if len(multiplayer.get_peers()) >= Global.Max_clients:
+		voll.rpc_id(id, id)
 		return
 	var player = player_sceen.instantiate()
 	player.player = id

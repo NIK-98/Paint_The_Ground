@@ -11,6 +11,7 @@ var tile_size = 64
 var tile_size_multipl = 1.5
 var color_cell = 1
 var loaded = false
+var starting_game = false
 @export var score = 0
 
 @onready var camera = $Camera2D
@@ -31,13 +32,6 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 	color_change()
-
-	
-func _exit_tree():
-	get_tree().paused = true
-	map.reset_floor()
-	get_parent().get_parent().reset_bomben(name.to_int(), 4)
-	get_tree().paused = false
 		
 
 func _physics_process(delta):
@@ -46,30 +40,31 @@ func _physics_process(delta):
 		painter()
 		score_counter.rpc()
 	
-	if position.x < 0:
-		velocity.x += 10
-	elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
-		velocity.x -= 10
-	elif position.y < 0:
-		velocity.y += 10
-	elif position.y+$Color.size.y > Global.Spielfeld_Size.y:
-		velocity.y -= 10
-	else:
-		velocity = input.move*SPEED
+	if Global.Game_running:
+		if position.x < 0:
+			velocity.x += 10
+		elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
+			velocity.x -= 10
+		elif position.y < 0:
+			velocity.y += 10
+		elif position.y+$Color.size.y > Global.Spielfeld_Size.y:
+			velocity.y -= 10
+		else:
+			velocity = input.move*SPEED
 
-	$Camera2D.limit_right = Global.Spielfeld_Size.x
-	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
-	move_and_collide(velocity)
-	if (velocity.x != 0 or velocity.y != 0):
-		painter()
-	score_counter.rpc()
-	if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
-	bombe_attack()
-
-
+		$Camera2D.limit_right = Global.Spielfeld_Size.x
+		$Camera2D.limit_bottom = Global.Spielfeld_Size.y
+		move_and_collide(velocity)
+		if (velocity.x != 0 or velocity.y != 0):
+			painter()
+		score_counter.rpc()
+		if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
+			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
+		bombe_attack()
+			
+			
 func _input(event):
-	if event.is_action("start") and Input.is_action_just_pressed("start"):
+	if event.is_action("exit") and Input.is_action_just_pressed("exit"):
 		if multiplayer.is_server():
 			#kick players
 			for i in get_parent().get_child_count()-1:
