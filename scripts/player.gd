@@ -63,8 +63,36 @@ func _physics_process(delta):
 	if (velocity.x != 0 or velocity.y != 0):
 		painter()
 	score_counter.rpc()
-	get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
+	if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
 	bombe_attack()
+
+
+func _input(event):
+	if event.is_action("start") and Input.is_action_just_pressed("start"):
+		if multiplayer.is_server():
+			#kick players
+			for i in get_parent().get_child_count()-1:
+				if get_parent().get_child(i).name.to_int() != 1:
+					rpc("kicked",get_parent().get_child(i).name.to_int(),"Server wurde beendet!")
+			#Terminate server
+			multiplayer.multiplayer_peer = null
+			emit_signal("add_player")			
+			emit_signal("del_player")
+			emit_signal("del_score")
+			get_tree().get_nodes_in_group("Level")[0].queue_free()
+			get_tree().change_scene_to_file("res://sceens/main.tscn")
+			return
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).rpc("remove_node",name.to_int())
+		kicked(name.to_int(), "Verbindung Selber beendet!")
+		get_tree().change_scene_to_file("res://sceens/main.tscn")
+		
+
+@rpc("any_peer","call_local")
+func kicked(id, antwort):
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	multiplayer.multiplayer_peer = null
+	OS.alert("Verbindung verloren!", antwort)
 
 
 func bombe_attack():

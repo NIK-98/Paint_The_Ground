@@ -72,7 +72,7 @@ sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
 score_label = ExtResource("3_eqqiv")
