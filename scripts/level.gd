@@ -54,17 +54,12 @@ func voll(id: int):
 	OS.alert("Server Voll!")
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 		
-
-@rpc("any_peer","call_local")
-func global_alert(alert: String):
-	OS.alert(alert)	
-		
 		
 @rpc("any_peer","call_local")
 func reset_game_status():
 	Global.Game_running = true
+	Global.Gametriggerstart = true
 	Global.Max_clients = len(multiplayer.get_peers())
-	$CanvasLayer/Start.visible = false
 	
 		
 func add_player(id: int):
@@ -127,5 +122,4 @@ func del_player(id: int):
 
 
 func _on_start_pressed():
-	global_alert.rpc("Game Gestartet!")
 	reset_game_status.rpc()

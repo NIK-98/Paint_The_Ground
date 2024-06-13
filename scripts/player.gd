@@ -26,8 +26,6 @@ var starting_game = false
 
 func _ready():
 	main.get_node("UI").hide()
-	map.reset_floor()
-	get_parent().get_parent().reset_bomben(name.to_int(), 4)
 	get_tree().paused = false
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
@@ -41,6 +39,11 @@ func _physics_process(delta):
 		score_counter.rpc()
 	
 	if Global.Game_running:
+		if Global.Gametriggerstart:
+			Global.Gametriggerstart = false
+			map.reset_floor()
+			get_parent().get_parent().reset_bomben(name.to_int(), 1)
+			get_parent().get_parent().get_node("CanvasLayer/Start").visible = false
 		if position.x < 0:
 			velocity.x += 10
 		elif position.x+$Color.size.x > Global.Spielfeld_Size.x:

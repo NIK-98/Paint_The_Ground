@@ -1,9 +1,24 @@
-[gd_scene load_steps=14 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=15 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
 
 [sub_resource type="Theme" id="Theme_lp7i3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bseex"]
+bg_color = Color(0, 0.196078, 0.584314, 1)
+border_width_left = 25
+border_width_top = 25
+border_width_right = 25
+border_width_bottom = 25
+border_color = Color(1, 0.752941, 0.247059, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.960784, 0.933333, 0, 0.6)
+shadow_size = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
 bg_color = Color(0, 0.682353, 0.701961, 1)
@@ -70,12 +85,21 @@ offset_right = 336.0
 offset_bottom = 160.0
 theme = SubResource("Theme_lp7i3")
 
-[node name="Net" type="VBoxContainer" parent="UI"]
+[node name="Panel" type="PanelContainer" parent="UI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -296.0
+offset_top = -120.0
+offset_right = 984.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bseex")
 
-[node name="Steuerung" type="Label" parent="UI/Net"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/Panel"]
+layout_mode = 2
+
+[node name="Net" type="VBoxContainer" parent="UI/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Steuerung" type="Label" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 16
@@ -92,7 +116,7 @@ ________________________________
 - Reset mit A button"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="UI/Net"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.639216, 0.980392, 1)
 theme_override_font_sizes/font_size = 42
@@ -100,80 +124,81 @@ text = "Verbinden:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Options" type="HBoxContainer" parent="UI/Net"]
+[node name="Options" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
 
-[node name="o1" type="VBoxContainer" parent="UI/Net/Options"]
+[node name="o1" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Net/Options/o1"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Hosten"
 horizontal_alignment = 1
 
-[node name="Host" type="Button" parent="UI/Net/Options/o1"]
+[node name="Host" type="Button" parent="UI/Panel/CenterContainer/Net/Options/o1"]
 layout_mode = 2
 theme = SubResource("Theme_lvwad")
 theme_override_font_sizes/font_size = 42
 text = "Host"
 script = ExtResource("2_rf3o8")
 
-[node name="o2" type="VBoxContainer" parent="UI/Net/Options"]
+[node name="o2" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Net/Options/o2"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Joinen"
 horizontal_alignment = 1
 
-[node name="Connect" type="Button" parent="UI/Net/Options/o2"]
+[node name="Connect" type="Button" parent="UI/Panel/CenterContainer/Net/Options/o2"]
 layout_mode = 2
 theme = SubResource("Theme_s33f1")
 theme_override_font_sizes/font_size = 42
 text = "Connect"
 
-[node name="o3" type="VBoxContainer" parent="UI/Net/Options"]
+[node name="o3" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Net/Options/o3"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Addresse"
 horizontal_alignment = 1
 
-[node name="remote1" type="HBoxContainer" parent="UI/Net/Options/o3"]
+[node name="remote1" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/o3"]
 layout_mode = 2
 
-[node name="Remote" type="LineEdit" parent="UI/Net/Options/o3/remote1"]
+[node name="Remote" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/o3/remote1"]
 layout_mode = 2
 theme = SubResource("Theme_ihe75")
 theme_override_font_sizes/font_size = 42
 text = "127.0.0.1"
+max_length = 15
 expand_to_text_length = true
 virtual_keyboard_type = 2
 
-[node name="punkt" type="Label" parent="UI/Net/Options/o3/remote1"]
+[node name="punkt" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o3/remote1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = ":"
 
-[node name="o4" type="VBoxContainer" parent="UI/Net/Options"]
+[node name="o4" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Net/Options/o4"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Port"
 horizontal_alignment = 1
 
-[node name="port" type="LineEdit" parent="UI/Net/Options/o4"]
+[node name="port" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/o4"]
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 42
@@ -182,5 +207,5 @@ max_length = 5
 expand_to_text_length = true
 virtual_keyboard_type = 2
 
-[connection signal="pressed" from="UI/Net/Options/o1/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/Net/Options/o2/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o2/Connect" to="." method="_on_connect_pressed"]
