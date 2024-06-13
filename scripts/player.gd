@@ -42,7 +42,7 @@ func _physics_process(delta):
 		if Global.Gametriggerstart:
 			Global.Gametriggerstart = false
 			map.reset_floor()
-			get_parent().get_parent().reset_bomben(name.to_int(), 1)
+			get_parent().get_parent().reset_bomben(name.to_int(), Global.Start_bomben_limit)
 			get_parent().get_parent().get_node("CanvasLayer/Start").visible = false
 		if position.x < 0:
 			velocity.x += 10

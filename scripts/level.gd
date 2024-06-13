@@ -95,7 +95,7 @@ func spawn_new_bombe(id: int,abstand: int):
 	var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 	if randpos == old_spawn_bomb*abstand:
 		old_spawn_bomb = randpos
-		reset_bomben(id, 4)
+		reset_bomben(id, Global.Start_bomben_limit)
 		return
 	new_bombe.name = "bombe"
 	new_bombe.position = randpos
