@@ -23,7 +23,8 @@ var starting_game = false
 		$PlayerInput.set_multiplayer_authority(id)
 		
 @onready var input = $PlayerInput
-
+	
+	
 func _ready():
 	main.get_node("UI").hide()
 	get_tree().paused = false
@@ -64,10 +65,11 @@ func _physics_process(delta):
 		if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
 			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
 		bombe_attack()
+		exit()
 			
 			
-func _input(event):
-	if event.is_action("exit") and Input.is_action_just_pressed("exit"):
+func exit():
+	if Input.is_action_just_pressed("exit"):
 		if multiplayer.is_server():
 			#kick players
 			for i in get_parent().get_child_count()-1:

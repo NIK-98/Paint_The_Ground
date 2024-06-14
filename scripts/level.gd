@@ -16,7 +16,7 @@ func _ready():
 	# We only need to spawn players on the server.
 	if not multiplayer.is_server():
 		return
-	
+		
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
@@ -87,7 +87,7 @@ func reset_bomben(id: int,anzahl: int):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
 	for i in range(anzahl):
-		spawn_new_bombe(id, 8)
+		spawn_new_bombe(id, 64)
 
 
 func spawn_new_bombe(id: int,abstand: int):

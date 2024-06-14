@@ -1,10 +1,11 @@
 extends Node
-	
-var peer = ENetMultiplayerPeer.new()
+
 
 func _ready():
+	OS.request_permissions()
 	get_tree().paused = true
 	multiplayer.server_relay = false
+	
 	
 	Global.Max_clients = 6
 	if DisplayServer.get_name() == "headless":
@@ -20,17 +21,17 @@ func _process(delta):
 	
 
 func _on_host_pressed():
+	var peer = ENetMultiplayerPeer.new()
 	var txt : String = $UI/Panel/CenterContainer/Net/Options/o3/remote1/Remote.text
 	var port : String = $UI/Panel/CenterContainer/Net/Options/o4/port.text
-	peer.create_server(port.to_int(),Global.Max_clients)
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
 		return
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		return
-		
-	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+	var check = peer.create_server(port.to_int(), Global.Max_clients)
+	if check != OK:
 		OS.alert("Multiplayer Server läuft bereits.")
 		return
 	multiplayer.multiplayer_peer = peer
@@ -74,10 +75,41 @@ func change_level(scene: PackedScene):
 	level.add_child(scene.instantiate())
 
 
-# Der Server kann Das Level mit R Restarten
-func _input(event):
-	if not multiplayer.is_server():
-		return
-	if event.is_action("reset") and Input.is_action_just_pressed("reset"):
-		change_level.call_deferred(load("res://sceens/level.tscn"))
 
+func _on_up_pressed():
+	Input.action_press("up")
+
+
+func _on_down_pressed():
+	Input.action_press("down")
+
+
+func _on_right_pressed():
+	Input.action_press("right")
+
+
+func _on_left_pressed():
+	Input.action_press("left")
+
+
+
+func _on_left_released():
+	Input.action_release("left")
+
+
+func _on_right_released():
+	Input.action_release("right")
+
+
+func _on_down_released():
+	Input.action_release("down")
+
+
+func _on_up_released():
+	Input.action_release("up")
+
+
+
+func _on_leave_pressed():
+	Input.action_press("exit")
+	Input.action_release("exit")

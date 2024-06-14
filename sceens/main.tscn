@@ -1,7 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=20 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
+[ext_resource type="Texture2D" uid="uid://cpwek2amma036" path="res://assets/controll/up.png" id="3_f5dh7"]
+[ext_resource type="Texture2D" uid="uid://mawrrovi0n0b" path="res://assets/controll/down.png" id="4_7tmhu"]
+[ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="5_6bpj2"]
+[ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="6_7t78o"]
+[ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 
 [sub_resource type="Theme" id="Theme_lp7i3"]
 
@@ -180,7 +185,6 @@ theme_override_font_sizes/font_size = 42
 text = "127.0.0.1"
 max_length = 15
 expand_to_text_length = true
-virtual_keyboard_type = 2
 
 [node name="punkt" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o3/remote1"]
 layout_mode = 2
@@ -205,7 +209,55 @@ theme_override_font_sizes/font_size = 42
 text = "11111"
 max_length = 5
 expand_to_text_length = true
-virtual_keyboard_type = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(0.7, 0.7)
+transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
+
+[node name="Up" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.521569)
+position = Vector2(154.286, 754.286)
+texture_normal = ExtResource("3_f5dh7")
+passby_press = true
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.521569)
+position = Vector2(154.286, 994.286)
+texture_normal = ExtResource("4_7tmhu")
+passby_press = true
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.521569)
+position = Vector2(274.286, 874.286)
+texture_normal = ExtResource("5_6bpj2")
+passby_press = true
+visibility_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.521569)
+position = Vector2(34.2857, 874.286)
+texture_normal = ExtResource("6_7t78o")
+passby_press = true
+visibility_mode = 1
+
+[node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.443137)
+position = Vector2(45.7143, 45.7143)
+scale = Vector2(1.14286, 1.14286)
+texture_normal = ExtResource("7_dpqrl")
+passby_press = true
+visibility_mode = 1
 
 [connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o1/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o2/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="CanvasLayer/Up" to="." method="_on_up_pressed"]
+[connection signal="released" from="CanvasLayer/Up" to="." method="_on_up_released"]
+[connection signal="pressed" from="CanvasLayer/Down" to="." method="_on_down_pressed"]
+[connection signal="released" from="CanvasLayer/Down" to="." method="_on_down_released"]
+[connection signal="pressed" from="CanvasLayer/Right" to="." method="_on_right_pressed"]
+[connection signal="released" from="CanvasLayer/Right" to="." method="_on_right_released"]
+[connection signal="pressed" from="CanvasLayer/Left" to="." method="_on_left_pressed"]
+[connection signal="released" from="CanvasLayer/Left" to="." method="_on_left_released"]
+[connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
