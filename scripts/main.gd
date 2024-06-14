@@ -1,9 +1,10 @@
 extends Node
 
+var block_host = false
+
 
 func _ready():
 	OS.request_permissions()
-	get_tree().paused = true
 	multiplayer.server_relay = false
 	
 	
@@ -15,32 +16,43 @@ func _ready():
 		
 
 func _process(delta):
-	if get_node("Level/level") == null:
+	if get_node("Level/level") == null and not $UI.visible:
 		OS.alert("Multiplayer Server wurde beendet.")
 		get_tree().change_scene_to_file("res://sceens/main.tscn")
+	if Input.is_action_just_pressed("cancel"):
+		block_host = false
+		$UI/Panel/CenterContainer/Net/Connecting.text = ""
 	
 
 func _on_host_pressed():
+	if block_host:
+		return
 	var peer = ENetMultiplayerPeer.new()
 	var txt : String = $UI/Panel/CenterContainer/Net/Options/o3/remote1/Remote.text
-	var port : String = $UI/Panel/CenterContainer/Net/Options/o4/port.text
+	var port = $UI/Panel/CenterContainer/Net/Options/o4/port.text
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
 		return
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		return
-	var check = peer.create_server(port.to_int(), Global.Max_clients)
+	port = port.to_int()
+	var check = peer.create_server(port, Global.Max_clients)
 	if check != OK:
-		OS.alert("Multiplayer Server läuft bereits.")
+		OS.alert("Server kann nicht erstellt werden!")
+		if port < 1024:
+			OS.alert("Versuchen sie einen port über 1024!")
 		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
 		
 		
 func _on_connect_pressed():
+	if block_host:
+		return
+	block_host = true
 	var txt : String = $UI/Panel/CenterContainer/Net/Options/o3/remote1/Remote.text
-	var port : String = $UI/Panel/CenterContainer/Net/Options/o4/port.text
+	var port = $UI/Panel/CenterContainer/Net/Options/o4/port.text
 	if not txt.is_valid_ip_address():
 		OS.alert("Ist keine richtiege ip adresse.")
 		return
@@ -48,15 +60,20 @@ func _on_connect_pressed():
 		OS.alert("Ist keine richtieger port.")
 		return
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(txt, port.to_int())
+	port = port.to_int()
+	peer.create_client(txt, port)
+	multiplayer.multiplayer_peer = peer
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Konnte Multiplayer client nicht starten.")
 		return
-	var udp_server = UDPServer.new()
-	if udp_server.listen(port.to_int()) == 0:
-		OS.alert("Kein Multiplayer Server gefunden.")
+	var i = 0
+	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING and block_host:
+		i += 1
+		$UI/Panel/CenterContainer/Net/Connecting.text = str("Verbindung wird aufgebaut...", i)
+		await get_tree().create_timer(1).timeout
+	if not block_host:
+		multiplayer.disconnect_peer(peer.get_unique_id())
 		return
-	multiplayer.multiplayer_peer = peer
 	start_game()
 	await get_tree().create_timer(2).timeout
 

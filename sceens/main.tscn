@@ -210,6 +210,9 @@ text = "11111"
 max_length = 5
 expand_to_text_length = true
 
+[node name="Connecting" type="Label" parent="UI/Panel/CenterContainer/Net"]
+layout_mode = 2
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
