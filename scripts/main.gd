@@ -22,6 +22,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("cancel"):
 		block_host = false
 		$UI/Panel/CenterContainer/Net/Connecting.text = ""
+	if Input.is_action_just_pressed("exit") and $UI.visible:
+		get_tree().quit()
 	
 
 func _on_host_pressed():
@@ -134,3 +136,8 @@ func _on_up_released():
 func _on_leave_pressed():
 	Input.action_press("exit")
 	Input.action_release("exit")
+
+
+func _on_back_pressed():
+	Input.action_press("cancel")
+	Input.action_release("cancel")
