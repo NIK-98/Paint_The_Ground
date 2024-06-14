@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=22 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
@@ -69,6 +69,14 @@ LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
 
+[sub_resource type="SystemFont" id="SystemFont_6yb3n"]
+font_names = PackedStringArray("Goudy Stout")
+
+[sub_resource type="Theme" id="Theme_iqe0b"]
+Label/colors/font_color = Color(0.815686, 0.380392, 0, 1)
+Label/font_sizes/font_size = 18
+Label/fonts/font = SubResource("SystemFont_6yb3n")
+
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
 
@@ -107,18 +115,18 @@ layout_mode = 2
 [node name="Steuerung" type="Label" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 21
 text = "Steuerung Tastatur:
 ________________________________
 - wasd = laufen
 - esc = exit
-- R = reset (nur für den server)
+- abbruch/back = c
 
 Steuerung Gamepad(Xbox Controller beispiel):
 ________________________________
 - Linker Stick = laufen
 - exit = menu button
-- Reset mit A button"
+-abbruch/back = B button"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net"]
@@ -212,6 +220,7 @@ expand_to_text_length = true
 
 [node name="Connecting" type="Label" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
+theme = SubResource("Theme_iqe0b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.7, 0.7)

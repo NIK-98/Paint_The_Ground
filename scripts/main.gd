@@ -71,6 +71,10 @@ func _on_connect_pressed():
 		i += 1
 		$UI/Panel/CenterContainer/Net/Connecting.text = str("Verbindung wird aufgebaut...", i)
 		await get_tree().create_timer(1).timeout
+		if i >= 20:
+			block_host = false
+			OS.alert("Verbindung fehlgeschlagen!")
+			$UI/Panel/CenterContainer/Net/Connecting.text = ""
 	if not block_host:
 		multiplayer.disconnect_peer(peer.get_unique_id())
 		return
