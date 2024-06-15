@@ -42,13 +42,6 @@ Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
 Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
 Button/styles/pressed = null
 
-[sub_resource type="Theme" id="Theme_s33f1"]
-Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
-Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
-Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
-Button/styles/pressed = null
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tww"]
 bg_color = Color(0.894118, 0.466667, 0.152941, 1)
 
@@ -58,13 +51,20 @@ bg_color = Color(0.894118, 0.466667, 0.152941, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfxwm"]
 bg_color = Color(0.894118, 0.466667, 0.152941, 1)
 
-[sub_resource type="Theme" id="Theme_ihe75"]
+[sub_resource type="Theme" id="Theme_4377g"]
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
 
-[sub_resource type="Theme" id="Theme_4377g"]
+[sub_resource type="Theme" id="Theme_s33f1"]
+Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
+Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
+Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
+Button/styles/pressed = null
+
+[sub_resource type="Theme" id="Theme_ihe75"]
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
@@ -140,78 +140,108 @@ vertical_alignment = 1
 
 [node name="Options" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
-[node name="o1" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
+[node name="Option1" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o1"]
+[node name="o1" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option1/o1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
-text = "Hosten"
+text = "Hosten:"
 horizontal_alignment = 1
 
-[node name="Host" type="Button" parent="UI/Panel/CenterContainer/Net/Options/o1"]
+[node name="Host" type="Button" parent="UI/Panel/CenterContainer/Net/Options/Option1/o1"]
 layout_mode = 2
 theme = SubResource("Theme_lvwad")
 theme_override_font_sizes/font_size = 42
 text = "Host"
 script = ExtResource("2_rf3o8")
 
-[node name="o2" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
+[node name="o1_port" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
-theme_override_font_sizes/font_size = 42
-text = "Joinen"
-horizontal_alignment = 1
-
-[node name="Connect" type="Button" parent="UI/Panel/CenterContainer/Net/Options/o2"]
-layout_mode = 2
-theme = SubResource("Theme_s33f1")
-theme_override_font_sizes/font_size = 42
-text = "Connect"
-
-[node name="o3" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o3"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
-theme_override_font_sizes/font_size = 42
-text = "Addresse"
-horizontal_alignment = 1
-
-[node name="remote1" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/o3"]
-layout_mode = 2
-
-[node name="Remote" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/o3/remote1"]
-layout_mode = 2
-theme = SubResource("Theme_ihe75")
-theme_override_font_sizes/font_size = 42
-text = "127.0.0.1"
-max_length = 15
-expand_to_text_length = true
-
-[node name="punkt" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o3/remote1"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
-theme_override_font_sizes/font_size = 42
-text = ":"
-
-[node name="o4" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/o4"]
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option1/o1_port"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Port"
 horizontal_alignment = 1
 
-[node name="port" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/o4"]
+[node name="port" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/Option1/o1_port"]
+layout_mode = 2
+theme = SubResource("Theme_4377g")
+theme_override_font_sizes/font_size = 42
+text = "11111"
+max_length = 5
+expand_to_text_length = true
+
+[node name="Line2D" type="Line2D" parent="UI/Panel/CenterContainer/Net/Options"]
+position = Vector2(-4, -42)
+points = PackedVector2Array(340, 54, 340, 118.919, 340, 166)
+default_color = Color(1, 0.0117647, 0, 1)
+
+[node name="Option2" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net/Options"]
+layout_mode = 2
+
+[node name="o2" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option2/o2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Joinen:"
+horizontal_alignment = 1
+
+[node name="Connect" type="Button" parent="UI/Panel/CenterContainer/Net/Options/Option2/o2"]
+layout_mode = 2
+theme = SubResource("Theme_s33f1")
+theme_override_font_sizes/font_size = 42
+text = "Connect"
+
+[node name="o3" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option2/o3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Addresse"
+horizontal_alignment = 1
+
+[node name="remote1" type="HBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option2/o3"]
+layout_mode = 2
+
+[node name="Remote" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+layout_mode = 2
+theme = SubResource("Theme_ihe75")
+theme_override_font_sizes/font_size = 42
+text = "localhost"
+max_length = 15
+expand_to_text_length = true
+
+[node name="punkt" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = ":"
+
+[node name="o4" type="VBoxContainer" parent="UI/Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Panel/CenterContainer/Net/Options/Option2/o4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Port"
+horizontal_alignment = 1
+
+[node name="port" type="LineEdit" parent="UI/Panel/CenterContainer/Net/Options/Option2/o4"]
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 42
@@ -229,28 +259,28 @@ transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 
 [node name="Up" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.521569)
-position = Vector2(154.286, 754.286)
+position = Vector2(161.429, 418.572)
 texture_normal = ExtResource("3_f5dh7")
 passby_press = true
 visibility_mode = 1
 
 [node name="Down" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.521569)
-position = Vector2(154.286, 994.286)
+position = Vector2(161.429, 658.571)
 texture_normal = ExtResource("4_7tmhu")
 passby_press = true
 visibility_mode = 1
 
 [node name="Right" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.521569)
-position = Vector2(274.286, 874.286)
+position = Vector2(281.429, 538.572)
 texture_normal = ExtResource("5_6bpj2")
 passby_press = true
 visibility_mode = 1
 
 [node name="Left" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.521569)
-position = Vector2(34.2857, 874.286)
+position = Vector2(41.4286, 538.572)
 texture_normal = ExtResource("6_7t78o")
 passby_press = true
 visibility_mode = 1
@@ -265,13 +295,13 @@ visibility_mode = 1
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
-position = Vector2(1600, 925.714)
+position = Vector2(1652.86, 537.143)
 texture_normal = ExtResource("8_40dan")
 passby_press = true
 visibility_mode = 1
 
-[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o1/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/o2/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]
 [connection signal="pressed" from="CanvasLayer/Up" to="." method="_on_up_pressed"]
 [connection signal="released" from="CanvasLayer/Up" to="." method="_on_up_released"]
 [connection signal="pressed" from="CanvasLayer/Down" to="." method="_on_down_pressed"]

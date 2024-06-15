@@ -24,17 +24,13 @@ func _process(delta):
 		$UI/Panel/CenterContainer/Net/Connecting.text = ""
 	if Input.is_action_just_pressed("exit") and $UI.visible:
 		get_tree().quit()
-	
+
 
 func _on_host_pressed():
 	if block_host:
 		return
 	var peer = ENetMultiplayerPeer.new()
-	var txt : String = $UI/Panel/CenterContainer/Net/Options/o3/remote1/Remote.text
-	var port = $UI/Panel/CenterContainer/Net/Options/o4/port.text
-	if not txt.is_valid_ip_address():
-		OS.alert("Ist keine richtiege ip adresse.")
-		return
+	var port = $UI/Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		return
@@ -53,9 +49,9 @@ func _on_connect_pressed():
 	if block_host:
 		return
 	block_host = true
-	var txt : String = $UI/Panel/CenterContainer/Net/Options/o3/remote1/Remote.text
-	var port = $UI/Panel/CenterContainer/Net/Options/o4/port.text
-	if not txt.is_valid_ip_address():
+	var txt = $UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+	var port = $UI/Panel/CenterContainer/Net/Options/Option2/o4/port.text
+	if not txt.is_valid_ip_address() and not txt == "localhost":
 		OS.alert("Ist keine richtiege ip adresse.")
 		return
 	if not port.is_valid_int():
