@@ -16,9 +16,6 @@ func _ready():
 		
 
 func _process(delta):
-	if get_node("Level/level") == null and not $UI.visible:
-		OS.alert("Multiplayer Server wurde beendet.")
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
 	if Input.is_action_just_pressed("cancel"):
 		block_host = false
 		$UI/Panel/CenterContainer/Net/Connecting.text = ""

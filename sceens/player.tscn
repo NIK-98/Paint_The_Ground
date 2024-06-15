@@ -22,9 +22,6 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Color:color")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:score")
-properties/4/spawn = true
-properties/4/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8xxcm"]
 properties/0/path = NodePath("PlayerInput:move")
@@ -59,3 +56,56 @@ replication_config = SubResource("SceneReplicationConfig_ktm87")
 [node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8xxcm")
 script = ExtResource("2_2hmwi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Winner" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 800.0
+color = Color(1, 0.807843, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Winner"]
+layout_mode = 2
+offset_left = 120.0
+offset_top = 256.0
+offset_right = 1161.0
+offset_bottom = 529.0
+theme_override_colors/font_color = Color(0.470588, 1, 0, 1)
+theme_override_font_sizes/font_size = 200
+text = "Gewonnen"
+
+[node name="Info" type="Label" parent="CanvasLayer/Winner"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 704.0
+offset_right = 1037.0
+offset_bottom = 768.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 46
+text = "Drücke die Exit Taste zum verlassen"
+
+[node name="Los" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 800.0
+color = Color(1, 0.807843, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Los"]
+layout_mode = 2
+offset_left = 160.0
+offset_top = 256.0
+offset_right = 1118.0
+offset_bottom = 529.0
+theme_override_colors/font_color = Color(0.470588, 1, 0, 1)
+theme_override_font_sizes/font_size = 200
+text = "Verlohren
+"
+
+[node name="Info" type="Label" parent="CanvasLayer/Los"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 704.0
+offset_right = 1037.0
+offset_bottom = 768.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 46
+text = "Drücke die Exit Taste zum verlassen"

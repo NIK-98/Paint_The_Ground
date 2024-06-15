@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=26 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -73,22 +73,25 @@ sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
 
-[sub_resource type="SystemFont" id="SystemFont_m6b00"]
+[sub_resource type="SystemFont" id="SystemFont_txo84"]
 font_names = PackedStringArray("Bell MT")
 font_italic = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgnhh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6etb"]
 bg_color = Color(0.301961, 0.690196, 0.454902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2pkq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbrw7"]
 bg_color = Color(0.854902, 0.501961, 0.0235294, 1)
 
 [sub_resource type="Theme" id="Theme_7dykc"]
 Button/font_sizes/font_size = 88
-Button/fonts/font = SubResource("SystemFont_m6b00")
-Button/styles/hover = SubResource("StyleBoxFlat_tgnhh")
-Button/styles/normal = SubResource("StyleBoxFlat_tgnhh")
-Button/styles/pressed = SubResource("StyleBoxFlat_s2pkq")
+Button/fonts/font = SubResource("SystemFont_txo84")
+Button/styles/hover = SubResource("StyleBoxFlat_l6etb")
+Button/styles/normal = SubResource("StyleBoxFlat_l6etb")
+Button/styles/pressed = SubResource("StyleBoxFlat_kbrw7")
+
+[sub_resource type="SystemFont" id="SystemFont_fe0qs"]
+font_names = PackedStringArray("Jokerman")
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -137,4 +140,18 @@ script = ExtResource("12_xt3i6")
 _spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
 spawn_path = NodePath("../Wertung")
 
+[node name="Time" type="Label" parent="CanvasLayer"]
+offset_left = 616.0
+offset_right = 664.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = SubResource("SystemFont_fe0qs")
+theme_override_font_sizes/font_size = 42
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

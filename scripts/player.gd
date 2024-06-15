@@ -27,17 +27,18 @@ var starting_game = false
 	
 func _ready():
 	main.get_node("UI").hide()
-	get_tree().paused = false
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
-	color_change()
+	color_change(name)
 		
 
 func _physics_process(delta):
 	if not loaded:
 		loaded = true
-		painter()
+		painter(name)
 		score_counter.rpc()
+		$CanvasLayer/Winner.visible = false
+		$CanvasLayer/Los.visible = false
 	
 	if Global.Game_running:
 		if Global.Gametriggerstart:
@@ -45,6 +46,9 @@ func _physics_process(delta):
 			map.reset_floor()
 			get_parent().get_parent().reset_bomben(name.to_int(), Global.Start_bomben_limit)
 			get_parent().get_parent().get_node("CanvasLayer/Start").visible = false
+			if get_parent().get_parent().get_node("Timer").is_stopped():
+				get_parent().get_parent().get_node("CanvasLayer/Time").visible = true
+				get_parent().get_parent().get_node("Timer").start()
 		if position.x < 0:
 			velocity.x += 10
 		elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
@@ -60,13 +64,25 @@ func _physics_process(delta):
 		$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 		move_and_collide(velocity)
 		if (velocity.x != 0 or velocity.y != 0):
-			painter()
+			painter(name)
 		score_counter.rpc()
 		if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
 			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
 		bombe_attack()
-		exit()
+	elif Global.Gameover:
+		ende.rpc_id(name.to_int())
+		print(1323)
+	exit()
 			
+	
+@rpc("call_local")
+func ende():
+	Global.Gameover = false
+	for i in get_parent().get_parent().get_node("CanvasLayer/Wertung").get_children():
+		if i.text.to_int() > score:
+			$CanvasLayer/Los.visible = true
+	if not $CanvasLayer/Los.visible:
+		$CanvasLayer/Winner.visible = true
 			
 func exit():
 	if Input.is_action_just_pressed("exit"):
@@ -101,25 +117,11 @@ func bombe_attack():
 			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
 
 
-func painter():
-	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		color_cell = 1
-		paint.rpc(1)
-	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		color_cell = 2
-		paint.rpc(2)
-	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		color_cell = 3
-		paint.rpc(3)
-	if get_parent().get_child(3) != null and get_parent().get_child(3).name == name:
-		color_cell = 4
-		paint.rpc(4)
-	if get_parent().get_child(4) != null and get_parent().get_child(4).name == name:
-		color_cell = 5
-		paint.rpc(5)
-	if get_parent().get_child(5) != null and get_parent().get_child(5).name == name:
-		color_cell = 6
-		paint.rpc(6)
+func painter(name: String):
+	for i in range(len(get_parent().get_children())):
+		if get_parent().get_node(name) != null and get_parent().get_child(i).name == name:
+			color_cell = i+1
+			paint.rpc(i+1)
 	
 	
 @rpc("any_peer","call_local")
@@ -145,16 +147,17 @@ func paint(tile: int):
 			var tile_position = map.local_to_map(Vector2i(position.x+x,position.y+y))
 			map.set_cell(0,tile_position,tile,Vector2i(0,0))
 		
-func color_change():
-	if get_parent().get_child(0) != null and get_parent().get_child(0).name == name:
-		get_node("Color").set_color(Color.GREEN)
-	if get_parent().get_child(1) != null and get_parent().get_child(1).name == name:
-		get_node("Color").set_color(Color.DARK_RED)
-	if get_parent().get_child(2) != null and get_parent().get_child(2).name == name:
-		get_node("Color").set_color(Color.DARK_BLUE)
-	if get_parent().get_child(3) != null and get_parent().get_child(3).name == name:
-		get_node("Color").set_color(Color.DEEP_SKY_BLUE)
-	if get_parent().get_child(4) != null and get_parent().get_child(4).name == name:
-		get_node("Color").set_color(Color.VIOLET)
-	if get_parent().get_child(5) != null and get_parent().get_child(5).name == name:
-		get_node("Color").set_color(Color.YELLOW)
+func color_change(name: String):
+	for i in range(len(get_parent().get_children())):
+		if get_parent().get_node(name) != null and i == 0:
+			get_node("Color").set_color(Color.GREEN)
+		if get_parent().get_node(name) != null and i == 1:
+			get_node("Color").set_color(Color.DARK_RED)
+		if get_parent().get_node(name) != null and i == 2:
+			get_node("Color").set_color(Color.DARK_BLUE)
+		if get_parent().get_node(name) != null and i == 3:
+			get_node("Color").set_color(Color.DEEP_SKY_BLUE)
+		if get_parent().get_node(name) != null and i == 4:
+			get_node("Color").set_color(Color.VIOLET)
+		if get_parent().get_node(name) != null and i == 5:
+			get_node("Color").set_color(Color.YELLOW)

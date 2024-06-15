@@ -13,7 +13,9 @@ const bomb_spawn_genzen = 64
 var old_spawn: Vector2
 
 func _ready():
+	$CanvasLayer/Time.visible = false
 	# We only need to spawn players on the server.
+	multiplayer.server_disconnected.connect(verbindung_verloren)
 	if not multiplayer.is_server():
 		return
 		
@@ -33,9 +35,12 @@ func _ready():
 func _process(delta):
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
+	if not $Timer.is_stopped():
+		$CanvasLayer/Time.text = str(round($Timer.time_left))
 
 
 func _exit_tree():
+	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	if not multiplayer.is_server():
 		return
 		
@@ -48,7 +53,12 @@ func _enter_tree():
 	if len(multiplayer.get_peers()) == Global.Max_clients:
 		return
 	
+
+func verbindung_verloren():
+	OS.alert("Multiplayer Server wurde beendet.")
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
+
 @rpc("call_local")
 func voll(id: int):
 	OS.alert("Server Voll!")
@@ -60,6 +70,13 @@ func reset_game_status():
 	Global.Game_running = true
 	Global.Gametriggerstart = true
 	Global.Max_clients = len(multiplayer.get_peers())
+	
+	
+@rpc("any_peer","call_local")
+func disable_game():
+	Global.Game_running = false
+	Global.Gametriggerstart = false
+	Global.Gameover = true
 	
 		
 func add_player(id: int):
@@ -123,3 +140,8 @@ func del_player(id: int):
 
 func _on_start_pressed():
 	reset_game_status.rpc()
+
+
+func _on_timer_timeout():
+	disable_game()
+	$Timer.stop()
