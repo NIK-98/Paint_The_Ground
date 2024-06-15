@@ -121,7 +121,6 @@ _spawnable_scenes = PackedStringArray("res://sceens/player.tscn")
 spawn_path = NodePath("../Players")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
 
 [node name="fps" type="Label" parent="CanvasLayer"]
 offset_left = 96.0

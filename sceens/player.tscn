@@ -59,7 +59,6 @@ script = ExtResource("2_2hmwi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
-follow_viewport_enabled = true
 
 [node name="Winner" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0

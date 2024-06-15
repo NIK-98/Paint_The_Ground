@@ -257,7 +257,6 @@ theme = SubResource("Theme_iqe0b")
 layer = 3
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
-follow_viewport_enabled = true
 
 [node name="Up" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.521569)
