@@ -35,7 +35,7 @@ func _ready():
 func _process(delta):
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if not $Timer.is_stopped():
+	if not $Timer.is_stopped() and multiplayer.is_server():
 		$CanvasLayer/Time.text = str(round($Timer.time_left))
 
 
@@ -139,8 +139,12 @@ func del_player(id: int):
 
 
 func _on_start_pressed():
-	reset_game_status.rpc()
+	reset_game_status.rpc()	
+		
 
+@rpc("call_local")
+func visible_start():
+	$"CanvasLayer/Start".visible = false
 
 func _on_timer_timeout():
 	disable_game()

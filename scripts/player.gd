@@ -45,7 +45,7 @@ func _physics_process(delta):
 			Global.Gametriggerstart = false
 			map.reset_floor()
 			get_parent().get_parent().reset_bomben(name.to_int(), Global.Start_bomben_limit)
-			get_parent().get_parent().get_node("CanvasLayer/Start").visible = false
+			get_parent().get_parent().visible_start.rpc_id(name.to_int())
 			if get_parent().get_parent().get_node("Timer").is_stopped():
 				get_parent().get_parent().get_node("CanvasLayer/Time").visible = true
 				get_parent().get_parent().get_node("Timer").start()

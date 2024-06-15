@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=27 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -93,6 +93,14 @@ Button/styles/pressed = SubResource("StyleBoxFlat_kbrw7")
 [sub_resource type="SystemFont" id="SystemFont_fe0qs"]
 font_names = PackedStringArray("Jokerman")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jatce"]
+properties/0/path = NodePath("CanvasLayer/Time:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CanvasLayer/Start:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
@@ -152,6 +160,9 @@ theme_override_font_sizes/font_size = 42
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 60.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_jatce")
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
