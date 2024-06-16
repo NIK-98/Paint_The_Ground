@@ -123,10 +123,10 @@ func bombe_attack():
 
 
 func painter(name: String):
-	for i in range(len(get_parent().get_children())):
-		if get_parent().get_node(name) != null and get_parent().get_child(i).name == name:
+	for i in get_parent().get_child_count():
+		if get_parent().get_child(i).name == name:
 			color_cell = i+1
-			paint.rpc(i+1)
+	paint.rpc(color_cell)
 	
 	
 @rpc("any_peer","call_local")
@@ -143,14 +143,13 @@ func paint(tile: int):
 	var radius = Vector2i($Color.size.x,$Color.size.y)
 	var tile_position_top_left = map.local_to_map(Vector2i(position.x,position.y))
 	var tile_position_down_right = map.local_to_map(Vector2i(position.x+radius.x,position.y+radius.y))
-	if tile_position_down_right not in map.get_used_cells(0):
+	if tile_position_down_right in map.get_used_cells_by_id(0,tile,tile_position_down_right):
 		return
-	if tile_position_top_left not in map.get_used_cells(0):
+	if tile_position_top_left in map.get_used_cells_by_id(0,tile,tile_position_top_left):
 		return
-	for x in range(0, radius.x):
-		for y in range(0, radius.y):
-			var tile_position = map.local_to_map(Vector2i(position.x+x,position.y+y))
-			map.set_cell(0,tile_position,tile,Vector2i(0,0))
+	var tile_position = map.local_to_map(Vector2i(position.x,position.y))
+	map.set_cell(0,tile_position,tile,Vector2i(0,0))
+		
 		
 func color_change(name: String):
 	for i in range(len(get_parent().get_children())):

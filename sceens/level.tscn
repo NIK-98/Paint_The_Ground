@@ -112,6 +112,8 @@ script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
 score_label = ExtResource("3_eqqiv")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="floor" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_6pxfk")
 collision_animatable = true

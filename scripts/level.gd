@@ -7,7 +7,6 @@ extends Node2D
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var Bomben = get_node("Bomben")
 
-var old_spawn_bomb: Vector2
 const bomb_spawn_genzen = 64
 
 var old_spawn: Vector2
@@ -15,6 +14,7 @@ var Time_out = false
 
 func _ready():
 	$CanvasLayer/Time.visible = false
+	$Camera2D.enabled = false
 	# We only need to spawn players on the server.
 	multiplayer.server_disconnected.connect(verbindung_verloren)
 	if not multiplayer.is_server():
@@ -87,17 +87,13 @@ func reset_bomben(id: int,anzahl: int):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
 	for i in range(anzahl):
-		spawn_new_bombe(id, 64)
+		spawn_new_bombe(id)
 
 
 @rpc("call_local")
-func spawn_new_bombe(id: int,abstand: int):
+func spawn_new_bombe(id: int):
 	var new_bombe = bombe.instantiate()
 	var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
-	if randpos == old_spawn_bomb*abstand:
-		old_spawn_bomb = randpos
-		reset_bomben(id, Global.Start_bomben_limit)
-		return
 	new_bombe.name = "bombe"
 	new_bombe.position = randpos
 	Bomben.add_child(new_bombe)
