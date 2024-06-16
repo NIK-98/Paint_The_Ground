@@ -11,6 +11,7 @@ var old_spawn_bomb: Vector2
 const bomb_spawn_genzen = 64
 
 var old_spawn: Vector2
+var Time_out = false
 
 func _ready():
 	$CanvasLayer/Time.visible = false
@@ -37,6 +38,7 @@ func _process(delta):
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	if not $Timer.is_stopped() and multiplayer.is_server():
 		$CanvasLayer/Time.text = str(round($Timer.time_left))
+		
 
 
 func _exit_tree():
@@ -63,42 +65,23 @@ func verbindung_verloren():
 func voll(id: int):
 	OS.alert("Server Voll!")
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
-		
-		
-@rpc("any_peer","call_local")
-func reset_game_status():
-	Global.Game_running = true
-	Global.Gametriggerstart = true
-	Global.Max_clients = len(multiplayer.get_peers())
-	
-	
-@rpc("any_peer","call_local")
-func disable_game():
-	Global.Game_running = false
-	Global.Gametriggerstart = false
-	Global.Gameover = true
 	
 		
+
 func add_player(id: int):
 	if len(multiplayer.get_peers()) >= Global.Max_clients:
 		voll.rpc_id(id, id)
 		return
 	var player = player_sceen.instantiate()
 	player.player = id
-	var randpos = Vector2(randi_range(0,Global.Spielfeld_Size.x-player.get_node("Color").size.x),randi_range(0,Global.Spielfeld_Size.y-player.get_node("Color").size.y))
-	if randpos == old_spawn:
-		old_spawn = randpos
-		del_player(id)
-		add_player(id)
-		return
-		
+	var randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
 	player.position = randpos
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
-	old_spawn = randpos
 	add_score(id)
 
 
+@rpc("call_local")
 func reset_bomben(id: int,anzahl: int):	
 	for c in Bomben.get_child_count()-1:
 		if Bomben.get_child(c).is_in_group("boom"):
@@ -107,6 +90,7 @@ func reset_bomben(id: int,anzahl: int):
 		spawn_new_bombe(id, 64)
 
 
+@rpc("call_local")
 func spawn_new_bombe(id: int,abstand: int):
 	var new_bombe = bombe.instantiate()
 	var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
@@ -136,16 +120,21 @@ func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
 	get_node("Players").get_node(str(id)).queue_free()
+	
 
-
-func _on_start_pressed():
-	reset_game_status.rpc()	
-		
+func _on_timer_timeout():
+	$Timer.stop()
+	Time_out = true
+	
+	
 
 @rpc("call_local")
 func visible_start():
-	$"CanvasLayer/Start".visible = false
-
-func _on_timer_timeout():
-	disable_game()
-	$Timer.stop()
+	$CanvasLayer/Start.visible = false
+	$CanvasLayer/Start.disabled = true
+	Global.Max_clients = len(multiplayer.get_peers())
+	
+	
+func _on_start_pressed():
+	if multiplayer.is_server():
+		visible_start.rpc_id(1)

@@ -7,7 +7,7 @@
 size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpgsi"]
-size = Vector2(64, 64)
+size = Vector2(65, 64)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ktm87"]
 properties/0/path = NodePath(".:player")

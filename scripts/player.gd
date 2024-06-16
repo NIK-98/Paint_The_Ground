@@ -11,7 +11,8 @@ var tile_size = 64
 var tile_size_multipl = 1.5
 var color_cell = 1
 var loaded = false
-var starting_game = false
+var Gametriggerstart = false
+@export var is_starting = false
 @export var score = 0
 
 @onready var camera = $Camera2D
@@ -26,6 +27,8 @@ var starting_game = false
 	
 	
 func _ready():
+	$CanvasLayer/Winner.visible = false
+	$CanvasLayer/Los.visible = false
 	main.get_node("UI").hide()
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
@@ -37,41 +40,47 @@ func _physics_process(delta):
 		loaded = true
 		painter(name)
 		score_counter.rpc()
-		$CanvasLayer/Winner.visible = false
-		$CanvasLayer/Los.visible = false
 	
-	if Global.Game_running:
-		if Global.Gametriggerstart:
-			Global.Gametriggerstart = false
+	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible:
+		if not Gametriggerstart:
+			Gametriggerstart = true
 			map.reset_floor()
-			get_parent().get_parent().reset_bomben(name.to_int(), Global.Start_bomben_limit)
-			get_parent().get_parent().visible_start.rpc_id(name.to_int())
+			if multiplayer.is_server():
+				get_parent().get_parent().reset_bomben.rpc_id(1, name.to_int(), Global.Start_bomben_limit)
 			if get_parent().get_parent().get_node("Timer").is_stopped():
 				get_parent().get_parent().get_node("CanvasLayer/Time").visible = true
+			for i in get_parent().get_parent().get_node("CanvasLayer").get_children():
+				if i.is_in_group("time"):
+					if not i.visible:
+						Gametriggerstart = false
+						get_parent().get_parent().get_node("Timer").stop()
+						return
+			if Gametriggerstart:
 				get_parent().get_parent().get_node("Timer").start()
-		if position.x < 0:
-			velocity.x += 10
-		elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
-			velocity.x -= 10
-		elif position.y < 0:
-			velocity.y += 10
-		elif position.y+$Color.size.y > Global.Spielfeld_Size.y:
-			velocity.y -= 10
-		else:
-			velocity = input.move*SPEED
 
-		$Camera2D.limit_right = Global.Spielfeld_Size.x
-		$Camera2D.limit_bottom = Global.Spielfeld_Size.y
-		move_and_collide(velocity)
-		if (velocity.x != 0 or velocity.y != 0):
-			painter(name)
-		score_counter.rpc()
-		if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
-			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
-		bombe_attack()
-	elif Global.Gameover:
-		ende.rpc_id(name.to_int())
-		print(1323)
+		if not get_parent().get_parent().get_node("Timer").is_stopped() and get_parent().get_parent().get_node("CanvasLayer/Time").visible and Gametriggerstart:
+			if position.x < 0:
+				velocity.x += 10
+			elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
+				velocity.x -= 10
+			elif position.y < 0:
+				velocity.y += 10
+			elif position.y+$Color.size.y > Global.Spielfeld_Size.y:
+				velocity.y -= 10
+			else:
+				velocity = input.move*SPEED
+
+			$Camera2D.limit_right = Global.Spielfeld_Size.x
+			$Camera2D.limit_bottom = Global.Spielfeld_Size.y
+			move_and_collide(velocity)
+			if (velocity.x != 0 or velocity.y != 0):
+				painter(name)
+			score_counter.rpc()
+			if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
+				get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
+			bombe_attack()
+		if get_parent().get_parent().Time_out:
+			ende.rpc_id(name.to_int())
 	exit()
 			
 	
@@ -84,14 +93,11 @@ func ende():
 	if not $CanvasLayer/Los.visible:
 		$CanvasLayer/Winner.visible = true
 			
+			
 func exit():
 	if Input.is_action_just_pressed("exit"):
 		if multiplayer.is_server():
-			#kick players
-			for i in get_parent().get_child_count()-1:
-				if get_parent().get_child(i).name.to_int() != 1:
-					rpc("kicked",get_parent().get_child(i).name.to_int(),"Server wurde beendet!")
-			#Terminate server
+			multiplayer.multiplayer_peer.disconnect_peer(name.to_int())
 			multiplayer.multiplayer_peer = null
 			emit_signal("add_player")			
 			emit_signal("del_player")

@@ -73,6 +73,9 @@ sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
 
+[sub_resource type="SystemFont" id="SystemFont_fe0qs"]
+font_names = PackedStringArray("Jokerman")
+
 [sub_resource type="SystemFont" id="SystemFont_txo84"]
 font_names = PackedStringArray("Bell MT")
 font_italic = true
@@ -83,15 +86,12 @@ bg_color = Color(0.301961, 0.690196, 0.454902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbrw7"]
 bg_color = Color(0.854902, 0.501961, 0.0235294, 1)
 
-[sub_resource type="Theme" id="Theme_7dykc"]
+[sub_resource type="Theme" id="Theme_cyalv"]
 Button/font_sizes/font_size = 88
 Button/fonts/font = SubResource("SystemFont_txo84")
 Button/styles/hover = SubResource("StyleBoxFlat_l6etb")
 Button/styles/normal = SubResource("StyleBoxFlat_l6etb")
 Button/styles/pressed = SubResource("StyleBoxFlat_kbrw7")
-
-[sub_resource type="SystemFont" id="SystemFont_fe0qs"]
-font_names = PackedStringArray("Jokerman")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jatce"]
 properties/0/path = NodePath("CanvasLayer/Time:text")
@@ -137,18 +137,11 @@ offset_left = -96.0
 offset_right = -96.0
 grow_horizontal = 0
 
-[node name="Start" type="Button" parent="CanvasLayer"]
-offset_right = 1280.0
-offset_bottom = 800.0
-theme = SubResource("Theme_7dykc")
-text = "Start Game"
-script = ExtResource("12_xt3i6")
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
 _spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
 spawn_path = NodePath("../Wertung")
 
-[node name="Time" type="Label" parent="CanvasLayer"]
+[node name="Time" type="Label" parent="CanvasLayer" groups=["time"]]
 offset_left = 616.0
 offset_right = 664.0
 offset_bottom = 40.0
@@ -158,8 +151,15 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = SubResource("SystemFont_fe0qs")
 theme_override_font_sizes/font_size = 42
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 60.0
+[node name="Start" type="Button" parent="CanvasLayer" groups=["start"]]
+offset_right = 1280.0
+offset_bottom = 800.0
+theme = SubResource("Theme_cyalv")
+text = "Start Game"
+script = ExtResource("12_xt3i6")
+
+[node name="Timer" type="Timer" parent="." groups=["timer"]]
+wait_time = 120.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jatce")

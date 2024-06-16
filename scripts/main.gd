@@ -74,7 +74,6 @@ func _on_connect_pressed():
 		multiplayer.disconnect_peer(peer.get_unique_id())
 		return
 	start_game()
-	await get_tree().create_timer(2).timeout
 
 
 func start_game():
