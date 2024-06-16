@@ -47,7 +47,7 @@ func _physics_process(delta):
 			map.reset_floor()
 			Check_Time_Visible.rpc()
 			if multiplayer.is_server():
-				get_parent().get_parent().reset_bomben.rpc(name.to_int(), Global.Start_bomben_limit)
+				get_parent().get_parent().reset_bomben.rpc_id(1, name.to_int(), Global.Start_bomben_limit)
 				get_parent().get_parent().get_node("Timer").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
 			if position.x < 0:
@@ -73,7 +73,6 @@ func _physics_process(delta):
 			await get_tree().create_timer(5).timeout
 		if get_parent().get_parent().Time_out:
 			ende.rpc_id(name.to_int())
-	exit()
 			
 
 @rpc("any_peer","call_local")
@@ -94,7 +93,7 @@ func ende():
 		$CanvasLayer/Winner.visible = true
 			
 			
-func exit():
+func _input(event):
 	if Input.is_action_just_pressed("exit"):
 		if multiplayer.is_server():
 			multiplayer.multiplayer_peer.disconnect_peer(name.to_int())
@@ -120,7 +119,7 @@ func kicked(id, antwort):
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):
-			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe(name.to_int(), color_cell, area.get_parent())
 
 
 func painter(name: String):

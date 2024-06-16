@@ -87,7 +87,7 @@ func reset_bomben(id: int,anzahl: int):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
 	for i in range(anzahl):
-		spawn_new_bombe(id)
+		spawn_new_bombe.rpc(id)
 
 
 @rpc("call_local")
