@@ -128,13 +128,13 @@ func _on_timer_timeout():
 	
 	
 
-@rpc("call_local")
+@rpc("any_peer","call_local")
 func visible_start():
-	$CanvasLayer/Start.visible = false
-	$CanvasLayer/Start.disabled = true
+	for i in get_node("CanvasLayer").get_children():
+		if i.is_in_group("start"):
+			i.visible = false
 	Global.Max_clients = len(multiplayer.get_peers())
 	
 	
 func _on_start_pressed():
-	if multiplayer.is_server():
-		visible_start.rpc_id(1)
+	visible_start.rpc()

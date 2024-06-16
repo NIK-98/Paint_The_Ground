@@ -45,20 +45,11 @@ func _physics_process(delta):
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
+			Check_Time_Visible.rpc()
 			if multiplayer.is_server():
-				get_parent().get_parent().reset_bomben.rpc_id(1, name.to_int(), Global.Start_bomben_limit)
-			if get_parent().get_parent().get_node("Timer").is_stopped():
-				get_parent().get_parent().get_node("CanvasLayer/Time").visible = true
-			for i in get_parent().get_parent().get_node("CanvasLayer").get_children():
-				if i.is_in_group("time"):
-					if not i.visible:
-						Gametriggerstart = false
-						get_parent().get_parent().get_node("Timer").stop()
-						return
-			if Gametriggerstart:
+				get_parent().get_parent().reset_bomben.rpc(name.to_int(), Global.Start_bomben_limit)
 				get_parent().get_parent().get_node("Timer").start()
-
-		if not get_parent().get_parent().get_node("Timer").is_stopped() and get_parent().get_parent().get_node("CanvasLayer/Time").visible and Gametriggerstart:
+		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
 			if position.x < 0:
 				velocity.x += 10
 			elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
@@ -83,7 +74,15 @@ func _physics_process(delta):
 			ende.rpc_id(name.to_int())
 	exit()
 			
+
+@rpc("any_peer","call_local")
+func Check_Time_Visible():
+	for i in get_parent().get_parent().get_node("CanvasLayer").get_children():
+		if i.is_in_group("time"):
+			if not i.visible:
+				i.visible = true
 	
+
 @rpc("call_local")
 func ende():
 	Global.Gameover = false
