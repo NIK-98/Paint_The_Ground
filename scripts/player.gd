@@ -68,8 +68,9 @@ func _physics_process(delta):
 				painter(name)
 			score_counter.rpc()
 			if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
-				get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).call_deferred("wertung",name.to_int())
+				get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 			bombe_attack()
+			await get_tree().create_timer(5).timeout
 		if get_parent().get_parent().Time_out:
 			ende.rpc_id(name.to_int())
 	exit()
