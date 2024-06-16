@@ -50,9 +50,11 @@ func _on_connect_pressed():
 	var port = $UI/Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not txt.is_valid_ip_address() and not txt == "localhost":
 		OS.alert("Ist keine richtiege ip adresse.")
+		block_host = false
 		return
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
+		block_host = false
 		return
 	var peer = ENetMultiplayerPeer.new()
 	port = port.to_int()
@@ -60,6 +62,7 @@ func _on_connect_pressed():
 	multiplayer.multiplayer_peer = peer
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Konnte Multiplayer client nicht starten.")
+		block_host = false
 		return
 	var i = 0
 	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING and block_host:
