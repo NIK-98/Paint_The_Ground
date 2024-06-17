@@ -195,7 +195,7 @@ text = "Start Game"
 script = ExtResource("12_xt3i6")
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 10.0
+wait_time = 120.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jatce")
