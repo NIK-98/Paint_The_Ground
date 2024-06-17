@@ -1,13 +1,17 @@
 extends Node2D
 
+
+const bomb_spawn_genzen = 250
+
+
 @onready var main = get_parent().get_parent()
 @export var player_sceen: PackedScene
 @export var score_label: PackedScene
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var Bomben = get_node("Bomben")
-
-const bomb_spawn_genzen = 64
+@export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+@export var oldrandpos = randpos
 
 var old_spawn: Vector2
 var Time_out = false
@@ -19,7 +23,6 @@ func _ready():
 	multiplayer.server_disconnected.connect(verbindung_verloren)
 	if not multiplayer.is_server():
 		return
-		
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
@@ -82,19 +85,22 @@ func add_player(id: int):
 
 
 @rpc("call_local")
-func reset_bomben(id: int,anzahl: int):	
+func reset_bomben(anzahl: int):	
 	for c in Bomben.get_child_count()-1:
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
-	for i in range(anzahl):
-		spawn_new_bombe.rpc(id)
+			
+			
+@rpc("any_peer","call_local")
+func update_spawn_bomb_position():
+	oldrandpos = randpos
+	randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 
-
-@rpc("call_local")
-func spawn_new_bombe(id: int):
+@rpc("any_peer","call_local")
+func spawn_new_bombe():
 	var new_bombe = bombe.instantiate()
-	var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 	new_bombe.name = "bombe"
+	update_spawn_bomb_position.rpc()
 	new_bombe.position = randpos
 	Bomben.add_child(new_bombe)
 	
@@ -134,3 +140,5 @@ func visible_start():
 	
 func _on_start_pressed():
 	visible_start.rpc()
+	reset_bomben.rpc_id(1, Global.Start_bomben_limit)
+	spawn_new_bombe.rpc()

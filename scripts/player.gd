@@ -33,22 +33,19 @@ func _ready():
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 	color_change(name)
-		
 
 func _physics_process(delta):
 	if not loaded:
 		loaded = true
 		painter(name)
-		score_counter.rpc()
+		score_counter()
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
 			Check_Time_Visible.rpc()
-			if multiplayer.is_server():
-				get_parent().get_parent().reset_bomben.rpc_id(1, name.to_int(), Global.Start_bomben_limit)
-				get_parent().get_parent().get_node("Timer").start()
+			get_parent().get_parent().get_node("Timer").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
 			if position.x < 0:
 				velocity.x += 10
@@ -66,11 +63,10 @@ func _physics_process(delta):
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				painter(name)
-			score_counter.rpc()
+			score_counter()
 			if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
 				get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 			bombe_attack()
-			await get_tree().create_timer(5).timeout
 		if get_parent().get_parent().Time_out:
 			ende.rpc_id(name.to_int())
 			
@@ -119,7 +115,8 @@ func kicked(id, antwort):
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):
-			area.get_parent().aktivate_bombe(name.to_int(), color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
+			get_parent().get_parent().spawn_new_bombe.rpc()
 
 
 func painter(name: String):
@@ -129,7 +126,6 @@ func painter(name: String):
 	paint.rpc(color_cell)
 	
 	
-@rpc("any_peer","call_local")
 func score_counter():
 	score = 0
 	for i in map.get_used_cells(0):
@@ -143,12 +139,14 @@ func paint(tile: int):
 	var radius = Vector2i($Color.size.x,$Color.size.y)
 	var tile_position_top_left = map.local_to_map(Vector2i(position.x,position.y))
 	var tile_position_down_right = map.local_to_map(Vector2i(position.x+radius.x,position.y+radius.y))
-	if tile_position_down_right in map.get_used_cells_by_id(0,tile,tile_position_down_right):
+	if tile_position_down_right not in map.get_used_cells(0):
 		return
-	if tile_position_top_left in map.get_used_cells_by_id(0,tile,tile_position_top_left):
+	if tile_position_top_left not in map.get_used_cells(0):
 		return
 	var tile_position = map.local_to_map(Vector2i(position.x,position.y))
-	map.set_cell(0,tile_position,tile,Vector2i(0,0))
+	for x in range(0,2):
+		for y in range(0,2):
+			map.set_cell(0,Vector2i(tile_position.x+x,tile_position.y+y),tile,Vector2i(0,0))
 		
 		
 func color_change(name: String):
