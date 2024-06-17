@@ -46,6 +46,7 @@ func _physics_process(delta):
 			map.reset_floor()
 			Check_Time_Visible.rpc()
 			get_parent().get_parent().get_node("Timer").start()
+			get_parent().get_parent().get_node("Timerbomb").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
 			if position.x < 0:
 				velocity.x += 10
@@ -64,8 +65,7 @@ func _physics_process(delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				painter(name)
 			score_counter()
-			if get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
-				get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
+			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
 			ende.rpc_id(name.to_int())
@@ -116,7 +116,6 @@ func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom"):
 			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
-			get_parent().get_parent().spawn_new_bombe.rpc()
 
 
 func painter(name: String):
@@ -128,10 +127,8 @@ func painter(name: String):
 	
 func score_counter():
 	score = 0
-	for i in map.get_used_cells(0):
-		var check_cell = map.get_cell_source_id(0,i)
-		if check_cell == color_cell:
-			score+=1
+	for i in len(map.get_used_cells_by_id(0,color_cell)):
+		score+=1
 		
 
 @rpc("any_peer","call_local")

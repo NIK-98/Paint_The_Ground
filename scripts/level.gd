@@ -18,6 +18,7 @@ var Time_out = false
 
 func _ready():
 	$CanvasLayer/Time.visible = false
+	$CanvasLayer/Bomb_time.visible = false
 	$Camera2D.enabled = false
 	# We only need to spawn players on the server.
 	multiplayer.server_disconnected.connect(verbindung_verloren)
@@ -41,6 +42,8 @@ func _process(delta):
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	if not $Timer.is_stopped() and multiplayer.is_server():
 		$CanvasLayer/Time.text = str(round($Timer.time_left))
+	if not $Timerbomb.is_stopped() and multiplayer.is_server():
+		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 		
 
 
@@ -80,6 +83,7 @@ func add_player(id: int):
 	var randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
 	player.position = randpos
 	player.name = str(id)
+	player.color_cell = len(multiplayer.get_peers())+1
 	get_node("Players").add_child(player, true)
 	add_score(id)
 
@@ -95,6 +99,7 @@ func reset_bomben(anzahl: int):
 func update_spawn_bomb_position():
 	oldrandpos = randpos
 	randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+
 
 @rpc("any_peer","call_local")
 func spawn_new_bombe():
@@ -126,6 +131,7 @@ func del_player(id: int):
 
 func _on_timer_timeout():
 	$Timer.stop()
+	$Timerbomb.stop()
 	Time_out = true
 	
 	
@@ -135,10 +141,14 @@ func visible_start():
 	for i in get_node("CanvasLayer").get_children():
 		if i.is_in_group("start"):
 			i.visible = false
-	Global.Max_clients = len(multiplayer.get_peers())
+	Global.Max_clients = 0
 	
 	
 func _on_start_pressed():
 	visible_start.rpc()
-	reset_bomben.rpc_id(1, Global.Start_bomben_limit)
-	spawn_new_bombe.rpc()
+	reset_bomben.rpc_id(1, Global.Spawn_bomben_limit)
+
+func _on_timerbomb_timeout():
+	if is_multiplayer_authority():
+		for i in range(Global.Spawn_bomben_limit):
+			spawn_new_bombe.rpc()

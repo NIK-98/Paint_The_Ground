@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=28 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -73,6 +73,9 @@ sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
 
+[sub_resource type="SystemFont" id="SystemFont_tr6om"]
+font_names = PackedStringArray("Gill Sans")
+
 [sub_resource type="SystemFont" id="SystemFont_fe0qs"]
 font_names = PackedStringArray("Jokerman")
 
@@ -112,6 +115,12 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:oldrandpos")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("CanvasLayer/Bomb_time:text")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("CanvasLayer/Bomb_time:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -155,6 +164,19 @@ grow_horizontal = 0
 _spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
 spawn_path = NodePath("../Wertung")
 
+[node name="Bomb_time" type="Label" parent="CanvasLayer" groups=["time"]]
+modulate = Color(1, 1, 1, 0.847059)
+offset_top = 704.0
+offset_right = 1280.0
+offset_bottom = 768.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = SubResource("SystemFont_tr6om")
+theme_override_font_sizes/font_size = 42
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Time" type="Label" parent="CanvasLayer" groups=["time"]]
 offset_left = 616.0
 offset_right = 664.0
@@ -178,5 +200,9 @@ wait_time = 120.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jatce")
 
+[node name="Timerbomb" type="Timer" parent="."]
+wait_time = 20.0
+
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timerbomb" to="." method="_on_timerbomb_timeout"]
