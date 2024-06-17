@@ -13,7 +13,7 @@ var color_cell = 1
 var loaded = false
 var Gametriggerstart = false
 @export var is_starting = false
-@export var score = 0
+var score = 0
 
 @onready var camera = $Camera2D
 
@@ -68,7 +68,7 @@ func _physics_process(delta):
 			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
-			ende.rpc_id(name.to_int())
+			ende()
 			
 
 @rpc("any_peer","call_local")
@@ -79,14 +79,14 @@ func Check_Time_Visible():
 				i.visible = true
 	
 
-@rpc("call_local")
 func ende():
-	Global.Gameover = false
-	for i in get_parent().get_parent().get_node("CanvasLayer/Wertung").get_children():
-		if i.text.to_int() > score:
-			$CanvasLayer/Los.visible = true
-	if not $CanvasLayer/Los.visible:
-		$CanvasLayer/Winner.visible = true
+	if input.aktueller_spieler:
+		Global.Gameover = false
+		for i in get_parent().get_parent().get_node("CanvasLayer/Wertung").get_children():
+			if i.text.to_int() > score:
+				$CanvasLayer/Los.visible = true
+		if not $CanvasLayer/Los.visible:
+			$CanvasLayer/Winner.visible = true
 			
 			
 func _input(event):
@@ -124,7 +124,7 @@ func painter(name: String):
 			color_cell = i+1
 	paint.rpc(color_cell)
 	
-	
+
 func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
