@@ -14,6 +14,7 @@ var loaded = false
 var Gametriggerstart = false
 @export var is_starting = false
 var score = 0
+var last_score = score
 
 @onready var camera = $Camera2D
 
@@ -65,7 +66,6 @@ func _physics_process(delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				painter(name)
 			score_counter()
-			get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
 			ende()
@@ -126,9 +126,12 @@ func painter(name: String):
 	
 
 func score_counter():
+	last_score = score
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
+	if last_score != score:
+		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
 @rpc("any_peer","call_local")
