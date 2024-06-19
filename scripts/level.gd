@@ -93,18 +93,16 @@ func reset_bomben(anzahl: int):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
 			
-			
-@rpc("any_peer","call_local")
+
 func update_spawn_bomb_position():
 	oldrandpos = randpos
 	randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 
 
-@rpc("any_peer","call_local")
+@rpc("call_local")
 func spawn_new_bombe():
 	var new_bombe = bombe.instantiate()
 	new_bombe.name = "bombe"
-	update_spawn_bomb_position.rpc()
 	new_bombe.position = randpos
 	Bomben.add_child(new_bombe)
 	
@@ -150,4 +148,5 @@ func _on_start_pressed():
 func _on_timerbomb_timeout():
 	if is_multiplayer_authority():
 		for i in range(Global.Spawn_bomben_limit):
+			update_spawn_bomb_position()
 			spawn_new_bombe.rpc()
