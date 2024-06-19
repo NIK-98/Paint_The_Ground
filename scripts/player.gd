@@ -99,14 +99,8 @@ func ende():
 			
 func _input(event):
 	if Input.is_action_just_pressed("exit"):
-		if multiplayer.is_server():
-			multiplayer.multiplayer_peer.disconnect_peer(name.to_int())
-			multiplayer.multiplayer_peer = null
-			emit_signal("add_player")			
-			emit_signal("del_player")
-			emit_signal("del_score")
-			get_tree().get_nodes_in_group("Level")[0].queue_free()
-			get_tree().change_scene_to_file("res://sceens/main.tscn")
+		if name.to_int() == 1:
+			get_parent().get_parent().get_node("loby").exit_server_tree()
 			return
 		kicked(name.to_int(), "Verbindung Selber beendet!")
 		get_tree().change_scene_to_file("res://sceens/main.tscn")
@@ -116,7 +110,6 @@ func _input(event):
 		$Tap.visible = false
 		
 
-@rpc("any_peer","call_local")
 func kicked(id, antwort):
 	multiplayer.multiplayer_peer.disconnect_peer(id)
 	multiplayer.multiplayer_peer = null
@@ -125,7 +118,7 @@ func kicked(id, antwort):
 
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("boom"):
+		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
 			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
 
 

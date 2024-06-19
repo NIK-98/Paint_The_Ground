@@ -37,6 +37,14 @@ func _ready():
 
 
 func _process(delta):
+	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) == 0 and Global.is_running:
+		$loby.update_server_status_disconected.rpc()
+		$loby.exit_server_tree.rpc()
+		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
+		multiplayer.multiplayer_peer == null
+		get_tree().change_scene_to_file("res://sceens/main.tscn")
+		return
+
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	if not $Timer.is_stopped() and multiplayer.is_server():
@@ -59,6 +67,8 @@ func _exit_tree():
 func _enter_tree():
 	if len(multiplayer.get_peers()) == Global.Max_clients:
 		return
+	#if Global.is_running:
+		#return
 	
 
 func verbindung_verloren():
@@ -123,6 +133,8 @@ func del_score(id: int):
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
+	if not multiplayer.is_server():
+		$loby.exit.rpc()
 	get_node("Players").get_node(str(id)).queue_free()
 	
 
