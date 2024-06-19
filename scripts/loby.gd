@@ -34,6 +34,9 @@ func _enter_tree():
 	
 func _on_enter_pressed():
 	Global.Max_clients = 0
+	if $CenterContainer/VBoxContainer/name_input.text == "":
+		OS.alert("Bitte Namen Eingeben!")
+		return
 	for i in get_parent().get_node("Players").get_children():
 		if i.get_node("Name").text == $CenterContainer/VBoxContainer/name_input.text:
 			OS.alert("Name Exsistiert Schon!")
@@ -43,6 +46,4 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
-	elif $CenterContainer/VBoxContainer/name_input.text == "":
-		OS.alert("Bitte Namen Eingeben!")
 	namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
