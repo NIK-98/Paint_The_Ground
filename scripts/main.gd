@@ -136,3 +136,12 @@ func _on_leave_pressed():
 func _on_back_pressed():
 	Input.action_press("cancel")
 	Input.action_release("cancel")
+
+
+func _on_tap_pressed():
+	Input.action_press("Info")
+	
+
+
+func _on_tap_released():
+	Input.action_release("Info")

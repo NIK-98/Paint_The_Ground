@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=24 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="6_7t78o"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
+[ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 
 [sub_resource type="Theme" id="Theme_lp7i3"]
 
@@ -288,7 +289,7 @@ passby_press = true
 visibility_mode = 1
 
 [node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.443137)
+modulate = Color(1, 1, 1, 0.415686)
 position = Vector2(45.7143, 45.7143)
 scale = Vector2(1.14286, 1.14286)
 texture_normal = ExtResource("7_dpqrl")
@@ -299,6 +300,14 @@ visibility_mode = 1
 modulate = Color(1, 1, 1, 0.407843)
 position = Vector2(1652.86, 537.143)
 texture_normal = ExtResource("8_40dan")
+passby_press = true
+visibility_mode = 1
+
+[node name="Tap" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.607843)
+position = Vector2(1634.29, 45.7143)
+scale = Vector2(2.14286, 2.14286)
+texture_normal = ExtResource("9_jd08x")
 passby_press = true
 visibility_mode = 1
 
@@ -314,3 +323,5 @@ visibility_mode = 1
 [connection signal="released" from="CanvasLayer/Left" to="." method="_on_left_released"]
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
+[connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
