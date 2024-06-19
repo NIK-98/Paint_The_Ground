@@ -151,6 +151,7 @@ _spawnable_scenes = PackedStringArray("res://sceens/player.tscn")
 spawn_path = NodePath("../Players")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="fps" type="Label" parent="CanvasLayer"]
 offset_left = 96.0
@@ -202,7 +203,7 @@ text = "Start Game"
 script = ExtResource("12_xt3i6")
 
 [node name="loby" type="CanvasLayer" parent="."]
-layer = 2
+layer = 3
 script = ExtResource("13_umcg5")
 
 [node name="ColorRect" type="ColorRect" parent="loby"]
