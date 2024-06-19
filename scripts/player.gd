@@ -12,7 +12,6 @@ var tile_size_multipl = 1.5
 var color_cell = 1
 var loaded = false
 var Gametriggerstart = false
-@export var is_starting = false
 var score = 0
 var last_score = score
 
@@ -33,9 +32,14 @@ func _ready():
 	main.get_node("UI").hide()
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
+		
+	$Camera2D.limit_right = Global.Spielfeld_Size.x
+	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
+	
 	color_change(name)
+	map.reset_floor()
 
-func _physics_process(delta):
+func _physics_process(delta):		
 	if not loaded:
 		loaded = true
 		painter(name)
@@ -60,8 +64,6 @@ func _physics_process(delta):
 			else:
 				velocity = input.move*SPEED
 
-			$Camera2D.limit_right = Global.Spielfeld_Size.x
-			$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				painter(name)
@@ -69,6 +71,7 @@ func _physics_process(delta):
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
 			ende()
+				
 			
 
 @rpc("any_peer","call_local")
@@ -100,7 +103,6 @@ func _input(event):
 			get_tree().get_nodes_in_group("Level")[0].queue_free()
 			get_tree().change_scene_to_file("res://sceens/main.tscn")
 			return
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).rpc("remove_node",name.to_int())
 		kicked(name.to_int(), "Verbindung Selber beendet!")
 		get_tree().change_scene_to_file("res://sceens/main.tscn")
 		
@@ -130,7 +132,7 @@ func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
-	if last_score != score:
+	if last_score != score and get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
 		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
@@ -153,13 +155,20 @@ func color_change(name: String):
 	for i in range(len(get_parent().get_children())):
 		if get_parent().get_node(name) != null and i == 0:
 			get_node("Color").set_color(Color.GREEN)
+			get_node("Name").set("theme_override_colors/font_color",Color.GREEN)
 		if get_parent().get_node(name) != null and i == 1:
 			get_node("Color").set_color(Color.DARK_RED)
+			get_node("Name").set("theme_override_colors/font_color",Color.DARK_RED)
 		if get_parent().get_node(name) != null and i == 2:
 			get_node("Color").set_color(Color.DARK_BLUE)
+			get_node("Name").set("theme_override_colors/font_color",Color.DARK_BLUE)
 		if get_parent().get_node(name) != null and i == 3:
 			get_node("Color").set_color(Color.DEEP_SKY_BLUE)
+			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
 		if get_parent().get_node(name) != null and i == 4:
 			get_node("Color").set_color(Color.VIOLET)
+			get_node("Name").set("theme_override_colors/font_color",Color.VIOLET)
 		if get_parent().get_node(name) != null and i == 5:
 			get_node("Color").set_color(Color.YELLOW)
+			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
+			

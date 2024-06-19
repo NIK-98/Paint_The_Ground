@@ -13,7 +13,6 @@ const bomb_spawn_genzen = 250
 @export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 @export var oldrandpos = randpos
 
-var old_spawn: Vector2
 var Time_out = false
 
 func _ready():
@@ -141,12 +140,12 @@ func visible_start():
 	for i in get_node("CanvasLayer").get_children():
 		if i.is_in_group("start"):
 			i.visible = false
-	Global.Max_clients = 0
 	
 	
 func _on_start_pressed():
 	visible_start.rpc()
 	reset_bomben.rpc_id(1, Global.Spawn_bomben_limit)
+
 
 func _on_timerbomb_timeout():
 	if is_multiplayer_authority():
