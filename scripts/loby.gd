@@ -3,12 +3,26 @@ extends CanvasLayer
 @export var count_players_wait = 0
 @export var player_conect_count = 0
 @export var dedicated_server_triggrer = false
+@export var is_running = false
+@export var Max_clients = 6
 		
+		
+		
+func _ready():
+	Max_clients = 6
+	if DisplayServer.get_name() == "headless":
+		Max_clients = 7
 		
 func _process(delta):
 	if visible and not dedicated_server_triggrer:
 		visible_loby()
-	if not visible and count_players_wait == 1 and not dedicated_server_triggrer:
+		
+	if multiplayer.is_server():
+		prints(count_players_wait, player_conect_count)
+		if not visible and count_players_wait == 1 and not dedicated_server_triggrer:
+			exit()
+			return
+		if $CenterContainer/VBoxContainer/Warten.visible and count_players_wait == 0 and player_conect_count <= 1 and not dedicated_server_triggrer:
 			exit()
 			return
 	
@@ -25,7 +39,7 @@ func _process(delta):
 func visible_loby():
 	if count_players_wait == player_conect_count:
 		visible = false
-	
+
 	
 @rpc("any_peer","call_local")	
 func namen_text_update(id, text):
@@ -48,14 +62,16 @@ func update_player_count():
 
 @rpc("any_peer","call_local")
 func update_server_status_conected():
-	Global.Max_clients = 0
+	Max_clients = len(multiplayer.get_peers())
 	if count_players_wait == player_conect_count:
-		Global.is_running = true
+		is_running = true
 	
 
 @rpc("any_peer","call_local")
 func update_server_status_disconected():
-	Global.Max_clients = Global.start_clients_limit
+	Max_clients = 6
+	if DisplayServer.get_name() == "headless":
+		Max_clients = 7
 	count_players_wait = 0
 	
 	
@@ -68,7 +84,7 @@ func reset_var():
 
 @rpc("any_peer","call_local")
 func update_runnig_status_disconected():
-	Global.is_running = false
+	is_running = false
 	
 	
 @rpc("any_peer","call_local")
@@ -78,6 +94,7 @@ func update_player_wait():
 	
 func exit():
 	if multiplayer.is_server():
+		OS.alert("Keine Spieler gefunden!")
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
 		reset_var.rpc()
@@ -114,14 +131,6 @@ func exit_server_tree():
 	if get_node("CenterContainer/VBoxContainer/Warten").visible:
 		remove_count_player_wait.rpc()
 	return
-	
-
-func _enter_tree():
-	if DisplayServer.get_name() == "headless":
-		trigger_server.rpc()
-		return
-	update_player_count.rpc()
-	trigger_server.rpc()
 	
 	
 func _on_enter_pressed():

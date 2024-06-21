@@ -1,6 +1,7 @@
 extends Node
 
 var block_host = false
+var Max_clients = 6
 
 
 func _ready():
@@ -8,9 +9,9 @@ func _ready():
 	multiplayer.server_relay = false
 	
 	
-	Global.Max_clients = 6
+	Max_clients = 6
 	if DisplayServer.get_name() == "headless":
-		Global.Max_clients = 7
+		Max_clients = 7
 		print("Startet Dedicated Server.")
 		_on_host_pressed.call_deferred()
 		
@@ -32,7 +33,7 @@ func _on_host_pressed():
 		OS.alert("Ist keine richtieger port.")
 		return
 	port = port.to_int()
-	var check = peer.create_server(port, Global.Max_clients)
+	var check = peer.create_server(port, Max_clients)
 	if check != OK:
 		OS.alert("Server kann nicht erstellt werden!")
 		if port < 1024:

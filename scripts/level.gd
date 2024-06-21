@@ -41,7 +41,7 @@ func _ready():
 
 
 func _process(delta):
-	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) == 0 and Global.is_running:
+	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) == 0 and $loby.is_running:
 		$loby.exit_dc_server.rpc()
 		$loby.trigger_server.rpc()
 		return
@@ -66,11 +66,6 @@ func _exit_tree():
 	multiplayer.peer_disconnected.disconnect(del_text_tap)
 	multiplayer.peer_disconnected.disconnect(exit_multiplayer_loby)
 	
-	
-func _enter_tree():
-	if len(multiplayer.get_peers()) == Global.Max_clients:
-		return
-	
 
 func verbindung_verloren():
 	OS.alert("Multiplayer Server wurde beendet.")
@@ -87,9 +82,14 @@ func voll(id: int):
 		
 
 func add_player(id: int):
-	if len(multiplayer.get_peers()) >= Global.Max_clients:
+	if len(multiplayer.get_peers()) >= $loby.Max_clients:
 		voll.rpc_id(id, id)
 		return
+	if DisplayServer.get_name() == "headless":
+		$loby.trigger_server.rpc()
+	elif len(multiplayer.get_peers()) < $loby.Max_clients:
+		$loby.update_player_count.rpc()
+		$loby.trigger_server.rpc()
 	var player = player_sceen.instantiate()
 	player.player = id
 	var randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
