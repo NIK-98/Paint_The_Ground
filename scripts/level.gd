@@ -7,6 +7,7 @@ const bomb_spawn_genzen = 250
 @onready var main = get_parent().get_parent()
 @export var player_sceen: PackedScene
 @export var score_label: PackedScene
+@export var name_label: PackedScene
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var Bomben = get_node("Bomben")
@@ -19,6 +20,7 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Camera2D.enabled = false
+	$Tap.visible = false
 	# We only need to spawn players on the server.
 	multiplayer.server_disconnected.connect(verbindung_verloren)
 	if not multiplayer.is_server():
@@ -26,6 +28,8 @@ func _ready():
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
+	multiplayer.peer_disconnected.connect(del_text_tap)
+	multiplayer.peer_disconnected.connect(exit_multiplayer_loby)
 		
 		
 	for id in multiplayer.get_peers():
@@ -38,11 +42,8 @@ func _ready():
 
 func _process(delta):
 	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) == 0 and Global.is_running:
-		$loby.update_server_status_disconected.rpc()
-		$loby.exit_server_tree.rpc()
-		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
-		multiplayer.multiplayer_peer == null
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
+		$loby.exit_dc_server.rpc()
+		$loby.trigger_server.rpc()
 		return
 
 	var fps = Engine.get_frames_per_second()
@@ -62,13 +63,13 @@ func _exit_tree():
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
+	multiplayer.peer_disconnected.disconnect(del_text_tap)
+	multiplayer.peer_disconnected.disconnect(exit_multiplayer_loby)
 	
 	
 func _enter_tree():
 	if len(multiplayer.get_peers()) == Global.Max_clients:
 		return
-	#if Global.is_running:
-		#return
 	
 
 func verbindung_verloren():
@@ -79,6 +80,8 @@ func verbindung_verloren():
 @rpc("call_local")
 func voll(id: int):
 	OS.alert("Server Voll!")
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 		
@@ -96,6 +99,22 @@ func add_player(id: int):
 	get_node("Players").add_child(player, true)
 	add_score(id)
 
+
+@rpc("any_peer","call_local")
+func add_text_tap(id: int, text: String):
+	var new_name = name_label.instantiate()
+	new_name.name = str(id)
+	new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
+	new_name.text = text
+	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
+		
+		
+func del_text_tap(id: int):
+	if not get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").has_node(str(id)):
+		return
+	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)).queue_free()
+			
+			
 
 @rpc("call_local")
 func reset_bomben(anzahl: int):	
@@ -124,17 +143,40 @@ func add_score(id: int):
 	get_node("CanvasLayer/Wertung").add_child(new_score_label, true)
 		
 
+func exit_multiplayer_loby(id: int):
+	$loby.exit_server_tree()
+	
+	
 func del_score(id: int):
 	if not get_node("CanvasLayer/Wertung").has_node(str(id)):
 		return
 	get_node("CanvasLayer/Wertung").get_node(str(id)).queue_free()
+
+
+func _input(event):
+	if Input.is_action_just_pressed("exit"):
+		if multiplayer.is_server():
+			$loby.exit()
+			return
+		kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
+		return
+	if Input.is_action_pressed("Info"):
+		$Tap.visible = true
+	if Input.is_action_just_released("Info"):
+		$Tap.visible = false
+
+
+func kicked(id, antwort):
+	OS.alert("Verbindung verloren!", antwort)
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	return
 	
 	
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
-	if not multiplayer.is_server():
-		$loby.exit.rpc()
 	get_node("Players").get_node(str(id)).queue_free()
 	
 

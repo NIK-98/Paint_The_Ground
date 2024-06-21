@@ -29,7 +29,6 @@ var last_score = score
 func _ready():
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
-	$Tap.visible = false
 	main.get_node("UI").hide()
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
@@ -52,7 +51,6 @@ func _physics_process(delta):
 			Check_Time_Visible.rpc()
 			get_parent().get_parent().get_node("Timer").start()
 			get_parent().get_parent().get_node("Timerbomb").start()
-			add_text_tap("Tap/CenterContainer/PanelContainer/VBoxContainer")
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
 			if position.x < 0:
 				velocity.x += 10
@@ -72,11 +70,7 @@ func _physics_process(delta):
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
 			ende()
-
-						
-func add_text_tap(path):
-	for i in get_parent().get_children():
-		i.get_node(path).add_child($Name.duplicate())
+		
 	
 	
 @rpc("any_peer","call_local")
@@ -96,25 +90,7 @@ func ende():
 		if not $CanvasLayer/Los.visible:
 			$CanvasLayer/Winner.visible = true
 			
-			
-func _input(event):
-	if Input.is_action_just_pressed("exit"):
-		if name.to_int() == 1:
-			get_parent().get_parent().get_node("loby").exit_server_tree()
-			return
-		kicked(name.to_int(), "Verbindung Selber beendet!")
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
-	if Input.is_action_pressed("Info"):
-		$Tap.visible = true
-	else:
-		$Tap.visible = false
 		
-
-func kicked(id, antwort):
-	multiplayer.multiplayer_peer.disconnect_peer(id)
-	multiplayer.multiplayer_peer = null
-	OS.alert("Verbindung verloren!", antwort)
-
 
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():

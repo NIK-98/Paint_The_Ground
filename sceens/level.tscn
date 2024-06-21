@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=32 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
 [ext_resource type="PackedScene" uid="uid://dqayoki230ek2" path="res://sceens/score_label.tscn" id="3_eqqiv"]
 [ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="4_1vpo6"]
+[ext_resource type="PackedScene" uid="uid://cj1swxdws84yf" path="res://sceens/Name.tscn" id="4_jptae"]
 [ext_resource type="Texture2D" uid="uid://dg2r7hn28jxmt" path="res://assets/ground/ground_green.png" id="5_jvivo"]
 [ext_resource type="Texture2D" uid="uid://btju3bebchq0u" path="res://assets/ground/ground_red.png" id="6_n3m5v"]
 [ext_resource type="Texture2D" uid="uid://cequksmqsxf4e" path="res://assets/ground/ground_blue.png" id="7_khuld"]
@@ -97,6 +98,12 @@ Button/styles/hover = SubResource("StyleBoxFlat_l6etb")
 Button/styles/normal = SubResource("StyleBoxFlat_l6etb")
 Button/styles/pressed = SubResource("StyleBoxFlat_kbrw7")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbck"]
+bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
+
+[sub_resource type="Theme" id="Theme_n2nq7"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jatce"]
 properties/0/path = NodePath("CanvasLayer/Time:text")
 properties/0/spawn = true
@@ -136,6 +143,7 @@ properties/10/replication_mode = 1
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
 score_label = ExtResource("3_eqqiv")
+name_label = ExtResource("4_jptae")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -245,6 +253,34 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 60
 text = "Warte auf Mitspieler..."
+
+[node name="Tap" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="Tap"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Tap/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_n2nq7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tap/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tap/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.815686, 0.960784, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 42
+text = "!!!!Spieler!!!!!"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Tap/CenterContainer/PanelContainer"]
+_spawnable_scenes = PackedStringArray("res://sceens/Name.tscn")
+spawn_path = NodePath("../VBoxContainer")
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
 wait_time = 120.0

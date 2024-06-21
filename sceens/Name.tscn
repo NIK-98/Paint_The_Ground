@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj1swxdws84yf"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d4c1o"]
+properties/0/path = NodePath(".:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:theme_override_colors/font_color")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Name" type="Label"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d4c1o")
