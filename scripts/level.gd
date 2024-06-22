@@ -29,7 +29,6 @@ func _ready():
 	multiplayer.peer_disconnected.connect(del_player)
 	multiplayer.peer_disconnected.connect(del_score)
 	multiplayer.peer_disconnected.connect(del_text_tap)
-	multiplayer.peer_disconnected.connect(exit_multiplayer_loby)
 		
 		
 	for id in multiplayer.get_peers():
@@ -41,11 +40,9 @@ func _ready():
 
 
 func _process(delta):
-	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) == 0 and $loby.is_running:
-		$loby.exit_dc_server.rpc()
-		$loby.trigger_server.rpc()
-		return
-
+	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) >= $loby.Max_clients and $loby.dc_is_start:
+		$loby.dc_starting_toggle.rpc()
+		$loby.reset_var.rpc()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	if not $Timer.is_stopped() and multiplayer.is_server():
@@ -64,7 +61,6 @@ func _exit_tree():
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
 	multiplayer.peer_disconnected.disconnect(del_text_tap)
-	multiplayer.peer_disconnected.disconnect(exit_multiplayer_loby)
 	
 
 func verbindung_verloren():
@@ -85,11 +81,8 @@ func add_player(id: int):
 	if len(multiplayer.get_peers()) >= $loby.Max_clients:
 		voll.rpc_id(id, id)
 		return
-	if DisplayServer.get_name() == "headless":
-		$loby.trigger_server.rpc()
-	elif len(multiplayer.get_peers()) < $loby.Max_clients:
+	if len(multiplayer.get_peers()) < $loby.Max_clients:
 		$loby.update_player_count.rpc()
-		$loby.trigger_server.rpc()
 	var player = player_sceen.instantiate()
 	player.player = id
 	var randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
@@ -141,10 +134,6 @@ func add_score(id: int):
 	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
 	new_score_label.name = str(id)
 	get_node("CanvasLayer/Wertung").add_child(new_score_label, true)
-		
-
-func exit_multiplayer_loby(id: int):
-	$loby.exit_server_tree()
 	
 	
 func del_score(id: int):
@@ -154,12 +143,6 @@ func del_score(id: int):
 
 
 func _input(event):
-	if Input.is_action_just_pressed("exit"):
-		if multiplayer.is_server():
-			$loby.exit()
-			return
-		kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
-		return
 	if Input.is_action_pressed("Info"):
 		$Tap.visible = true
 	if Input.is_action_just_released("Info"):
@@ -168,10 +151,16 @@ func _input(event):
 
 func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
-	multiplayer.multiplayer_peer.disconnect_peer(id)
-	multiplayer.multiplayer_peer = null
+	kick.rpc(id)
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return
+	
+	
+@rpc("any_peer","call_local")
+func kick(id):
+	del_text_tap(id)
+	del_score(id)
+	del_player(id)
 	
 	
 func del_player(id: int):
