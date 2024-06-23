@@ -15,10 +15,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("exit"):
 		exit()
 		return
-	
-	if count_players_wait == 1 and player_conect_count <= 1 and len(multiplayer.get_peers()) <= 1:
-		exit()
-		return
 	if visible:
 		visible_loby()
 	
