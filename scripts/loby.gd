@@ -3,7 +3,6 @@ extends CanvasLayer
 @export var count_players_wait = 0
 @export var player_conect_count = 0
 @export var is_running = false
-@export var dc_is_start = false
 @export var Max_clients = 6
 		
 		
@@ -16,8 +15,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("exit"):
 		exit()
 		return
-		
-	print(Max_clients, is_running)
+	
 	if count_players_wait == 1 and player_conect_count <= 1 and len(multiplayer.get_peers()) <= 1:
 		exit()
 		return
@@ -44,8 +42,7 @@ func update_player_count():
 @rpc("any_peer","call_local")
 func update_server_status_conected():
 	Max_clients = len(multiplayer.get_peers())
-	if count_players_wait == player_conect_count:
-		is_running = true
+	is_running = true
 	
 
 @rpc("any_peer","call_local")
@@ -56,7 +53,6 @@ func update_server_status_disconected():
 		return
 	
 	
-@rpc("any_peer","call_local")
 func reset_var():
 	count_players_wait = 0
 	player_conect_count = 0
@@ -83,7 +79,6 @@ func exit():
 		OS.alert("Keine Spieler gefunden!")
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
-		reset_var.rpc()
 		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
 		multiplayer.multiplayer_peer = null
 		get_tree().get_nodes_in_group("Level")[0].queue_free()
@@ -92,7 +87,6 @@ func exit():
 	else:
 		exit_server_tree()
 		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
-
 		
 @rpc("any_peer","call_local")
 func remove_count_player():
@@ -104,11 +98,6 @@ func remove_count_player():
 func remove_count_player_wait():
 	if count_players_wait > 0:
 		count_players_wait -= 1
-		
-		
-@rpc("any_peer","call_local")
-func dc_starting_toggle():
-	dc_is_start = not dc_is_start
 	
 	
 func exit_server_tree():
@@ -116,6 +105,11 @@ func exit_server_tree():
 	if get_node("CenterContainer/VBoxContainer/Warten").visible:
 		remove_count_player_wait.rpc()
 		
+
+func reset_loby():
+	if len(multiplayer.get_peers()) == 0 and is_running:
+		reset_var()
+	
 	
 func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text == "":
@@ -126,8 +120,6 @@ func _on_enter_pressed():
 			OS.alert("Name Exsistiert Schon!")
 			return
 			
-	if not dc_is_start and len(multiplayer.get_peers()) < 1:
-		dc_starting_toggle.rpc()
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		update_player_wait.rpc()
 		update_server_status_conected.rpc()

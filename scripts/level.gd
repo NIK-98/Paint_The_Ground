@@ -40,9 +40,7 @@ func _ready():
 
 
 func _process(delta):
-	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) >= $loby.Max_clients and $loby.dc_is_start:
-		$loby.dc_starting_toggle.rpc()
-		$loby.reset_var.rpc()
+	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	if not $Timer.is_stopped() and multiplayer.is_server():
@@ -167,6 +165,7 @@ func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
 	get_node("Players").get_node(str(id)).queue_free()
+	multiplayer.multiplayer_peer.disconnect_peer(id)
 	
 
 func _on_timer_timeout():
