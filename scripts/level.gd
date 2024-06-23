@@ -83,7 +83,7 @@ func add_player(id: int):
 		$loby.update_player_count.rpc()
 	var player = player_sceen.instantiate()
 	player.player = id
-	var randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
+	randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
 	player.position = randpos
 	player.name = str(id)
 	player.color_cell = len(multiplayer.get_peers())+1
@@ -108,7 +108,7 @@ func del_text_tap(id: int):
 			
 
 @rpc("call_local")
-func reset_bomben(anzahl: int):	
+func reset_bomben():	
 	for c in Bomben.get_child_count()-1:
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
@@ -184,7 +184,7 @@ func visible_start():
 	
 func _on_start_pressed():
 	visible_start.rpc()
-	reset_bomben.rpc_id(1, Global.Spawn_bomben_limit)
+	reset_bomben.rpc_id(1)
 
 
 func _on_timerbomb_timeout():

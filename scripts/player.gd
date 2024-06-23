@@ -95,7 +95,7 @@ func ende():
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-			area.get_parent().aktivate_bombe.rpc(name.to_int(), color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe.rpc(color_cell, area.get_parent())
 
 
 func painter(name: String):
