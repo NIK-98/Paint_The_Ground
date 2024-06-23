@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=33 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://csprtcrt63mm3" path="res://assets/ground/ground_yellow.png" id="10_g3jwm"]
 [ext_resource type="Script" path="res://scripts/Start.gd" id="12_xt3i6"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
+[ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
 texture = ExtResource("4_1vpo6")
@@ -275,6 +276,7 @@ expand_to_text_length = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Bestätiegen"
+script = ExtResource("15_unqr3")
 
 [node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
 visible = false

@@ -72,7 +72,7 @@ func exit():
 	if DisplayServer.get_name() == "headless":
 		return
 	if multiplayer.is_server():
-		OS.alert("Keine Spieler gefunden!")
+		OS.alert("Server beendet!")
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
 		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
