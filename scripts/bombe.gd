@@ -8,6 +8,8 @@ const  bomb_radius = 64*2
 		
 @rpc("any_peer","call_local")
 func aktivate_bombe(cell: int, clean):
+	if clean == EncodedObjectAsID:
+		return
 	for x in range(-bomb_radius,bomb_radius):
 		for y in range(-bomb_radius,bomb_radius):
 			var tile_position = map.local_to_map(Vector2i(clean.position.x+x,clean.position.y+y))
