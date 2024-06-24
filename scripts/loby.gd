@@ -4,8 +4,8 @@ extends CanvasLayer
 @export var player_conect_count = 0
 @export var is_running = false
 @export var Max_clients = 6
-		
-		
+	
+	
 func _ready():
 	Max_clients = 6
 	if DisplayServer.get_name() == "headless":
@@ -106,6 +106,10 @@ func reset_loby():
 	if len(multiplayer.get_peers()) == 0 and is_running:
 		reset_var()
 	
+
+@rpc("any_peer","call_local")
+func is_server_run_game():
+	Max_clients = 0
 	
 func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text == "":
@@ -118,7 +122,10 @@ func _on_enter_pressed():
 			
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		update_player_wait.rpc()
-		update_server_status_conected.rpc()
+		if is_multiplayer_authority():
+			is_server_run_game.rpc()
+		else:
+			update_server_status_conected.rpc()
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true

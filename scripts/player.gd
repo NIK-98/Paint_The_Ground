@@ -89,9 +89,8 @@ func ende():
 				$CanvasLayer/Los.visible = true
 		if not $CanvasLayer/Los.visible:
 			$CanvasLayer/Winner.visible = true
-			
 		
-
+		
 func bombe_attack():
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":

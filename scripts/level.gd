@@ -49,7 +49,6 @@ func _process(delta):
 		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 		
 
-
 func _exit_tree():
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	if not multiplayer.is_server():
