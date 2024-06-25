@@ -7,15 +7,13 @@ var port = "11111"
 
 func _ready():
 	var args = OS.get_cmdline_args()
-	var argument_wert = ""
 	if args.has("-p"):
-		argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
-	if not argument_wert.is_valid_int():
-		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
-	
-	if port.is_valid_int() and port != "11111":
+		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
 		port = argument_wert
-		prints("port wurde auf ", argument_wert, " gesetzt!")
+	if not port.is_valid_int():
+		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
+		port = "11111"
+	prints("Port wurde auf ", port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
 			
 	OS.request_permissions()
 	multiplayer.server_relay = false
