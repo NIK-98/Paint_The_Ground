@@ -2,9 +2,21 @@ extends Node
 
 var block_host = false
 var Max_clients = 6
+var port = "11111"
 
 
 func _ready():
+	var args = OS.get_cmdline_args()
+	var argument_wert = ""
+	if args.has("-p"):
+		argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
+	if not argument_wert.is_valid_int():
+		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
+	
+	if port.is_valid_int() and port != "11111":
+		port = argument_wert
+		prints("port wurde auf ", argument_wert, " gesetzt!")
+			
 	OS.request_permissions()
 	multiplayer.server_relay = false
 	
@@ -28,7 +40,8 @@ func _on_host_pressed():
 	if block_host:
 		return
 	var peer = ENetMultiplayerPeer.new()
-	var port = $UI/Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+	if OS.get_cmdline_args().size() <= 1:
+		port = $UI/Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		return
@@ -48,7 +61,8 @@ func _on_connect_pressed():
 		return
 	block_host = true
 	var txt = $UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	var port = $UI/Panel/CenterContainer/Net/Options/Option2/o4/port.text
+	if OS.get_cmdline_args().size() <= 1:
+		port = $UI/Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not txt.is_valid_ip_address() and not txt == "localhost":
 		OS.alert("Ist keine richtiege ip adresse.")
 		block_host = false
