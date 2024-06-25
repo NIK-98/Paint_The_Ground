@@ -9,7 +9,7 @@ var last_position = position
 var is_moving = true
 var tile_size = 64
 var tile_size_multipl = 1.5
-var color_cell = 1
+var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
 var score = 0
@@ -84,7 +84,7 @@ func Check_Time_Visible():
 func ende():
 	if input.aktueller_spieler:
 		Global.Gameover = false
-		for i in get_parent().get_parent().get_node("CanvasLayer/Wertung").get_children():
+		for i in get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
 			if i.text.to_int() > score:
 				$CanvasLayer/Los.visible = true
 		if not $CanvasLayer/Los.visible:
@@ -92,9 +92,14 @@ func ende():
 		
 		
 func bombe_attack():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
+	for i in get_parent().get_child_count():
+		if get_parent().get_child(i).name == name:
+			color_cell = i+1
+			break
+	if len(multiplayer.get_peers()) == get_parent().get_parent().get_node("loby").Max_clients or get_parent().get_parent().get_node("loby").Max_clients == 0:
+		for area in $Area2D.get_overlapping_areas():
+			if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
+				area.get_parent().aktivate_bombe(color_cell, area.get_parent())
 
 
 func painter(name: String):
@@ -109,8 +114,8 @@ func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
-	if last_score != score and get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)) != null:
-		get_parent().get_parent().get_node("CanvasLayer/Wertung").get_node(str(name)).wertung(name.to_int())
+	if last_score != score and get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(name)) != null:
+		get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
 @rpc("any_peer","call_local")

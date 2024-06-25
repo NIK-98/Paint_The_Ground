@@ -1,7 +1,7 @@
 extends Label
 
-@onready var map = get_parent().get_parent().get_parent().get_node("floor")
-@onready var Players = get_parent().get_parent().get_parent().get_node("Players")
+@onready var map = get_parent().get_parent().get_parent().get_parent().get_node("floor")
+@onready var Players = get_parent().get_parent().get_parent().get_parent().get_node("Players")
 	
 
 func wertung(id: int):

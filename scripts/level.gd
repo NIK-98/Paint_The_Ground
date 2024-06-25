@@ -17,6 +17,7 @@ const bomb_spawn_genzen = 250
 var Time_out = false
 
 func _ready():
+	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Camera2D.enabled = false
@@ -113,13 +114,15 @@ func reset_bomben():
 			Bomben.get_child(c).queue_free()
 			
 
+@rpc("any_peer","call_local")
 func update_spawn_bomb_position():
 	oldrandpos = randpos
 	randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 
 
-@rpc("call_local")
 func spawn_new_bombe():
+	if is_multiplayer_authority():
+		update_spawn_bomb_position.rpc()
 	var new_bombe = bombe.instantiate()
 	new_bombe.name = "bombe"
 	new_bombe.position = randpos
@@ -130,13 +133,13 @@ func add_score(id: int):
 	var new_score_label = score_label.instantiate()
 	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
 	new_score_label.name = str(id)
-	get_node("CanvasLayer/Wertung").add_child(new_score_label, true)
+	get_node("Werten/PanelContainer/Wertung").add_child(new_score_label, true)
 	
 	
 func del_score(id: int):
-	if not get_node("CanvasLayer/Wertung").has_node(str(id)):
+	if not get_node("Werten/PanelContainer/Wertung").has_node(str(id)):
 		return
-	get_node("CanvasLayer/Wertung").get_node(str(id)).queue_free()
+	get_node("Werten/PanelContainer/Wertung").get_node(str(id)).queue_free()
 
 
 func _input(event):
@@ -184,10 +187,14 @@ func visible_start():
 func _on_start_pressed():
 	visible_start.rpc()
 	reset_bomben.rpc_id(1)
+	wertungs_anzeige_aktivieren.rpc()
+	
+	
+@rpc("any_peer","call_local")
+func wertungs_anzeige_aktivieren():
+	$Werten.visible = true
 
 
 func _on_timerbomb_timeout():
-	if is_multiplayer_authority():
-		for i in range(Global.Spawn_bomben_limit):
-			update_spawn_bomb_position()
-			spawn_new_bombe.rpc()
+	for i in range(Global.Spawn_bomben_limit):
+		spawn_new_bombe()

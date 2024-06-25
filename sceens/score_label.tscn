@@ -12,7 +12,8 @@ properties/1/replication_mode = 1
 
 [node name="score_label" type="Label"]
 theme_override_font_sizes/font_size = 42
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("1_b3urs")
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=35 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -76,6 +76,19 @@ sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
+bg_color = Color(1, 0.352941, 0.188235, 0.458824)
+border_width_left = 10
+border_width_right = 10
+border_color = Color(0.768627, 0.776471, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="Theme" id="Theme_farg5"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_cmhvs")
+
 [sub_resource type="SystemFont" id="SystemFont_tr6om"]
 font_names = PackedStringArray("Gill Sans")
 
@@ -142,6 +155,9 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath("loby:Max_clients")
 properties/11/spawn = true
 properties/11/replication_mode = 1
+properties/12/path = NodePath("Werten:visible")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -165,6 +181,22 @@ script = ExtResource("8_ul4n7")
 _spawnable_scenes = PackedStringArray("res://sceens/player.tscn")
 spawn_path = NodePath("../Players")
 
+[node name="Werten" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="Werten"]
+offset_left = 1064.0
+offset_right = 1214.0
+offset_bottom = 58.0
+theme = SubResource("Theme_farg5")
+
+[node name="Wertung" type="VBoxContainer" parent="Werten/PanelContainer"]
+layout_mode = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Werten"]
+_spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
+spawn_path = NodePath("../PanelContainer/Wertung")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -174,18 +206,6 @@ offset_right = 136.0
 offset_bottom = 58.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
-
-[node name="Wertung" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -96.0
-offset_right = -96.0
-grow_horizontal = 0
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
-_spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
-spawn_path = NodePath("../Wertung")
 
 [node name="Bomb_time" type="Label" parent="CanvasLayer" groups=["time"]]
 modulate = Color(1, 1, 1, 0.847059)
