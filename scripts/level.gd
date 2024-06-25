@@ -13,6 +13,7 @@ const bomb_spawn_genzen = 250
 @onready var Bomben = get_node("Bomben")
 @export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 @export var oldrandpos = randpos
+@export var starting = false
 
 var Time_out = false
 
@@ -188,12 +189,23 @@ func _on_start_pressed():
 	visible_start.rpc()
 	reset_bomben.rpc_id(1)
 	wertungs_anzeige_aktivieren.rpc()
+	starting_game.rpc()
 	
 	
 @rpc("any_peer","call_local")
 func wertungs_anzeige_aktivieren():
 	$Werten.visible = true
 
+
+@rpc("any_peer","call_local")
+func starting_game():
+	starting = true
+	
+
+@rpc("any_peer","call_local")
+func stoped_game():
+	starting = false
+	
 
 func _on_timerbomb_timeout():
 	for i in range(Global.Spawn_bomben_limit):

@@ -73,6 +73,7 @@ func exit():
 		return
 	if multiplayer.is_server():
 		OS.alert("Server beendet!")
+		get_parent().stoped_game.rpc()
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
 		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
@@ -82,6 +83,7 @@ func exit():
 		return
 	else:
 		exit_server_tree()
+		get_parent().stoped_game.rpc()
 		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
 		
 @rpc("any_peer","call_local")
@@ -104,6 +106,7 @@ func exit_server_tree():
 
 func reset_loby():
 	if len(multiplayer.get_peers()) == 0 and is_running:
+		get_parent().stoped_game.rpc()
 		reset_var()
 	
 

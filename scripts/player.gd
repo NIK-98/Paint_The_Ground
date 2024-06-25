@@ -44,7 +44,7 @@ func _physics_process(delta):
 		painter(name)
 		score_counter()
 	
-	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible:
+	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
@@ -96,10 +96,9 @@ func bombe_attack():
 		if get_parent().get_child(i).name == name:
 			color_cell = i+1
 			break
-	if len(multiplayer.get_peers()) == get_parent().get_parent().get_node("loby").Max_clients or get_parent().get_parent().get_node("loby").Max_clients == 0:
-		for area in $Area2D.get_overlapping_areas():
-			if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-				area.get_parent().aktivate_bombe(color_cell, area.get_parent())
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
+			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
 
 
 func painter(name: String):
