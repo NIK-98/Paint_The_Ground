@@ -108,9 +108,9 @@ func del_text_tap(id: int):
 			
 			
 
-@rpc("call_local")
+@rpc("any_peer","call_local")
 func reset_bomben():	
-	for c in Bomben.get_child_count()-1:
+	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
 			
@@ -179,18 +179,30 @@ func _on_timer_timeout():
 	
 
 @rpc("any_peer","call_local")
-func visible_start():
-	for i in get_node("CanvasLayer").get_children():
-		if i.is_in_group("start"):
-			i.visible = false
+func hide_start():
+	$CanvasLayer/Start.visible = false
 	
 	
 func _on_start_pressed():
-	visible_start.rpc()
-	reset_bomben.rpc_id(1)
+	hide_start.rpc()
+	reset_bomben.rpc()
 	wertungs_anzeige_aktivieren.rpc()
 	starting_game.rpc()
 	
+
+@rpc("any_peer","call_local")
+func reset_vars_level():
+	starting = false
+	$Timer.stop()
+	$Timerbomb.stop()
+	Time_out = false
+	$Werten.visible = false
+	$CanvasLayer/Time.visible = false
+	$CanvasLayer/Bomb_time.visible = false
+	$Camera2D.enabled = false
+	$Tap.visible = false
+	$CanvasLayer/Start.visible = true
+	map.reset_floor()
 	
 @rpc("any_peer","call_local")
 func wertungs_anzeige_aktivieren():
