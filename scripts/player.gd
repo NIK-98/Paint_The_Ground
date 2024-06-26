@@ -137,19 +137,31 @@ func color_change(name: String):
 		if get_parent().get_node(name) != null and i == 0:
 			get_node("Color").set_color(Color.GREEN)
 			get_node("Name").set("theme_override_colors/font_color",Color.GREEN)
+			get_node("CanvasLayer/Winner").set_color(Color.GREEN)
+			get_node("CanvasLayer/Los").set_color(Color.GREEN)
 		if get_parent().get_node(name) != null and i == 1:
 			get_node("Color").set_color(Color.DARK_RED)
 			get_node("Name").set("theme_override_colors/font_color",Color.DARK_RED)
+			get_node("CanvasLayer/Winner").set_color(Color.DARK_RED)
+			get_node("CanvasLayer/Los").set_color(Color.DARK_RED)
 		if get_parent().get_node(name) != null and i == 2:
 			get_node("Color").set_color(Color.DARK_BLUE)
 			get_node("Name").set("theme_override_colors/font_color",Color.DARK_BLUE)
+			get_node("CanvasLayer/Winner").set_color(Color.DARK_BLUE)
+			get_node("CanvasLayer/Los").set_color(Color.DARK_BLUE)
 		if get_parent().get_node(name) != null and i == 3:
 			get_node("Color").set_color(Color.DEEP_SKY_BLUE)
 			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
+			get_node("CanvasLayer/Winner").set_color(Color.DEEP_SKY_BLUE)
+			get_node("CanvasLayer/Los").set_color(Color.DEEP_SKY_BLUE)
 		if get_parent().get_node(name) != null and i == 4:
 			get_node("Color").set_color(Color.VIOLET)
 			get_node("Name").set("theme_override_colors/font_color",Color.VIOLET)
+			get_node("CanvasLayer/Winner").set_color(Color.VIOLET)
+			get_node("CanvasLayer/Los").set_color(Color.VIOLET)
 		if get_parent().get_node(name) != null and i == 5:
 			get_node("Color").set_color(Color.YELLOW)
 			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
+			get_node("CanvasLayer/Winner").set_color(Color.YELLOW)
+			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 			

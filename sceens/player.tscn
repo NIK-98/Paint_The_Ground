@@ -89,8 +89,10 @@ offset_top = 256.0
 offset_right = 1161.0
 offset_bottom = 529.0
 theme_override_colors/font_color = Color(0.470588, 1, 0, 1)
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 145
 text = "Gewonnen"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Info" type="Label" parent="CanvasLayer/Winner"]
 layout_mode = 0
@@ -114,9 +116,11 @@ offset_top = 256.0
 offset_right = 1118.0
 offset_bottom = 529.0
 theme_override_colors/font_color = Color(0.470588, 1, 0, 1)
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 145
 text = "Verlohren
 "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Info" type="Label" parent="CanvasLayer/Los"]
 layout_mode = 0

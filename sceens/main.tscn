@@ -305,7 +305,7 @@ visibility_mode = 1
 
 [node name="Tap" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.607843)
-position = Vector2(1634.29, 45.7143)
+position = Vector2(1634.29, 11.4286)
 scale = Vector2(2.14286, 2.14286)
 texture_normal = ExtResource("9_jd08x")
 passby_press = true
