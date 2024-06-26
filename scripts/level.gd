@@ -124,10 +124,10 @@ func update_spawn_bomb_position():
 func spawn_new_bombe():
 	if is_multiplayer_authority():
 		update_spawn_bomb_position.rpc()
-	var new_bombe = bombe.instantiate()
-	new_bombe.name = "bombe"
-	new_bombe.position = randpos
-	Bomben.add_child(new_bombe)
+		var new_bombe = bombe.instantiate()
+		new_bombe.name = "bombe"
+		new_bombe.position = randpos
+		Bomben.add_child(new_bombe, true)
 	
 	
 func add_score(id: int):

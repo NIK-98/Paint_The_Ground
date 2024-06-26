@@ -178,6 +178,10 @@ script = ExtResource("8_ul4n7")
 
 [node name="Bomben" type="Node" parent="."]
 
+[node name="BombenSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://sceens/bombe.tscn")
+spawn_path = NodePath("../Bomben")
+
 [node name="Players" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
