@@ -83,7 +83,6 @@ func exit():
 		return
 	else:
 		exit_server_tree()
-		get_parent().stoped_game.rpc()
 		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
 		
 @rpc("any_peer","call_local")
