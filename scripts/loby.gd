@@ -104,12 +104,13 @@ func exit_server_tree():
 		
 
 func reset_loby():
-	if len(multiplayer.get_peers()) == 0 and is_running:
-		get_parent().stoped_game.rpc()
-		reset_var()
-		get_parent().reset_vars_level.rpc()
-		get_parent().reset_bomben.rpc()
-		exit()
+	if DisplayServer.get_name() == "headless":
+		if len(multiplayer.get_peers()) == 0 and is_running:
+			get_parent().stoped_game.rpc()
+			reset_var()
+			get_parent().reset_vars_level.rpc()
+			get_parent().reset_bomben.rpc()
+			exit()
 	
 
 @rpc("any_peer","call_local")
