@@ -41,14 +41,14 @@ func _ready():
 func _physics_process(delta):		
 	if not loaded:
 		loaded = true
-		painter()
+		paint.rpc()
 		score_counter()
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
-			painter()
+			paint.rpc()
 			score_counter()
 			Check_Time_Visible.rpc()
 			get_parent().get_parent().get_node("Timer").start()
@@ -67,7 +67,7 @@ func _physics_process(delta):
 
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
-				painter()
+				paint.rpc()
 			score_counter()
 			bombe_attack()
 		if get_parent().get_parent().Time_out:
@@ -94,17 +94,9 @@ func ende():
 		
 		
 func bombe_attack():
-	for i in get_parent().get_child_count():
-		if get_parent().get_child(i).name == name:
-			color_cell = i+1
-			break
 	for area in $Area2D.get_overlapping_areas():
 		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
 			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
-
-
-func painter():
-	paint.rpc(color_cell)
 	
 
 func score_counter():
@@ -117,7 +109,7 @@ func score_counter():
 		
 
 @rpc("any_peer","call_local")
-func paint(tile: int):
+func paint():
 	var radius = Vector2i($Color.size.x,$Color.size.y)
 	var tile_position_top_left = map.local_to_map(Vector2i(position.x,position.y))
 	var tile_position_down_right = map.local_to_map(Vector2i(position.x+radius.x,position.y+radius.y))
@@ -128,7 +120,7 @@ func paint(tile: int):
 	var tile_position = map.local_to_map(Vector2i(position.x,position.y))
 	for x in range(0,2):
 		for y in range(0,2):
-			map.set_cell(0,Vector2i(tile_position.x+x,tile_position.y+y),tile,Vector2i(0,0))
+			map.set_cell(0,Vector2i(tile_position.x+x,tile_position.y+y),color_cell,Vector2i(0,0))
 		
 		
 func color_change(name: String):

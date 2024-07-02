@@ -87,7 +87,6 @@ func add_player(id: int):
 	randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
 	player.position = randpos
 	player.name = str(id)
-	player.color_cell = len(multiplayer.get_peers())+1
 	get_node("Players").add_child(player, true)
 	add_score(id)
 
