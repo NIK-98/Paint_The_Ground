@@ -41,7 +41,7 @@ func _ready():
 		add_player(1)
 
 
-func _process(delta):
+func _process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -142,7 +142,7 @@ func del_score(id: int):
 	get_node("Werten/PanelContainer/Wertung").get_node(str(id)).queue_free()
 
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed("Info"):
 		$Tap.visible = true
 	if Input.is_action_just_released("Info"):

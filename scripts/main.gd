@@ -26,7 +26,7 @@ func _ready():
 		_on_host_pressed.call_deferred()
 		
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("cancel"):
 		block_host = false
 		$UI/Panel/CenterContainer/Net/Connecting.text = ""

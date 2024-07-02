@@ -11,7 +11,7 @@ func _ready():
 	if DisplayServer.get_name() == "headless":
 		Max_clients = 7
 		
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		exit()
 		return

@@ -35,10 +35,10 @@ func _ready():
 		
 	$Camera2D.limit_right = Global.Spielfeld_Size.x
 	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
-	color_change(name)
+	color_change()
 	map.reset_floor()
 
-func _physics_process(delta):		
+func _physics_process(_delta):		
 	if not loaded:
 		loaded = true
 		paint.rpc()
@@ -111,51 +111,51 @@ func score_counter():
 @rpc("any_peer","call_local")
 func paint():
 	var radius = Vector2i($Color.size.x,$Color.size.y)
-	var tile_position_top_left = map.local_to_map(Vector2i(position.x,position.y))
-	var tile_position_down_right = map.local_to_map(Vector2i(position.x+radius.x,position.y+radius.y))
+	var tile_position_top_left = map.local_to_map(Vector2(position.x,position.y))
+	var tile_position_down_right = map.local_to_map(Vector2(position.x+radius.x,position.y+radius.y))
 	if tile_position_down_right not in map.get_used_cells(0):
 		return
 	if tile_position_top_left not in map.get_used_cells(0):
 		return
-	var tile_position = map.local_to_map(Vector2i(position.x,position.y))
+	var tile_position = map.local_to_map(Vector2(position.x,position.y))
 	for x in range(0,2):
 		for y in range(0,2):
 			map.set_cell(0,Vector2i(tile_position.x+x,tile_position.y+y),color_cell,Vector2i(0,0))
 		
 		
-func color_change(name: String):
+func color_change():
 	for i in range(len(get_parent().get_children())):
-		if get_parent().get_node(name) != null and i == 0:
+		if get_parent().get_node(str(name)) != null and i == 0:
 			color_cell = 1
 			get_node("Color").set_color(Color.GREEN)
 			get_node("Name").set("theme_override_colors/font_color",Color.GREEN)
 			get_node("CanvasLayer/Winner").set_color(Color.GREEN)
 			get_node("CanvasLayer/Los").set_color(Color.GREEN)
-		if get_parent().get_node(name) != null and i == 1:
+		if get_parent().get_node(str(name)) != null and i == 1:
 			color_cell = 2
 			get_node("Color").set_color(Color.DARK_RED)
 			get_node("Name").set("theme_override_colors/font_color",Color.DARK_RED)
 			get_node("CanvasLayer/Winner").set_color(Color.DARK_RED)
 			get_node("CanvasLayer/Los").set_color(Color.DARK_RED)
-		if get_parent().get_node(name) != null and i == 2:
+		if get_parent().get_node(str(name)) != null and i == 2:
 			color_cell = 3
 			get_node("Color").set_color(Color.DARK_BLUE)
 			get_node("Name").set("theme_override_colors/font_color",Color.DARK_BLUE)
 			get_node("CanvasLayer/Winner").set_color(Color.DARK_BLUE)
 			get_node("CanvasLayer/Los").set_color(Color.DARK_BLUE)
-		if get_parent().get_node(name) != null and i == 3:
+		if get_parent().get_node(str(name)) != null and i == 3:
 			color_cell = 4
 			get_node("Color").set_color(Color.DEEP_SKY_BLUE)
 			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
 			get_node("CanvasLayer/Winner").set_color(Color.DEEP_SKY_BLUE)
 			get_node("CanvasLayer/Los").set_color(Color.DEEP_SKY_BLUE)
-		if get_parent().get_node(name) != null and i == 4:
+		if get_parent().get_node(str(name)) != null and i == 4:
 			color_cell = 5
 			get_node("Color").set_color(Color.VIOLET)
 			get_node("Name").set("theme_override_colors/font_color",Color.VIOLET)
 			get_node("CanvasLayer/Winner").set_color(Color.VIOLET)
 			get_node("CanvasLayer/Los").set_color(Color.VIOLET)
-		if get_parent().get_node(name) != null and i == 5:
+		if get_parent().get_node(str(name)) != null and i == 5:
 			color_cell = 6
 			get_node("Color").set_color(Color.YELLOW)
 			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
