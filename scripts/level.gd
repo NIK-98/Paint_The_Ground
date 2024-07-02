@@ -162,13 +162,13 @@ func kick(id):
 	del_text_tap(id)
 	del_score(id)
 	del_player(id)
+	multiplayer.multiplayer_peer.close()
 	
 	
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
 	get_node("Players").get_node(str(id)).queue_free()
-	multiplayer.multiplayer_peer.disconnect_peer(id)
 	
 
 func _on_timer_timeout():

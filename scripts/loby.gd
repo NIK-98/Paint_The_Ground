@@ -48,7 +48,8 @@ func update_server_status_disconected():
 		Max_clients = 7
 		return
 	
-	
+
+@rpc("any_peer","call_local")	
 func reset_var():
 	count_players_wait = 0
 	player_conect_count = 0
@@ -76,7 +77,7 @@ func exit():
 		get_parent().stoped_game.rpc()
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
-		multiplayer.multiplayer_peer.disconnect_peer(multiplayer.get_unique_id())
+		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 		get_tree().get_nodes_in_group("Level")[0].queue_free()
 		get_tree().change_scene_to_file("res://sceens/main.tscn")
@@ -107,7 +108,7 @@ func reset_loby():
 	if DisplayServer.get_name() == "headless":
 		if len(multiplayer.get_peers()) == 0 and is_running:
 			get_parent().stoped_game.rpc()
-			reset_var()
+			reset_var.rpc()
 			get_parent().reset_vars_level.rpc()
 			get_parent().reset_bomben.rpc()
 			exit()
