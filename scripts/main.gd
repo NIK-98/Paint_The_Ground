@@ -158,3 +158,43 @@ func _on_tap_pressed():
 
 func _on_tap_released():
 	Input.action_release("Info")
+
+
+func _on_up_left_pressed():
+	Input.action_press("up")
+	Input.action_press("left")
+
+
+func _on_up_left_released():
+	Input.action_release("up")
+	Input.action_release("left")
+
+
+func _on_up_right_pressed():
+	Input.action_press("up")
+	Input.action_press("right")
+
+
+func _on_up_right_released():
+	Input.action_release("up")
+	Input.action_release("right")
+
+
+func _on_down_left_pressed():
+	Input.action_press("down")
+	Input.action_press("left")
+
+
+func _on_down_left_released():
+	Input.action_release("down")
+	Input.action_release("left")
+
+
+func _on_down_right_pressed():
+	Input.action_press("down")
+	Input.action_press("right")
+	
+	
+func _on_down_right_released():
+	Input.action_release("down")
+	Input.action_release("right")
