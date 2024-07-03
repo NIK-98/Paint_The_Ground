@@ -51,11 +51,7 @@ func _process(_delta):
 		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 		
 
-func _exit_tree():
-	multiplayer.server_disconnected.disconnect(verbindung_verloren)
-	if not multiplayer.is_server():
-		return
-		
+func exittree():	
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
@@ -68,7 +64,7 @@ func verbindung_verloren():
 	
 
 @rpc("call_local")
-func voll(id: int):
+func voll():
 	OS.alert("Server Voll!")
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
@@ -78,7 +74,7 @@ func voll(id: int):
 
 func add_player(id: int):
 	if len(multiplayer.get_peers()) >= $loby.Max_clients:
-		voll.rpc_id(id, id)
+		voll.rpc_id(id)
 		return
 	if len(multiplayer.get_peers()) < $loby.Max_clients:
 		$loby.update_player_count.rpc()
@@ -152,6 +148,7 @@ func _input(_event):
 
 func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
+	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	kick.rpc(id)
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return

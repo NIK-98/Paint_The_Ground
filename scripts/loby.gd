@@ -77,6 +77,7 @@ func exit():
 		get_parent().stoped_game.rpc()
 		update_runnig_status_disconected.rpc()
 		update_server_status_disconected.rpc()
+		get_parent().exittree()
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 		get_tree().get_nodes_in_group("Level")[0].queue_free()
