@@ -69,7 +69,6 @@ func _physics_process(_delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter()
-			bombe_attack()
 		if get_parent().get_parent().Time_out:
 			ende()
 		
@@ -91,12 +90,6 @@ func ende():
 				$CanvasLayer/Los.visible = true
 		if not $CanvasLayer/Los.visible:
 			$CanvasLayer/Winner.visible = true
-		
-		
-func bombe_attack():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
 	
 
 func score_counter():
@@ -162,3 +155,9 @@ func color_change():
 			get_node("CanvasLayer/Winner").set_color(Color.YELLOW)
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 			
+
+
+func _on_area_2d_area_entered(area):
+	if Gametriggerstart:
+		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
+			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
