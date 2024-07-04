@@ -120,7 +120,13 @@ func is_server_run_game():
 	Max_clients = 0
 	
 func _on_enter_pressed():
-	if $CenterContainer/VBoxContainer/name_input.text == "":
+	var vaild_text = false
+	for i in $CenterContainer/VBoxContainer/name_input.text:
+		if i == " ":
+			vaild_text = false
+		else:
+			vaild_text = true
+	if not vaild_text:
 		OS.alert("Bitte Namen Eingeben!")
 		return
 	for i in get_parent().get_node("Players").get_children():
