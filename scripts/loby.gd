@@ -127,7 +127,7 @@ func _on_enter_pressed():
 		else:
 			vaild_text = true
 	if not vaild_text:
-		OS.alert("Bitte Namen Eingeben!")
+		OS.alert("Bitte Namen Eingeben und \nlehrzeichen am ende vermeiden!")
 		return
 	for i in get_parent().get_node("Players").get_children():
 		if i.get_node("Name").text == $CenterContainer/VBoxContainer/name_input.text:
