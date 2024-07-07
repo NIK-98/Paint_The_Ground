@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var level = get_parent().get_parent()
-var attack_bombe = null
 
 const  bomb_radius = 64*2
 	
