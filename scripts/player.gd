@@ -110,10 +110,11 @@ func paint():
 		return
 	if tile_position_top_left not in map.get_used_cells(0):
 		return
-	var tile_position = map.local_to_map(Vector2(position.x,position.y))
-	for x in range(0,2):
-		for y in range(0,2):
-			map.set_cell(0,Vector2i(tile_position.x+x,tile_position.y+y),color_cell,Vector2i(0,0))
+	var tile_position = map.local_to_map(position)
+	for x in range(2):
+		for y in range(2):
+			var pos = Vector2i(x,y) + tile_position
+			map.set_cell(0,pos,color_cell,Vector2i(0,0))
 		
 		
 func color_change():
