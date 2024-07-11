@@ -10,7 +10,7 @@ func aktivate_bombe(cell: int, clean: Node2D):
 	var tile_position = map.local_to_map(clean.position)
 	for x in range(-bomb_radius,bomb_radius):
 		for y in range(-bomb_radius,bomb_radius):
-			var position = Vector2i(x, y) + tile_position
-			map.set_cell(0, position, cell, Vector2i(0,0))
+			var pos = Vector2i(x, y) + tile_position
+			map.set_cell(0, pos, cell, Vector2i(0,0))
 	if is_multiplayer_authority():
 		clean.queue_free()
