@@ -54,24 +54,13 @@ func _physics_process(_delta):
 			get_parent().get_parent().get_node("Timer").start()
 			get_parent().get_parent().get_node("Timerbomb").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
-			if position.x < 0:
-				velocity.x += 10
-			elif position.x+$Color.size.x > Global.Spielfeld_Size.x:
-				velocity.x -= 10
-			elif position.y < 0:
-				velocity.y += 10
-			elif position.y+$Color.size.y > Global.Spielfeld_Size.y:
-				velocity.y -= 10
-			else:
-				velocity = input.move*SPEED
-
+			velocity = input.move*SPEED
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter()
 		if get_parent().get_parent().Time_out:
 			ende()
-		
 	
 	
 @rpc("any_peer","call_local")
@@ -103,13 +92,6 @@ func score_counter():
 
 @rpc("any_peer","call_local")
 func paint():
-	var radius = Vector2i($Color.size.x,$Color.size.y)
-	var tile_position_top_left = map.local_to_map(Vector2(position.x,position.y))
-	var tile_position_down_right = map.local_to_map(Vector2(position.x+radius.x,position.y+radius.y))
-	if tile_position_down_right not in map.get_used_cells(0):
-		return
-	if tile_position_top_left not in map.get_used_cells(0):
-		return
 	var tile_position = map.local_to_map(position)
 	for x in range(2):
 		for y in range(2):
