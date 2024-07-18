@@ -1,24 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=18 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
+[ext_resource type="Texture2D" uid="uid://d1jwkv1peoon6" path="res://assets/background/Main.png" id="2_plmyg"]
 
 [sub_resource type="Theme" id="Theme_lp7i3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bseex"]
-bg_color = Color(0, 0.196078, 0.584314, 1)
-border_width_left = 25
-border_width_top = 25
-border_width_right = 25
-border_width_bottom = 25
-border_color = Color(1, 0.752941, 0.247059, 1)
-border_blend = true
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0.960784, 0.933333, 0, 0.6)
-shadow_size = 15
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdq5t"]
+texture = ExtResource("2_plmyg")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
 bg_color = Color(0, 0.682353, 0.701961, 1)
@@ -90,7 +79,7 @@ offset_left = -296.0
 offset_top = -120.0
 offset_right = 984.0
 offset_bottom = 680.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_bseex")
+theme_override_styles/panel = SubResource("StyleBoxTexture_qdq5t")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel"]
 layout_mode = 2
@@ -100,8 +89,8 @@ layout_mode = 2
 
 [node name="Steuerung" type="Label" parent="Panel/CenterContainer/Net"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
 text = "Steuerung Tastatur:
 ________________________________
 - wasd = laufen
