@@ -67,6 +67,12 @@ func _process(_delta):
 func _on_host_pressed():
 	if block_host:
 		return
+		
+	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
+	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+	get_parent().save_game()
+	
 	var peer = ENetMultiplayerPeer.new()
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().save_path):
 		port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
@@ -82,18 +88,18 @@ func _on_host_pressed():
 			OS.alert("Versuchen sie einen port über 1024!")
 		return
 	multiplayer.multiplayer_peer = peer
-	
-	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
-	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
-	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().save_game()
-	
 	start_game()
 		
 		
 func _on_connect_pressed():
 	if block_host:
 		return
+		
+	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
+	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+	get_parent().save_game()
+		
 	block_host = true
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
@@ -125,12 +131,6 @@ func _on_connect_pressed():
 	if not block_host:
 		multiplayer.disconnect_peer(peer.get_unique_id())
 		return
-		
-	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
-	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
-	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().save_game()
-	
 	start_game()
 	
 

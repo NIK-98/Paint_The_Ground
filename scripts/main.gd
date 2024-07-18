@@ -4,8 +4,8 @@ var save_path = "user://savetemp.save"
 
 func _ready():
 	load_game()
-
-		
+	
+	
 func save_game():
 	if FileAccess.file_exists(save_path):
 		DirAccess.remove_absolute(save_path)
@@ -92,3 +92,4 @@ func _on_tap_pressed():
 
 func _on_tap_released():
 	Input.action_release("Info")
+	
