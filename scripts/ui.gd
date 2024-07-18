@@ -64,6 +64,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("exit") and visible:
 		esc_is_pressing = true
 		get_parent().get_node("CanvasLayer/Beenden").visible = true
+		get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
 		
 
 func _on_host_pressed():

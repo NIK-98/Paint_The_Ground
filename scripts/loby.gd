@@ -16,6 +16,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		esc_is_pressing_in_game = true
 		get_parent().get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
+		get_parent().get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
 		return
 	if visible:
 		visible_loby()

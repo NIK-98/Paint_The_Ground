@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=18 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -66,11 +66,10 @@ shadow_size = 10
 
 [sub_resource type="Theme" id="Theme_iehin"]
 Button/font_sizes/font_size = 100
+Button/styles/focus = SubResource("StyleBoxFlat_scvyy")
 Button/styles/hover = SubResource("StyleBoxFlat_scvyy")
 Button/styles/normal = SubResource("StyleBoxFlat_udlca")
 Button/styles/pressed = SubResource("StyleBoxFlat_7jm4l")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2lpi4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48w5a"]
 bg_color = Color(0.733333, 0.580392, 0, 1)
@@ -110,11 +109,10 @@ shadow_size = 10
 
 [sub_resource type="Theme" id="Theme_kbdh3"]
 Button/font_sizes/font_size = 100
+Button/styles/focus = SubResource("StyleBoxFlat_48w5a")
 Button/styles/hover = SubResource("StyleBoxFlat_48w5a")
 Button/styles/normal = SubResource("StyleBoxFlat_8hspt")
 Button/styles/pressed = SubResource("StyleBoxFlat_3fw6i")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wt8t"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
@@ -191,13 +189,11 @@ text = "Beenden?"
 [node name="Ja" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_iehin")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2lpi4")
 text = "JA"
 
 [node name="Nein" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_kbdh3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2wt8t")
 text = "NEIN"
 
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]

@@ -76,6 +76,7 @@ func load_game():
 	
 
 func _on_leave_pressed():
+	$CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja.grab_focus()
 	$CanvasLayer/Beenden.visible = true
 
 
