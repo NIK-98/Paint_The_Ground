@@ -27,8 +27,6 @@ func save():
 	
 func _ready():
 	name = "UI"
-	if FileAccess.file_exists(get_parent().save_path):
-		return
 	var args = OS.get_cmdline_args()
 	if args.has("-p"):
 		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
