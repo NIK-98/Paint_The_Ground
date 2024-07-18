@@ -26,26 +26,7 @@ func save():
 	
 	
 func _ready():
-	name = "UI"
-	var args = OS.get_cmdline_args()
-	if args.has("-p"):
-		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
-		port = argument_wert
-	if not port.is_valid_int():
-		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
-		port = "11111"
-	prints("Port wurde auf ", port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
-			
-	OS.request_permissions()
-	multiplayer.server_relay = false
-	
-	
-	Max_clients = 6
-	if DisplayServer.get_name() == "headless":
-		Max_clients = 7
-		print("Startet Dedicated Server.")
-		_on_host_pressed.call_deferred()
-		
+	name = "UI"	
 	
 func _process(_delta):
 	if not loaded:
@@ -90,7 +71,7 @@ func _on_host_pressed():
 		return
 	multiplayer.multiplayer_peer = peer
 	start_game()
-		
+
 		
 func _on_connect_pressed():
 	if block_host:
@@ -136,9 +117,9 @@ func _on_connect_pressed():
 	
 
 func start_game():
-	hide()
 	if multiplayer.is_server():
 		change_level(preload("res://sceens/level.tscn"))
+	visible = false
 
 
 func change_level(scene: PackedScene):

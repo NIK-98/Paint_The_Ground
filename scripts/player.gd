@@ -130,7 +130,8 @@ func color_change():
 func _on_area_2d_area_entered(area):
 	if Gametriggerstart:
 		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
+			area.get_parent().aktivate_bombe.rpc(color_cell, area.get_parent())
+			area.get_parent().queue_free()
 
 
 func _exit_tree():

@@ -4,6 +4,23 @@ var save_path = "user://savetemp.save"
 
 func _ready():
 	load_game()
+	if not OS.has_feature("dedicated_server"):
+		return
+	var args = OS.get_cmdline_args()
+	if args.has("-p"):
+		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
+		$UI.port = argument_wert
+	if not $UI.port.is_valid_int():
+		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
+		$UI.port = "11111"
+	prints("Port wurde auf ", $UI.port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
+	
+	
+	$UI.Max_clients = 6
+	if DisplayServer.get_name() == "headless":
+		$UI.Max_clients = 7
+		print("Startet Dedicated Server.")
+		$UI._on_host_pressed.call_deferred()
 	
 	
 func save_game():
