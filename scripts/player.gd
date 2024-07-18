@@ -54,6 +54,7 @@ func _physics_process(_delta):
 			get_parent().get_parent().get_node("Timer").start()
 			get_parent().get_parent().get_node("Timerbomb").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
+			input.moving()
 			velocity = input.move*SPEED
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):

@@ -1,11 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=21 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="Script" path="res://scripts/Host.gd" id="2_rf3o8"]
-[ext_resource type="Texture2D" uid="uid://cpwek2amma036" path="res://assets/controll/up.png" id="3_f5dh7"]
-[ext_resource type="Texture2D" uid="uid://mawrrovi0n0b" path="res://assets/controll/down.png" id="4_7tmhu"]
-[ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="5_6bpj2"]
-[ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="6_7t78o"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
@@ -261,30 +257,6 @@ layer = 5
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 
-[node name="Up" type="Sprite2D" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(148.571, 514.286)
-scale = Vector2(1, 0.5)
-texture = ExtResource("3_f5dh7")
-
-[node name="Down" type="Sprite2D" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(147.143, 698.572)
-scale = Vector2(1, 0.5)
-texture = ExtResource("4_7tmhu")
-
-[node name="Right" type="Sprite2D" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(241.429, 605.714)
-scale = Vector2(0.5, 1)
-texture = ExtResource("5_6bpj2")
-
-[node name="Left" type="Sprite2D" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(55.7143, 605.714)
-scale = Vector2(0.5, 1)
-texture = ExtResource("6_7t78o")
-
 [node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.415686)
 position = Vector2(45.7143, 45.7143)
@@ -310,7 +282,10 @@ visibility_mode = 1
 
 [node name="joy" parent="CanvasLayer" instance=ExtResource("6_oe035")]
 modulate = Color(1, 1, 1, 0.788235)
-position = Vector2(91.4286, 548.571)
+offset_left = 91.4286
+offset_top = 548.571
+offset_right = 91.4286
+offset_bottom = 548.571
 
 [connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="UI/Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]

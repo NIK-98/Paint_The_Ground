@@ -1,17 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8nb1u01xg65s"]
+[gd_scene load_steps=8 format=3 uid="uid://c8nb1u01xg65s"]
 
 [ext_resource type="Texture2D" uid="uid://b5pfu1bkgxei6" path="res://assets/controll/joy.png" id="1_xhhrx"]
 [ext_resource type="Script" path="res://scripts/joy.gd" id="2_463r8"]
+[ext_resource type="Texture2D" uid="uid://cpwek2amma036" path="res://assets/controll/up.png" id="3_gbchc"]
 [ext_resource type="Texture2D" uid="uid://d22wtuyivljcq" path="res://assets/controll/joydot.png" id="3_vt4s1"]
+[ext_resource type="Texture2D" uid="uid://mawrrovi0n0b" path="res://assets/controll/down.png" id="4_otyq2"]
+[ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="5_wllb0"]
+[ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="6_mo5nj"]
 
-[node name="joy" type="TouchScreenButton"]
-position = Vector2(160, 537.143)
+[node name="joy" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -56.0
+offset_top = -56.0
+offset_right = -56.0
+offset_bottom = -56.0
 scale = Vector2(1.78572, 1.78571)
-texture_normal = ExtResource("1_xhhrx")
-visibility_mode = 1
 script = ExtResource("2_463r8")
 
-[node name="Joy" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-scale = Vector2(1.6, 1.6)
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="joy" type="TouchScreenButton" parent="Control"]
+position = Vector2(0, -0.560001)
+texture_normal = ExtResource("1_xhhrx")
+visibility_mode = 1
+
+[node name="Up" type="Sprite2D" parent="Control"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(34.0404, -9.66068)
+scale = Vector2(0.494, 0.14)
+texture = ExtResource("3_gbchc")
+
+[node name="Down" type="Sprite2D" parent="Control"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(32.8004, 73.8996)
+scale = Vector2(0.494, 0.14)
+texture = ExtResource("4_otyq2")
+
+[node name="Right" type="Sprite2D" parent="Control"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(75.0398, 31.3601)
+scale = Vector2(0.158, 0.48)
+texture = ExtResource("5_wllb0")
+
+[node name="Left" type="Sprite2D" parent="Control"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(-12.32, 31.36)
+scale = Vector2(0.196, 0.48)
+texture = ExtResource("6_mo5nj")
+
+[node name="Joy" type="Sprite2D" parent="Control"]
+position = Vector2(31.3599, 31.3601)
+scale = Vector2(2.85715, 2.85714)
 texture = ExtResource("3_vt4s1")
