@@ -8,6 +8,7 @@ var Max_clients = 6
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 
 var loaded = false
+var esc_is_pressing = false
 
 
 func save():
@@ -25,6 +26,7 @@ func save():
 	
 	
 func _ready():
+	name = "UI"
 	if FileAccess.file_exists(get_parent().save_path):
 		return
 	var args = OS.get_cmdline_args()
@@ -50,6 +52,7 @@ func _ready():
 func _process(_delta):
 	if not loaded:
 		loaded = true
+		name = "UI"
 		$Panel/CenterContainer/Net/Options/Option2/o4/port.text = connectport
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
@@ -59,9 +62,8 @@ func _process(_delta):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""
 	if Input.is_action_just_pressed("exit") and visible:
-		if FileAccess.file_exists(get_parent().save_path):
-			DirAccess.remove_absolute(get_parent().save_path)
-		get_tree().quit()
+		esc_is_pressing = true
+		get_parent().get_node("CanvasLayer/Beenden").visible = true
 		
 
 func _on_host_pressed():

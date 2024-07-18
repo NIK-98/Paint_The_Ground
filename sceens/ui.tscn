@@ -66,6 +66,7 @@ LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
 
 [sub_resource type="SystemFont" id="SystemFont_6yb3n"]
 font_names = PackedStringArray("Goudy Stout")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_iqe0b"]
 Label/colors/font_color = Color(0.815686, 0.380392, 0, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=20 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -6,6 +6,115 @@
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl7u4"]
+bg_color = Color(0, 0.667527, 0.805084, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+expand_margin_left = 50.0
+expand_margin_top = 40.0
+expand_margin_right = 50.0
+expand_margin_bottom = 40.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rova"]
+bg_color = Color(0, 0.666667, 0.803922, 1)
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+
+[sub_resource type="Theme" id="Theme_47ifw"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 50
+Label/styles/normal = SubResource("StyleBoxFlat_8rova")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scvyy"]
+bg_color = Color(0.733066, 0.579528, 1.92523e-07, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udlca"]
+bg_color = Color(0.665557, 0, 0.0147375, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jm4l"]
+bg_color = Color(0.500758, 0.0942032, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="Theme" id="Theme_iehin"]
+Button/font_sizes/font_size = 100
+Button/styles/hover = SubResource("StyleBoxFlat_scvyy")
+Button/styles/normal = SubResource("StyleBoxFlat_udlca")
+Button/styles/pressed = SubResource("StyleBoxFlat_7jm4l")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2lpi4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48w5a"]
+bg_color = Color(0.733333, 0.580392, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hspt"]
+bg_color = Color(0.139212, 0.723929, 3.85046e-07, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fw6i"]
+bg_color = Color(0.17591, 0.459619, 9.62615e-08, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0, 0, 0.717647, 0.764706)
+shadow_size = 10
+
+[sub_resource type="Theme" id="Theme_kbdh3"]
+Button/font_sizes/font_size = 100
+Button/styles/hover = SubResource("StyleBoxFlat_48w5a")
+Button/styles/normal = SubResource("StyleBoxFlat_8hspt")
+Button/styles/pressed = SubResource("StyleBoxFlat_3fw6i")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wt8t"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
@@ -28,8 +137,8 @@ transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 
 [node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(45.7143, 45.7143)
-scale = Vector2(1.14286, 1.14286)
+position = Vector2(38.5714, 31.4286)
+scale = Vector2(0.797619, 0.785714)
 texture_normal = ExtResource("7_dpqrl")
 passby_press = true
 visibility_mode = 1
@@ -56,7 +165,44 @@ offset_top = 548.571
 offset_right = 91.4286
 offset_bottom = 548.571
 
+[node name="Beenden" type="CenterContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 550.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Beenden"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hl7u4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Beenden/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Beenden" type="Label" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_47ifw")
+text = "Beenden?"
+
+[node name="Ja" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_iehin")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2lpi4")
+text = "JA"
+
+[node name="Nein" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_kbdh3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2wt8t")
+text = "NEIN"
+
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
+[connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja" to="." method="_on_ja_pressed"]
+[connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Nein" to="." method="_on_nein_pressed"]

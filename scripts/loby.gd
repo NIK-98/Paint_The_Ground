@@ -5,6 +5,7 @@ extends CanvasLayer
 @export var is_running = false
 @export var Max_clients = 6
 	
+var esc_is_pressing_in_game = false
 	
 func _ready():
 	Max_clients = 6
@@ -13,7 +14,8 @@ func _ready():
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
-		exit()
+		esc_is_pressing_in_game = true
+		get_parent().get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
 		return
 	if visible:
 		visible_loby()
