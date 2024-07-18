@@ -1,0 +1,241 @@
+[gd_scene load_steps=17 format=3 uid="uid://bm6tjn54utlnw"]
+
+[ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
+
+[sub_resource type="Theme" id="Theme_lp7i3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bseex"]
+bg_color = Color(0, 0.196078, 0.584314, 1)
+border_width_left = 25
+border_width_top = 25
+border_width_right = 25
+border_width_bottom = 25
+border_color = Color(1, 0.752941, 0.247059, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.960784, 0.933333, 0, 0.6)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2dh5"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83vjx"]
+bg_color = Color(0, 0.682353, 0.701961, 1)
+
+[sub_resource type="Theme" id="Theme_lvwad"]
+Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
+Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
+Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
+Button/styles/pressed = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tww"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8ive"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfxwm"]
+bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+
+[sub_resource type="Theme" id="Theme_4377g"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
+
+[sub_resource type="Theme" id="Theme_s33f1"]
+Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
+Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
+Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
+Button/styles/pressed = null
+
+[sub_resource type="Theme" id="Theme_ihe75"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
+
+[sub_resource type="SystemFont" id="SystemFont_6yb3n"]
+font_names = PackedStringArray("Goudy Stout")
+
+[sub_resource type="Theme" id="Theme_iqe0b"]
+Label/colors/font_color = Color(0.815686, 0.380392, 0, 1)
+Label/font_sizes/font_size = 18
+Label/fonts/font = SubResource("SystemFont_6yb3n")
+
+[node name="UI" type="Control" groups=["Persist"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_left = 296.0
+offset_top = 120.0
+offset_right = 336.0
+offset_bottom = 160.0
+theme = SubResource("Theme_lp7i3")
+script = ExtResource("1_jid7m")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = -296.0
+offset_top = -120.0
+offset_right = 984.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bseex")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Net" type="VBoxContainer" parent="Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Steuerung" type="Label" parent="Panel/CenterContainer/Net"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 21
+text = "Steuerung Tastatur:
+________________________________
+- wasd = laufen
+- esc = exit
+- abbruch/back = c
+
+Steuerung Gamepad(Xbox Controller beispiel):
+________________________________
+- Linker Stick = laufen
+- exit = menu button
+-abbruch/back = B button"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.639216, 0.980392, 1)
+theme_override_font_sizes/font_size = 42
+text = "Verbinden:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="HBoxContainer" parent="Panel/CenterContainer/Net"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
+layout_mode = 2
+
+[node name="o1" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Hosten:"
+horizontal_alignment = 1
+
+[node name="Host" type="Button" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
+layout_mode = 2
+theme = SubResource("Theme_lvwad")
+theme_override_font_sizes/font_size = 42
+text = "Host"
+script = ExtResource("1_i02t5")
+
+[node name="o1_port" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Port"
+horizontal_alignment = 1
+
+[node name="port" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+layout_mode = 2
+theme = SubResource("Theme_4377g")
+theme_override_font_sizes/font_size = 42
+text = "11111"
+max_length = 5
+expand_to_text_length = true
+
+[node name="Line2D" type="Line2D" parent="Panel/CenterContainer/Net/Options"]
+position = Vector2(-4, -42)
+points = PackedVector2Array(340, 54, 340, 118.919, 340, 166)
+default_color = Color(1, 0.0117647, 0, 1)
+
+[node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
+layout_mode = 2
+
+[node name="o2" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Joinen:"
+horizontal_alignment = 1
+
+[node name="Connect" type="Button" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
+layout_mode = 2
+theme = SubResource("Theme_s33f1")
+theme_override_font_sizes/font_size = 42
+text = "Connect"
+
+[node name="o3" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Addresse"
+horizontal_alignment = 1
+
+[node name="remote1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2/o3"]
+layout_mode = 2
+
+[node name="Remote" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+layout_mode = 2
+theme = SubResource("Theme_ihe75")
+theme_override_font_sizes/font_size = 42
+text = "localhost"
+max_length = 15
+expand_to_text_length = true
+
+[node name="punkt" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = ":"
+
+[node name="o4" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Port"
+horizontal_alignment = 1
+
+[node name="port" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o4"]
+layout_mode = 2
+theme = SubResource("Theme_4377g")
+theme_override_font_sizes/font_size = 42
+text = "11111"
+max_length = 5
+expand_to_text_length = true
+
+[node name="Connecting" type="Label" parent="Panel/CenterContainer/Net"]
+layout_mode = 2
+theme = SubResource("Theme_iqe0b")
+
+[connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]

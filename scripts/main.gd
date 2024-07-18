@@ -1,109 +1,78 @@
 extends Node
 
-var block_host = false
-var Max_clients = 6
-var port = "11111"
-
+var save_path = "user://savetemp.save"
 
 func _ready():
-	var args = OS.get_cmdline_args()
-	if args.has("-p"):
-		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
-		port = argument_wert
-	if not port.is_valid_int():
-		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
-		port = "11111"
-	prints("Port wurde auf ", port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
-			
-	OS.request_permissions()
-	multiplayer.server_relay = false
-	
-	
-	Max_clients = 6
-	if DisplayServer.get_name() == "headless":
-		Max_clients = 7
-		print("Startet Dedicated Server.")
-		_on_host_pressed.call_deferred()
+	load_game()
+
 		
+func save_game():
+	if FileAccess.file_exists(save_path):
+		DirAccess.remove_absolute(save_path)
+	var save_file = FileAccess.open(save_path, FileAccess.WRITE)
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	for node in save_nodes:
+		# Check the node is an instanced scene so it can be instanced again during load.
+		if node.scene_file_path.is_empty():
+			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			continue
 
-func _process(_delta):
-	if Input.is_action_just_pressed("cancel"):
-		block_host = false
-		$UI/Panel/CenterContainer/Net/Connecting.text = ""
-	if Input.is_action_just_pressed("exit") and $UI.visible:
-		get_tree().quit()
+		# Check the node has a save function.
+		if !node.has_method("save"):
+			print("persistent node '%s' is missing a save() function, skipped" % node.name)
+			continue
 
+		# Call the node's save function.
+		var node_data = node.call("save")
 
-func _on_host_pressed():
-	if block_host:
-		return
-	var peer = ENetMultiplayerPeer.new()
-	if OS.get_cmdline_args().size() <= 1:
-		port = $UI/Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
-	if not port.is_valid_int():
-		OS.alert("Ist keine richtieger port.")
-		return
-	port = port.to_int()
-	var check = peer.create_server(port, Max_clients)
-	if check != OK:
-		OS.alert("Server kann nicht erstellt werden!")
-		if port < 1024:
-			OS.alert("Versuchen sie einen port über 1024!")
-		return
-	multiplayer.multiplayer_peer = peer
-	start_game()
-		
-		
-func _on_connect_pressed():
-	if block_host:
-		return
-	block_host = true
-	var txt = $UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	if OS.get_cmdline_args().size() <= 1:
-		port = $UI/Panel/CenterContainer/Net/Options/Option2/o4/port.text
-	if not txt.is_valid_ip_address() and not txt == "localhost":
-		OS.alert("Ist keine richtiege ip adresse.")
-		block_host = false
-		return
-	if not port.is_valid_int():
-		OS.alert("Ist keine richtieger port.")
-		block_host = false
-		return
-	var peer = ENetMultiplayerPeer.new()
-	port = port.to_int()
-	peer.create_client(txt, port)
-	multiplayer.multiplayer_peer = peer
-	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Konnte Multiplayer client nicht starten.")
-		block_host = false
-		return
-	var i = 0
-	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING and block_host:
-		i += 1
-		$UI/Panel/CenterContainer/Net/Connecting.text = str("Verbindung wird aufgebaut...", i)
-		await get_tree().create_timer(1).timeout
-		if i >= 20:
-			block_host = false
-			OS.alert("Verbindung fehlgeschlagen!")
-			$UI/Panel/CenterContainer/Net/Connecting.text = ""
-	if not block_host:
-		multiplayer.disconnect_peer(peer.get_unique_id())
-		return
-	start_game()
+		# JSON provides a static method to serialized JSON string.
+		var json_string = JSON.stringify(node_data)
 
+		# Store the save dictionary as a new line in the save file.
+		save_file.store_line(json_string)
 
-func start_game():
-	$UI.hide()
-	if multiplayer.is_server():
-		change_level(preload("res://sceens/level.tscn"))
+# Note: This can be called from anywhere inside the tree. This function
+# is path independent.
+func load_game():
+	if not FileAccess.file_exists(save_path):
+		return # Error! We don't have a save to load.
 
+	# We need to revert the game state so we're not cloning objects
+	# during loading. This will vary wildly depending on the needs of a
+	# project, so take care with this step.
+	# For our example, we will accomplish this by deleting saveable objects.
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	for i in save_nodes:
+		i.queue_free()
 
-func change_level(scene: PackedScene):
-	var level = $Level
-	for c in level.get_children():
-		level.remove_child(c)
-		c.queue_free()
-	level.add_child(scene.instantiate())
+	# Load the file line by line and process that dictionary to restore
+	# the object it represents.
+	var save_file = FileAccess.open(save_path, FileAccess.READ)
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+
+		# Creates the helper class to interact with JSON
+		var json = JSON.new()
+
+		# Check if there is any error while parsing the JSON string, skip in case of failure
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+
+		# Get the data from the JSON object
+		var node_data = json.get_data()
+
+		# Firstly, we need to create the object and add it to the tree and set its position.
+		var new_object = load(node_data["filename"]).instantiate()
+		get_node(node_data["parent"]).add_child(new_object)
+		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+		# Now we set the remaining variables.
+		for i in node_data.keys():
+			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
+				continue
+			new_object.set(i, node_data[i])
 	
 
 func _on_leave_pressed():

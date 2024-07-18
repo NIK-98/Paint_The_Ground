@@ -29,7 +29,6 @@ var last_score = score
 func _ready():
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
-	main.get_node("UI").hide()
 	if player == multiplayer.get_unique_id():
 		camera.make_current()
 		
