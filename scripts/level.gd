@@ -172,6 +172,7 @@ func _on_timer_timeout():
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = true
+	ende.rpc_id(multiplayer.get_unique_id())
 	
 	
 
@@ -185,6 +186,16 @@ func _on_start_pressed():
 	reset_bomben.rpc()
 	wertungs_anzeige_aktivieren.rpc()
 	starting_game.rpc()
+	
+	
+@rpc("call_local")
+func ende():
+	for i in get_node("Werten/PanelContainer/Wertung").get_children():
+		if i.text.to_int() > get_node("Players").get_node(str(multiplayer.get_unique_id())).score:
+			get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Los").visible = true
+			return
+	if not get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Los").visible:
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Winner").visible = true
 	
 
 @rpc("any_peer","call_local")

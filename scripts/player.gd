@@ -59,8 +59,6 @@ func _physics_process(_delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter()
-		if get_parent().get_parent().Time_out:
-			ende()
 	
 	
 @rpc("any_peer","call_local")
@@ -69,16 +67,6 @@ func Check_Time_Visible():
 		if i.is_in_group("time"):
 			if not i.visible:
 				i.visible = true
-	
-
-func ende():
-	if input.aktueller_spieler:
-		Global.Gameover = false
-		for i in get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
-			if i.text.to_int() > score:
-				$CanvasLayer/Los.visible = true
-		if not $CanvasLayer/Los.visible:
-			$CanvasLayer/Winner.visible = true
 	
 
 func score_counter():
@@ -139,8 +127,11 @@ func color_change():
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 			
 
-
 func _on_area_2d_area_entered(area):
 	if Gametriggerstart:
 		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
 			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
+
+
+func _exit_tree():
+	Global.Gameover = false
