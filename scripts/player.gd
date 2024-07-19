@@ -58,6 +58,7 @@ func _physics_process(_delta):
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
+			trigger_bomb()
 			score_counter()
 	
 	
@@ -127,10 +128,10 @@ func color_change():
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 			
 
-func _on_area_2d_area_entered(area):
-	if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
-		area.get_parent().aktivate_bombe.rpc(color_cell, area.get_parent())
-		area.get_parent().queue_free()
+func trigger_bomb():
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("boom") and DisplayServer.get_name() != "headless":
+			area.get_parent().aktivate_bombe(color_cell, area.get_parent())
 
 
 func _exit_tree():

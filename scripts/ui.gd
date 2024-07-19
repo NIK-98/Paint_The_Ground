@@ -26,6 +26,8 @@ func save():
 	
 	
 func _ready():
+	if OS.has_feature("dedicated_server"):
+		return
 	name = "UI"	
 	
 func _process(_delta):

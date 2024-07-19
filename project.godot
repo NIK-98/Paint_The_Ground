@@ -12,7 +12,6 @@ config_version=5
 
 config/name="Paint The Ground"
 run/main_scene="res://sceens/main.tscn"
-config/auto_accept_quit=false
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 boot_splash/image="res://assets/icon/ptg.png"

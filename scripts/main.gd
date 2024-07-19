@@ -1,9 +1,12 @@
 extends Node
 
 var save_path = "user://savetemp.save"
-
+	
+	
 func _ready():
 	load_game()
+	if FileAccess.file_exists(save_path):
+		DirAccess.remove_absolute(save_path)
 	if not OS.has_feature("dedicated_server"):
 		return
 	var args = OS.get_cmdline_args()
@@ -21,7 +24,13 @@ func _ready():
 		$UI.Max_clients = 7
 		print("Startet Dedicated Server.")
 		$UI._on_host_pressed.call_deferred()
-	
+		
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if FileAccess.file_exists(save_path):
+			DirAccess.remove_absolute(save_path)
+			
 	
 func save_game():
 	if FileAccess.file_exists(save_path):

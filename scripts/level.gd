@@ -21,7 +21,6 @@ func _ready():
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
-	$Camera2D.enabled = false
 	$Tap.visible = false
 	# We only need to spawn players on the server.
 	multiplayer.server_disconnected.connect(verbindung_verloren)
@@ -207,7 +206,6 @@ func reset_vars_level():
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
-	$Camera2D.enabled = false
 	$Tap.visible = false
 	$CanvasLayer/Start.visible = true
 	map.reset_floor()
