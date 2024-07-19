@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=36 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://csprtcrt63mm3" path="res://assets/ground/ground_yellow.png" id="10_g3jwm"]
 [ext_resource type="Script" path="res://scripts/Start.gd" id="12_xt3i6"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
+[ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
@@ -274,10 +275,10 @@ spawn_path = NodePath("../VBoxContainer")
 layer = 3
 script = ExtResource("14_vxhbj")
 
-[node name="ColorRect" type="ColorRect" parent="loby"]
-offset_right = 1280.0
-offset_bottom = 800.0
-color = Color(0.121569, 0.254902, 1, 1)
+[node name="hintergrund" type="TextureRect" parent="loby"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("15_qppgb")
 
 [node name="CenterContainer" type="CenterContainer" parent="loby"]
 anchors_preset = 5

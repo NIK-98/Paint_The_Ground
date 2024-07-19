@@ -72,6 +72,7 @@ theme = SubResource("Theme_lp7i3")
 script = ExtResource("1_jid7m")
 
 [node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 800.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_qdq5t")
