@@ -125,8 +125,6 @@ _spawnable_scenes = PackedStringArray("res://sceens/level.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
-[node name="UI" parent="." instance=ExtResource("2_gk4y4")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 5
@@ -195,6 +193,8 @@ text = "JA"
 layout_mode = 2
 theme = SubResource("Theme_kbdh3")
 text = "NEIN"
+
+[node name="UI" parent="." instance=ExtResource("2_gk4y4")]
 
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
