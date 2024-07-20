@@ -14,24 +14,17 @@ var loaded = false
 var Gametriggerstart = false
 var score = 0
 var last_score = score
+var move = Input.get_vector("left","right","up","down")
 
 @onready var camera = $Camera2D
 
-@export var player := 1:
-	set(id):
-		player = id
-		# Give authority over the player input to the appropriate peer.
-		$PlayerInput.set_multiplayer_authority(id)
-		
-@onready var input = $PlayerInput
-	
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	position = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-get_node("Color").size.y)))
 	
 func _ready():
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
-	if player == multiplayer.get_unique_id():
-		camera.make_current()
-		
 	$Camera2D.limit_right = Global.Spielfeld_Size.x
 	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 	color_change()
@@ -40,6 +33,8 @@ func _ready():
 func _physics_process(_delta):		
 	if not loaded:
 		loaded = true
+		if is_multiplayer_authority():
+			camera.make_current()
 		paint.rpc()
 		score_counter()
 	
@@ -53,13 +48,46 @@ func _physics_process(_delta):
 			get_parent().get_parent().get_node("Timer").start()
 			get_parent().get_parent().get_node("Timerbomb").start()
 		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
-			input.moving()
-			velocity = input.move*SPEED
+			if is_multiplayer_authority():
+				moving()
+				if position.x < get_node("Color").size.x:
+					Input.action_release("left")
+					
+				if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
+					Input.action_release("right")
+					
+				if position.y < get_node("Color").size.y:
+					Input.action_release("up")
+					
+				if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
+					Input.action_release("down")
+				move = Input.get_vector("left","right","up","down")
+				velocity = move*SPEED
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter()
 	
+
+func moving():
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().x == 1:
+			Input.action_press("right")
+		else:
+			Input.action_release("right")
+		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().x == -1:
+			Input.action_press("left")
+		else:
+			Input.action_release("left")
+		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().y == 1:
+			Input.action_press("down")
+		else:
+			Input.action_release("down")
+		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().y == -1:
+			Input.action_press("up")
+		else:
+			Input.action_release("up")
+			
 	
 @rpc("any_peer","call_local")
 func Check_Time_Visible():

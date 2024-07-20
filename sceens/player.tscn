@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bct2wlof30lbq"]
+[gd_scene load_steps=5 format=3 uid="uid://bct2wlof30lbq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d8fpb"]
-[ext_resource type="Script" path="res://scripts/PlayerInput.gd" id="2_2hmwi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ti31n"]
 size = Vector2(64, 64)
@@ -10,29 +9,21 @@ size = Vector2(64, 64)
 size = Vector2(65, 64)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ktm87"]
-properties/0/path = NodePath(".:player")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 0
-properties/1/path = NodePath(".:position")
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:velocity")
+properties/2/path = NodePath("Color:color")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Color:color")
+properties/3/path = NodePath("Name:text")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("Name:text")
+properties/4/path = NodePath("Name:theme_override_colors/font_color")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("Name:theme_override_colors/font_color")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8xxcm"]
-properties/0/path = NodePath("PlayerInput:move")
-properties/0/spawn = true
-properties/0/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_d8fpb")
@@ -51,6 +42,7 @@ autowrap_mode = 2
 [node name="Color" type="ColorRect" parent="."]
 offset_right = 64.0
 offset_bottom = 64.0
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
@@ -70,12 +62,9 @@ shape = SubResource("RectangleShape2D_wpgsi")
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ktm87")
 
-[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_8xxcm")
-script = ExtResource("2_2hmwi")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
+visible = false
 
 [node name="Winner" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0

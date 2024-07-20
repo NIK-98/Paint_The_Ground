@@ -78,14 +78,11 @@ func add_player(id: int):
 	if len(multiplayer.get_peers()) < $loby.Max_clients:
 		$loby.update_player_count.rpc()
 	var player = player_sceen.instantiate()
-	player.player = id
-	randpos = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+player.get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-player.get_node("Color").size.y)))
-	player.position = randpos
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id)
 
-
+	
 @rpc("any_peer","call_local")
 func add_text_tap(id: int, text: String):
 	if is_multiplayer_authority():
