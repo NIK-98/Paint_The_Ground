@@ -314,7 +314,7 @@ theme_override_font_sizes/font_size = 60
 text = "Warte auf Mitspieler..."
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 3.89
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jatce")
