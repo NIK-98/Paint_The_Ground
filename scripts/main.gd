@@ -4,10 +4,10 @@ var save_path = "user://savetemp.save"
 	
 	
 func _ready():
-	load_game()
-	if FileAccess.file_exists(save_path):
-		DirAccess.remove_absolute(save_path)
 	if not OS.has_feature("dedicated_server"):
+		load_game()
+		if FileAccess.file_exists(save_path):
+			DirAccess.remove_absolute(save_path)
 		return
 	var args = OS.get_cmdline_args()
 	if args.has("-p"):
