@@ -72,6 +72,11 @@ func update_player_wait():
 	count_players_wait += 1
 	
 	
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		exit()
+		
+		
 func exit():
 	if DisplayServer.get_name() == "headless":
 		return
