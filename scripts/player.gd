@@ -74,7 +74,6 @@ func _physics_process(_delta):
 			ende = true
 			if name.to_int() == multiplayer.get_unique_id():
 				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
-					prints(i.text, level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int())
 					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int():
 						get_node("CanvasLayer/Los").visible = true
 						break
