@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var main = get_parent().get_parent().get_parent().get_parent()
+@onready var level = get_parent().get_parent()
 
 const SPEED = 20
 var spawn = position
@@ -15,12 +16,14 @@ var Gametriggerstart = false
 var score = 0
 var last_score = score
 var move = Input.get_vector("left","right","up","down")
+var player_spawn_grenze = 200
+var ende = false
 
 @onready var camera = $Camera2D
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-	position = Vector2(floor(randi_range(500,Global.Spielfeld_Size.x+get_node("Color").size.x)),floor(randi_range(500,Global.Spielfeld_Size.y-get_node("Color").size.y)))
+	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 	
 func _ready():
 	$CanvasLayer/Winner.visible = false
@@ -45,9 +48,9 @@ func _physics_process(_delta):
 			paint.rpc()
 			score_counter()
 			Check_Time_Visible.rpc()
-			get_parent().get_parent().get_node("Timer").start()
-			get_parent().get_parent().get_node("Timerbomb").start()
-		if get_parent().get_parent().get_node("CanvasLayer/Time").visible and not get_parent().get_parent().Time_out:
+			level.get_node("Timer").start()
+			level.get_node("Timerbomb").start()
+		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			if is_multiplayer_authority():
 				moving()
 				if position.x < get_node("Color").size.x:
@@ -67,23 +70,33 @@ func _physics_process(_delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter()
+		elif level.Time_out and not ende:
+			ende = true
+			if name.to_int() == multiplayer.get_unique_id():
+				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
+					prints(i.text, level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int())
+					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int():
+						get_node("CanvasLayer/Los").visible = true
+						break
+				if not get_node("CanvasLayer/Los").visible:
+					get_node("CanvasLayer/Winner").visible = true
 	
 
 func moving():
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().x == 1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x == 1:
 			Input.action_press("right")
 		else:
 			Input.action_release("right")
-		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().x == -1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x == -1:
 			Input.action_press("left")
 		else:
 			Input.action_release("left")
-		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().y == 1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y == 1:
 			Input.action_press("down")
 		else:
 			Input.action_release("down")
-		if get_parent().get_parent().get_parent().get_parent().get_node("CanvasLayer/joy").get_joystick_dir().y == -1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y == -1:
 			Input.action_press("up")
 		else:
 			Input.action_release("up")
@@ -91,7 +104,7 @@ func moving():
 	
 @rpc("any_peer","call_local")
 func Check_Time_Visible():
-	for i in get_parent().get_parent().get_node("CanvasLayer").get_children():
+	for i in level.get_node("CanvasLayer").get_children():
 		if i.is_in_group("time"):
 			if not i.visible:
 				i.visible = true
@@ -102,8 +115,8 @@ func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
-	if last_score != score and get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(name)) != null:
-		get_parent().get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
+	if last_score != score and level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)) != null:
+		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
 @rpc("any_peer","call_local")

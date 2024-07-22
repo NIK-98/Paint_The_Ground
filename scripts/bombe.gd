@@ -4,7 +4,12 @@ extends Node2D
 @onready var level = get_parent().get_parent()
 
 const  bomb_radius = 4
-	
+
+
+func _ready():
+	if OS.has_feature("dedicated_server"):
+		return
+			
 
 @rpc("any_peer","call_local", "unreliable")
 func aktivate_bombe(cell: int):

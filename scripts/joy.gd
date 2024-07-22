@@ -16,6 +16,8 @@ extends Control
 var is_touch: bool = false
 
 func _ready():
+	if OS.has_feature("dedicated_server"):
+		return
 	layer.visible = false
 	set_process(false)
 	
