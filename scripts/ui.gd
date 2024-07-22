@@ -46,7 +46,6 @@ func _process(_delta):
 		esc_is_pressing = true
 		get_parent().get_node("CanvasLayer/Beenden").visible = true
 		get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
-		
 
 func _on_host_pressed():
 	if block_host:
@@ -72,7 +71,6 @@ func _on_host_pressed():
 			OS.alert("Versuchen sie einen port über 1024!")
 		return
 	multiplayer.multiplayer_peer = peer
-	visible = false
 	start_game()
 
 		
@@ -116,13 +114,13 @@ func _on_connect_pressed():
 	if not block_host:
 		multiplayer.disconnect_peer(peer.get_unique_id())
 		return
-	visible = false
 	start_game()
 	
 
 func start_game():
 	if multiplayer.is_server():
 		change_level(preload("res://sceens/level.tscn"))
+	visible = false
 
 
 func change_level(scene: PackedScene):

@@ -122,17 +122,18 @@ func _on_tap_released():
 
 
 func _on_ja_pressed():
-	if $UI.esc_is_pressing:
+	if get_node("Level").get_child_count() < 1 and $UI.esc_is_pressing:
 		$UI.esc_is_pressing = false
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
-		get_tree().quit()
-	elif get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
+		if get_node("Level").get_child_count() > 0:
+			get_node("Level/level/loby").exit()
+		else:
+			get_tree().quit()
+		return
+	if get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit()
-	else:
-		Input.action_press("exit")
-		Input.action_release("exit")
 	$CanvasLayer/Beenden.visible = false
 
 
