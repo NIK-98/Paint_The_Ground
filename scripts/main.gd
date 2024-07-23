@@ -104,6 +104,8 @@ func load_game():
 func _on_leave_pressed():
 	$CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja.grab_focus()
 	$CanvasLayer/Beenden.visible = true
+	Input.action_press("exit")
+	Input.action_release("exit")
 
 
 func _on_back_pressed():
