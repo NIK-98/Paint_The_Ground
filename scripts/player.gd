@@ -69,7 +69,7 @@ func _physics_process(_delta):
 			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
-			boom.rpc()
+			boom()
 			score_counter()
 		elif level.Time_out and not ende:
 			ende = true
@@ -168,13 +168,10 @@ func color_change():
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 		
 	
-@rpc("any_peer","call_local")	
 func boom():
 	for area in $Area2D.get_overlapping_areas():
 		if area.get_parent().is_in_group("boom"):
-			area.get_parent().aktivate_bombe(color_cell)
-			area.get_parent().queue_free()
-				
+			area.get_parent().aktivate_bombe(color_cell, self)
 				
 func _exit_tree():
 	Global.Gameover = false

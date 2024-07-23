@@ -85,12 +85,11 @@ func add_player(id: int):
 	
 @rpc("any_peer","call_local")
 func add_text_tap(id: int, text: String):
-	if is_multiplayer_authority():
-		var new_name = name_label.instantiate()
-		new_name.name = str(id)
-		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
-		new_name.text = text
-		get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
+	var new_name = name_label.instantiate()
+	new_name.name = str(id)
+	new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
+	new_name.text = text
+	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
 		
 		
 func del_text_tap(id: int):
@@ -114,12 +113,11 @@ func update_spawn_bomb_position():
 
 
 func spawn_new_bombe():
-	if is_multiplayer_authority():
-		update_spawn_bomb_position.rpc()
-		var new_bombe = bombe.instantiate()
-		new_bombe.name = "bombe"
-		new_bombe.position = randpos
-		Bomben.add_child(new_bombe, true)
+	update_spawn_bomb_position.rpc()
+	var new_bombe = bombe.instantiate()
+	new_bombe.name = "bombe"
+	new_bombe.position = randpos
+	Bomben.add_child(new_bombe, true)
 	
 	
 func add_score(id: int):
@@ -211,5 +209,6 @@ func stoped_game():
 	
 
 func _on_timerbomb_timeout():
-	for i in range(Global.Spawn_bomben_limit):
-		spawn_new_bombe()
+	if is_multiplayer_authority():
+		for i in range(Global.Spawn_bomben_limit):
+			spawn_new_bombe()
