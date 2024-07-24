@@ -115,7 +115,7 @@ func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
-	if last_score != score and level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)) != null:
+	if level.get_node("Werten/PanelContainer/Wertung") != null and last_score != score:
 		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
@@ -171,7 +171,7 @@ func color_change():
 func boom():
 	for area in $Area2D.get_overlapping_areas():
 		if area.get_parent().is_in_group("boom"):
-			area.get_parent().aktivate_bombe(color_cell, self)
+			area.get_parent().aktivate_bombe(color_cell)
 				
 func _exit_tree():
 	Global.Gameover = false

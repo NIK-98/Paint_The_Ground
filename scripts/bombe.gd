@@ -14,10 +14,10 @@ func _ready():
 		
 		
 func _process(_delta):
-	clean_boom.rpc()
+	clean_boom()
 			
 
-func aktivate_bombe(cell: int, aktivierer):
+func aktivate_bombe(cell: int):
 	var tile_position = map.local_to_map(position)
 	for x in range(-bomb_radius,bomb_radius):
 		for y in range(-bomb_radius,bomb_radius):
@@ -27,9 +27,8 @@ func aktivate_bombe(cell: int, aktivierer):
 	clean = true
 	
 
-@rpc("any_peer","call_local")
 func clean_boom():
-	if clean:	
+	if clean and is_multiplayer_authority():	
 		if not OS.has_feature("dedicated_server") and cleaners_count-1 == len(multiplayer.get_peers()):
 			queue_free()
 		if OS.has_feature("dedicated_server") and cleaners_count == len(multiplayer.get_peers()):

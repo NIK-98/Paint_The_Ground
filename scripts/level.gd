@@ -85,11 +85,12 @@ func add_player(id: int):
 	
 @rpc("any_peer","call_local")
 func add_text_tap(id: int, text: String):
-	var new_name = name_label.instantiate()
-	new_name.name = str(id)
-	new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
-	new_name.text = text
-	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
+	if is_multiplayer_authority():
+		var new_name = name_label.instantiate()
+		new_name.name = str(id)
+		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
+		new_name.text = text
+		get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
 		
 		
 func del_text_tap(id: int):
