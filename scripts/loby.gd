@@ -256,6 +256,8 @@ func _on_enter_pressed():
 			update_server_status_conected.rpc()
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
+		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
+		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
