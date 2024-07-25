@@ -4,6 +4,112 @@ extends CanvasLayer
 @export var player_conect_count = 0
 @export var is_running = false
 @export var Max_clients = 6
+
+var j_namen = ["Levi",
+			   "Emil",
+			   "Liam",
+			   "Anton",
+			   "Theo",
+			   "Paul",
+			   "Leano",
+			   "Elias",
+			   "Jakob",
+			   "Samuel",
+			   "Felix",
+			   "Michael",
+			   "Linus",
+			   "Aaron",
+			   "Leo",
+			   "Thomas",
+			   "Lukas",
+			   "Noah",
+			   "Leon",
+			   "Jonas",
+			   "David",
+			   "Levin",
+			   "Julian",
+			   "Daniel",
+			   "Milan",
+			   "Lio",
+			   "Matteo",
+			   "Valentin",
+			   "Oskar",
+			   "Elia",
+			   "Alexander",
+			   "Kian",
+			   "Finn",
+			   "Markus",
+			   "Jan",
+			   "Jonathan",
+			   "Moritz",
+			   "Joris",
+			   "Jonah",
+			   "Tim",
+			   "Jasper",
+			   "Luis",
+			   "Mika",
+			   "Oliver",
+			   "Niklas",
+			   "Luca",
+			   "Lorenz",
+			   "Tobias",
+			   "Fabian",
+			   "Maximilian",
+			   "Luan"]
+var m_namen = ["Lina",
+			   "Emilia",
+			   "Emma",
+			   "Ella",
+			   "Ida",
+			   "Lia",
+			   "Lea",
+			   "Amalia",
+			   "Leonie",
+			   "Laura",
+			   "Lena",
+			   "Mia",
+			   "Nora",
+			   "Mila",
+			   "Juna",
+			   "Anna",
+			   "Johanna",
+			   "Malia",
+			   "Luisa",
+			   "Maria",
+			   "Amelie",
+			   "Ava",
+			   "Julia",
+			   "Marie",
+			   "Antonia",
+			   "Noah",
+			   "Nele",
+			   "Elena",
+			   "Alina",
+			   "Leni",
+			   "Mara",
+			   "Mathilda",
+			   "Charlotte",
+			   "Liom",
+			   "Sophie",
+			   "Livia",
+			   "Lara",
+			   "Marlene",
+			   "Mina",
+			   "Sarah",
+			   "Mira",
+			   "Hanna",
+			   "Finn",
+			   "Romy",
+			   "Elisabeth",
+			   "Katharina",
+			   "Elsa",
+			   "Emily",
+			   "Marla",
+			   "Malou",
+			   "Elisa"
+			   ]
+var curent_list = []
+
 	
 var esc_is_pressing_in_game = false
 	
@@ -153,3 +259,19 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
+		
+		
+
+func _on_j_pressed():
+	curent_list = j_namen
+
+
+func _on_m_pressed():
+	curent_list = m_namen
+
+
+func _on_random_pressed():
+	if curent_list != []:
+		$CenterContainer/VBoxContainer/name_input.text = curent_list.pick_random()
+	else:
+		OS.alert("Mänlich oder Weiblich Wällen", "Auswahl")

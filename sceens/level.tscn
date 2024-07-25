@@ -316,6 +316,30 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 60
 text = "Warte auf Mitspieler..."
 
+[node name="HBoxContainer" type="HBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="J" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.321569, 0.92549, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 36
+text = "Mänlich"
+
+[node name="M" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 36
+text = "Weiblich"
+
+[node name="Random" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "Generate"
+
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
 wait_time = 120.0
 
@@ -327,5 +351,8 @@ wait_time = 10.0
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timerbomb" to="." method="_on_timerbomb_timeout"]
