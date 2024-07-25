@@ -144,17 +144,16 @@ func _input(_event):
 func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
-	kick.rpc(id)
+	kick(id)
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return
 	
 	
-@rpc("any_peer","call_local")
 func kick(id):
 	del_text_tap(id)
 	del_score(id)
 	del_player(id)
-	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer.close() # debug meldung: _remove_node_cache: Condition "!pinfo" is true. Continuing.
 	
 	
 func del_player(id: int):
