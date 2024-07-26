@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://cjt3ud8m2ug5l"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://cjt3ud8m2ug5l"]
 
 [ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="1_3m2qg"]
 [ext_resource type="Texture2D" uid="uid://dg2r7hn28jxmt" path="res://assets/ground/ground_green.png" id="2_62icc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://csprtcrt63mm3" path="res://assets/ground/ground_yellow.png" id="5_f0qf0"]
 [ext_resource type="Texture2D" uid="uid://btju3bebchq0u" path="res://assets/ground/ground_red.png" id="6_wluoa"]
 [ext_resource type="Texture2D" uid="uid://cequksmqsxf4e" path="res://assets/ground/ground_blue.png" id="7_obvd0"]
+[ext_resource type="Texture2D" uid="uid://d30lnynty3ch8" path="res://assets/ground/ground_light_blue.png" id="7_w8x8m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
 texture = ExtResource("1_3m2qg")
@@ -35,20 +36,28 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_luufc"]
+texture = ExtResource("7_w8x8m")
+texture_region_size = Vector2i(64, 64)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f2pyx"]
 texture = ExtResource("4_10vht")
 texture_region_size = Vector2i(64, 64)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dcsbd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8xkbf"]
 texture = ExtResource("5_f0qf0")
 texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_owtyi")
-sources/3 = SubResource("TileSetAtlasSource_wcno6")
 sources/0 = SubResource("TileSetAtlasSource_wfxpn")
+sources/1 = SubResource("TileSetAtlasSource_owtyi")
 sources/2 = SubResource("TileSetAtlasSource_l0kvp")
+sources/3 = SubResource("TileSetAtlasSource_wcno6")
+sources/4 = SubResource("TileSetAtlasSource_luufc")
 sources/5 = SubResource("TileSetAtlasSource_f2pyx")
-sources/6 = SubResource("TileSetAtlasSource_dcsbd")
+sources/6 = SubResource("TileSetAtlasSource_8xkbf")

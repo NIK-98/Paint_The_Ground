@@ -18,6 +18,7 @@ var last_score = score
 var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
+var paint_radius = 2
 
 @onready var camera = $Camera2D
 
@@ -122,10 +123,11 @@ func score_counter():
 @rpc("any_peer","call_local")
 func paint():
 	var tile_position = map.local_to_map(position)
-	for x in range(2):
-		for y in range(2):
+	for x in range(paint_radius):
+		for y in range(paint_radius):
 			var pos = Vector2i(x,y) + tile_position
-			map.set_cell(0,pos,color_cell,Vector2i(0,0))
+			if map.get_cell_source_id(0,pos) != -1:
+				map.set_cell(0,pos,color_cell,Vector2i(0,0))
 		
 		
 func color_change():
@@ -171,6 +173,8 @@ func color_change():
 func boom():
 	for area in $Area2D.get_overlapping_areas():
 		if area.get_parent().is_in_group("boom"):
+			var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
+			paint_radius = radius_varscheinlichkeit.pick_random()
 			area.get_parent().aktivate_bombe(color_cell)
 				
 func _exit_tree():
