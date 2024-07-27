@@ -72,7 +72,10 @@ func voll():
 		
 
 func add_player(id: int):
-	if len(multiplayer.get_peers()) >= $loby.Max_clients-1:
+	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) >= $loby.Max_clients:
+		voll.rpc_id(id)
+		return
+	if not OS.has_feature("dedicated_server") and len(multiplayer.get_peers())+1 >= $loby.Max_clients:
 		voll.rpc_id(id)
 		return
 	if len(multiplayer.get_peers()) < $loby.Max_clients:
