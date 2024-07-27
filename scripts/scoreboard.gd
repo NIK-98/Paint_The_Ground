@@ -43,7 +43,7 @@ func update_scoreboard():
 	if loaded:
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
-		sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text, get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text])
+		sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text.to_int(), get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text])
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 
