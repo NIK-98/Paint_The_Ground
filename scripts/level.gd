@@ -44,9 +44,9 @@ func _process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if not $Timer.is_stopped() and multiplayer.is_server():
+	if not $Timer.is_stopped():
 		$CanvasLayer/Time.text = str(round($Timer.time_left))
-	if not $Timerbomb.is_stopped() and multiplayer.is_server():
+	if not $Timerbomb.is_stopped():
 		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 		
 
@@ -80,6 +80,7 @@ func add_player(id: int):
 		return
 	if len(multiplayer.get_peers()) < $loby.Max_clients:
 		$loby.update_player_count.rpc()
+	hide_ui.rpc()
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
@@ -172,6 +173,11 @@ func _on_timer_timeout():
 	
 
 @rpc("any_peer","call_local")
+func hide_ui():
+	main.get_node("UI").visible = false
+	
+
+@rpc("any_peer","call_local")
 func hide_start():
 	$CanvasLayer/Start.visible = false
 	
@@ -193,7 +199,6 @@ func reset_vars_level():
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).Gametriggerstart = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
 		get_node("Scoreboard/CanvasLayer").visible = false
-		starting = false
 	main.get_node("UI").visible = false
 	$Timer.stop()
 	$Timerbomb.stop()

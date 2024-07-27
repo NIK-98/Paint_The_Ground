@@ -27,7 +27,6 @@ func _enter_tree():
 	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 	
 func _ready():
-	main.get_node("UI").visible = false
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
 	$Camera2D.limit_right = Global.Spielfeld_Size.x

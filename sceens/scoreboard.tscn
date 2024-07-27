@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cx8mc5hevswjg"]
+[gd_scene load_steps=15 format=3 uid="uid://cx8mc5hevswjg"]
 
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="1_e3ybm"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="2_tcpqv"]
@@ -58,13 +58,6 @@ font_names = PackedStringArray("Centaur")
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_64oux"]
-default_font = SubResource("SystemFont_cqbu0")
-Button/font_sizes/font_size = 90
-Button/styles/focus = SubResource("StyleBoxFlat_mbhc3")
-Button/styles/hover = SubResource("StyleBoxFlat_mbhc3")
-Button/styles/normal = SubResource("StyleBoxFlat_08hjf")
-
-[sub_resource type="Theme" id="Theme_4ugxm"]
 default_font = SubResource("SystemFont_cqbu0")
 Button/font_sizes/font_size = 90
 Button/styles/focus = SubResource("StyleBoxFlat_mbhc3")
@@ -157,22 +150,10 @@ theme_override_constants/separation = 30
 [node name="restart" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_left = NodePath("../Reset")
-focus_neighbor_right = NodePath("../Reset")
 theme = SubResource("Theme_64oux")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Neues Spiel"
-
-[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-process_mode = 3
-layout_mode = 2
-focus_neighbor_left = NodePath("../restart")
-focus_neighbor_right = NodePath("../restart")
-theme = SubResource("Theme_4ugxm")
-theme_override_colors/font_color = Color(1, 0.890196, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Reset"
 
 [node name="Label_score" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -221,4 +202,3 @@ theme_override_font_sizes/font_size = 40
 replication_config = SubResource("SceneReplicationConfig_qcn5r")
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Reset" to="." method="_on_reset_pressed"]

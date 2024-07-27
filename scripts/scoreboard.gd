@@ -59,16 +59,5 @@ func _process(_delta):
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical += 5
 
 
-func _on_reset_pressed():
-	for eintrag in range(len(Scoreboard_List)):
-		var score_feld = str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/Score",eintrag)
-		var name_feld = str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)
-		get_node(score_feld).text = ""
-		get_node(name_feld).text = ""
-		if eintrag > 9:
-			get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag)).queue_free()
-	Scoreboard_List = []
-
-
 func _on_restart_pressed():
 	get_parent().get_node("loby").restart_game()
