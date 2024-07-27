@@ -173,7 +173,6 @@ layout_mode = 2
 theme = SubResource("Theme_ihe75")
 theme_override_font_sizes/font_size = 42
 text = "localhost"
-max_length = 15
 expand_to_text_length = true
 select_all_on_focus = true
 
