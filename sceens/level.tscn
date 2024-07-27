@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=37 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
+[ext_resource type="PackedScene" uid="uid://cx8mc5hevswjg" path="res://sceens/scoreboard.tscn" id="17_4co2s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
 texture = ExtResource("4_1vpo6")
@@ -340,8 +341,14 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "Generate"
 
+[node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
+
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 5.0
+
+[node name="Timerende" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_jatce")
@@ -355,4 +362,5 @@ wait_time = 10.0
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timerende" to="." method="_on_timerende_timeout"]
 [connection signal="timeout" from="Timerbomb" to="." method="_on_timerbomb_timeout"]

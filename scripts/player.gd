@@ -81,6 +81,7 @@ func _physics_process(_delta):
 						break
 				if not get_node("CanvasLayer/Los").visible:
 					get_node("CanvasLayer/Winner").visible = true
+			level.get_node("Timerende").start()
 	
 
 func moving():

@@ -182,7 +182,16 @@ func _on_start_pressed():
 
 @rpc("any_peer","call_local")
 func reset_vars_level():
-	starting = false
+	if not OS.has_feature("dedicated_server"):
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Winner").visible = false
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Los").visible = false
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).ende = false
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).loaded = false
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).Gametriggerstart = false
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
+		get_node("Scoreboard/CanvasLayer").visible = false
+		starting = false
+	main.get_node("UI").visible = false
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = false
@@ -212,3 +221,10 @@ func _on_timerbomb_timeout():
 	if is_multiplayer_authority():
 		for i in range(Global.Spawn_bomben_limit):
 			spawn_new_bombe()
+
+
+func _on_timerende_timeout():
+	if OS.has_feature("dedicated_server"):
+		return
+	get_node("Scoreboard").update_scoreboard()
+	get_node("Scoreboard/CanvasLayer").visible = true

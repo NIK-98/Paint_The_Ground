@@ -227,6 +227,9 @@ func reset_loby():
 			get_parent().reset_vars_level.rpc()
 			get_parent().reset_bomben.rpc()
 			exit()
+
+func restart_game():
+	get_parent().reset_vars_level.rpc()
 	
 
 @rpc("any_peer","call_local")
