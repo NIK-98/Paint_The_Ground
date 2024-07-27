@@ -117,7 +117,9 @@ func score_counter():
 	score = 0
 	for i in len(map.get_used_cells_by_id(0,color_cell)):
 		score+=1
-	if level.get_node("Werten/PanelContainer/Wertung") != null and last_score != score:
+	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
+		if level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)) == null:
+			return
 		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
 		
 
