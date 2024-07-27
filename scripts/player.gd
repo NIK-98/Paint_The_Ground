@@ -86,19 +86,19 @@ func _physics_process(_delta):
 
 func moving():
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x == 1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0:
 			Input.action_press("right")
 		else:
 			Input.action_release("right")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x == -1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x < 0:
 			Input.action_press("left")
 		else:
 			Input.action_release("left")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y == 1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0:
 			Input.action_press("down")
 		else:
 			Input.action_release("down")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y == -1:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y < 0:
 			Input.action_press("up")
 		else:
 			Input.action_release("up")

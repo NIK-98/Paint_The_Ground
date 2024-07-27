@@ -228,5 +228,4 @@ func _on_timerende_timeout():
 	if OS.has_feature("dedicated_server"):
 		return
 	get_node("Scoreboard").update_scoreboard()
-	prints(get_node("Scoreboard").Scoreboard_List)
 	get_node("Scoreboard/CanvasLayer").visible = true

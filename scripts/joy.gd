@@ -50,5 +50,4 @@ func _process(_delta):
 func get_joystick_dir() -> Vector2:
 	var dir = joystick.position - stick_center
 	dir = dir.normalized()
-	dir = round(dir)
 	return dir
