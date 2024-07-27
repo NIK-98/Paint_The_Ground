@@ -344,7 +344,7 @@ text = "Generate"
 [node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 4.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0

@@ -85,13 +85,14 @@ vertical_alignment = 1
 
 [node name="Info" type="Label" parent="CanvasLayer/Winner"]
 layout_mode = 0
-offset_left = 240.0
-offset_top = 704.0
-offset_right = 1037.0
-offset_bottom = 768.0
+offset_left = 184.0
+offset_top = 640.0
+offset_right = 1097.0
+offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen"
+text = "Drücke die Exit Taste zum verlassen oder
+warte auf wertung!"
 
 [node name="Los" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -114,10 +115,11 @@ vertical_alignment = 1
 
 [node name="Info" type="Label" parent="CanvasLayer/Los"]
 layout_mode = 0
-offset_left = 240.0
-offset_top = 704.0
-offset_right = 1037.0
-offset_bottom = 768.0
+offset_left = 184.0
+offset_top = 640.0
+offset_right = 1097.0
+offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen"
+text = "Drücke die Exit Taste zum verlassen oder
+warte auf wertung!"
