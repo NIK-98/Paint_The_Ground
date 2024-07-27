@@ -195,6 +195,7 @@ func reset_vars_level():
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = false
+	$loby.visible = true
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false

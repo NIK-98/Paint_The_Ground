@@ -120,7 +120,8 @@ func _on_connect_pressed():
 func start_game():
 	if multiplayer.is_server():
 		change_level(preload("res://sceens/level.tscn"))
-	visible = false
+	if get_parent().get_node("Level/level").get_child_count() > 0:
+		visible = false
 
 
 func change_level(scene: PackedScene):
