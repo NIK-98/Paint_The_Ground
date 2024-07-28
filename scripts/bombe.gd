@@ -3,7 +3,7 @@ extends Node2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var level = get_parent().get_parent()
 
-const  bomb_radius = 4
+const  bomb_radius = 6
 var cleaners_count = 0
 			
 
