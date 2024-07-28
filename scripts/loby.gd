@@ -231,7 +231,7 @@ func reset_loby():
 func restart_game():
 	get_parent().reset_vars_level.rpc()
 	get_parent().stoped_game.rpc()
-	update_runnig_status_disconected.rpc()
+	#update_runnig_status_disconected.rpc()
 	
 
 @rpc("any_peer","call_local")

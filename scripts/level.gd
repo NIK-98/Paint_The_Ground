@@ -46,6 +46,9 @@ func _ready():
 
 
 func _process(_delta):
+	if not $CanvasLayer/Start.visible and $loby/CenterContainer/VBoxContainer/name_input.visible and not starting:
+		$CanvasLayer/Start.visible = true
+		
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
