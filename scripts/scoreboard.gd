@@ -24,7 +24,7 @@ func sync_list(NewScoreEintrag: Array):
 	Scoreboard_List.append(NewScoreEintrag)
 	Scoreboard_List.sort_custom(sort_scoreboard)
 	for eintrag in range(len(Scoreboard_List)):
-		if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag)) == null:
+		if not get_node("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer").has_node(str("HBoxContainer",eintrag)):
 			var newnode = get_node("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0").duplicate()
 			$"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/".add_child(newnode)
 			newnode.name = str("HBoxContainer",eintrag)
