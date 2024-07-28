@@ -114,9 +114,7 @@ var curent_list = []
 var esc_is_pressing_in_game = false
 	
 func _ready():
-	Max_clients = 6
-	if DisplayServer.get_name() == "headless":
-		Max_clients = 7
+	reset_loby()
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
@@ -233,6 +231,7 @@ func reset_loby():
 func restart_game():
 	get_parent().reset_vars_level.rpc()
 	get_parent().stoped_game.rpc()
+	update_runnig_status_disconected.rpc()
 	
 
 @rpc("any_peer","call_local")

@@ -18,6 +18,11 @@ const bomb_spawn_genzen = 250
 var Time_out = false
 
 func _ready():
+	$loby/CenterContainer/VBoxContainer/name_input.visible = true
+	$loby/CenterContainer/VBoxContainer/Enter.visible = true
+	$loby/CenterContainer/VBoxContainer/HBoxContainer.visible = true
+	$loby/CenterContainer/VBoxContainer/Random.visible = true
+	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
@@ -200,6 +205,11 @@ func reset_vars_level():
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
 		get_node("Scoreboard/CanvasLayer").visible = false
 	main.get_node("UI").visible = false
+	$loby/CenterContainer/VBoxContainer/name_input.visible = true
+	$loby/CenterContainer/VBoxContainer/Enter.visible = true
+	$loby/CenterContainer/VBoxContainer/HBoxContainer.visible = true
+	$loby/CenterContainer/VBoxContainer/Random.visible = true
+	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = false
