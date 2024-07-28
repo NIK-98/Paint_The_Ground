@@ -6,11 +6,6 @@ extends Node2D
 const  bomb_radius = 4
 var clean = false
 var cleaners_count = 0
-
-
-func _ready():
-	if OS.has_feature("dedicated_server"):
-		return
 		
 		
 func _process(_delta):
@@ -29,9 +24,10 @@ func aktivate_bombe(cell: int):
 	
 
 func clean_boom():
-	if clean and is_multiplayer_authority():	
-		if not OS.has_feature("dedicated_server") and cleaners_count-1 == len(multiplayer.get_peers()):
+	if clean and OS.has_feature("dedicated_server"):
+		if cleaners_count == len(multiplayer.get_peers()):
 			queue_free()
-		if OS.has_feature("dedicated_server") and cleaners_count == len(multiplayer.get_peers()):
+	if clean and is_multiplayer_authority():
+		if not OS.has_feature("dedicated_server") and cleaners_count-1 == len(multiplayer.get_peers()):
 			queue_free()
 		
