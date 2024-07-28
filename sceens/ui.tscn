@@ -173,7 +173,6 @@ layout_mode = 2
 theme = SubResource("Theme_ihe75")
 theme_override_font_sizes/font_size = 42
 text = "localhost"
-expand_to_text_length = true
 select_all_on_focus = true
 
 [node name="punkt" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]

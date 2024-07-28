@@ -86,10 +86,6 @@ func _on_connect_pressed():
 	block_host = true
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
-	if not ip.is_valid_ip_address() and not ip == "localhost":
-		OS.alert("Ist keine richtiege ip adresse.")
-		block_host = false
-		return
 	if not connectport.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		block_host = false
