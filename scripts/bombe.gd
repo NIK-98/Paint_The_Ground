@@ -21,7 +21,6 @@ func aktivate_bombe(cell: int):
 
 func clean_boom():
 	if OS.has_feature("dedicated_server"):
-		print(cleaners_count)
 		if cleaners_count-1 == len(multiplayer.get_peers()):
 			queue_free()
 	if is_multiplayer_authority():
