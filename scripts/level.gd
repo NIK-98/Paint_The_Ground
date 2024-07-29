@@ -45,7 +45,7 @@ func _ready():
 		add_player(1)
 
 
-func _process(_delta):
+func _process(_delta):	
 	if not $CanvasLayer/Start.visible and $loby/CenterContainer/VBoxContainer/name_input.visible and not starting:
 		$CanvasLayer/Start.visible = true
 		
@@ -65,10 +65,16 @@ func exittree():
 	multiplayer.peer_disconnected.disconnect(del_text_tap)
 	
 
+
 func verbindung_verloren():
+	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	OS.alert("Multiplayer Server wurde beendet.")
-	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	call_deferred("wechsel_sceene_wenn_server_disconected")
+	return
 	
+
+func wechsel_sceene_wenn_server_disconected():
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
 
 @rpc("call_local")
 func voll():
@@ -157,6 +163,7 @@ func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	kick(id)
+	multiplayer.multiplayer_peer.close() # debug meldung: _remove_node_cache: Condition "!pinfo" is true. Continuing.
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return
 	
@@ -165,7 +172,6 @@ func kick(id):
 	del_text_tap(id)
 	del_score(id)
 	del_player(id)
-	multiplayer.multiplayer_peer.close() # debug meldung: _remove_node_cache: Condition "!pinfo" is true. Continuing.
 	
 	
 func del_player(id: int):
