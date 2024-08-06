@@ -114,6 +114,7 @@ var curent_list = []
 var esc_is_pressing_in_game = false
 	
 func _ready():
+	visible = true
 	reset_loby()
 		
 func _process(_delta):
@@ -130,6 +131,7 @@ func visible_loby():
 		if DisplayServer.get_name() == "headless":
 			return
 		visible = false
+		
 
 	
 @rpc("any_peer","call_local")	

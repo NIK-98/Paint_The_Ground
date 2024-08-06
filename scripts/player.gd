@@ -18,7 +18,7 @@ var last_score = score
 var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
-var paint_radius = 2
+@export var paint_radius = 2
 
 @onready var camera = $Camera2D
 
@@ -177,14 +177,11 @@ func color_change():
 func boom():
 	for area in $Area2D.get_overlapping_areas():
 		if area.get_parent().is_in_group("boom"):
-			change_paint_rad.rpc()
+			change_paint_rad()
 			area.get_parent().aktivate_bombe(color_cell)
 
 
-@rpc("any_peer","call_local")
 func change_paint_rad():
-	if OS.has_feature("dedicated_server"):
-		return
 	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
 	paint_radius = radius_varscheinlichkeit.pick_random()
 	
