@@ -46,16 +46,17 @@ func _ready():
 
 
 func _process(_delta):	
-	if not $CanvasLayer/Start.visible and $loby/CenterContainer/VBoxContainer/name_input.visible and not starting:
+	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and $loby/CenterContainer/VBoxContainer/name_input.visible and not starting:
 		$CanvasLayer/Start.visible = true
 		
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if not $Timer.is_stopped():
-		$CanvasLayer/Time.text = str(round($Timer.time_left))
-	if not $Timerbomb.is_stopped():
-		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
+	if not OS.has_feature("dedicated_server"):
+		if not $Timer.is_stopped():
+			$CanvasLayer/Time.text = str(round($Timer.time_left))
+		if not $Timerbomb.is_stopped():
+			$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 		
 
 func exittree():	
@@ -205,13 +206,14 @@ func _on_start_pressed():
 
 @rpc("any_peer","call_local")
 func reset_vars_level():
-	if not OS.has_feature("dedicated_server"):
+	if get_node("Players").has_node(str(multiplayer.get_unique_id())):
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Winner").visible = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Los").visible = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).ende = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).loaded = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).Gametriggerstart = false
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
+		get_node("Players").get_node(str(multiplayer.get_unique_id())).paint_radius = 2
 		get_node("Scoreboard/CanvasLayer").visible = false
 	main.get_node("UI").visible = false
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
@@ -246,6 +248,10 @@ func stoped_game():
 	
 
 func _on_timerbomb_timeout():
+	if OS.has_feature("dedicated_server"):
+		for i in range(Global.Spawn_bomben_limit):
+			spawn_new_bombe()
+		return
 	if is_multiplayer_authority():
 		for i in range(Global.Spawn_bomben_limit):
 			spawn_new_bombe()

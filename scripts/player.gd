@@ -34,20 +34,20 @@ func _ready():
 	color_change()
 	map.reset_floor()
 
-func _physics_process(_delta):		
+func _physics_process(_delta):	
 	if not loaded:
 		loaded = true
 		if is_multiplayer_authority():
 			camera.make_current()
 		paint.rpc()
-		score_counter()
+		score_counter.rpc()
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
 			paint.rpc()
-			score_counter()
+			score_counter.rpc()
 			Check_Time_Visible.rpc()
 			level.get_node("Timer").start()
 			level.get_node("Timerbomb").start()
@@ -71,7 +71,7 @@ func _physics_process(_delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			boom()
-			score_counter()
+			score_counter.rpc()
 		elif level.Time_out and not ende:
 			ende = true
 			if name.to_int() == multiplayer.get_unique_id():
@@ -85,6 +85,8 @@ func _physics_process(_delta):
 	
 
 func moving():
+	if OS.has_feature("dedicated_server"):
+		return
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
 		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0:
 			Input.action_press("right")
@@ -112,15 +114,14 @@ func Check_Time_Visible():
 				i.visible = true
 	
 
+@rpc("any_peer","call_local")
 func score_counter():
 	last_score = score
-	score = 0
-	for i in len(map.get_used_cells_by_id(0,color_cell)):
-		score+=1
+	score = len(map.get_used_cells_by_id(0,color_cell))
 	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer/Wertung").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung(name.to_int())
+		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung.rpc(name.to_int())
 		
 
 @rpc("any_peer","call_local")
@@ -176,9 +177,17 @@ func color_change():
 func boom():
 	for area in $Area2D.get_overlapping_areas():
 		if area.get_parent().is_in_group("boom"):
-			var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
-			paint_radius = radius_varscheinlichkeit.pick_random()
+			change_paint_rad.rpc()
 			area.get_parent().aktivate_bombe(color_cell)
+
+
+@rpc("any_peer","call_local")
+func change_paint_rad():
+	if OS.has_feature("dedicated_server"):
+		return
+	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
+	paint_radius = radius_varscheinlichkeit.pick_random()
+	
 				
 func _exit_tree():
 	Global.Gameover = false
