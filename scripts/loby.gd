@@ -233,6 +233,7 @@ func reset_loby():
 			reset_var.rpc()
 			get_parent().get_node("Scoreboard").Scoreboard_List = []
 			get_parent().reset_vars_level.rpc()
+			visible = true
 			get_parent().stoped_game.rpc()
 			get_parent().reset_bomben.rpc()
 			exit()
@@ -240,6 +241,7 @@ func reset_loby():
 func restart_game():
 	get_parent().reset_vars_level.rpc()
 	get_parent().stoped_game.rpc()
+	get_parent().show_start.rpc()
 	
 
 @rpc("any_peer","call_local")
