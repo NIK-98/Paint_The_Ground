@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var player_conect_count = 0
 @export var is_running = false
 @export var Max_clients = 6
+@export var hidenloby = false
 
 var j_namen = ["Levi",
 			   "Emil",
@@ -127,12 +128,17 @@ func _process(_delta):
 		visible_loby()
 	
 func visible_loby():
-	if count_players_wait == player_conect_count:
+	if count_players_wait == player_conect_count and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
 		if DisplayServer.get_name() == "headless":
 			return
-		visible = false
+		set_hidelobyvar.rpc()
+		get_parent().show_start.rpc()
 		
 
+
+@rpc("any_peer","call_local")	
+func set_hidelobyvar():
+	hidenloby = not hidenloby
 	
 @rpc("any_peer","call_local")	
 func namen_text_update(id, text):
@@ -160,6 +166,7 @@ func update_server_status_disconected():
 
 @rpc("any_peer","call_local")	
 func reset_var():
+	hidenloby = false
 	count_players_wait = 0
 	player_conect_count = 0
 	is_running = false
@@ -233,7 +240,6 @@ func reset_loby():
 func restart_game():
 	get_parent().reset_vars_level.rpc()
 	get_parent().stoped_game.rpc()
-	#update_runnig_status_disconected.rpc()
 	
 
 @rpc("any_peer","call_local")
@@ -266,6 +272,7 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
+		get_parent().get_node("CanvasLayer/Start").visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		

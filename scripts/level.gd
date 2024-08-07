@@ -14,7 +14,6 @@ const bomb_spawn_genzen = 250
 @export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 @export var oldrandpos = randpos
 @export var starting = false
-var loaded = false
 
 var Time_out = false
 
@@ -46,11 +45,7 @@ func _ready():
 		add_player(1)
 
 
-func _process(_delta):	
-	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and $loby.visible and not starting and not loaded:
-		loaded = true
-		$CanvasLayer/Start.visible = true
-		
+func _process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -194,6 +189,13 @@ func hide_ui():
 	main.get_node("UI").visible = false
 	
 
+
+@rpc("any_peer","call_local")
+func show_start():
+	$CanvasLayer/Start.visible = true
+	$loby.visible = false
+	
+	
 @rpc("any_peer","call_local")
 func hide_start():
 	$CanvasLayer/Start.visible = false
@@ -226,13 +228,12 @@ func reset_vars_level():
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = false
-	loaded = false
 	$loby.visible = true
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	$CanvasLayer/Start.visible = true
+	$CanvasLayer/Start.visible = false
 	map.reset_floor()
 	
 @rpc("any_peer","call_local")
