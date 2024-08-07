@@ -14,6 +14,7 @@ const bomb_spawn_genzen = 250
 @export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 @export var oldrandpos = randpos
 @export var starting = false
+var loaded = false
 
 var Time_out = false
 
@@ -46,8 +47,8 @@ func _ready():
 
 
 func _process(_delta):	
-	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and not starting:
-		$loby.visible = true
+	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and $loby.visible and not starting and not loaded:
+		loaded = true
 		$CanvasLayer/Start.visible = true
 		
 	$loby.reset_loby()
@@ -225,6 +226,7 @@ func reset_vars_level():
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = false
+	loaded = false
 	$loby.visible = true
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
