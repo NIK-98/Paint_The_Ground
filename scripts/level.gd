@@ -46,7 +46,8 @@ func _ready():
 
 
 func _process(_delta):	
-	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and $loby/CenterContainer/VBoxContainer/name_input.visible and not starting:
+	if not OS.has_feature("dedicated_server") and not $CanvasLayer/Start.visible and not starting:
+		$loby.visible = true
 		$CanvasLayer/Start.visible = true
 		
 	$loby.reset_loby()
