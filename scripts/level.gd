@@ -121,19 +121,12 @@ func reset_bomben():
 			Bomben.get_child(c).queue_free()
 
 
-@rpc("any_peer","call_local")
-func spawn_new_bombe(randpos):
+func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
-		new_bombe.position = randpos
+		new_bombe.position = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 		Bomben.add_child(new_bombe, true)
-		
-
-@rpc("any_peer","call_local")
-func del_boom(nodename: String):
-	if Bomben.has_node(str(nodename)):
-		Bomben.get_node(str(nodename)).queue_free()
 	
 	
 func add_score(id: int):
@@ -250,7 +243,10 @@ func stoped_game():
 	
 
 func _on_timerbomb_timeout():
-	spawn_new_bombe.rpc(Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen)))
+	if OS.has_feature("dedicated_server"):
+		spawn_new_bombe()
+	if is_multiplayer_authority():
+		spawn_new_bombe()
 	
 
 func _on_timerende_timeout():

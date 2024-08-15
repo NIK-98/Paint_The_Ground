@@ -121,7 +121,7 @@ func Check_Time_Visible():
 @rpc("any_peer","call_local")
 func score_counter():
 	last_score = score
-	score = len(map.get_used_cells_by_id(0,color_cell))
+	score = len(map.get_used_cells_by_id(color_cell))
 	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer/Wertung").has_node(str(name)):
 			return
@@ -134,8 +134,8 @@ func paint():
 	for x in range(paint_radius):
 		for y in range(paint_radius):
 			var pos = Vector2i(x,y) + tile_position
-			if map.get_cell_source_id(0,pos) != -1:
-				map.set_cell(0,pos,color_cell,Vector2i(0,0))
+			if map.get_cell_source_id(pos) != -1:
+				map.set_cell(pos,color_cell,Vector2i(0,0),0)
 		
 		
 func color_change():
