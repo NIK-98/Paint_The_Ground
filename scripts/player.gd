@@ -19,6 +19,7 @@ var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
 @export var paint_radius = 2
+@export var peers = []
 
 @onready var camera = $Camera2D
 
@@ -27,6 +28,10 @@ func _enter_tree():
 	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 	
 func _ready():
+	for peer_id in multiplayer.get_peers():
+		peers.append(peer_id)
+	if multiplayer.is_server():
+		peers.append(1)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
 	$Camera2D.limit_right = Global.Spielfeld_Size.x
@@ -67,11 +72,10 @@ func _physics_process(_delta):
 					Input.action_release("down")
 				move = Input.get_vector("left","right","up","down")
 				velocity = move*SPEED
-			move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
-			boom()
 			score_counter.rpc()
+			move_and_collide(velocity)
 		elif level.Time_out and not ende:
 			ende = true
 			if name.to_int() == multiplayer.get_unique_id():
@@ -172,15 +176,8 @@ func color_change():
 			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
 			get_node("CanvasLayer/Winner").set_color(Color.YELLOW)
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
-		
-	
-func boom():
-	for area in $Area2D.get_overlapping_areas():
-		if area.get_parent().is_in_group("boom"):
-			change_paint_rad()
-			area.get_parent().aktivate_bombe(color_cell)
-
-
+			
+								
 func change_paint_rad():
 	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
 	paint_radius = radius_varscheinlichkeit.pick_random()

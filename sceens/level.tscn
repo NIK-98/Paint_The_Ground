@@ -130,45 +130,39 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("CanvasLayer/Start:visible")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:randpos")
+properties/3/path = NodePath("CanvasLayer/Bomb_time:text")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:oldrandpos")
+properties/4/path = NodePath("CanvasLayer/Bomb_time:visible")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("CanvasLayer/Bomb_time:text")
+properties/5/path = NodePath("loby:count_players_wait")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("CanvasLayer/Bomb_time:visible")
+properties/6/path = NodePath("loby:player_conect_count")
 properties/6/spawn = true
 properties/6/replication_mode = 1
-properties/7/path = NodePath("loby:count_players_wait")
+properties/7/path = NodePath("loby:is_running")
 properties/7/spawn = true
 properties/7/replication_mode = 1
-properties/8/path = NodePath("loby:player_conect_count")
+properties/8/path = NodePath("loby:Max_clients")
 properties/8/spawn = true
 properties/8/replication_mode = 1
-properties/9/path = NodePath("loby:is_running")
+properties/9/path = NodePath("Werten:visible")
 properties/9/spawn = true
 properties/9/replication_mode = 1
-properties/10/path = NodePath("loby:Max_clients")
+properties/10/path = NodePath(".:starting")
 properties/10/spawn = true
 properties/10/replication_mode = 1
-properties/11/path = NodePath("Werten:visible")
+properties/11/path = NodePath("Tap/CenterContainer/PanelContainer/VBoxContainer:alignment")
 properties/11/spawn = true
 properties/11/replication_mode = 1
-properties/12/path = NodePath(".:starting")
+properties/12/path = NodePath("loby:visible")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath("Tap/CenterContainer/PanelContainer/VBoxContainer:alignment")
+properties/13/path = NodePath("loby:hidenloby")
 properties/13/spawn = true
 properties/13/replication_mode = 1
-properties/14/path = NodePath("loby:visible")
-properties/14/spawn = true
-properties/14/replication_mode = 1
-properties/15/path = NodePath("loby:hidenloby")
-properties/15/spawn = true
-properties/15/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -183,10 +177,6 @@ format = 2
 script = ExtResource("8_ul4n7")
 
 [node name="Bomben" type="Node" parent="."]
-
-[node name="BombenSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://sceens/bombe.tscn")
-spawn_path = NodePath("../Bomben")
 
 [node name="Players" type="Node" parent="."]
 

@@ -11,8 +11,6 @@ const bomb_spawn_genzen = 250
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var Bomben = get_node("Bomben")
-@export var randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
-@export var oldrandpos = randpos
 @export var starting = false
 
 var Time_out = false
@@ -121,20 +119,21 @@ func reset_bomben():
 	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
-			
+
 
 @rpc("any_peer","call_local")
-func update_spawn_bomb_position():
-	oldrandpos = randpos
-	randpos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+func spawn_new_bombe(randpos):
+	for i in range(Global.Spawn_bomben_limit):
+		var new_bombe = bombe.instantiate()
+		new_bombe.name = "bombe"
+		new_bombe.position = randpos
+		Bomben.add_child(new_bombe, true)
+		
 
-
-func spawn_new_bombe():
-	update_spawn_bomb_position.rpc()
-	var new_bombe = bombe.instantiate()
-	new_bombe.name = "bombe"
-	new_bombe.position = randpos
-	Bomben.add_child(new_bombe, true)
+@rpc("any_peer","call_local")
+func del_boom(nodename: String):
+	if Bomben.has_node(str(nodename)):
+		Bomben.get_node(str(nodename)).queue_free()
 	
 	
 func add_score(id: int):
@@ -251,14 +250,8 @@ func stoped_game():
 	
 
 func _on_timerbomb_timeout():
-	if OS.has_feature("dedicated_server"):
-		for i in range(Global.Spawn_bomben_limit):
-			spawn_new_bombe()
-		return
-	if is_multiplayer_authority():
-		for i in range(Global.Spawn_bomben_limit):
-			spawn_new_bombe()
-
+	spawn_new_bombe.rpc(Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen)))
+	
 
 func _on_timerende_timeout():
 	if OS.has_feature("dedicated_server"):
