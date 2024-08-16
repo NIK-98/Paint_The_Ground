@@ -28,31 +28,31 @@ position = Vector2(0, -0.560001)
 texture_normal = ExtResource("1_xhhrx")
 visibility_mode = 1
 
-[node name="Up" type="Sprite2D" parent="Control"]
+[node name="Right" type="Sprite2D" parent="Control/joy"]
 modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(34.0404, -9.66068)
-scale = Vector2(0.494, 0.14)
-texture = ExtResource("3_gbchc")
-
-[node name="Down" type="Sprite2D" parent="Control"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(32.8004, 73.8996)
-scale = Vector2(0.494, 0.14)
-texture = ExtResource("4_otyq2")
-
-[node name="Right" type="Sprite2D" parent="Control"]
-modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(75.0398, 31.3601)
+position = Vector2(75.0398, 31.9201)
 scale = Vector2(0.158, 0.48)
 texture = ExtResource("5_wllb0")
 
-[node name="Left" type="Sprite2D" parent="Control"]
+[node name="Up" type="Sprite2D" parent="Control/joy"]
 modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(-12.32, 31.36)
+position = Vector2(34.0404, -9.10068)
+scale = Vector2(0.494, 0.14)
+texture = ExtResource("3_gbchc")
+
+[node name="Down" type="Sprite2D" parent="Control/joy"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(32.8004, 74.4596)
+scale = Vector2(0.494, 0.14)
+texture = ExtResource("4_otyq2")
+
+[node name="Left" type="Sprite2D" parent="Control/joy"]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(-12.32, 31.92)
 scale = Vector2(0.196, 0.48)
 texture = ExtResource("6_mo5nj")
 
-[node name="Joy" type="Sprite2D" parent="Control"]
-position = Vector2(31.3599, 31.3601)
+[node name="Joy" type="Sprite2D" parent="Control/joy"]
+position = Vector2(31.3599, 31.9201)
 scale = Vector2(2.85715, 2.85714)
 texture = ExtResource("3_vt4s1")

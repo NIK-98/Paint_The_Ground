@@ -1,10 +1,6 @@
 extends Control
 
-@onready var joystick = $Control/Joy
-@onready var up = $"Control/Up"
-@onready var down = $"Control/Down"
-@onready var right = $"Control/Right"
-@onready var left = $"Control/Left"
+@onready var joystick = $Control/joy/Joy
 @onready var layer = $"Control"
 
 

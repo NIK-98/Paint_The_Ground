@@ -25,7 +25,6 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	# We only need to spawn players on the server.
 	multiplayer.server_disconnected.connect(verbindung_verloren)
 	if not multiplayer.is_server():
 		return
