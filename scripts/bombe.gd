@@ -7,6 +7,11 @@ const bomb_radius = 6
 var count_aktivate = 0
 
 
+func _ready():
+	if OS.has_feature("dedicated_server"):
+		count_aktivate = -1
+		
+		
 func _process(_delta):
 	if count_aktivate == len(level.playerlist):
 		if is_multiplayer_authority():
