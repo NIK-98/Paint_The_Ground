@@ -12,6 +12,7 @@ const bomb_spawn_genzen = 250
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
+@export var playerlist = []
 
 var Time_out = false
 
@@ -94,6 +95,7 @@ func add_player(id: int):
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id)
+	playerlist.append(id)
 
 	
 @rpc("any_peer","call_local")
@@ -152,7 +154,7 @@ func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	kick(id)
-	multiplayer.multiplayer_peer.close() # debug meldung: _remove_node_cache: Condition "!pinfo" is true. Continuing.
+	multiplayer.multiplayer_peer.close()
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return
 	
@@ -166,6 +168,7 @@ func kick(id):
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
+	playerlist.erase(id)
 	get_node("Players").get_node(str(id)).queue_free()
 	
 

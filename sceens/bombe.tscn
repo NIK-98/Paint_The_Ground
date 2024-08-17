@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hce8j"]
 radius = 21.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w628m"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rgxeq"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
@@ -24,6 +24,6 @@ position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_hce8j")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_w628m")
+replication_config = SubResource("SceneReplicationConfig_rgxeq")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
