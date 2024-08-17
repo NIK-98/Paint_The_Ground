@@ -9,14 +9,13 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0wsa"]
 texture = ExtResource("2_plmyg")
 
-[sub_resource type="SystemFont" id="SystemFont_6yb3n"]
-font_names = PackedStringArray("Goudy Stout")
-subpixel_positioning = 0
+[sub_resource type="SystemFont" id="SystemFont_mlu1k"]
+font_names = PackedStringArray("Cooper")
 
 [sub_resource type="Theme" id="Theme_iqe0b"]
 Label/colors/font_color = Color(1, 0.0405029, 0.0223527, 1)
-Label/font_sizes/font_size = 18
-Label/fonts/font = SubResource("SystemFont_6yb3n")
+Label/font_sizes/font_size = 20
+Label/fonts/font = SubResource("SystemFont_mlu1k")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
 bg_color = Color(0, 0.682353, 0.701961, 1)
