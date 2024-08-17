@@ -11,6 +11,7 @@ texture = ExtResource("2_plmyg")
 
 [sub_resource type="SystemFont" id="SystemFont_mlu1k"]
 font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_iqe0b"]
 Label/colors/font_color = Color(1, 0.0405029, 0.0223527, 1)
