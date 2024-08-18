@@ -95,7 +95,7 @@ func add_player(id: int):
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
-	add_score(id)
+	add_score(id, false)
 	playerlist.append(id)
 
 	
@@ -132,17 +132,20 @@ func spawn_new_bombe():
 		
 		
 func spawn_npc():
-	var new_npc = npc.instantiate()
-	new_npc.name = "npc"
-	get_node("Players").add_child(new_npc, true)
-	add_score(new_npc.name)
+	for i in range(Global.count_npcs):
+		var new_npc = npc.instantiate()
+		new_npc.name = "NPC1"
+		get_node("Players").add_child(new_npc, true)
+		add_score(new_npc.name, true)
 	
 	
-func add_score(id):
+func add_score(id, npc: bool):
 	var new_score_label = score_label.instantiate()
 	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
 	new_score_label.name = str(id)
 	get_node("Werten/PanelContainer/Wertung").add_child(new_score_label, true)
+	if npc:
+		new_score_label.is_npc = npc
 	
 	
 func del_score(id):
@@ -266,6 +269,9 @@ func _on_timerende_timeout():
 		return
 	get_node("Scoreboard").update_scoreboard()
 	get_node("Scoreboard/CanvasLayer").visible = true
-	if get_node("Players").has_node("npc"):
-		get_node("Players/npc").queue_free()
-		get_node("Werten/PanelContainer/Wertung/npc").queue_free()
+	for n in get_node("Players").get_children():
+		if n.is_in_group("npc"):
+			n.queue_free()
+	for n in get_node("Werten/PanelContainer/Wertung").get_children():
+		if n.is_npc:
+			n.queue_free()

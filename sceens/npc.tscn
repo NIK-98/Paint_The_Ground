@@ -28,7 +28,7 @@ properties/5/path = NodePath(".:paint_radius")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
-[node name="NPC" type="CharacterBody2D" groups=["player"]]
+[node name="NPC" type="CharacterBody2D" groups=["npc", "player"]]
 script = ExtResource("1_85ml5")
 
 [node name="Name" type="Label" parent="."]
@@ -62,6 +62,7 @@ shape = SubResource("RectangleShape2D_p0g61")
 replication_config = SubResource("SceneReplicationConfig_y5w6s")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 120.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

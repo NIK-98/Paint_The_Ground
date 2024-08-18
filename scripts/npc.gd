@@ -18,12 +18,14 @@ var new_direction: Vector2
 var direction_sehen: Vector2
 var direction_volgen: Vector2
 var direction_flucht: Vector2
+var SPEED = 2
 var dir: Vector2
 @export var paint_radius = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	color_change()
+	$Name.text = str(name)
 	position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 
 func _physics_process(delta):	
@@ -46,7 +48,7 @@ func _physics_process(delta):
 			paint.rpc()
 			score_counter.rpc()
 					
-			velocity = move()*delta
+			velocity = move_npc()*delta
 			
 			if position.x < get_node("Color").size.x:
 				velocity.x = 1
@@ -68,10 +70,21 @@ func _physics_process(delta):
 
 func color_change():
 	for i in range(len(get_parent().get_children())):
-		if get_parent().get_node(str(name)) != null and i == 0:
+		if get_parent().get_node(str(name)) != null and i == 1:
 			color_cell = 7
 			get_node("Color").set_color(Color.SADDLE_BROWN)
 			get_node("Name").set("theme_override_colors/font_color",Color.SADDLE_BROWN)
+			SPEED = 2
+		if get_parent().get_node(str(name)) != null and i == 2:
+			color_cell = 8
+			get_node("Color").set_color(Color.ORANGE)
+			get_node("Name").set("theme_override_colors/font_color",Color.ORANGE)
+			SPEED = 2.5
+		if get_parent().get_node(str(name)) != null and i == 3:
+			color_cell = 9
+			get_node("Color").set_color(Color.HOT_PINK)
+			get_node("Name").set("theme_override_colors/font_color",Color.HOT_PINK)
+			SPEED = 3
 		
 								
 func change_paint_rad():
@@ -107,10 +120,10 @@ func Check_Time_Visible():
 				i.visible = true
 
 
-func move():
-	direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position) * 2
-	direction_volgen = (get_parent().get_child(0).position - position) * 2
-	direction_flucht = (position - get_parent().get_child(0).position) * 2
+func move_npc():
+	direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position) * SPEED
+	direction_volgen = (get_parent().get_child(0).position - position) * SPEED
+	direction_flucht = (position - get_parent().get_child(0).position) * SPEED
 	if random == 1:
 		direction_sehen.normalized()
 		return direction_sehen

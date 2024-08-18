@@ -116,6 +116,7 @@ var esc_is_pressing_in_game = false
 	
 func _ready():
 	visible = true
+	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	reset_loby()
 		
 func _process(_delta):
@@ -182,7 +183,9 @@ func exit():
 		return
 	if multiplayer.is_server():
 		OS.alert("Server beendet!")
-		get_parent().del_score(get_parent().get_node("Players/npc"))
+		for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
+			if n.is_npc:
+				n.queue_free()
 		get_parent().exittree()
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
@@ -274,3 +277,10 @@ func _on_random_pressed():
 		$CenterContainer/VBoxContainer/name_input.text = curent_list.pick_random()
 	else:
 		OS.alert("Mänlich oder Weiblich Wällen", "Auswahl")
+
+
+func _on_npcs_pressed():
+	Global.count_npcs += 1
+	if Global.count_npcs > Global.npcs_anzahl:
+		Global.count_npcs = 1
+	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)

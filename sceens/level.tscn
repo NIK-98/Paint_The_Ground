@@ -129,7 +129,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
 [sub_resource type="Theme" id="Theme_ywke1"]
-Button/colors/font_color = Color(0.768627, 1, 0.101961, 1)
+Button/colors/font_color = Color(0.768627, 0.937255, 0.101961, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
 Button/styles/focus = SubResource("StyleBoxFlat_57cek")
@@ -350,6 +350,10 @@ layout_mode = 2
 theme = SubResource("Theme_4qfo0")
 text = "Generate"
 
+[node name="npcs" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ywke1")
+
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_ywke1")
@@ -375,6 +379,7 @@ wait_time = 10.0
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timerende" to="." method="_on_timerende_timeout"]
