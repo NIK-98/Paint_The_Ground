@@ -64,13 +64,6 @@ func _physics_process(delta):
 		elif level.Time_out and not ende:
 			ende = true
 			$Timer.stop()
-			if name.to_int() == multiplayer.get_unique_id():
-				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
-					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text:
-						get_node("CanvasLayer/Los").visible = true
-						break
-				if not get_node("CanvasLayer/Los").visible:
-					get_node("CanvasLayer/Winner").visible = true
 			level.get_node("Timerende").start()
 
 func color_change():
@@ -79,8 +72,7 @@ func color_change():
 			color_cell = 7
 			get_node("Color").set_color(Color.SADDLE_BROWN)
 			get_node("Name").set("theme_override_colors/font_color",Color.SADDLE_BROWN)
-			get_node("CanvasLayer/Winner").set_color(Color.SADDLE_BROWN)
-			get_node("CanvasLayer/Los").set_color(Color.SADDLE_BROWN)
+		
 								
 func change_paint_rad():
 	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius

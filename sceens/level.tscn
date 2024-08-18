@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=32 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -60,6 +60,8 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
 font_names = PackedStringArray("Berlin Sans FB")
 subpixel_positioning = 0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_435x7"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6jnd"]
 bg_color = Color(0, 0.670588, 0.780392, 0.784314)
 corner_radius_top_left = 25
@@ -76,6 +78,7 @@ LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 1)
 LineEdit/font_sizes/font_size = 45
 LineEdit/fonts/font = SubResource("SystemFont_8psfh")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_435x7")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_m6jnd")
 
 [sub_resource type="SystemFont" id="SystemFont_8s71y"]
@@ -356,7 +359,7 @@ script = ExtResource("15_unqr3")
 [node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 3.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0

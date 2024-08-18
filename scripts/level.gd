@@ -266,3 +266,6 @@ func _on_timerende_timeout():
 		return
 	get_node("Scoreboard").update_scoreboard()
 	get_node("Scoreboard/CanvasLayer").visible = true
+	if get_node("Players").has_node("npc"):
+		get_node("Players/npc").queue_free()
+		get_node("Werten/PanelContainer/Wertung/npc").queue_free()

@@ -61,68 +61,6 @@ shape = SubResource("RectangleShape2D_p0g61")
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_y5w6s")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 4
-
-[node name="Winner" type="ColorRect" parent="CanvasLayer"]
-visible = false
-offset_right = 1280.0
-offset_bottom = 800.0
-color = Color(1, 0.807843, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/Winner"]
-layout_mode = 2
-offset_left = 120.0
-offset_top = 256.0
-offset_right = 1161.0
-offset_bottom = 529.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 145
-text = "Gewonnen"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Info" type="Label" parent="CanvasLayer/Winner"]
-layout_mode = 0
-offset_left = 184.0
-offset_top = 640.0
-offset_right = 1097.0
-offset_bottom = 771.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen oder
-warte auf wertung!"
-
-[node name="Los" type="ColorRect" parent="CanvasLayer"]
-visible = false
-offset_right = 1280.0
-offset_bottom = 800.0
-color = Color(1, 0.807843, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/Los"]
-layout_mode = 2
-offset_left = 160.0
-offset_top = 256.0
-offset_right = 1118.0
-offset_bottom = 529.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 145
-text = "Verloren
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Info" type="Label" parent="CanvasLayer/Los"]
-layout_mode = 0
-offset_left = 184.0
-offset_top = 640.0
-offset_right = 1097.0
-offset_bottom = 771.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen oder
-warte auf wertung!"
-
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
