@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var level = get_parent().get_parent()
 
 
-const SPEED = 2
 var score = 0
 var last_score = score
 var color_cell = 0
@@ -12,6 +11,14 @@ var loaded = false
 var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
+var vorhersage_zeit = 50
+var direction = [1,1,1,2,3,3]
+var random = direction.pick_random()
+var new_direction: Vector2
+var direction_sehen: Vector2
+var direction_volgen: Vector2
+var direction_flucht: Vector2
+var dir: Vector2
 @export var paint_radius = 2
 
 # Called when the node enters the scene tree for the first time.
@@ -34,13 +41,29 @@ func _physics_process(delta):
 			Check_Time_Visible.rpc()
 			level.get_node("Timer").start()
 			level.get_node("Timerbomb").start()
+			$Timer.start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			paint.rpc()
 			score_counter.rpc()
-			velocity = move()*SPEED*delta
+					
+			velocity = move()*delta
+			
+			if position.x < get_node("Color").size.x:
+				velocity.x = 1
+				
+			if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
+				velocity.x = -1
+				
+			if position.y < get_node("Color").size.y:
+				velocity.y = 1
+				
+			if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
+				velocity.y = -1
+				
 			move_and_collide(velocity)
 		elif level.Time_out and not ende:
 			ende = true
+			$Timer.stop()
 			if name.to_int() == multiplayer.get_unique_id():
 				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
 					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text:
@@ -93,11 +116,19 @@ func Check_Time_Visible():
 
 
 func move():
-	var entfernung = abs(get_parent().get_child(0).position - position).length()
-	var direction = get_parent().get_child(0).position - position
-	direction.normalized()
-	if entfernung <= 1000:
-		return direction
-	else:
-		return Vector2(0,0)
-		
+	direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position) * 2
+	direction_volgen = (get_parent().get_child(0).position - position) * 2
+	direction_flucht = (position - get_parent().get_child(0).position) * 2
+	if random == 1:
+		direction_sehen.normalized()
+		return direction_sehen
+	if random == 2:
+		direction_volgen.normalized()
+		return direction_volgen
+	if random == 3:
+		-direction_flucht.normalized()
+		return -direction_flucht
+
+
+func _on_timer_timeout():
+	random = direction.pick_random()

@@ -208,6 +208,8 @@ func _on_start_pressed():
 	reset_bomben.rpc()
 	wertungs_anzeige_aktivieren.rpc()
 	starting_game.rpc()
+	if get_node("loby").player_conect_count == 1 and get_node("loby").count_players_wait == 1:
+		spawn_npc()
 	
 
 @rpc("any_peer","call_local")
