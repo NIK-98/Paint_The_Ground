@@ -125,13 +125,10 @@ func move_npc():
 	direction_volgen = (get_parent().get_child(0).position - position) * SPEED
 	direction_flucht = (position - get_parent().get_child(0).position) * SPEED
 	if random == 1:
-		direction_sehen.normalized()
 		return direction_sehen
 	if random == 2:
-		direction_volgen.normalized()
 		return direction_volgen
 	if random == 3:
-		-direction_flucht.normalized()
 		return -direction_flucht
 
 
