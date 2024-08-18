@@ -257,6 +257,8 @@ func _on_enter_pressed():
 		get_parent().get_node("CanvasLayer/Start").visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
+	if player_conect_count == 1 and count_players_wait == 1:
+		get_parent().spawn_npc()
 		
 		
 

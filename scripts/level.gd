@@ -10,6 +10,7 @@ const bomb_spawn_genzen = 250
 @export var name_label: PackedScene
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
+@onready var npc = preload("res://sceens/npc.tscn")
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
 @export var playerlist = []
@@ -128,6 +129,12 @@ func spawn_new_bombe():
 		new_bombe.name = "bombe"
 		new_bombe.position = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
 		Bomben.add_child(new_bombe, true)
+		
+		
+func spawn_npc():
+	var new_npc = npc.instantiate()
+	new_npc.name = "npc"
+	get_node("Players").add_child(new_npc, true)
 	
 	
 func add_score(id: int):

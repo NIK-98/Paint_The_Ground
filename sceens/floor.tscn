@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fv2dn4il1f71"]
+[gd_scene load_steps=19 format=3 uid="uid://fv2dn4il1f71"]
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_6wjps"]
 [ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="1_j74ic"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d30lnynty3ch8" path="res://assets/ground/ground_light_blue.png" id="5_glr42"]
 [ext_resource type="Texture2D" uid="uid://csr6aotfq45ee" path="res://assets/ground/ground_violet.png" id="6_p585f"]
 [ext_resource type="Texture2D" uid="uid://csprtcrt63mm3" path="res://assets/ground/ground_yellow.png" id="7_6oai7"]
+[ext_resource type="Texture2D" uid="uid://b1qqjf573lna5" path="res://assets/ground/ground_npc1.png" id="8_rv1no"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wfxpn"]
 texture = ExtResource("1_j74ic")
@@ -44,6 +45,11 @@ texture = ExtResource("7_6oai7")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8sgj5"]
+texture = ExtResource("8_rv1no")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_6pxfk"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
@@ -54,6 +60,7 @@ sources/3 = SubResource("TileSetAtlasSource_wcno6")
 sources/4 = SubResource("TileSetAtlasSource_wrqoe")
 sources/5 = SubResource("TileSetAtlasSource_jh5d0")
 sources/6 = SubResource("TileSetAtlasSource_1s3c3")
+sources/7 = SubResource("TileSetAtlasSource_8sgj5")
 
 [node name="floor" type="TileMapLayer"]
 use_parent_material = true
