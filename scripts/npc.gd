@@ -31,22 +31,22 @@ func _ready():
 func _physics_process(delta):	
 	if not loaded:
 		loaded = true
-		paint.rpc()
-		score_counter.rpc()
+		paint()
+		score_counter()
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
-			paint.rpc()
-			score_counter.rpc()
-			Check_Time_Visible.rpc()
+			paint()
+			score_counter()
+			Check_Time_Visible()
 			level.get_node("Timer").start()
 			level.get_node("Timerbomb").start()
 			$Timer.start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
-			paint.rpc()
-			score_counter.rpc()
+			paint()
+			score_counter()
 					
 			velocity = move_npc()*delta
 			
@@ -92,7 +92,7 @@ func change_paint_rad():
 	paint_radius = radius_varscheinlichkeit.pick_random()
 	
 	
-@rpc("any_peer","call_local")
+
 func paint():
 	var tile_position = map.local_to_map(position)
 	for x in range(paint_radius):
@@ -102,17 +102,16 @@ func paint():
 				map.set_cell(pos,color_cell,Vector2i(0,0),0)
 				
 				
-@rpc("any_peer","call_local")
+
 func score_counter():
 	last_score = score
 	score = len(map.get_used_cells_by_id(color_cell))
 	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer/Wertung").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung.rpc(name)
+		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung_npc(name)
 		
 
-@rpc("any_peer","call_local")
 func Check_Time_Visible():
 	for i in level.get_node("CanvasLayer").get_children():
 		if i.is_in_group("time"):
