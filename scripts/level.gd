@@ -135,16 +135,17 @@ func spawn_npc():
 	var new_npc = npc.instantiate()
 	new_npc.name = "npc"
 	get_node("Players").add_child(new_npc, true)
+	add_score(new_npc.name)
 	
 	
-func add_score(id: int):
+func add_score(id):
 	var new_score_label = score_label.instantiate()
 	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
 	new_score_label.name = str(id)
 	get_node("Werten/PanelContainer/Wertung").add_child(new_score_label, true)
 	
 	
-func del_score(id: int):
+func del_score(id):
 	if not get_node("Werten/PanelContainer/Wertung").has_node(str(id)):
 		return
 	get_node("Werten/PanelContainer/Wertung").get_node(str(id)).queue_free()

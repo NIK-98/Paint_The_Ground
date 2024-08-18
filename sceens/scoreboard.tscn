@@ -10,18 +10,6 @@ expand_margin_bottom = 15.0
 [sub_resource type="Theme" id="Theme_ggqog"]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_dox0w")
 
-[sub_resource type="LabelSettings" id="LabelSettings_k53ee"]
-font_size = 40
-font_color = Color(0.721569, 0.258824, 0, 1)
-outline_size = 25
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_f0rax"]
-font_size = 40
-font_color = Color(0.0156863, 0.0784314, 1, 1)
-outline_size = 25
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="SystemFont" id="SystemFont_jwpju"]
 font_names = PackedStringArray("Agency FB")
 font_weight = 975
@@ -82,6 +70,18 @@ font_color = Color(1, 1, 0, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_k53ee"]
+font_size = 40
+font_color = Color(0.721569, 0.258824, 0, 1)
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f0rax"]
+font_size = 40
+font_color = Color(0.0156863, 0.0784314, 1, 1)
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qcn5r"]
 properties/0/path = NodePath(".:Scoreboard_List")
 properties/0/spawn = true
@@ -126,33 +126,6 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer0" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 60
-
-[node name="Platz0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
-layout_mode = 2
-text = "Platz 1:"
-label_settings = SubResource("LabelSettings_k53ee")
-
-[node name="name0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_f0rax")
-
-[node name="Score0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.996844, 0.881704, 7.70092e-07, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 25
-theme_override_font_sizes/font_size = 40
-
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Bestenliste"
@@ -196,6 +169,33 @@ theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 41
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Platz0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+text = "Platz 1:"
+label_settings = SubResource("LabelSettings_k53ee")
+
+[node name="name0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_f0rax")
+
+[node name="Score0" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.996844, 0.881704, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 40
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qcn5r")

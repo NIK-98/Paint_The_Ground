@@ -182,6 +182,7 @@ func exit():
 		return
 	if multiplayer.is_server():
 		OS.alert("Server beendet!")
+		get_parent().del_score(get_parent().get_node("Players/npc"))
 		get_parent().exittree()
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null

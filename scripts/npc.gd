@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var level = get_parent().get_parent()
 
 
-const SPEED = 10
+const SPEED = 2
 var score = 0
 var last_score = score
 var color_cell = 0
@@ -43,7 +43,7 @@ func _physics_process(delta):
 			ende = true
 			if name.to_int() == multiplayer.get_unique_id():
 				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
-					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int():
+					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text:
 						get_node("CanvasLayer/Los").visible = true
 						break
 				if not get_node("CanvasLayer/Los").visible:
@@ -81,7 +81,7 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer/Wertung").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung.rpc(name.to_int())
+		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung.rpc(name)
 		
 
 @rpc("any_peer","call_local")
