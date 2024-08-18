@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=31 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -55,6 +55,83 @@ bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
 
 [sub_resource type="Theme" id="Theme_n2nq7"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
+
+[sub_resource type="SystemFont" id="SystemFont_8psfh"]
+font_names = PackedStringArray("Berlin Sans FB")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6jnd"]
+bg_color = Color(0, 0.670588, 0.780392, 0.784314)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.886275, 0.709804)
+shadow_size = 10
+
+[sub_resource type="Theme" id="Theme_lny4d"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 1)
+LineEdit/font_sizes/font_size = 45
+LineEdit/fonts/font = SubResource("SystemFont_8psfh")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_m6jnd")
+
+[sub_resource type="SystemFont" id="SystemFont_8s71y"]
+font_names = PackedStringArray("Cooper")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57cek"]
+content_margin_left = 30.0
+content_margin_right = 30.0
+bg_color = Color(1.63645e-06, 0.81336, 0.295712, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.956863, 0.6)
+shadow_size = 10
+
+[sub_resource type="Theme" id="Theme_u37or"]
+Button/colors/font_color = Color(0.102703, 0.396986, 1, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/normal = SubResource("StyleBoxFlat_57cek")
+Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="Theme" id="Theme_3naol"]
+Button/colors/font_color = Color(0.768627, 0, 0.101961, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/normal = SubResource("StyleBoxFlat_57cek")
+Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="Theme" id="Theme_4qfo0"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/normal = SubResource("StyleBoxFlat_57cek")
+Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="Theme" id="Theme_ywke1"]
+Button/colors/font_color = Color(0.768627, 1, 0.101961, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/normal = SubResource("StyleBoxFlat_57cek")
+Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jatce"]
 properties/0/path = NodePath("CanvasLayer/Time:text")
@@ -219,30 +296,25 @@ offset_bottom = 40.0
 texture = ExtResource("15_qppgb")
 
 [node name="CenterContainer" type="CenterContainer" parent="loby"]
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -107.5
-offset_right = 107.5
-offset_bottom = 139.0
+offset_left = -261.0
+offset_right = 261.0
+offset_bottom = 288.0
 grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="name_input" type="LineEdit" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme = SubResource("Theme_lny4d")
 placeholder_text = "Name?"
 alignment = 1
 max_length = 8
 expand_to_text_length = true
-
-[node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Bestätiegen"
-script = ExtResource("15_unqr3")
 
 [node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
 visible = false
@@ -255,27 +327,29 @@ text = "Warte auf Mitspieler..."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="J" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.321569, 0.92549, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 36
+theme = SubResource("Theme_u37or")
+button_mask = 3
 text = "Mänlich"
 
 [node name="M" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 36
+theme = SubResource("Theme_3naol")
 text = "Weiblich"
 
 [node name="Random" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 36
+theme = SubResource("Theme_4qfo0")
 text = "Generate"
+
+[node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ywke1")
+text = "Bestätiegen"
+script = ExtResource("15_unqr3")
 
 [node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
 
@@ -293,10 +367,10 @@ replication_config = SubResource("SceneReplicationConfig_jatce")
 wait_time = 10.0
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timerende" to="." method="_on_timerende_timeout"]
 [connection signal="timeout" from="Timerbomb" to="." method="_on_timerbomb_timeout"]
