@@ -5,12 +5,6 @@ extends Control
 @export var Scoreboard_List = []
 var first_select_button = false
 var loaded = false
-	
-	
-	
-func _ready():
-	if OS.has_feature("dedicated_server"):
-		return
 		
 	
 func sort_scoreboard(a,b):
