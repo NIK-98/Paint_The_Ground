@@ -43,9 +43,9 @@ func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
 			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").count_players_wait == 1:
-				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/wertung_npc").get_node(str(n.name)).text)
+				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text)
-				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/wertung_npc").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
+				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text)
