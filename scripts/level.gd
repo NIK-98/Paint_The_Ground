@@ -14,6 +14,7 @@ const bomb_spawn_genzen = 250
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
 @export var playerlist = []
+var loaded_seson = false
 
 var Time_out = false
 
@@ -134,9 +135,15 @@ func spawn_new_bombe():
 func spawn_npc():
 	for i in range(Global.count_npcs):
 		var new_npc = npc.instantiate()
-		new_npc.name = "NPC1"
+		new_npc.name = str(multiplayer.get_unique_id())
 		get_node("Players").add_child(new_npc, true)
 		add_score(new_npc.name, true)
+		
+
+func del_npc(id):
+	if not get_node("Players").has_node(str(id)):
+		return
+	get_node("Players").get_node(str(id)).queue_free()
 	
 	
 func add_score(id, np: bool):
@@ -174,6 +181,7 @@ func kick(id):
 	del_text_tap(id)
 	del_score(id)
 	del_player(id)
+	del_npc(id)
 	
 	
 func del_player(id: int):
@@ -211,7 +219,8 @@ func _on_start_pressed():
 	reset_bomben.rpc()
 	wertungs_anzeige_aktivieren.rpc()
 	starting_game.rpc()
-	if get_node("loby").player_conect_count == 1 and get_node("loby").count_players_wait == 1:
+	if get_node("loby").player_conect_count == 1 and get_node("loby").count_players_wait == 1 and not loaded_seson:
+		loaded_seson = true
 		spawn_npc()
 	
 
@@ -269,9 +278,3 @@ func _on_timerende_timeout():
 		return
 	get_node("Scoreboard").update_scoreboard()
 	get_node("Scoreboard/CanvasLayer").visible = true
-	for n in get_node("Players").get_children():
-		if n.is_in_group("npc"):
-			n.queue_free()
-	for n in get_node("Werten/PanelContainer/Wertung").get_children():
-		if n.is_npc:
-			n.queue_free()

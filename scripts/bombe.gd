@@ -32,7 +32,7 @@ func aktivate_bombe(cell: int):
 
 
 @rpc("any_peer","call_local")
-func sync_aktive():	
+func sync_aktive():
 	count_aktivate += 1
 	
 	

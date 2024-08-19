@@ -22,10 +22,19 @@ var SPEED = 2
 var dir: Vector2
 @export var paint_radius = 2
 
+
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	color_change()
-	$Name.text = str(name)
+	var npc_count = 1
+	for i in get_parent().get_children():
+		if i.is_in_group("npc"):
+			i.get_node("Name").text = str("NPC",npc_count)
+			npc_count += 1
 	position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 
 func _physics_process(delta):	
@@ -46,19 +55,18 @@ func _physics_process(delta):
 			$Timer.start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			paint()
-			score_counter()
-					
+			score_counter()	
 			velocity = move_npc()*delta
-			
+				
 			if position.x < get_node("Color").size.x:
 				velocity.x = 1
-				
+					
 			if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
 				velocity.x = -1
-				
+					
 			if position.y < get_node("Color").size.y:
 				velocity.y = 1
-				
+					
 			if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
 				velocity.y = -1
 				
@@ -67,6 +75,7 @@ func _physics_process(delta):
 			ende = true
 			$Timer.stop()
 			level.get_node("Timerende").start()
+			
 
 func color_change():
 	for i in range(len(get_parent().get_children())):
