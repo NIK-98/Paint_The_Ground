@@ -1,7 +1,5 @@
 extends Control
 
-@onready var main = $"/root/main/"
-
 @export var Scoreboard_List = []
 var first_select_button = false
 var loaded = false

@@ -46,6 +46,8 @@ func _ready():
 
 
 func _process(_delta):
+	if not $Players.has_node("1"):
+		$loby/CenterContainer/VBoxContainer/npcs.visible = false
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -133,17 +135,19 @@ func spawn_new_bombe():
 		
 		
 func spawn_npc():
-	for i in range(Global.count_npcs):
-		var new_npc = npc.instantiate()
-		new_npc.name = str(multiplayer.get_unique_id())
-		get_node("Players").add_child(new_npc, true)
-		add_score(new_npc.name, true)
+	if $Players.has_node("1"):
+		for i in range(Global.count_npcs):
+			var new_npc = npc.instantiate()
+			new_npc.name = str(multiplayer.get_unique_id())
+			get_node("Players").add_child(new_npc, true)
+			add_score(new_npc.name, true)
 		
 
 func del_npc(id):
-	if not get_node("Players").has_node(str(id)):
-		return
-	get_node("Players").get_node(str(id)).queue_free()
+	if $Players.has_node("1"):
+		if not get_node("Players").has_node(str(id)):
+			return
+		get_node("Players").get_node(str(id)).queue_free()
 	
 	
 func add_score(id, np: bool):
@@ -173,6 +177,7 @@ func kicked(id, antwort):
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	kick(id)
 	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	return
 	
@@ -222,6 +227,8 @@ func _on_start_pressed():
 	if get_node("loby").player_conect_count == 1 and get_node("loby").count_players_wait == 1 and not loaded_seson:
 		loaded_seson = true
 		spawn_npc()
+		if not $Players.has_node("1"):
+			kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!")
 	
 
 @rpc("any_peer","call_local")

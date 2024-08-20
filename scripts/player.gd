@@ -26,6 +26,7 @@ var ende = false
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
+
 	
 func _ready():
 	for peer_id in multiplayer.get_peers():
