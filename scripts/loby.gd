@@ -178,6 +178,7 @@ func _notification(what):
 		exit(false)
 		return
 				
+			
 
 func server_exit():
 	for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
@@ -223,10 +224,7 @@ func exit_server_tree():
 func reset_loby():
 	if DisplayServer.get_name() == "headless":
 		if len(multiplayer.get_peers()) == 0 and is_running:
-			multiplayer.multiplayer_peer.close()
-			multiplayer.multiplayer_peer = null
-			get_tree().get_nodes_in_group("Level")[0].queue_free()
-			get_tree().change_scene_to_file("res://sceens/main.tscn")
+			server_exit()
 
 func restart_game():
 	get_parent().reset_vars_level.rpc()
