@@ -192,9 +192,8 @@ func server_exit():
 
 func exit(show_msg: bool):
 	if multiplayer.is_server() or DisplayServer.get_name() == "headless":
-		if multiplayer.get_peers().is_empty() and not multiplayer.is_server():
-			server_exit()
-			return
+		if DisplayServer.get_name() != "headless":
+			OS.alert("Server beendet!")
 		OS.alert("Server beendet!")
 		server_exit()
 		return
