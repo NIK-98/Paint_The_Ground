@@ -177,25 +177,27 @@ func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		exit()
 		
-		
+
+func server_exit():
+	OS.alert("Server beendet!")	
+	for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
+		if n.is_npc:
+			n.queue_free()
+	get_parent().exittree()
+	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
+	get_tree().get_nodes_in_group("Level")[0].queue_free()
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
+
 func exit():
-	if DisplayServer.get_name() == "headless":
-		return
-	if multiplayer.is_server():
-		OS.alert("Server beendet!")
-		for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
-			if n.is_npc:
-				n.queue_free()
-		get_parent().exittree()
-		multiplayer.multiplayer_peer.close()
-		multiplayer.multiplayer_peer = null
-		get_tree().get_nodes_in_group("Level")[0].queue_free()
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
+	if multiplayer.is_server() or DisplayServer.get_name() == "headless":
+		server_exit()
 		return
 	else:
 		exit_server_tree()
 		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
-		
+		return
+			
 @rpc("any_peer","call_local")
 func remove_count_player():
 	if player_conect_count > 0:

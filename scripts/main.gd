@@ -136,8 +136,9 @@ func _on_ja_pressed():
 	if get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit()
+		
 	$CanvasLayer/Beenden.visible = false
-
+	
 
 func _on_nein_pressed():
 	$CanvasLayer/Beenden.visible = false

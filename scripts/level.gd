@@ -59,6 +59,9 @@ func _process(_delta):
 		
 
 func exittree():	
+	multiplayer.server_disconnected.disconnect(verbindung_verloren)
+	if not multiplayer.is_server():
+		return
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
 	multiplayer.peer_disconnected.disconnect(del_score)
@@ -175,18 +178,9 @@ func _input(_event):
 func kicked(id, antwort):
 	OS.alert("Verbindung verloren!", antwort)
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
-	kick(id)
-	multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
-	get_tree().change_scene_to_file("res://sceens/main.tscn")
-	return
-	
-	
-func kick(id):
-	del_text_tap(id)
-	del_score(id)
 	del_player(id)
-	del_npc(id)
+	multiplayer.multiplayer_peer.close()
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 	
 func del_player(id: int):
@@ -194,6 +188,9 @@ func del_player(id: int):
 		return
 	playerlist.erase(id)
 	get_node("Players").get_node(str(id)).queue_free()
+	del_text_tap(id)
+	del_score(id)
+	del_npc(id)
 	
 
 func _on_timer_timeout():
