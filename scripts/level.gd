@@ -175,8 +175,9 @@ func _input(_event):
 		$Tap.visible = false
 
 
-func kicked(id, antwort):
-	OS.alert("Verbindung verloren!", antwort)
+func kicked(id, antwort, show_msg: bool):
+	if show_msg:
+		OS.alert("Verbindung verloren!", antwort)
 	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	del_player(id)
 	multiplayer.multiplayer_peer.close()
@@ -201,7 +202,8 @@ func _on_timer_timeout():
 
 @rpc("any_peer","call_local")
 func hide_ui():
-	main.get_node("UI").visible = false
+	if main.has_node("UI"):
+		main.get_node("UI").visible = false
 	
 
 
@@ -225,7 +227,7 @@ func _on_start_pressed():
 		loaded_seson = true
 		spawn_npc()
 		if not $Players.has_node("1"):
-			kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!")
+			kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
 	
 
 @rpc("any_peer","call_local")

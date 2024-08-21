@@ -6,6 +6,7 @@ var save_path = "user://savetemp.save"
 func _ready():
 	if not OS.has_feature("dedicated_server"):
 		load_game()
+		await get_tree().process_frame
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
 		return
@@ -102,8 +103,6 @@ func load_game():
 	
 
 func _on_leave_pressed():
-	$CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja.grab_focus()
-	$CanvasLayer/Beenden.visible = true
 	Input.action_press("exit")
 	Input.action_release("exit")
 
@@ -126,16 +125,16 @@ func _on_tap_released():
 func _on_ja_pressed():
 	if get_node("Level").get_child_count() < 1 and $UI.esc_is_pressing:
 		$UI.esc_is_pressing = false
-		if FileAccess.file_exists(save_path):
-			DirAccess.remove_absolute(save_path)
 		if get_node("Level").get_child_count() > 0:
-			get_node("Level/level/loby").exit()
+			get_node("Level/level/loby").exit(true)
 		else:
+			if FileAccess.file_exists(save_path):
+				DirAccess.remove_absolute(save_path)
 			get_tree().quit()
 		return
 	if get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
-		get_node("Level/level/loby").exit()
+		get_node("Level/level/loby").exit(true)
 		
 	$CanvasLayer/Beenden.visible = false
 	

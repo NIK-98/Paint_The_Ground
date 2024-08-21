@@ -174,12 +174,12 @@ func update_player_wait():
 	
 	
 func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		exit()
-		
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		exit(false)
+		return
+				
 
 func server_exit():
-	OS.alert("Server beendet!")	
 	for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
 		if n.is_npc:
 			n.queue_free()
@@ -189,13 +189,17 @@ func server_exit():
 	get_tree().get_nodes_in_group("Level")[0].queue_free()
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 
-func exit():
+func exit(show_msg: bool):
 	if multiplayer.is_server() or DisplayServer.get_name() == "headless":
+		if multiplayer.get_peers().is_empty() and not multiplayer.is_server():
+			server_exit()
+			return
+		OS.alert("Server beendet!")
 		server_exit()
 		return
 	else:
 		exit_server_tree()
-		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!")
+		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!", show_msg)
 		return
 			
 @rpc("any_peer","call_local")
