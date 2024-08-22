@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=31 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -138,53 +138,6 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jatce"]
-properties/0/path = NodePath("CanvasLayer/Time:text")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("CanvasLayer/Time:visible")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("CanvasLayer/Start:visible")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("CanvasLayer/Bomb_time:text")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("CanvasLayer/Bomb_time:visible")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("loby:count_players_wait")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("loby:player_conect_count")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath("loby:is_running")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath("loby:Max_clients")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath("Werten:visible")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath(".:starting")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath("Tap/CenterContainer/PanelContainer/VBoxContainer:alignment")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath("loby:visible")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath("loby:hidenloby")
-properties/13/spawn = true
-properties/13/replication_mode = 1
-properties/14/path = NodePath(".:playerlist")
-properties/14/spawn = true
-properties/14/replication_mode = 1
-
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
@@ -202,11 +155,11 @@ spawn_path = NodePath("../Bomben")
 [node name="Players" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://sceens/player.tscn", "res://sceens/npc.tscn")
+_spawnable_scenes = PackedStringArray("res://sceens/player.tscn")
 spawn_path = NodePath("../Players")
 
 [node name="Werten" type="CanvasLayer" parent="."]
-layer = 5
+layer = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
 offset_left = 1104.0
@@ -368,9 +321,6 @@ wait_time = 120.0
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_jatce")
 
 [node name="Timerbomb" type="Timer" parent="."]
 wait_time = 10.0

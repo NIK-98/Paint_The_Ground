@@ -44,8 +44,8 @@ func _process(_delta):
 		$Panel/CenterContainer/Net/Connecting.text = ""
 	if Input.is_action_just_pressed("exit") and visible:
 		esc_is_pressing = true
-		get_parent().get_node("CanvasLayer/Beenden").visible = true
-		get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
+		get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
+		get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
 
 func _on_host_pressed():
 	if block_host:
@@ -54,10 +54,10 @@ func _on_host_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().save_game()
+	get_parent().get_parent().save_game()
 	
 	var peer = ENetMultiplayerPeer.new()
-	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().save_path):
+	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
 		port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	port = str(port)
 	if not port.is_valid_int():
@@ -71,7 +71,18 @@ func _on_host_pressed():
 			OS.alert("Versuchen sie einen port über 1024!")
 		return
 	multiplayer.multiplayer_peer = peer
-	start_game()
+	get_parent().visible = false
+	
+	multiplayer.peer_connected.connect(get_parent().get_parent().get_node("Level/level").add_player)
+	multiplayer.peer_disconnected.connect(get_parent().get_parent().get_node("Level/level").del_player)
+		
+		
+	for id in multiplayer.get_peers():
+		get_parent().get_parent().get_node("Level/level").add_player(id)
+
+
+	if not OS.has_feature("dedicated_server"):
+		get_parent().get_parent().get_node("Level/level").add_player(1)
 
 		
 func _on_connect_pressed():
@@ -81,10 +92,10 @@ func _on_connect_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().save_game()
+	get_parent().get_parent().save_game()
 		
 	block_host = true
-	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().save_path):
+	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not connectport.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
@@ -108,9 +119,10 @@ func _on_connect_pressed():
 			OS.alert("Verbindung fehlgeschlagen!")
 			$Panel/CenterContainer/Net/Connecting.text = ""
 	if not block_host:
-		multiplayer.disconnect_peer(peer.get_unique_id())
+		multiplayer.multiplayer_peer.close()
 		return
-	start_game()
+	get_parent().visible = false
+	multiplayer.server_disconnected.connect(get_parent().get_parent().get_node("Level/level").verbindung_verloren)
 	
 
 func start_game():
@@ -119,7 +131,7 @@ func start_game():
 
 
 func change_level(scene: PackedScene):
-	var level = get_parent().get_node("Level")
+	var level = get_parent().get_parent().get_node("Level")
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()

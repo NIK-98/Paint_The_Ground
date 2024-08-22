@@ -28,26 +28,11 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	multiplayer.server_disconnected.connect(verbindung_verloren)
-	if not multiplayer.is_server():
-		return
-	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(del_player)
-	multiplayer.peer_disconnected.connect(del_score)
-	multiplayer.peer_disconnected.connect(del_text_tap)
-		
-		
-	for id in multiplayer.get_peers():
-		add_player(id)
-
-
-	if not OS.has_feature("dedicated_server"):
-		add_player(1)
+	if has_method("multiplayer") and not multiplayer.get_peers().is_empty():
+		$loby/CenterContainer/VBoxContainer/npcs.visible = false
 
 
 func _process(_delta):
-	if not $Players.has_node("1"):
-		$loby/CenterContainer/VBoxContainer/npcs.visible = false
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -59,13 +44,10 @@ func _process(_delta):
 		
 
 func exittree():	
-	multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	if not multiplayer.is_server():
 		return
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
-	multiplayer.peer_disconnected.disconnect(del_score)
-	multiplayer.peer_disconnected.disconnect(del_text_tap)
 	
 
 
@@ -97,7 +79,6 @@ func add_player(id: int):
 		return
 	if len(multiplayer.get_peers()) < $loby.Max_clients:
 		$loby.update_player_count.rpc()
-	hide_ui.rpc()
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
@@ -178,8 +159,10 @@ func _input(_event):
 func kicked(id, antwort, show_msg: bool):
 	if show_msg:
 		OS.alert("Verbindung verloren!", antwort)
-	multiplayer.server_disconnected.disconnect(verbindung_verloren)
-	del_player(id)
+	exittree()
+	await get_tree().process_frame
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	await get_tree().process_frame
 	multiplayer.multiplayer_peer.close()
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
@@ -192,18 +175,14 @@ func del_player(id: int):
 	del_text_tap(id)
 	del_score(id)
 	del_npc(id)
+	if not multiplayer.is_server():
+		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	
 
 func _on_timer_timeout():
 	$Timer.stop()
 	$Timerbomb.stop()
 	Time_out = true
-	
-
-@rpc("any_peer","call_local")
-func hide_ui():
-	if main.has_node("UI"):
-		main.get_node("UI").visible = false
 	
 
 
@@ -241,7 +220,7 @@ func reset_vars_level():
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
 		get_node("Players").get_node(str(multiplayer.get_unique_id())).paint_radius = 2
 		get_node("Scoreboard/CanvasLayer").visible = false
-	main.get_node("UI").visible = false
+	main.get_node("CanvasLayer2/UI").visible = true
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
 	$loby/CenterContainer/VBoxContainer/HBoxContainer.visible = true

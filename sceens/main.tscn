@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=19 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
+[ext_resource type="PackedScene" uid="uid://cdp31movrikk0" path="res://sceens/level.tscn" id="2_uphsx"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
@@ -119,15 +120,11 @@ script = ExtResource("1_jo5ss")
 
 [node name="Level" type="Node" parent="."]
 
-[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-process_mode = 3
-_spawnable_scenes = PackedStringArray("res://sceens/level.tscn")
-spawn_path = NodePath("../Level")
-spawn_limit = 1
+[node name="level" parent="Level" instance=ExtResource("2_uphsx")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 6
+layer = 7
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 
@@ -194,7 +191,10 @@ layout_mode = 2
 theme = SubResource("Theme_kbdh3")
 text = "NEIN"
 
-[node name="UI" parent="." instance=ExtResource("2_gk4y4")]
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="UI" parent="CanvasLayer2" instance=ExtResource("2_gk4y4")]
 
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]

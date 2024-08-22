@@ -13,18 +13,18 @@ func _ready():
 	var args = OS.get_cmdline_args()
 	if args.has("-p"):
 		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
-		$UI.port = argument_wert
-	if not $UI.port.is_valid_int():
+		$CanvasLayer2/UI.port = argument_wert
+	if not $CanvasLayer2/UI.port.is_valid_int():
 		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
-		$UI.port = "11111"
-	prints("Port wurde auf ", $UI.port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
+		$CanvasLayer2/UI.port = "11111"
+	prints("Port wurde auf ", $CanvasLayer2/UI.port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
 	
 	
-	$UI.Max_clients = 6
+	$CanvasLayer2/UI.Max_clients = 6
 	if DisplayServer.get_name() == "headless":
-		$UI.Max_clients = 7
+		$CanvasLayer2/UI.Max_clients = 7
 		print("Startet Dedicated Server.")
-		$UI._on_host_pressed.call_deferred()
+		$CanvasLayer2/UI._on_host_pressed.call_deferred()
 		
 
 func _notification(what):
@@ -123,16 +123,13 @@ func _on_tap_released():
 
 
 func _on_ja_pressed():
-	if get_node("Level").get_child_count() < 1 and $UI.esc_is_pressing:
-		$UI.esc_is_pressing = false
-		if get_node("Level").get_child_count() > 0:
-			get_node("Level/level/loby").exit(true)
-		else:
-			if FileAccess.file_exists(save_path):
-				DirAccess.remove_absolute(save_path)
-			get_tree().quit()
+	if not multiplayer.has_multiplayer_peer() and $CanvasLayer2/UI.esc_is_pressing:
+		$CanvasLayer2/UI.esc_is_pressing = false
+		if FileAccess.file_exists(save_path):
+			DirAccess.remove_absolute(save_path)
+		get_tree().quit()
 		return
-	if get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
+	if multiplayer.has_multiplayer_peer() and get_node("Level/level/loby").esc_is_pressing_in_game:
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit(true)
 		

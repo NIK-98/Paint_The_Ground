@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c18npvb2udrey"]
+[gd_scene load_steps=4 format=3 uid="uid://c18npvb2udrey"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_85ml5"]
 
@@ -7,26 +7,6 @@ size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0g61"]
 size = Vector2(65, 64)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y5w6s"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:velocity")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("Color:color")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Name:text")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("Name:theme_override_colors/font_color")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath(".:paint_radius")
-properties/5/spawn = true
-properties/5/replication_mode = 1
 
 [node name="NPC" type="CharacterBody2D" groups=["npc", "player"]]
 script = ExtResource("1_85ml5")
@@ -57,9 +37,6 @@ shape = SubResource("RectangleShape2D_teehr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(31, 32)
 shape = SubResource("RectangleShape2D_p0g61")
-
-[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_y5w6s")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
