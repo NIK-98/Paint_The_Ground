@@ -25,9 +25,9 @@ var ende = false
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-
 	
 func _ready():
+	level.get_node("loby").update_player_count()
 	for peer_id in multiplayer.get_peers():
 		peers.append(peer_id)
 	if multiplayer.is_server():
@@ -42,6 +42,7 @@ func _ready():
 func _physics_process(_delta):	
 	if not loaded:
 		loaded = true
+		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 		if is_multiplayer_authority():
 			camera.make_current()
 		paint.rpc()
@@ -49,14 +50,11 @@ func _physics_process(_delta):
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
-			position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 			Gametriggerstart = true
 			map.reset_floor()
 			paint.rpc()
 			score_counter.rpc()
 			Check_Time_Visible.rpc()
-			level.get_node("Timer").start()
-			level.get_node("Timerbomb").start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			if is_multiplayer_authority():
 				moving()

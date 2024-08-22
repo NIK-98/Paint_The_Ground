@@ -34,7 +34,7 @@ func sync_list(NewScoreEintrag: Array):
 func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
-			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").count_players_wait == 1:
+			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and len(get_parent().get_node("loby").player_names) == 1:
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text)
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
@@ -59,4 +59,8 @@ func _process(_delta):
 
 
 func _on_restart_pressed():
-	get_parent().get_node("loby").restart_game()
+	if $CanvasLayer.visible:
+		get_parent().reset_vars_level.rpc()
+		get_parent().reset_visiblety_ui.rpc()
+		get_parent().show_start.rpc()
+		get_parent().starting_game.rpc()

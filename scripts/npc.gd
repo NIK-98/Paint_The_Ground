@@ -35,12 +35,12 @@ func _ready():
 func _physics_process(delta):	
 	if not loaded:
 		loaded = true
+		position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 		paint()
 		score_counter()
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
-			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 			Gametriggerstart = true
 			map.reset_floor()
 			paint()
