@@ -211,16 +211,17 @@ func _on_start_pressed():
 
 @rpc("any_peer","call_local")
 func reset_vars_level():
-	if get_node("Players").has_node(str(multiplayer.get_unique_id())):
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Winner").visible = false
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("CanvasLayer/Los").visible = false
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).ende = false
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).loaded = false
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).Gametriggerstart = false
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).score = 0
-		get_node("Players").get_node(str(multiplayer.get_unique_id())).paint_radius = 2
+	for i in get_node("Players").get_children():
+		if i.has_node("CanvasLayer/Winner") and i.has_node("CanvasLayer/Los"):
+			i.get_node("CanvasLayer/Winner").visible = false
+			i.get_node("CanvasLayer/Los").visible = false
+		i.ende = false
+		i.loaded = false
+		i.Gametriggerstart = false
+		i.score = 0
+		i.paint_radius = 2
 		get_node("Scoreboard/CanvasLayer").visible = false
-	main.get_node("CanvasLayer2/UI").visible = true
+	main.get_node("CanvasLayer2/UI").visible = false
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
 	$loby/CenterContainer/VBoxContainer/HBoxContainer.visible = true

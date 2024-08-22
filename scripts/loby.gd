@@ -175,6 +175,8 @@ func update_player_wait():
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if not multiplayer.has_multiplayer_peer():
+			return
 		exit(false)
 		return
 				
@@ -194,7 +196,6 @@ func exit(show_msg: bool):
 	if multiplayer.is_server() or DisplayServer.get_name() == "headless":
 		if DisplayServer.get_name() != "headless":
 			OS.alert("Server beendet!")
-		OS.alert("Server beendet!")
 		server_exit()
 		return
 	else:

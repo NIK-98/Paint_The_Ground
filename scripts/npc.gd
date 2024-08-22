@@ -21,10 +21,6 @@ var direction_flucht: Vector2
 var SPEED = 2
 var dir: Vector2
 @export var paint_radius = 2
-
-
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
 	
 	
 # Called when the node enters the scene tree for the first time.
@@ -35,7 +31,6 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
-	position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 
 func _physics_process(delta):	
 	if not loaded:
@@ -45,6 +40,7 @@ func _physics_process(delta):
 	
 	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
 		if not Gametriggerstart:
+			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 			Gametriggerstart = true
 			map.reset_floor()
 			paint()
