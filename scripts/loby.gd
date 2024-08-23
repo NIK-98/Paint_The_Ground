@@ -133,7 +133,7 @@ func visible_loby():
 		if DisplayServer.get_name() == "headless":
 			return
 		set_hidelobyvar.rpc()
-		get_parent().show_start.rpc()
+		get_parent().get_node("Timerwarte").start()
 		
 
 @rpc("any_peer","call_local")
@@ -246,7 +246,6 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
-		get_parent().get_node("CanvasLayer/Start").visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 
@@ -277,3 +276,4 @@ func _on_npcs_pressed():
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+		

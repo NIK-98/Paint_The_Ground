@@ -31,15 +31,16 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
+	$Timer.connect("timeout", _on_timer_timeout.rpc)
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	if not loaded:
 		loaded = true
 		position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 		paint()
 		score_counter()
 	
-	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
+	if get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
@@ -134,7 +135,16 @@ func move_npc():
 		return direction_volgen
 	if random == 3:
 		return -direction_flucht
+		
+		
+func reset_player_vars():
+	ende = false
+	loaded = false
+	Gametriggerstart = false
+	score = 0
+	paint_radius = 2
 
 
+@rpc("any_peer","call_local")
 func _on_timer_timeout():
 	random = direction.pick_random()

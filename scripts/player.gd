@@ -39,16 +39,17 @@ func _ready():
 	color_change()
 	map.reset_floor()
 
-func _physics_process(_delta):	
+func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
+		sync_hide_win_los_meldung.rpc(name.to_int())
 		if is_multiplayer_authority():
 			camera.make_current()
 		paint.rpc()
 		score_counter.rpc()
 	
-	if not get_parent().get_parent().get_node("CanvasLayer/Start").visible and get_parent().get_parent().starting:
+	if get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
@@ -77,14 +78,27 @@ func _physics_process(_delta):
 			move_and_collide(velocity)
 		elif level.Time_out and not ende:
 			ende = true
-			if name.to_int() == multiplayer.get_unique_id():
-				for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
-					if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int():
-						get_node("CanvasLayer/Los").visible = true
-						break
-				if not get_node("CanvasLayer/Los").visible:
-					get_node("CanvasLayer/Winner").visible = true
-			level.get_node("Timerende").start()
+			sync_show_win_los_meldung.rpc(name.to_int())
+			
+
+@rpc("any_peer","call_local")
+func sync_show_win_los_meldung(id):
+	var obj_id = id
+	if obj_id == multiplayer.get_unique_id():
+		for i in level.get_node("Werten/PanelContainer/Wertung").get_children():
+			if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).text.to_int():
+				get_node("CanvasLayer/Los").visible = true
+				break
+		if not get_node("CanvasLayer/Los").visible:
+			get_node("CanvasLayer/Winner").visible = true
+
+
+@rpc("any_peer","call_local")
+func sync_hide_win_los_meldung(id):
+	var obj_id = id
+	if obj_id == multiplayer.get_unique_id():
+		get_node("CanvasLayer/Winner").visible = false
+		get_node("CanvasLayer/Los").visible = false
 	
 
 func moving():
@@ -180,6 +194,14 @@ func color_change():
 func change_paint_rad():
 	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
 	paint_radius = radius_varscheinlichkeit.pick_random()
+	
+
+func reset_player_vars():
+	ende = false
+	loaded = false
+	Gametriggerstart = false
+	score = 0
+	paint_radius = 2
 	
 				
 func _exit_tree():

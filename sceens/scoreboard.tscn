@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cx8mc5hevswjg"]
+[gd_scene load_steps=14 format=3 uid="uid://cx8mc5hevswjg"]
 
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="1_e3ybm"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="2_tcpqv"]
@@ -81,11 +81,6 @@ font_size = 40
 font_color = Color(0.0156863, 0.0784314, 1, 1)
 outline_size = 25
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qcn5r"]
-properties/0/path = NodePath(".:Scoreboard_List")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [node name="Scoreboard" type="Control" groups=["save_score"]]
 process_mode = 3
@@ -197,8 +192,3 @@ theme_override_colors/font_color = Color(0.996844, 0.881704, 7.70092e-07, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 25
 theme_override_font_sizes/font_size = 40
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_qcn5r")
-
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart" to="." method="_on_restart_pressed"]

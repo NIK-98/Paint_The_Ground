@@ -1,11 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=26 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
 [ext_resource type="PackedScene" uid="uid://dqayoki230ek2" path="res://sceens/score_label.tscn" id="3_eqqiv"]
 [ext_resource type="PackedScene" uid="uid://cj1swxdws84yf" path="res://sceens/Name.tscn" id="4_jptae"]
 [ext_resource type="PackedScene" uid="uid://fv2dn4il1f71" path="res://sceens/floor.tscn" id="5_h5l3x"]
-[ext_resource type="Script" path="res://scripts/Start.gd" id="12_xt3i6"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
@@ -31,24 +30,6 @@ subpixel_positioning = 0
 [sub_resource type="SystemFont" id="SystemFont_fe0qs"]
 font_names = PackedStringArray("Jokerman")
 subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_txo84"]
-font_names = PackedStringArray("Bell MT")
-font_italic = true
-subpixel_positioning = 0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6etb"]
-bg_color = Color(0.301961, 0.690196, 0.454902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbrw7"]
-bg_color = Color(0.854902, 0.501961, 0.0235294, 1)
-
-[sub_resource type="Theme" id="Theme_cyalv"]
-Button/font_sizes/font_size = 88
-Button/fonts/font = SubResource("SystemFont_txo84")
-Button/styles/hover = SubResource("StyleBoxFlat_l6etb")
-Button/styles/normal = SubResource("StyleBoxFlat_l6etb")
-Button/styles/pressed = SubResource("StyleBoxFlat_kbrw7")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbck"]
 bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
@@ -208,14 +189,6 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = SubResource("SystemFont_fe0qs")
 theme_override_font_sizes/font_size = 42
 
-[node name="Start" type="Button" parent="CanvasLayer" groups=["start"]]
-visible = false
-offset_right = 1280.0
-offset_bottom = 800.0
-theme = SubResource("Theme_cyalv")
-text = "Start Game"
-script = ExtResource("12_xt3i6")
-
 [node name="Tap" type="CanvasLayer" parent="."]
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
@@ -324,12 +297,10 @@ wait_time = 3.0
 [node name="Timerbomb" type="Timer" parent="."]
 wait_time = 10.0
 
-[connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
+[node name="Timerwarte" type="Timer" parent="."]
+
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timerende" to="." method="_on_timerende_timeout"]
-[connection signal="timeout" from="Timerbomb" to="." method="_on_timerbomb_timeout"]

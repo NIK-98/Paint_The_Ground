@@ -5,6 +5,10 @@ var first_select_button = false
 var loaded = false
 		
 	
+func _ready():
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.connect("pressed", _on_restart_pressed.rpc)	
+
+
 func sort_scoreboard(a,b):
 	if a[0] > b[0]:
 		return true
@@ -40,12 +44,14 @@ func update_scoreboard():
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
+				get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars()
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
 		sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(multiplayer.get_unique_id())).text.to_int(), get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text])
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
-
+		get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).reset_player_vars()
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if not loaded:
@@ -58,9 +64,27 @@ func _process(_delta):
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical += 5
 
 
+@rpc("any_peer","call_local")
 func _on_restart_pressed():
-	if $CanvasLayer.visible:
-		get_parent().reset_vars_level.rpc()
-		get_parent().reset_visiblety_ui.rpc()
-		get_parent().show_start.rpc()
-		get_parent().starting_game.rpc()
+	get_parent().reset_vars_level()
+	get_parent().reset_bomben()
+	get_parent().wertungs_anzeige_aktivieren()
+	get_parent().set_timer_subnode.rpc("Timer", true)
+	get_parent().set_timer_subnode.rpc("Timerbomb", true)
+	if not get_parent().get_node("Players").has_node("1"):
+		get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+	if len(get_parent().get_node("loby").player_names) == 1 and not get_parent().loaded_seson:
+		get_parent().loaded_seson = true
+		get_parent().spawn_npc()
+	set_visible_false.rpc("CanvasLayer",false)
+	get_parent().starting_game()
+	
+	
+@rpc("any_peer","call_local")
+func set_visible_false(nodepath: String, mode: bool):
+	var obj = get_node(nodepath)
+	if obj:
+		if mode:
+			obj.visible = mode
+		else:	
+			obj.visible = mode

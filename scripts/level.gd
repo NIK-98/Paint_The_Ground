@@ -28,6 +28,10 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
+	$Timer.connect("timeout", _on_timer_timeout.rpc)
+	$Timerende.connect("timeout", _on_timerende_timeout.rpc)
+	$Timerbomb.connect("timeout", _on_timerbomb_timeout.rpc)
+	$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
 	if has_method("multiplayer") and not multiplayer.get_peers().is_empty():
 		$loby/CenterContainer/VBoxContainer/npcs.visible = false
 
@@ -177,56 +181,22 @@ func del_player(id: int):
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	
 
-
+@rpc("any_peer","call_local")
 func _on_timer_timeout():
-	$Timer.stop()
-	$Timerbomb.stop()
-	$Timerende.stop()
+	set_timer_subnode.rpc("Timer", false)
+	set_timer_subnode.rpc("Timerbomb", false)
+	set_timer_subnode.rpc("Timerende", true)
+	sync_time_out()
+	
+
+@rpc("any_peer","call_local")
+func sync_time_out():
 	Time_out = true
 	
 
-
-@rpc("any_peer","call_local")
-func show_start():
-	$CanvasLayer/Start.visible = true
-	$loby.visible = false
-	
-	
-@rpc("any_peer","call_local")
-func hide_start():
-	$CanvasLayer/Start.visible = false
-	
-	
-func _on_start_pressed():
-	hide_start.rpc()
-	reset_bomben.rpc()
-	wertungs_anzeige_aktivieren.rpc()
-	starting_game.rpc()
-	if not $Players.has_node("1"):
-		kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
-	if len($loby.player_names) == 1 and not loaded_seson:
-		loaded_seson = true
-		spawn_npc()
-	
-
-@rpc("any_peer","call_local")
 func reset_vars_level():
-	for i in get_node("Players").get_children():
-		if i.has_node("CanvasLayer/Winner") and i.has_node("CanvasLayer/Los"):
-			i.get_node("CanvasLayer/Winner").visible = false
-			i.get_node("CanvasLayer/Los").visible = false
-		i.ende = false
-		i.loaded = false
-		i.Gametriggerstart = false
-		i.score = 0
-		i.paint_radius = 2
-	map.reset_floor()
-	
-
-@rpc("any_peer","call_local")
-func reset_visiblety_ui():
-	get_node("Scoreboard/CanvasLayer").visible = false
 	main.get_node("CanvasLayer2/UI").visible = false
+	map.reset_floor()
 	
 	
 @rpc("any_peer","call_local")
@@ -238,9 +208,6 @@ func wertungs_anzeige_aktivieren():
 func starting_game():
 	starting = true
 	Time_out = false
-	$Timer.start()
-	$Timerbomb.start()
-	$Timerende.start()
 	
 
 @rpc("any_peer","call_local")
@@ -250,8 +217,19 @@ func stoped_game():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
+
+
+@rpc("any_peer","call_local")
+func set_timer_subnode(nodepath: String, mode: bool):
+	var obj = get_node(nodepath)
+	if obj:
+		if mode:
+			obj.start()
+		else:	
+			obj.stop()
 	
 
+@rpc("any_peer","call_local")
 func _on_timerbomb_timeout():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_bombe()
@@ -259,9 +237,32 @@ func _on_timerbomb_timeout():
 		spawn_new_bombe()
 	
 
+@rpc("any_peer","call_local")
 func _on_timerende_timeout():
-	stoped_game.rpc()
+	set_timer_subnode.rpc("Timerende", false)
+	stoped_game()
 	if OS.has_feature("dedicated_server"):
 		return
 	get_node("Scoreboard").update_scoreboard()
-	get_node("Scoreboard/CanvasLayer").visible = true
+	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
+	
+	
+	
+
+@rpc("any_peer","call_local")
+func _on_timerwarte_timeout():
+	set_timer_subnode.rpc("Timerwarte", false)
+	reset_vars_level()
+	$loby.visible = false
+	$loby/CenterContainer/VBoxContainer/Warten.visible = false
+	reset_bomben()
+	wertungs_anzeige_aktivieren()
+	set_timer_subnode.rpc("Timer", true)
+	set_timer_subnode.rpc("Timerbomb", true)
+	if not $Players.has_node("1"):
+		kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+	if len($loby.player_names) == 1 and not loaded_seson:
+		loaded_seson = true
+		spawn_npc()
+	starting_game()
+	
