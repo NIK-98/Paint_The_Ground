@@ -127,6 +127,7 @@ func spawn_npc():
 			new_npc.name = str(multiplayer.get_unique_id())
 			get_node("Players").add_child(new_npc, true)
 			add_score(new_npc.name, true)
+			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
 		
 
 func del_npc(id):
