@@ -66,16 +66,15 @@ func _process(_delta):
 
 @rpc("any_peer","call_local")
 func _on_restart_pressed():
-	get_parent().reset_vars_level()
+	if len(get_parent().get_node("loby").player_names) <= 1 and not get_parent().get_node("Players").has_node("1"):
+		get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+		return
+	if not OS.has_feature("dedicated_server"):
+		get_parent().reset_vars_level()
+		get_parent().wertungs_anzeige_aktivieren()
 	get_parent().reset_bomben()
-	get_parent().wertungs_anzeige_aktivieren()
 	get_parent().set_timer_subnode.rpc("Timer", true)
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
-	if not get_parent().get_node("Players").has_node("1"):
-		get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
-	if len(get_parent().get_node("loby").player_names) == 1 and not get_parent().loaded_seson:
-		get_parent().loaded_seson = true
-		get_parent().spawn_npc()
 	set_visible_false.rpc("CanvasLayer",false)
 	get_parent().starting_game()
 	

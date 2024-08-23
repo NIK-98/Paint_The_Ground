@@ -184,9 +184,8 @@ func server_exit():
 	for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
 		if n.is_npc:
 			n.queue_free()
-	get_parent().exittree()
+	await get_tree().process_frame
 	multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
 	get_tree().get_nodes_in_group("Level")[0].queue_free()
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 

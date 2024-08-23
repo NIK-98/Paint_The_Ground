@@ -28,12 +28,14 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	$Timer.connect("timeout", _on_timer_timeout.rpc)
-	$Timerende.connect("timeout", _on_timerende_timeout.rpc)
-	$Timerbomb.connect("timeout", _on_timerbomb_timeout.rpc)
-	$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
 	if has_method("multiplayer") and not multiplayer.get_peers().is_empty():
 		$loby/CenterContainer/VBoxContainer/npcs.visible = false
+		
+	$Timer.connect("timeout", _on_timer_timeout.rpc)
+	$Timerende.connect("timeout", _on_timerende_timeout.rpc)
+	$Timerbomb.connect("timeout", _on_timerbomb_timeout)
+	$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
+	
 
 
 func _process(_delta):
@@ -45,13 +47,6 @@ func _process(_delta):
 			$CanvasLayer/Time.text = str(round($Timer.time_left))
 		if not $Timerbomb.is_stopped():
 			$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
-		
-
-func exittree():	
-	if not multiplayer.is_server():
-		return
-	multiplayer.peer_connected.disconnect(add_player)
-	multiplayer.peer_disconnected.disconnect(del_player)
 	
 
 
@@ -106,7 +101,7 @@ func del_text_tap(id: int):
 			
 
 @rpc("any_peer","call_local")
-func reset_bomben():	
+func reset_bomben():
 	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
@@ -162,7 +157,6 @@ func _input(_event):
 func kicked(id, antwort, show_msg: bool):
 	if show_msg:
 		OS.alert("Verbindung verloren!", antwort)
-	exittree()
 	await get_tree().process_frame
 	multiplayer.multiplayer_peer.disconnect_peer(id)
 	await get_tree().process_frame
@@ -230,12 +224,13 @@ func set_timer_subnode(nodepath: String, mode: bool):
 			obj.stop()
 	
 
-@rpc("any_peer","call_local")
 func _on_timerbomb_timeout():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_bombe()
+		return
 	if is_multiplayer_authority():
 		spawn_new_bombe()
+		return
 	
 
 @rpc("any_peer","call_local")
@@ -253,17 +248,19 @@ func _on_timerende_timeout():
 @rpc("any_peer","call_local")
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
-	reset_vars_level()
-	$loby.visible = false
-	$loby/CenterContainer/VBoxContainer/Warten.visible = false
-	reset_bomben()
-	wertungs_anzeige_aktivieren()
-	set_timer_subnode.rpc("Timer", true)
-	set_timer_subnode.rpc("Timerbomb", true)
-	if not $Players.has_node("1"):
+	if len($loby.player_names) <= 1 and not $Players.has_node("1"):
 		kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
-	if len($loby.player_names) == 1 and not loaded_seson:
+		return
+	if $Players.has_node("1") and not loaded_seson:
 		loaded_seson = true
 		spawn_npc()
+	if not OS.has_feature("dedicated_server"):
+		reset_vars_level()
+		$loby.visible = false
+		$loby/CenterContainer/VBoxContainer/Warten.visible = false
+		wertungs_anzeige_aktivieren()
+	reset_bomben()
+	set_timer_subnode.rpc("Timer", true)
+	set_timer_subnode.rpc("Timerbomb", true)
 	starting_game()
 	

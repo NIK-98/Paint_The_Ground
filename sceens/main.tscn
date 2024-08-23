@@ -121,6 +121,8 @@ script = ExtResource("1_jo5ss")
 [node name="Level" type="Node" parent="."]
 
 [node name="level" parent="Level" instance=ExtResource("2_uphsx")]
+starting = false
+playerlist = []
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
