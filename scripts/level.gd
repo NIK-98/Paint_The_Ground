@@ -19,6 +19,7 @@ var loaded = false
 var blocked = false
 
 var Time_out = false
+var playerlist = []
 
 func _ready():
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
@@ -32,7 +33,14 @@ func _ready():
 	$Tap.visible = false
 	
 	
-
+func update_player_list(id: int, join: bool):
+	if join:
+		playerlist.append(id)
+		print(str("Peer: ",id," Connected!"))
+	else:
+		playerlist.erase(id)
+		print(str("Peer: ",id," Disconnected!"))
+		
 
 @rpc("any_peer","call_local")
 func visibility_npc_settings():
@@ -91,6 +99,7 @@ func add_player(id: int):
 	if len(multiplayer.get_peers()) >= Max_clients:
 		voll.rpc_id(id)
 		return
+	update_player_list(id, true)
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
@@ -180,12 +189,11 @@ func kicked(id, antwort, show_msg: bool):
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
+	update_player_list(id, false)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
 	del_score(id)
 	del_npc(id)
-	if not multiplayer.is_server():
-		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	
 
 @rpc("any_peer","call_local")
@@ -261,7 +269,7 @@ func _on_timerende_timeout():
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
 	if $loby.player_wait_count <= 1 and not $Players.has_node("1"):
-		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", false)
+		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	if $loby.player_wait_count == 1 and $Players.has_node("1") and not loaded_seson:
 		loaded_seson = true
