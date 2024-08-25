@@ -170,6 +170,7 @@ func update_server_status_conected():
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		get_tree().paused = true
 		exit("Verbindung Selber beendet!", false)
 		return
 				

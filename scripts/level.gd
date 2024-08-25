@@ -13,7 +13,6 @@ const bomb_spawn_genzen = 250
 @onready var npc = preload("res://sceens/npc.tscn")
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
-@export var playerlist = []
 @export var Max_clients = 6
 var loaded_seson = false
 var loaded = false
@@ -79,24 +78,23 @@ func verbindung_verloren():
 func wechsel_sceene_wenn_server_disconected():
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 		
+		
+@rpc("call_local")
+func voll():
+	OS.alert("Server Voll!")
+	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	
 
 func add_player(id: int):
+	if len(multiplayer.get_peers()) >= Max_clients:
+		voll.rpc_id(id)
+		return
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id, false)
-	
-
-
-@rpc("any_peer","call_local")
-func update_player_list(id: int, append: bool):
-	if append:
-		playerlist.append(id)
-	else:
-		for i in playerlist:
-			if i == id:
-				playerlist.erase(i)
-				break
 				
 	
 @rpc("any_peer","call_local")
@@ -173,9 +171,10 @@ func _input(_event):
 func kicked(id, antwort, show_msg: bool):
 	if show_msg:
 		OS.alert(antwort)
-	$loby.update_player_count.rpc(false)
-	multiplayer.multiplayer_peer.disconnect_peer(id)
-	wechsel_sceene_wenn_server_disconected()
+	if multiplayer and id in multiplayer.get_peers():
+		$loby.update_player_count.rpc(false)
+		multiplayer.multiplayer_peer.disconnect_peer(id)
+		wechsel_sceene_wenn_server_disconected()
 	
 	
 func del_player(id: int):
@@ -262,9 +261,7 @@ func _on_timerende_timeout():
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
 	if $loby.player_wait_count <= 1 and not $Players.has_node("1"):
-		if not OS.has_feature("dedicated_server"):
-			kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
-		$loby.exit(false)
+		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", false)
 		return
 	if $loby.player_wait_count == 1 and $Players.has_node("1") and not loaded_seson:
 		loaded_seson = true
