@@ -27,7 +27,8 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
 func _ready():
-	level.get_node("loby").update_player_count()
+	level.visibility_npc_settings.rpc()
+	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	for peer_id in multiplayer.get_peers():
 		peers.append(peer_id)
 	if multiplayer.is_server():

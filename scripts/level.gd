@@ -15,6 +15,7 @@ const bomb_spawn_genzen = 250
 @export var starting = false
 @export var playerlist = []
 var loaded_seson = false
+var loaded = false
 
 var Time_out = false
 
@@ -28,17 +29,24 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	if has_method("multiplayer") and not multiplayer.get_peers().is_empty():
-		$loby/CenterContainer/VBoxContainer/npcs.visible = false
-		
-	$Timer.connect("timeout", _on_timer_timeout.rpc)
-	$Timerende.connect("timeout", _on_timerende_timeout.rpc)
-	$Timerbomb.connect("timeout", _on_timerbomb_timeout)
-	$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
 	
 
 
+@rpc("any_peer","call_local")
+func visibility_npc_settings():
+	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
+		$loby/CenterContainer/VBoxContainer/npcs.visible = true
+	else:
+		$loby/CenterContainer/VBoxContainer/npcs.visible = false
+
 func _process(_delta):
+	if not loaded and not get_tree().paused:
+		loaded = true
+		$Timer.connect("timeout", _on_timer_timeout.rpc)
+		$Timerende.connect("timeout", _on_timerende_timeout.rpc)
+		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
+		$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
+		
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -60,9 +68,14 @@ func verbindung_verloren():
 func wechsel_sceene_wenn_server_disconected():
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 
-@rpc("call_local")
-func voll():
-	OS.alert("Server Voll!")
+@rpc("any_peer","call_local")
+func voll(id):
+	if not OS.has_feature("dedicated_server") or multiplayer.is_server():
+		OS.alert("Server Voll!")
+		multiplayer.multiplayer_peer.disconnect_peer(id)
+		multiplayer.multiplayer_peer.close()
+		get_tree().change_scene_to_file("res://sceens/main.tscn")
+		return
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
@@ -70,11 +83,8 @@ func voll():
 		
 
 func add_player(id: int):
-	if OS.has_feature("dedicated_server") and len(multiplayer.get_peers()) >= $loby.Max_clients:
-		voll.rpc_id(id)
-		return
-	if not OS.has_feature("dedicated_server") and len(multiplayer.get_peers())+1 >= $loby.Max_clients:
-		voll.rpc_id(id)
+	if len(multiplayer.get_peers()) > $loby.Max_clients:
+		voll.rpc_id(id, id)
 		return
 	var player = player_sceen.instantiate()
 	player.name = str(id)
@@ -157,11 +167,12 @@ func _input(_event):
 func kicked(id, antwort, show_msg: bool):
 	if show_msg:
 		OS.alert("Verbindung verloren!", antwort)
+	$loby.update_player_count.rpc(false)
 	await get_tree().process_frame
-	multiplayer.multiplayer_peer.disconnect_peer(id)
+	multiplayer.multiplayer_peer.call_deferred("disconnect_peer",id)
 	await get_tree().process_frame
 	multiplayer.multiplayer_peer.close()
-	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	call_deferred("wechsel_sceene_wenn_server_disconected")
 	
 	
 func del_player(id: int):
@@ -248,10 +259,12 @@ func _on_timerende_timeout():
 @rpc("any_peer","call_local")
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
-	if len($loby.player_names) <= 1 and not $Players.has_node("1"):
-		kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+	if $loby.player_wait_count <= 1 and not $Players.has_node("1"):
+		if not OS.has_feature("dedicated_server"):
+			kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+		$loby.exit(false)
 		return
-	if $Players.has_node("1") and not loaded_seson:
+	if $loby.player_wait_count == 1 and $Players.has_node("1") and not loaded_seson:
 		loaded_seson = true
 		spawn_npc()
 	if not OS.has_feature("dedicated_server"):
@@ -263,4 +276,3 @@ func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timer", true)
 	set_timer_subnode.rpc("Timerbomb", true)
 	starting_game()
-	

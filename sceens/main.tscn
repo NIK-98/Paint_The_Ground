@@ -121,8 +121,6 @@ script = ExtResource("1_jo5ss")
 [node name="Level" type="Node" parent="."]
 
 [node name="level" parent="Level" instance=ExtResource("2_uphsx")]
-starting = false
-playerlist = []
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -203,4 +201,5 @@ layer = 6
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
 [connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja" to="." method="_on_ja_pressed"]
+[connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja" to="Level/level" method="_on_ja_pressed"]
 [connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Nein" to="." method="_on_nein_pressed"]

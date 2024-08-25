@@ -27,8 +27,8 @@ func save():
 	
 func _ready():
 	name = "UI"
-	if OS.has_feature("dedicated_server"):
-		return
+	get_tree().paused = true
+	
 	
 func _process(_delta):
 	if not loaded:
@@ -48,7 +48,9 @@ func _process(_delta):
 		get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
 
 func _on_host_pressed():
+	get_tree().paused = false
 	if block_host:
+		get_tree().paused = true
 		return
 		
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
@@ -62,6 +64,7 @@ func _on_host_pressed():
 	port = str(port)
 	if not port.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
+		get_tree().paused = true
 		return
 	port = port.to_int()
 	var check = peer.create_server(port, Max_clients)
@@ -69,10 +72,10 @@ func _on_host_pressed():
 		OS.alert("Server kann nicht erstellt werden!")
 		if port < 1024:
 			OS.alert("Versuchen sie einen port über 1024!")
+		get_tree().paused = true
 		return
 	multiplayer.multiplayer_peer = peer
 	get_parent().visible = false
-	
 	multiplayer.peer_connected.connect(get_parent().get_parent().get_node("Level/level").add_player)
 	multiplayer.peer_disconnected.connect(get_parent().get_parent().get_node("Level/level").del_player)
 		
@@ -86,7 +89,9 @@ func _on_host_pressed():
 
 		
 func _on_connect_pressed():
+	get_tree().paused = false
 	if block_host:
+		get_tree().paused = true
 		return
 		
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
@@ -100,6 +105,7 @@ func _on_connect_pressed():
 	if not connectport.is_valid_int():
 		OS.alert("Ist keine richtieger port.")
 		block_host = false
+		get_tree().paused = true
 		return
 	var peer = ENetMultiplayerPeer.new()
 	connectport = connectport.to_int()
@@ -108,6 +114,7 @@ func _on_connect_pressed():
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Konnte Multiplayer client nicht starten.")
 		block_host = false
+		get_tree().paused = true
 		return
 	var i = 0
 	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING and block_host:
@@ -118,21 +125,10 @@ func _on_connect_pressed():
 			block_host = false
 			OS.alert("Verbindung fehlgeschlagen!")
 			$Panel/CenterContainer/Net/Connecting.text = ""
+			get_tree().paused = true
 	if not block_host:
 		multiplayer.multiplayer_peer.close()
+		get_tree().paused = true
 		return
 	get_parent().visible = false
 	multiplayer.server_disconnected.connect(get_parent().get_parent().get_node("Level/level").verbindung_verloren)
-	
-
-func start_game():
-	if multiplayer.is_server():
-		change_level(preload("res://sceens/level.tscn"))
-
-
-func change_level(scene: PackedScene):
-	var level = get_parent().get_parent().get_node("Level")
-	for c in level.get_children():
-		level.remove_child(c)
-		c.queue_free()
-	level.add_child(scene.instantiate())

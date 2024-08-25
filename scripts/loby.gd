@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @export var player_conect_count = 0
+@export var player_wait_count = 0
 @export var is_running = false
 @export var Max_clients = 6
 @export var hidenloby = false
@@ -109,15 +110,16 @@ var m_namen = ["Lina",
 			   "Elisa"
 			   ]
 var curent_list = []
-var player_names = []
 
 	
 var esc_is_pressing_in_game = false
+	
 	
 func _ready():
 	visible = true
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	reset_loby()
+	
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
@@ -127,18 +129,22 @@ func _process(_delta):
 		return
 	if visible:
 		visible_loby()
+
 	
 func visible_loby():
-	if player_conect_count == len(player_names) and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
+	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
 		if DisplayServer.get_name() == "headless":
 			return
 		set_hidelobyvar.rpc()
 		get_parent().get_node("Timerwarte").start()
-		
-
+	
+	
 @rpc("any_peer","call_local")
-func update_player_names(namen):
-	player_names.append(namen)
+func update_player_wait(positive: bool):
+	if positive:
+		player_wait_count += 1
+	elif player_wait_count > 0:
+		player_wait_count -= 1
 
 
 @rpc("any_peer","call_local")	
@@ -151,13 +157,15 @@ func namen_text_update(id, text):
 
 		
 @rpc("any_peer","call_local")
-func update_player_count():
-	player_conect_count += 1
+func update_player_count(positiv: bool):
+	if positiv:
+		player_conect_count += 1
+	elif player_conect_count > 0:
+		player_conect_count -= 1
 	
 	
 @rpc("any_peer","call_local")
 func update_server_status_conected():
-	Max_clients = len(multiplayer.get_peers())
 	is_running = true
 	
 
@@ -173,8 +181,6 @@ func reset_var():
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		if not multiplayer.has_multiplayer_peer():
-			return
 		exit(false)
 		return
 				
@@ -196,19 +202,8 @@ func exit(show_msg: bool):
 		server_exit()
 		return
 	else:
-		exit_server_tree()
-		get_parent().kicked(multiplayer.get_unique_id(), "Verbindung Selber beendet!", show_msg)
+		get_parent().call_deferred("kicked", multiplayer.get_unique_id(), "Verbindung Selber beendet!", show_msg)
 		return
-			
-@rpc("any_peer","call_local")
-func remove_count_player():
-	if player_conect_count > 0:
-		player_conect_count -= 1
-		player_names.pop_back()
-	
-	
-func exit_server_tree():
-	remove_count_player.rpc()
 		
 
 func reset_loby():
@@ -238,7 +233,7 @@ func _on_enter_pressed():
 			
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		is_server_run_game.rpc()
-		update_player_names.rpc($CenterContainer/VBoxContainer/name_input.text)
+		update_player_wait.rpc(true)
 		check_all_players_exist.rpc()
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
@@ -248,10 +243,9 @@ func _on_enter_pressed():
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 
-
 @rpc("any_peer","call_local")
 func check_all_players_exist():
-	if player_conect_count == len(player_names):
+	if player_conect_count == player_wait_count:
 		update_server_status_conected.rpc()
 	
 	
@@ -275,4 +269,3 @@ func _on_npcs_pressed():
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
-		

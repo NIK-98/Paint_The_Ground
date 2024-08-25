@@ -38,7 +38,7 @@ func sync_list(NewScoreEintrag: Array):
 func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
-			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and len(get_parent().get_node("loby").player_names) == 1:
+			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").player_wait_count == 1:
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text)
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
@@ -66,8 +66,10 @@ func _process(_delta):
 
 @rpc("any_peer","call_local")
 func _on_restart_pressed():
-	if len(get_parent().get_node("loby").player_names) <= 1 and not get_parent().get_node("Players").has_node("1"):
-		get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+	if get_parent().get_node("loby").player_conect_count <= 1:
+		if not OS.has_feature("dedicated_server"):
+			get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
+		get_parent().get_node("loby").exit(false)
 		return
 	if not OS.has_feature("dedicated_server"):
 		get_parent().reset_vars_level()
