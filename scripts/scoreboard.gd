@@ -66,10 +66,8 @@ func _process(_delta):
 
 @rpc("any_peer","call_local")
 func _on_restart_pressed():
-	if get_parent().get_node("loby").player_conect_count <= 1:
-		if not OS.has_feature("dedicated_server"):
-			get_parent().kicked(multiplayer.get_unique_id(), "Kein Mitspieler auf dem Server Gefunden!", true)
-		get_parent().get_node("loby").exit(false)
+	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("1"):
+		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	if not OS.has_feature("dedicated_server"):
 		get_parent().reset_vars_level()

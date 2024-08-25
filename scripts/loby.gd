@@ -3,7 +3,6 @@ extends CanvasLayer
 @export var player_conect_count = 0
 @export var player_wait_count = 0
 @export var is_running = false
-@export var Max_clients = 6
 @export var hidenloby = false
 
 var j_namen = ["Levi",
@@ -168,42 +167,28 @@ func update_player_count(positiv: bool):
 func update_server_status_conected():
 	is_running = true
 	
-
-@rpc("any_peer","call_local")	
-func reset_var():
-	hidenloby = false
-	player_conect_count = 0
-	is_running = false
-	Max_clients = 6
-	if DisplayServer.get_name() == "headless":
-		Max_clients = 7
-	
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		exit(false)
+		exit("Verbindung Selber beendet!", false)
 		return
 				
 			
 
 func server_exit():
-	for n in get_parent().get_node("Werten/PanelContainer/Wertung").get_children():
-		if n.is_npc:
-			n.queue_free()
-	await get_tree().process_frame
 	multiplayer.multiplayer_peer.close()
-	get_tree().get_nodes_in_group("Level")[0].queue_free()
-	get_tree().change_scene_to_file("res://sceens/main.tscn")
+	get_parent().wechsel_sceene_wenn_server_disconected()
 
-func exit(show_msg: bool):
-	if multiplayer.is_server() or DisplayServer.get_name() == "headless":
+
+func exit(msg: String, show_msg: bool):
+	for i in multiplayer.get_peers():
+		get_parent().kicked(i, msg, show_msg)
+	if multiplayer and multiplayer.is_server() or DisplayServer.get_name() == "headless":
 		if DisplayServer.get_name() != "headless":
 			OS.alert("Server beendet!")
 		server_exit()
 		return
-	else:
-		get_parent().call_deferred("kicked", multiplayer.get_unique_id(), "Verbindung Selber beendet!", show_msg)
-		return
+	
 		
 
 func reset_loby():
@@ -211,10 +196,6 @@ func reset_loby():
 		if len(multiplayer.get_peers()) == 0 and is_running:
 			server_exit()
 
-
-@rpc("any_peer","call_local")
-func is_server_run_game():
-	Max_clients = 0
 	
 func _on_enter_pressed():
 	var vaild_text = false
@@ -232,7 +213,7 @@ func _on_enter_pressed():
 			return
 			
 	if $CenterContainer/VBoxContainer/name_input.text != "":
-		is_server_run_game.rpc()
+		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
 		check_all_players_exist.rpc()
 		$CenterContainer/VBoxContainer/name_input.visible = false
@@ -243,6 +224,8 @@ func _on_enter_pressed():
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 
+	
+	
 @rpc("any_peer","call_local")
 func check_all_players_exist():
 	if player_conect_count == player_wait_count:

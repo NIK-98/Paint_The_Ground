@@ -14,8 +14,10 @@ const bomb_spawn_genzen = 250
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
 @export var playerlist = []
+@export var Max_clients = 6
 var loaded_seson = false
 var loaded = false
+var blocked = false
 
 var Time_out = false
 
@@ -30,6 +32,7 @@ func _ready():
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
 	
+	
 
 
 @rpc("any_peer","call_local")
@@ -39,6 +42,13 @@ func visibility_npc_settings():
 	else:
 		$loby/CenterContainer/VBoxContainer/npcs.visible = false
 
+
+@rpc("any_peer","call_local")
+func is_server_run_game():
+	Max_clients = 0
+	
+	
+	
 func _process(_delta):
 	if not loaded and not get_tree().paused:
 		loaded = true
@@ -55,43 +65,39 @@ func _process(_delta):
 			$CanvasLayer/Time.text = str(round($Timer.time_left))
 		if not $Timerbomb.is_stopped():
 			$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
-	
 
 
+		
 func verbindung_verloren():
-	multiplayer.server_disconnected.disconnect(verbindung_verloren)
-	OS.alert("Multiplayer Server wurde beendet.")
-	call_deferred("wechsel_sceene_wenn_server_disconected")
-	return
+	if multiplayer:
+		multiplayer.server_disconnected.disconnect(verbindung_verloren)
+		OS.alert("Multiplayer Server wurde beendet.")
+		call_deferred("wechsel_sceene_wenn_server_disconected")
+		return
 	
 
 func wechsel_sceene_wenn_server_disconected():
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
-
-@rpc("any_peer","call_local")
-func voll(id):
-	if not OS.has_feature("dedicated_server") or multiplayer.is_server():
-		OS.alert("Server Voll!")
-		multiplayer.multiplayer_peer.disconnect_peer(id)
-		multiplayer.multiplayer_peer.close()
-		get_tree().change_scene_to_file("res://sceens/main.tscn")
-		return
-	multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
-	get_tree().change_scene_to_file("res://sceens/main.tscn")
-	
 		
 
 func add_player(id: int):
-	if len(multiplayer.get_peers()) > $loby.Max_clients:
-		voll.rpc_id(id, id)
-		return
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id, false)
-	playerlist.append(id)
+	
 
+
+@rpc("any_peer","call_local")
+func update_player_list(id: int, append: bool):
+	if append:
+		playerlist.append(id)
+	else:
+		for i in playerlist:
+			if i == id:
+				playerlist.erase(i)
+				break
+				
 	
 @rpc("any_peer","call_local")
 func add_text_tap(id: int, text: String):
@@ -166,19 +172,15 @@ func _input(_event):
 
 func kicked(id, antwort, show_msg: bool):
 	if show_msg:
-		OS.alert("Verbindung verloren!", antwort)
+		OS.alert(antwort)
 	$loby.update_player_count.rpc(false)
-	await get_tree().process_frame
-	multiplayer.multiplayer_peer.call_deferred("disconnect_peer",id)
-	await get_tree().process_frame
-	multiplayer.multiplayer_peer.close()
-	call_deferred("wechsel_sceene_wenn_server_disconected")
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	wechsel_sceene_wenn_server_disconected()
 	
 	
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
-	playerlist.erase(id)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
 	del_score(id)

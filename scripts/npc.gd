@@ -12,14 +12,17 @@ var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
 var vorhersage_zeit = 50
-var direction = [1,1,1,2,3,3]
-var random = direction.pick_random()
+var direction = [1]
+var random = 1
 var new_direction: Vector2
 var direction_sehen: Vector2
 var direction_volgen: Vector2
 var direction_flucht: Vector2
-var SPEED = 2
+var direction_bomb: Vector2
+var SPEED = 20
 var dir: Vector2
+var current_direktion = 0
+var curent_bomb = null
 @export var paint_radius = 2
 	
 	
@@ -33,10 +36,11 @@ func _ready():
 			npc_count += 1
 	$Timer.connect("timeout", _on_timer_timeout.rpc)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
+		_on_timer_timeout()
 		paint()
 		score_counter()
 	
@@ -52,8 +56,8 @@ func _physics_process(delta):
 			$Timer.start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			paint()
-			score_counter()	
-			velocity = move_npc()*delta
+			score_counter()
+			velocity += move_npc()*SPEED
 				
 			if position.x < get_node("Color").size.x:
 				velocity.x = 1
@@ -126,15 +130,26 @@ func Check_Time_Visible():
 
 
 func move_npc():
-	direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position) * SPEED
-	direction_volgen = (get_parent().get_child(0).position - position) * SPEED
-	direction_flucht = (position - get_parent().get_child(0).position) * SPEED
 	if random == 1:
-		return direction_sehen
-	if random == 2:
-		return direction_volgen
-	if random == 3:
-		return -direction_flucht
+		direction_volgen = (get_parent().get_child(0).position - position)
+		dir = direction_volgen
+	elif random == 2:
+		direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position)
+		dir = direction_sehen
+	elif random == 3:
+		direction_flucht = (position - get_parent().get_child(0).position)
+		dir = -direction_flucht
+	elif random == 4:
+		if curent_bomb == null:
+			random = 1
+			direction_volgen = (get_parent().get_child(0).position - position)
+			dir = direction_volgen
+			return dir.normalized()
+		direction_bomb = (curent_bomb.position - position)
+		dir = direction_bomb
+	
+	return dir.normalized()
+
 		
 		
 func reset_player_vars():
@@ -148,3 +163,7 @@ func reset_player_vars():
 @rpc("any_peer","call_local")
 func _on_timer_timeout():
 	random = direction.pick_random()
+	if level.get_node("Bomben").get_child_count() > 0 and random == 4:
+		curent_bomb = level.get_node("Bomben").get_children().pick_random()
+	if level.get_node("Bomben").get_child_count() == 0 and random == 4:
+		random = 1

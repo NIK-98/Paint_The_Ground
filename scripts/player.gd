@@ -19,20 +19,19 @@ var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
 @export var paint_radius = 2
-@export var peers = []
 
 @onready var camera = $Camera2D
-
+	
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
+	
 func _ready():
+	if name.to_int() == multiplayer.get_unique_id():
+		camera.make_current()
+	level.update_player_list.rpc(name.to_int(), true)
 	level.visibility_npc_settings.rpc()
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
-	for peer_id in multiplayer.get_peers():
-		peers.append(peer_id)
-	if multiplayer.is_server():
-		peers.append(1)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
 	$Camera2D.limit_right = Global.Spielfeld_Size.x
@@ -45,8 +44,6 @@ func _physics_process(_delta):
 		loaded = true
 		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 		sync_hide_win_los_meldung.rpc(name.to_int())
-		if is_multiplayer_authority():
-			camera.make_current()
 		paint.rpc()
 		score_counter.rpc()
 	
@@ -58,7 +55,7 @@ func _physics_process(_delta):
 			score_counter.rpc()
 			Check_Time_Visible.rpc()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
-			if is_multiplayer_authority():
+			if name.to_int() == multiplayer.get_unique_id():
 				moving()
 				if position.x < get_node("Color").size.x:
 					Input.action_release("left")
@@ -207,3 +204,4 @@ func reset_player_vars():
 				
 func _exit_tree():
 	Global.Gameover = false
+	level.update_player_list.rpc(name.to_int(), false)
