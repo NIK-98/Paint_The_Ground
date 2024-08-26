@@ -11,16 +11,11 @@ var loaded = false
 var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
-var vorhersage_zeit = 50
-var direction = [4]
+var time_last_change = 0
+var direction_change_interval = 0.5  # Intervall in Sekunden
+var curent_direction = Vector2() # für warloses folgen
 var random = 1
-var new_direction: Vector2
-var direction_sehen: Vector2
-var direction_volgen: Vector2
-var direction_flucht: Vector2
-var direction_bomb: Vector2
 var SPEED = 20
-var dir: Vector2
 var current_direktion = 0
 var curent_bomb = null
 @export var paint_radius = 2
@@ -34,13 +29,12 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
-	$Timer.connect("timeout", _on_timer_timeout.rpc)
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if not loaded:
 		loaded = true
 		position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
-		_on_timer_timeout()
+		set_random_direction()
 		paint()
 		score_counter()
 	
@@ -53,11 +47,18 @@ func _physics_process(_delta):
 			Check_Time_Visible()
 			level.get_node("Timer").start()
 			level.get_node("Timerbomb").start()
-			$Timer.start()
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
+			time_last_change += delta
+			if time_last_change >= direction_change_interval:
+				time_last_change = 0
+				if curent_bomb == null:
+					set_random_direction()
+			if time_last_change == 0 and curent_bomb:
+				random = 2
+				
 			paint()
 			score_counter()
-			velocity = move_npc()*SPEED
+			velocity = move_npc()
 				
 			if position.x < get_node("Color").size.x:
 				velocity.x = 5
@@ -84,17 +85,14 @@ func color_change():
 			color_cell = 7
 			get_node("Color").set_color(Color.SADDLE_BROWN)
 			get_node("Name").set("theme_override_colors/font_color",Color.SADDLE_BROWN)
-			SPEED = 2
 		if get_parent().get_node(str(name)) != null and i == 2:
 			color_cell = 8
 			get_node("Color").set_color(Color.ORANGE)
 			get_node("Name").set("theme_override_colors/font_color",Color.ORANGE)
-			SPEED = 2.5
 		if get_parent().get_node(str(name)) != null and i == 3:
 			color_cell = 9
 			get_node("Color").set_color(Color.HOT_PINK)
 			get_node("Name").set("theme_override_colors/font_color",Color.HOT_PINK)
-			SPEED = 3
 		
 								
 func change_paint_rad():
@@ -130,27 +128,30 @@ func Check_Time_Visible():
 
 
 func move_npc():
-	if random == 1:
-		direction_volgen = (get_parent().get_child(0).position - position).normalized()
-		dir = direction_volgen
-	elif random == 2:
-		direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position).normalized()
-		dir = direction_sehen
-	elif random == 3:
-		direction_flucht = (position - get_parent().get_child(0).position).normalized()
-		dir = -direction_flucht
-	elif random == 4:
-		if curent_bomb == null:
-			random = 1
-			direction_volgen = (get_parent().get_child(0).position - position).normalized()
-			dir = direction_volgen
-			return dir.normalized()
-		direction_bomb = (curent_bomb.position - position)
-		dir = direction_bomb
-	
-	return dir
-
+	var dir = Vector2()
+	if curent_bomb == null:
+		random = 1
 		
+	if random == 1:
+		#direction_wahrlos
+		dir = curent_direction * SPEED
+	elif random == 2:
+		#direction_bombe
+		dir = (curent_bomb.position - position).normalized() * SPEED
+
+	return dir
+		
+		
+func set_random_direction():
+	# Zufällige Richtung generieren
+	if level.get_node("Bomben").get_child_count() > 0:
+		curent_bomb = level.get_node("Bomben").get_children().pick_random()
+		return
+	random = 1
+	var angle = position.direction_to(get_parent().get_child(0).position)
+	var new_angle = position.angle_to(angle)
+	curent_direction = Vector2(cos(new_angle), sin(new_angle)).normalized()
+	
 		
 func reset_player_vars():
 	ende = false
@@ -158,12 +159,3 @@ func reset_player_vars():
 	Gametriggerstart = false
 	score = 0
 	paint_radius = 2
-
-
-@rpc("any_peer","call_local")
-func _on_timer_timeout():
-	random = direction.pick_random()
-	if level.get_node("Bomben").get_child_count() > 0 and random == 4:
-		curent_bomb = level.get_node("Bomben").get_children().pick_random()
-	if level.get_node("Bomben").get_child_count() == 0 and random == 4:
-		random = 1

@@ -68,11 +68,12 @@ func _physics_process(_delta):
 				if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
 					Input.action_release("down")
 				move = Input.get_vector("left","right","up","down")
-				velocity = move*SPEED
+				if move != Vector2(0,0):
+					velocity = move*SPEED
+					move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter.rpc()
-			move_and_collide(velocity)
 		elif level.Time_out and not ende:
 			ende = true
 			sync_show_win_los_meldung.rpc(name.to_int())

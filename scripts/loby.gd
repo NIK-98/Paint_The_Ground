@@ -219,6 +219,7 @@ func _on_enter_pressed():
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
 		check_all_players_exist.rpc()
+		$CenterContainer/VBoxContainer/npcs.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/HBoxContainer.visible = false

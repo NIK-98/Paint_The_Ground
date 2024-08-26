@@ -295,7 +295,7 @@ wait_time = 120.0
 wait_time = 3.0
 
 [node name="Timerbomb" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 
 [node name="Timerwarte" type="Timer" parent="."]
 
