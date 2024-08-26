@@ -267,7 +267,10 @@ func _on_timerende_timeout():
 @rpc("any_peer","call_local")
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
-	if $loby.player_conect_count <= 1 and not $Players.has_node("2"):
+	if $loby.player_conect_count <= 1 and not $Players.has_node("2") and not OS.has_feature("dedicated_server"):
+		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
+		return
+	if $loby.player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	if not OS.has_feature("dedicated_server"):

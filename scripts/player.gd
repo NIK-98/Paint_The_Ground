@@ -199,7 +199,3 @@ func reset_player_vars():
 	Gametriggerstart = false
 	score = 0
 	paint_radius = 2
-	
-				
-func _exit_tree():
-	Global.Gameover = false
