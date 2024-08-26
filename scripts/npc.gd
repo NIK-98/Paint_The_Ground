@@ -15,7 +15,7 @@ var time_last_change = 0
 var direction_change_interval = 0.5  # Intervall in Sekunden
 var curent_direction = Vector2() # für warloses folgen
 var random = 1
-var SPEED = 20
+var SPEED = 15
 var current_direktion = 0
 var curent_bomb = null
 @export var paint_radius = 2
@@ -75,7 +75,6 @@ func _physics_process(delta):
 			move_and_collide(velocity)
 		elif level.Time_out and not ende:
 			ende = true
-			$Timer.stop()
 			level.get_node("Timerende").start()
 			
 
