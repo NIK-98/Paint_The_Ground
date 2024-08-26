@@ -12,7 +12,7 @@ var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
 var vorhersage_zeit = 50
-var direction = [1]
+var direction = [4]
 var random = 1
 var new_direction: Vector2
 var direction_sehen: Vector2
@@ -57,19 +57,19 @@ func _physics_process(_delta):
 		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
 			paint()
 			score_counter()
-			velocity += move_npc()*SPEED
+			velocity = move_npc()*SPEED
 				
 			if position.x < get_node("Color").size.x:
-				velocity.x = 1
+				velocity.x = 5
 					
 			if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
-				velocity.x = -1
+				velocity.x = -5
 					
 			if position.y < get_node("Color").size.y:
-				velocity.y = 1
+				velocity.y = 5
 					
 			if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
-				velocity.y = -1
+				velocity.y = -5
 				
 			move_and_collide(velocity)
 		elif level.Time_out and not ende:
@@ -131,24 +131,24 @@ func Check_Time_Visible():
 
 func move_npc():
 	if random == 1:
-		direction_volgen = (get_parent().get_child(0).position - position)
+		direction_volgen = (get_parent().get_child(0).position - position).normalized()
 		dir = direction_volgen
 	elif random == 2:
-		direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position)
+		direction_sehen = ((get_parent().get_child(0).position + get_parent().get_child(0).velocity * vorhersage_zeit) - position).normalized()
 		dir = direction_sehen
 	elif random == 3:
-		direction_flucht = (position - get_parent().get_child(0).position)
+		direction_flucht = (position - get_parent().get_child(0).position).normalized()
 		dir = -direction_flucht
 	elif random == 4:
 		if curent_bomb == null:
 			random = 1
-			direction_volgen = (get_parent().get_child(0).position - position)
+			direction_volgen = (get_parent().get_child(0).position - position).normalized()
 			dir = direction_volgen
 			return dir.normalized()
 		direction_bomb = (curent_bomb.position - position)
 		dir = direction_bomb
 	
-	return dir.normalized()
+	return dir
 
 		
 		

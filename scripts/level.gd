@@ -181,7 +181,6 @@ func kicked(id, antwort, show_msg: bool):
 	if show_msg:
 		OS.alert(antwort)
 	if multiplayer and id in multiplayer.get_peers():
-		$loby.update_player_count.rpc(false)
 		multiplayer.multiplayer_peer.disconnect_peer(id)
 		wechsel_sceene_wenn_server_disconected()
 	
@@ -268,12 +267,9 @@ func _on_timerende_timeout():
 @rpc("any_peer","call_local")
 func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timerwarte", false)
-	if $loby.player_wait_count <= 1 and not $Players.has_node("1"):
+	if $loby.player_conect_count <= 1 and not $Players.has_node("2"):
 		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	if $loby.player_wait_count == 1 and $Players.has_node("1") and not loaded_seson:
-		loaded_seson = true
-		spawn_npc()
 	if not OS.has_feature("dedicated_server"):
 		reset_vars_level()
 		$loby.visible = false

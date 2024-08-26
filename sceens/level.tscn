@@ -289,7 +289,6 @@ script = ExtResource("15_unqr3")
 [node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0
@@ -298,6 +297,7 @@ wait_time = 3.0
 wait_time = 10.0
 
 [node name="Timerwarte" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]

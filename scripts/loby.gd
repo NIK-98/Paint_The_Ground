@@ -171,24 +171,26 @@ func update_server_status_conected():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		get_tree().paused = true
-		exit("Verbindung Selber beendet!", false)
+		exit("Verbindung Selber beendet!", true)
 		return
 				
 			
 
 func server_exit():
 	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
-
-
+	
+	
 func exit(msg: String, show_msg: bool):
-	for i in multiplayer.get_peers():
-		get_parent().kicked(i, msg, show_msg)
+	update_player_count.rpc(false)
 	if multiplayer and multiplayer.is_server() or DisplayServer.get_name() == "headless":
 		if DisplayServer.get_name() != "headless":
 			OS.alert("Server beendet!")
 		server_exit()
-		return
+	if multiplayer:
+		for i in multiplayer.get_peers():
+			get_parent().kicked(i, msg, show_msg)
 	
 		
 
@@ -224,6 +226,9 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
+		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
+			get_parent().loaded_seson = true
+			get_parent().spawn_npc()
 
 	
 	

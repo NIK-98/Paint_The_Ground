@@ -14,7 +14,7 @@ func _ready():
 		
 func _process(_delta):
 	if count_aktivate == len(level.playerlist):
-		if is_multiplayer_authority() and not OS.has_feature("dedicated_server"):
+		if multiplayer.is_server() and not OS.has_feature("dedicated_server"):
 			queue_free()
 			return
 		if OS.has_feature("dedicated_server"):
