@@ -32,6 +32,21 @@ func _ready():
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
 	
+	if not multiplayer.is_server():
+		multiplayer.server_disconnected.connect(verbindung_verloren)
+		return
+		
+	multiplayer.peer_connected.connect(add_player)
+	multiplayer.peer_disconnected.connect(del_player)
+		
+		
+	for id in multiplayer.get_peers():
+		get_parent().get_parent().get_node("Level/level").add_player(id)
+
+
+	if not OS.has_feature("dedicated_server"):
+		get_parent().get_parent().get_node("Level/level").add_player(1)
+	
 	
 func update_player_list(id: int, join: bool):
 	if join:
@@ -99,6 +114,7 @@ func add_player(id: int):
 	if len(multiplayer.get_peers()) >= Max_clients:
 		voll.rpc_id(id)
 		return
+	$loby.is_running = true
 	update_player_list(id, true)
 	var player = player_sceen.instantiate()
 	player.name = str(id)

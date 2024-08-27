@@ -19,8 +19,8 @@ func _ready():
 	
 	
 func _input(event):
-	if event is InputEventScreenTouch and get_parent().get_parent().get_node("Level/level").starting:
-		if get_parent().get_parent().get_node("Level").get_child_count() > 0:
+	if event is InputEventScreenTouch:
+		if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
 			if event.pressed:
 				set_process(true)
 				var entfernung_stick = abs(joy_start_position-get_global_mouse_position()).length()

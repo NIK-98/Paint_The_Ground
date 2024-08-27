@@ -117,8 +117,7 @@ var esc_is_pressing_in_game = false
 func _ready():
 	visible = true
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
-	reset_loby()
-	
+
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
@@ -163,11 +162,6 @@ func update_player_count(positiv: bool):
 		player_conect_count -= 1
 	
 	
-@rpc("any_peer","call_local")
-func update_server_status_conected():
-	is_running = true
-	
-	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		get_tree().paused = true
@@ -177,16 +171,27 @@ func _notification(what):
 			
 
 func server_exit():
+	multiplayer.peer_connected.disconnect(get_parent().add_player)
+	multiplayer.peer_disconnected.disconnect(get_parent().del_player)
+	get_parent().get_node("Timer").stop()
+	get_parent().get_node("Timerende").stop()
+	get_parent().get_node("Timerbomb").stop()
+	get_parent().get_node("Timerwarte").stop()
+	get_parent().get_node("Timer").disconnect("timeout", get_parent()._on_timer_timeout.rpc)
+	get_parent().get_node("Timerende").disconnect("timeout", get_parent()._on_timerende_timeout.rpc)
+	get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout)
+	get_parent().get_node("Timerwarte").disconnect("timeout", get_parent()._on_timerwarte_timeout.rpc)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
 	
 	
 func exit(msg: String, show_msg: bool):
+	if OS.has_feature("dedicated_server"):
+		return
 	update_player_count.rpc(false)
-	if multiplayer and multiplayer.is_server() or DisplayServer.get_name() == "headless":
-		if DisplayServer.get_name() != "headless":
-			OS.alert("Server beendet!")
+	if multiplayer and multiplayer.is_server():
+		OS.alert("Server beendet!")
 		server_exit()
 	if multiplayer:
 		for i in multiplayer.get_peers():
@@ -195,8 +200,8 @@ func exit(msg: String, show_msg: bool):
 		
 
 func reset_loby():
-	if DisplayServer.get_name() == "headless":
-		if len(multiplayer.get_peers()) == 0 and is_running:
+	if OS.has_feature("dedicated_server"):
+		if multiplayer.get_peers().is_empty() and is_running:
 			server_exit()
 
 	
@@ -218,7 +223,6 @@ func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
-		check_all_players_exist.rpc()
 		$CenterContainer/VBoxContainer/npcs.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
@@ -230,13 +234,6 @@ func _on_enter_pressed():
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
-
-	
-	
-@rpc("any_peer","call_local")
-func check_all_players_exist():
-	if player_conect_count == player_wait_count:
-		update_server_status_conected.rpc()
 	
 	
 func _on_j_pressed():

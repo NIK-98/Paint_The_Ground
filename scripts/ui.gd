@@ -76,16 +76,8 @@ func _on_host_pressed():
 		return
 	multiplayer.multiplayer_peer = peer
 	get_parent().visible = false
-	multiplayer.peer_connected.connect(get_parent().get_parent().get_node("Level/level").add_player)
-	multiplayer.peer_disconnected.connect(get_parent().get_parent().get_node("Level/level").del_player)
-		
-		
-	for id in multiplayer.get_peers():
-		get_parent().get_parent().get_node("Level/level").add_player(id)
-
-
-	if not OS.has_feature("dedicated_server"):
-		get_parent().get_parent().get_node("Level/level").add_player(1)
+	
+	change_level(load("res://sceens/level.tscn"))
 
 		
 func _on_connect_pressed():
@@ -131,4 +123,13 @@ func _on_connect_pressed():
 		get_tree().paused = true
 		return
 	get_parent().visible = false
-	multiplayer.server_disconnected.connect(get_parent().get_parent().get_node("Level/level").verbindung_verloren)
+	
+	
+func change_level(scene: PackedScene):
+	# Remove old level if any.
+	var level = get_parent().get_parent().get_node("Level")
+	for c in level.get_children():
+		level.remove_child(c)
+		c.queue_free()
+	# Add new level.
+	level.add_child(scene.instantiate())
