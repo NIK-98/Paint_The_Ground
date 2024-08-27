@@ -123,13 +123,13 @@ func _on_tap_released():
 
 
 func _on_ja_pressed():
-	if $CanvasLayer2/UI.esc_is_pressing and not get_node("Level/level/loby").esc_is_pressing_in_game:
+	if $CanvasLayer2/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/UI.esc_is_pressing = false
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
 		get_tree().quit()
 		return
-	if multiplayer.has_multiplayer_peer() and get_node("Level/level/loby").esc_is_pressing_in_game:
+	if multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		

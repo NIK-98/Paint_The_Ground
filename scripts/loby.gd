@@ -189,7 +189,6 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
-	update_player_count.rpc(false)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!")
 		server_exit()

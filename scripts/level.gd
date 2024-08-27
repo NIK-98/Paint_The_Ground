@@ -194,7 +194,7 @@ func _input(_event):
 
 
 func kicked(id, antwort, show_msg: bool):
-	if show_msg:
+	if multiplayer and show_msg:
 		OS.alert(antwort)
 	if multiplayer and id in multiplayer.get_peers():
 		multiplayer.multiplayer_peer.disconnect_peer(id)
@@ -204,6 +204,7 @@ func kicked(id, antwort, show_msg: bool):
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
+	$loby.update_player_count.rpc(false)
 	update_player_list(id, false)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
