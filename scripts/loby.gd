@@ -189,6 +189,7 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
+	multiplayer.server_disconnected.disconnect(get_parent().verbindung_verloren)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!")
 		server_exit()
