@@ -6,7 +6,7 @@ var loaded = false
 		
 	
 func _ready():
-	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.connect("pressed", _on_restart_pressed.rpc)	
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.connect("pressed", _on_restart_pressed)	
 
 
 func sort_scoreboard(a,b):
@@ -64,7 +64,6 @@ func _process(_delta):
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical += 5
 
 
-@rpc("any_peer","call_local")
 func _on_restart_pressed():
 	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
@@ -72,14 +71,13 @@ func _on_restart_pressed():
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	if not OS.has_feature("dedicated_server"):
-		get_parent().reset_vars_level()
-		get_parent().wertungs_anzeige_aktivieren()
+	get_parent().reset_vars_level()
+	get_parent().wertungs_anzeige_aktivieren.rpc()
 	get_parent().reset_bomben()
 	get_parent().set_timer_subnode.rpc("Timer", true)
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
-	$CanvasLayer.visible = false
-	get_parent().starting_game()
+	set_visible_false.rpc("CanvasLayer", false)
+	
 	
 	
 @rpc("any_peer","call_local")
@@ -90,3 +88,7 @@ func set_visible_false(nodepath: String, mode: bool):
 			obj.visible = mode
 		else:	
 			obj.visible = mode
+
+
+func _on_canvas_layer_visibility_changed():
+	get_parent().starting_game()

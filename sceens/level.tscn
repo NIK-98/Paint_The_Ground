@@ -1,14 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=38 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
 [ext_resource type="PackedScene" uid="uid://dqayoki230ek2" path="res://sceens/score_label.tscn" id="3_eqqiv"]
 [ext_resource type="PackedScene" uid="uid://cj1swxdws84yf" path="res://sceens/Name.tscn" id="4_jptae"]
 [ext_resource type="PackedScene" uid="uid://fv2dn4il1f71" path="res://sceens/floor.tscn" id="5_h5l3x"]
+[ext_resource type="Script" path="res://scripts/scoreboard.gd" id="9_7agv8"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
-[ext_resource type="PackedScene" uid="uid://cx8mc5hevswjg" path="res://sceens/scoreboard.tscn" id="17_4co2s"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bktx8"]
 properties/0/path = NodePath("Timer:time_left")
@@ -44,15 +44,21 @@ properties/9/replication_mode = 1
 properties/10/path = NodePath("Timer:process_callback")
 properties/10/spawn = true
 properties/10/replication_mode = 1
-properties/11/path = NodePath(".:starting")
+properties/11/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:text")
 properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath(".:Time_out")
+properties/11/replication_mode = 2
+properties/12/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_colors/font_color")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath(".:Max_clients")
+properties/13/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_font_sizes/font_size")
 properties/13/spawn = true
 properties/13/replication_mode = 1
+properties/14/path = NodePath("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart:button_pressed")
+properties/14/spawn = true
+properties/14/replication_mode = 1
+properties/15/path = NodePath(".:Time_out")
+properties/15/spawn = true
+properties/15/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 bg_color = Color(0, 0, 0, 0.584314)
@@ -162,6 +168,85 @@ Button/styles/hover = SubResource("StyleBoxFlat_57cek")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dox0w"]
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="Theme" id="Theme_ggqog"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_dox0w")
+
+[sub_resource type="SystemFont" id="SystemFont_jwpju"]
+font_names = PackedStringArray("Agency FB")
+font_weight = 975
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_k4y7c"]
+font = SubResource("SystemFont_jwpju")
+font_size = 70
+font_color = Color(0.909804, 0.505882, 0, 1)
+outline_size = 10
+outline_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbhc3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.733333, 0.560784, 0, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.180392, 0.231373, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 0.8, 0.564706, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08hjf"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.733333, 0.560784, 0, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.180392, 0.231373, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 5
+
+[sub_resource type="SystemFont" id="SystemFont_cqbu0"]
+font_names = PackedStringArray("Centaur")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_64oux"]
+default_font = SubResource("SystemFont_cqbu0")
+Button/font_sizes/font_size = 90
+Button/styles/focus = SubResource("StyleBoxFlat_mbhc3")
+Button/styles/hover = SubResource("StyleBoxFlat_mbhc3")
+Button/styles/normal = SubResource("StyleBoxFlat_08hjf")
+
+[sub_resource type="LabelSettings" id="LabelSettings_35yls"]
+font_size = 50
+font_color = Color(1, 1, 0, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k53ee"]
+font_size = 40
+font_color = Color(0.721569, 0.258824, 0, 1)
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f0rax"]
+font_size = 40
+font_color = Color(0.0156863, 0.0784314, 1, 1)
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -294,15 +379,6 @@ alignment = 1
 max_length = 8
 expand_to_text_length = true
 
-[node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 60
-text = "Warte auf Mitspieler..."
-
 [node name="HBoxContainer" type="HBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -333,9 +409,127 @@ theme = SubResource("Theme_ywke1")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
-[node name="Scoreboard" parent="." instance=ExtResource("17_4co2s")]
+[node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 60
+
+[node name="Scoreboard" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("9_7agv8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Scoreboard"]
+layer = 6
+visible = false
+
+[node name="Background" type="TextureRect" parent="Scoreboard/CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 800.0
+texture = ExtResource("15_qppgb")
+
+[node name="CenterContainer" type="CenterContainer" parent="Scoreboard/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -464.0
+offset_top = 16.0
+offset_right = 473.0
+offset_bottom = 16.0
+grow_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Scoreboard/CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ggqog")
+
+[node name="MarginContainer" type="MarginContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 220
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Bestenliste"
+label_settings = SubResource("LabelSettings_k4y7c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spieler" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = SubResource("SystemFont_jwpju")
+theme_override_font_sizes/font_size = 70
+text = "Spieler:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="restart" type="Button" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme = SubResource("Theme_64oux")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Neues Spiel"
+
+[node name="Label_score" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Score: "
+label_settings = SubResource("LabelSettings_35yls")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Platz0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+text = "Platz 1:"
+label_settings = SubResource("LabelSettings_k53ee")
+
+[node name="name0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_f0rax")
+
+[node name="Score0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.996844, 0.881704, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 40
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
+wait_time = 120.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0
@@ -350,3 +544,4 @@ wait_time = 5.0
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
+[connection signal="visibility_changed" from="Scoreboard/CanvasLayer" to="Scoreboard" method="_on_canvas_layer_visibility_changed"]

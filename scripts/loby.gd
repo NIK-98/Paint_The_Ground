@@ -117,6 +117,7 @@ var esc_is_pressing_in_game = false
 func _ready():
 	visible = true
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+	$CenterContainer/VBoxContainer/Warten.connect("visibility_changed", _on_warten_visibility_changed.rpc)
 
 		
 func _process(_delta):
@@ -131,7 +132,7 @@ func _process(_delta):
 	
 func visible_loby():
 	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
-		if multiplayer.is_server() or is_multiplayer_authority():
+		if multiplayer.is_server() or is_multiplayer_authority() or OS.has_feature("dedicated_server"):
 			set_hidelobyvar.rpc()
 			get_parent().get_node("Timerwarte").start()
 	
@@ -227,12 +228,18 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
+		update_warten.rpc()
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
 		
+
+@rpc("any_peer","call_local")
+func update_warten():
+	$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+	
 
 func _on_j_pressed():
 	curent_list = j_namen
@@ -254,3 +261,8 @@ func _on_npcs_pressed():
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
 	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+
+
+@rpc("any_peer","call_local")
+func _on_warten_visibility_changed():
+	$CenterContainer/VBoxContainer/Warten.visible = true

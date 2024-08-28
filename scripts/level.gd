@@ -12,12 +12,13 @@ const bomb_spawn_genzen = 250
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var npc = preload("res://sceens/npc.tscn")
 @onready var Bomben = get_node("Bomben")
-@export var starting = false
-@export var Max_clients = 6
 @export var Time_out = false
+var starting = false
+var Max_clients = 6
 var loaded_seson = false
 var loaded = false
 var blocked = false
+
 
 var playerlist = []
 
@@ -78,6 +79,8 @@ func _process(_delta):
 		$Timerende.connect("timeout", _on_timerende_timeout.rpc)
 		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
 		$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
+
+
 		
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
@@ -87,7 +90,6 @@ func _process(_delta):
 			$CanvasLayer/Time.text = str(round($Timer.time_left))
 		if not $Timerbomb.is_stopped():
 			$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
-
 
 		
 func verbindung_verloren():
@@ -231,6 +233,7 @@ func reset_vars_level():
 	map.reset_floor()
 	
 	
+	
 @rpc("any_peer","call_local")
 func wertungs_anzeige_aktivieren():
 	$Werten.visible = true
@@ -252,7 +255,7 @@ func stoped_game():
 
 @rpc("any_peer","call_local")
 func set_timer_subnode(nodepath: String, mode: bool):
-	if multiplayer.is_server() or is_multiplayer_authority():
+	if multiplayer != null and multiplayer.is_server() or is_multiplayer_authority() or OS.has_feature("dedicated_server"):
 		var obj = get_node(nodepath)
 		if obj:
 			if mode:
@@ -274,9 +277,8 @@ func _on_timerbomb_timeout():
 func _on_timerende_timeout():
 	set_timer_subnode.rpc("Timerende", false)
 	stoped_game()
-	if OS.has_feature("dedicated_server"):
-		return
-	get_node("Scoreboard").update_scoreboard()
+	if not OS.has_feature("dedicated_server"):
+		get_node("Scoreboard").update_scoreboard()
 	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
 	
 	
@@ -291,11 +293,10 @@ func _on_timerwarte_timeout():
 	if $loby.player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	if not OS.has_feature("dedicated_server"):
-		reset_vars_level()
-		$loby.visible = false
-		$loby/CenterContainer/VBoxContainer/Warten.visible = false
-		wertungs_anzeige_aktivieren()
+	reset_vars_level()
+	$loby.visible = false
+	wertungs_anzeige_aktivieren()
+	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	reset_bomben()
 	set_timer_subnode.rpc("Timer", true)
 	set_timer_subnode.rpc("Timerbomb", true)
