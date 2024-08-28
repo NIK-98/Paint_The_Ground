@@ -14,11 +14,11 @@ const bomb_spawn_genzen = 250
 @onready var Bomben = get_node("Bomben")
 @export var starting = false
 @export var Max_clients = 6
+@export var Time_out = false
 var loaded_seson = false
 var loaded = false
 var blocked = false
 
-var Time_out = false
 var playerlist = []
 
 func _ready():
@@ -94,7 +94,7 @@ func verbindung_verloren():
 	if multiplayer:
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 		OS.alert("Multiplayer Server wurde beendet.")
-		call_deferred("wechsel_sceene_wenn_server_disconected")
+		wechsel_sceene_wenn_server_disconected()
 		return
 	
 
@@ -196,6 +196,7 @@ func _input(_event):
 func kicked(id, antwort, show_msg: bool):
 	if multiplayer and show_msg:
 		OS.alert(antwort)
+		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	if multiplayer and id in multiplayer.get_peers():
 		multiplayer.multiplayer_peer.disconnect_peer(id)
 		wechsel_sceene_wenn_server_disconected()
@@ -235,7 +236,6 @@ func wertungs_anzeige_aktivieren():
 	$Werten.visible = true
 
 
-@rpc("any_peer","call_local")
 func starting_game():
 	starting = true
 	Time_out = false
@@ -252,12 +252,13 @@ func stoped_game():
 
 @rpc("any_peer","call_local")
 func set_timer_subnode(nodepath: String, mode: bool):
-	var obj = get_node(nodepath)
-	if obj:
-		if mode:
-			obj.start()
-		else:	
-			obj.stop()
+	if multiplayer.is_server() or is_multiplayer_authority():
+		var obj = get_node(nodepath)
+		if obj:
+			if mode:
+				obj.start()
+			else:	
+				obj.stop()
 	
 
 func _on_timerbomb_timeout():

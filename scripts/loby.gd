@@ -131,10 +131,9 @@ func _process(_delta):
 	
 func visible_loby():
 	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
-		if DisplayServer.get_name() == "headless":
-			return
-		set_hidelobyvar.rpc()
-		get_parent().get_node("Timerwarte").start()
+		if multiplayer.is_server() or is_multiplayer_authority():
+			set_hidelobyvar.rpc()
+			get_parent().get_node("Timerwarte").start()
 	
 	
 @rpc("any_peer","call_local")
@@ -189,7 +188,6 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
-	multiplayer.server_disconnected.disconnect(get_parent().verbindung_verloren)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!")
 		server_exit()
@@ -234,8 +232,8 @@ func _on_enter_pressed():
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
-	
-	
+		
+
 func _on_j_pressed():
 	curent_list = j_namen
 

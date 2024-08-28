@@ -82,7 +82,7 @@ font_color = Color(0.0156863, 0.0784314, 1, 1)
 outline_size = 25
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Scoreboard" type="Control" groups=["save_score"]]
+[node name="Scoreboard" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0

@@ -78,7 +78,7 @@ func _on_restart_pressed():
 	get_parent().reset_bomben()
 	get_parent().set_timer_subnode.rpc("Timer", true)
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
-	set_visible_false.rpc("CanvasLayer",false)
+	$CanvasLayer.visible = false
 	get_parent().starting_game()
 	
 	
