@@ -20,7 +20,7 @@ var loaded = false
 var blocked = false
 
 
-var playerlist = []
+@export var playerlist = []
 
 func _ready():
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true

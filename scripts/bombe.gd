@@ -13,6 +13,7 @@ func _ready():
 		
 		
 func _process(_delta):
+	print(level.playerlist)
 	if count_aktivate == len(level.playerlist):
 		if multiplayer.is_server() and not OS.has_feature("dedicated_server"):
 			queue_free()
@@ -28,9 +29,6 @@ func aktivate_bombe(cell: int):
 			var pos = Vector2i(x, y) + tile_position
 			if map.get_cell_source_id(pos) != -1:
 				map.set_cell(pos,cell,Vector2i(0, 0),0)
-	if multiplayer.get_peers().is_empty():
-		queue_free()
-		return
 	sync_aktive.rpc()
 
 
