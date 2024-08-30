@@ -85,11 +85,10 @@ func _process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if not OS.has_feature("dedicated_server"):
-		if not $Timer.is_stopped():
-			$CanvasLayer/Time.text = str(round($Timer.time_left))
-		if not $Timerbomb.is_stopped():
-			$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
+	if not $Timer.is_stopped():
+		$CanvasLayer/Time.text = str(round($Timer.time_left))
+	if not $Timerbomb.is_stopped():
+		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
 
 		
 func verbindung_verloren():
