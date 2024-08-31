@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=39 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -171,6 +171,16 @@ Button/styles/hover = SubResource("StyleBoxFlat_57cek")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="Theme" id="Theme_qs1a5"]
+OptionButton/colors/font_color = Color(0, 0, 0, 1)
+OptionButton/font_sizes/font_size = 45
+OptionButton/fonts/font = SubResource("SystemFont_8s71y")
+OptionButton/styles/focus = SubResource("StyleBoxFlat_57cek")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_57cek")
+OptionButton/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_57cek")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dox0w"]
 expand_margin_top = 15.0
@@ -402,9 +412,26 @@ layout_mode = 2
 theme = SubResource("Theme_4qfo0")
 text = "Generate"
 
-[node name="npcs" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="npcs" type="Button" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_ywke1")
+text = "Solo NPCs: 1"
+
+[node name="Speed" type="OptionButton" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_qs1a5")
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Einfach"
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Schwer"
+popup/item_2/id = 2
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -545,6 +572,7 @@ wait_time = 5.0
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
-[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
+[connection signal="item_selected" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_item_selected"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="visibility_changed" from="Scoreboard/CanvasLayer" to="Scoreboard" method="_on_canvas_layer_visibility_changed"]

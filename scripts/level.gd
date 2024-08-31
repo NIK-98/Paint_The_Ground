@@ -61,9 +61,9 @@ func update_player_list(id: int, join: bool):
 @rpc("any_peer","call_local")
 func visibility_npc_settings():
 	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
-		$loby/CenterContainer/VBoxContainer/npcs.visible = true
+		$loby/CenterContainer/VBoxContainer/VBoxContainer.visible = true
 	else:
-		$loby/CenterContainer/VBoxContainer/npcs.visible = false
+		$loby/CenterContainer/VBoxContainer/VBoxContainer.visible = false
 
 
 @rpc("any_peer","call_local")

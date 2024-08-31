@@ -116,7 +116,7 @@ var esc_is_pressing_in_game = false
 	
 func _ready():
 	visible = true
-	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+	$CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	$CenterContainer/VBoxContainer/Warten.connect("visibility_changed", _on_warten_visibility_changed.rpc)
 
 		
@@ -222,7 +222,7 @@ func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
-		$CenterContainer/VBoxContainer/npcs.visible = false
+		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
@@ -260,9 +260,21 @@ func _on_npcs_pressed():
 	Global.count_npcs += 1
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
-	$CenterContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+	$CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 
 
 @rpc("any_peer","call_local")
 func _on_warten_visibility_changed():
 	$CenterContainer/VBoxContainer/Warten.visible = true
+
+
+func _on_speed_item_selected(index: int) -> void:
+	#einfach
+	if index == 0:
+		Global.speed_npcs = 15
+	#normal
+	if index == 1:
+		Global.speed_npcs = 20
+	#schwer
+	if index == 2:
+		Global.speed_npcs = 30
