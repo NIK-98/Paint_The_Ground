@@ -3,7 +3,6 @@ extends Control
 @onready var joystick = $Control/joy/Joy
 @onready var layer = $"Control"
 
-
 @export var maxLength = 50
 
 @onready var stick_center: Vector2 = get_parent().get_node("joy/Control/joy").texture_normal.get_size() / 2

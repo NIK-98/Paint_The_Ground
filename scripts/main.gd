@@ -1,7 +1,8 @@
 extends Node
 
 var save_path = "user://savetemp.save"
-	
+
+var controll_switcher = false
 	
 func _ready():
 	if not OS.has_feature("dedicated_server"):
@@ -138,3 +139,14 @@ func _on_ja_pressed():
 
 func _on_nein_pressed():
 	$CanvasLayer/Beenden.visible = false
+
+
+func _on_change_pressed():
+	if controll_switcher:
+		controll_switcher = false
+		$CanvasLayer/joy.joy_start_position = Vector2(91.429,548.571)
+		$CanvasLayer/Back.global_position = Vector2(1652.86,537.143)
+	else:
+		controll_switcher = true
+		$CanvasLayer/joy.joy_start_position = Vector2(1653.701,548.571)
+		$CanvasLayer/Back.global_position = Vector2(34.286,537.143)

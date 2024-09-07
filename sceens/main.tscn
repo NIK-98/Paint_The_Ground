@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=19 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
+[ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
@@ -140,7 +141,7 @@ visibility_mode = 1
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
-position = Vector2(1652.86, 537.143)
+position = Vector2(1652.86, 548.571)
 texture_normal = ExtResource("8_40dan")
 passby_press = true
 visibility_mode = 1
@@ -153,11 +154,18 @@ texture_normal = ExtResource("9_jd08x")
 passby_press = true
 visibility_mode = 1
 
+[node name="change" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2(1520, 22.8571)
+scale = Vector2(7.045, 7.045)
+texture_normal = ExtResource("5_321n0")
+texture_pressed = ExtResource("5_321n0")
+visibility_mode = 1
+
 [node name="joy" parent="CanvasLayer" instance=ExtResource("6_oe035")]
 modulate = Color(1, 1, 1, 0.788235)
-offset_left = 91.4286
+offset_left = 91.429
 offset_top = 548.571
-offset_right = 91.4286
+offset_right = 91.429
 offset_bottom = 548.571
 
 [node name="Beenden" type="CenterContainer" parent="CanvasLayer"]
@@ -202,5 +210,6 @@ layer = 6
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
+[connection signal="pressed" from="CanvasLayer/change" to="." method="_on_change_pressed"]
 [connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja" to="." method="_on_ja_pressed"]
 [connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Nein" to="." method="_on_nein_pressed"]
