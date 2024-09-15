@@ -6,6 +6,8 @@ var Max_clients = 6
 @onready var port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 @onready var connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+@onready var myip = $Panel/CenterContainer/Net/Options/Option1/yourip/myip
+
 
 var loaded = false
 var esc_is_pressing = false
@@ -27,7 +29,7 @@ func save():
 	
 func _ready():
 	name = "UI"
-	get_tree().paused = true
+	get_tree().paused = false
 	
 	
 func _process(_delta):
@@ -46,7 +48,32 @@ func _process(_delta):
 		esc_is_pressing = true
 		get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
 		get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
+	
+	
+	get_local_ips()
 
+
+func get_local_ips():
+	var ips = []
+	for i in IP.get_local_interfaces():
+		if i["friendly"].begins_with("Ethernet") or i["friendly"].begins_with("WLAN") or i["friendly"].begins_with("en") or i["friendly"].begins_with("eth") or i["friendly"].begins_with("wl"):
+			for address in i["addresses"]:
+				if (address.split('.').size() == 4) and address.begins_with("10.") or check_address_bereich(address,16,31) or address.begins_with("192.168."):
+					ips.append(address)
+	if ips.is_empty():
+		myip.text = "Keine Verbindung!"
+	else:
+		myip.text = str(ips[-1])
+	
+	
+	
+func check_address_bereich(curent_ip: String, anfang: int, ende: int):
+	for i in range(anfang,ende):
+		if curent_ip.begins_with(str("172.",i,".")):
+			return true
+	return false
+		
+		
 func _on_host_pressed():
 	get_tree().paused = false
 	if block_host:
