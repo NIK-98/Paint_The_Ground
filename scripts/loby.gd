@@ -271,10 +271,10 @@ func _on_warten_visibility_changed():
 func _on_speed_item_selected(index: int) -> void:
 	#einfach
 	if index == 0:
-		Global.speed_npcs = 15
+		Global.speed_npcs = 5
 	#normal
 	if index == 1:
-		Global.speed_npcs = 20
+		Global.speed_npcs = 10
 	#schwer
 	if index == 2:
-		Global.speed_npcs = 30
+		Global.speed_npcs = 15

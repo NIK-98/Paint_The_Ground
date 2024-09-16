@@ -61,16 +61,16 @@ func _physics_process(delta):
 			velocity = move_npc()
 				
 			if position.x < get_node("Color").size.x:
-				velocity.x = 5
+				curent_direction.x = 1
 					
 			if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
-				velocity.x = -5
+				curent_direction.x = -1
 					
 			if position.y < get_node("Color").size.y:
-				velocity.y = 5
+				curent_direction.y = 1
 					
 			if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
-				velocity.y = -5
+				curent_direction.y = -1
 				
 			move_and_collide(velocity)
 		elif level.Time_out and not ende:
@@ -147,9 +147,7 @@ func set_random_direction():
 		curent_bomb = level.get_node("Bomben").get_children().pick_random()
 		return
 	random = 1
-	var angle = position.direction_to(get_parent().get_child(0).position)
-	var new_angle = position.angle_to(angle)
-	curent_direction = Vector2(cos(new_angle), sin(new_angle)).normalized()
+	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	
 		
 func reset_player_vars():
