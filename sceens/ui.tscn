@@ -130,22 +130,24 @@ max_length = 5
 expand_to_text_length = true
 select_all_on_focus = true
 
-[node name="yourip" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="yourip" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/yourip"]
+[node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.176471, 1, 1, 1)
 theme_override_constants/line_spacing = -50
 theme_override_font_sizes/font_size = 56
-text = "Meine IP
+text = "Meine IP's
 __________________"
 horizontal_alignment = 1
 
-[node name="myip" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/yourip"]
+[node name="ip_list" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.176103, 0.208777, 1, 1)
-theme_override_font_sizes/font_size = 56
 
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 layout_mode = 2

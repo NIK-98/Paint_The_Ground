@@ -6,11 +6,12 @@ var Max_clients = 6
 @onready var port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 @onready var connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-@onready var myip = $Panel/CenterContainer/Net/Options/Option1/yourip/myip
+@onready var ip_list = $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip/ip_list
 
 
 var loaded = false
 var esc_is_pressing = false
+var old_ips = []
 
 
 func save():
@@ -29,7 +30,7 @@ func save():
 	
 func _ready():
 	name = "UI"
-	get_tree().paused = false
+	get_tree().paused = true
 	
 	
 func _process(_delta):
@@ -54,16 +55,18 @@ func _process(_delta):
 
 
 func get_local_ips():
-	var ips = []
-	for i in IP.get_local_interfaces():
+	var local_interfaces = IP.get_local_interfaces()
+	for r in ip_list.get_children():
+		r.queue_free()
+	for i in local_interfaces:
 		if (OS.has_feature("windows") and i["friendly"].begins_with("Ethernet") or i["friendly"].begins_with("WLAN")) or ((OS.has_feature("linux") or OS.has_feature("android")) and i["name"].begins_with("en") or i["name"].begins_with("eth") or i["name"].begins_with("wl")):
 			for address in i["addresses"]:
 				if (address.split('.').size() == 4) and address.begins_with("10.") or check_address_bereich(address,16,31) or address.begins_with("192.168."):
-					ips.append(address)
-	if ips.is_empty():
-		myip.text = "Keine Verbindung!"
-	else:
-		myip.text = str(ips[-1])
+					var addr = preload("res://sceens/myip.tscn")
+					var new_addr = addr.instantiate()
+					new_addr.text = str(address)
+					ip_list.add_child(new_addr)
+		
 	
 	
 	
