@@ -56,7 +56,7 @@ func _process(_delta):
 func get_local_ips():
 	var ips = []
 	for i in IP.get_local_interfaces():
-		if i["friendly"].begins_with("Ethernet") or i["friendly"].begins_with("WLAN") or i["friendly"].begins_with("en") or i["friendly"].begins_with("eth") or i["friendly"].begins_with("wl"):
+		if (OS.has_feature("windows") and i["friendly"].begins_with("Ethernet") or i["friendly"].begins_with("WLAN")) or ((OS.has_feature("linux") or OS.has_feature("android")) and i["name"].begins_with("en") or i["name"].begins_with("eth") or i["name"].begins_with("wl")):
 			for address in i["addresses"]:
 				if (address.split('.').size() == 4) and address.begins_with("10.") or check_address_bereich(address,16,31) or address.begins_with("192.168."):
 					ips.append(address)
