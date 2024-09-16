@@ -102,19 +102,19 @@ func moving():
 	if OS.has_feature("dedicated_server"):
 		return
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45:
 			Input.action_press("right")
 		else:
 			Input.action_release("right")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x < 0:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45:
 			Input.action_press("left")
 		else:
 			Input.action_release("left")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45:
 			Input.action_press("down")
 		else:
 			Input.action_release("down")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y < 0:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45:
 			Input.action_press("up")
 		else:
 			Input.action_release("up")
