@@ -136,14 +136,26 @@ horizontal_scroll_mode = 0
 
 [node name="yourip" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer"]
 layout_mode = 2
+theme_override_constants/separation = -10
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.176471, 1, 1, 1)
-theme_override_constants/line_spacing = -50
-theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(0.176471, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 77
 text = "Meine IP's
-__________________"
+"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.176471, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = -35
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 31
+text = "Update in 20s"
 horizontal_alignment = 1
 
 [node name="ip_list" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
@@ -232,5 +244,10 @@ ________________________________________________________
 - Spieler-Liste = menü button"
 horizontal_alignment = 1
 
+[node name="ips_update_timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]
+[connection signal="timeout" from="ips_update_timer" to="." method="_on_ips_update_timeout"]
