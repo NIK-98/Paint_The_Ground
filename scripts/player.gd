@@ -46,6 +46,7 @@ func _physics_process(_delta):
 		paint.rpc()
 		score_counter.rpc()
 	
+	
 	if get_parent().get_parent().starting:
 		if not Gametriggerstart:
 			Gametriggerstart = true

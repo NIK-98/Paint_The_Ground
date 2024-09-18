@@ -76,8 +76,8 @@ func _on_restart_pressed():
 	get_parent().reset_bomben()
 	get_parent().set_timer_subnode.rpc("Timer", true)
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
+	get_parent().set_timer_subnode.rpc("Timerrestart", true)
 	set_visible_false.rpc("CanvasLayer", false)
-	
 	
 	
 @rpc("any_peer","call_local")
@@ -90,5 +90,6 @@ func set_visible_false(nodepath: String, mode: bool):
 			obj.visible = mode
 
 
-func _on_canvas_layer_visibility_changed():
+func _on_timerrestart_timeout():
+	get_parent().set_timer_subnode.rpc("Timerrestart", false)
 	get_parent().starting_game()

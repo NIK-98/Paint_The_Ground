@@ -62,6 +62,9 @@ properties/15/replication_mode = 1
 properties/16/path = NodePath(".:playerlist")
 properties/16/spawn = true
 properties/16/replication_mode = 1
+properties/17/path = NodePath(".:starting")
+properties/17/spawn = true
+properties/17/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 bg_color = Color(0, 0, 0, 0.584314)
@@ -656,10 +659,13 @@ wait_time = 5.0
 
 [node name="Timerwarte" type="Timer" parent="."]
 
+[node name="Timerrestart" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
 [connection signal="item_selected" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_item_selected"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
-[connection signal="visibility_changed" from="Scoreboard/CanvasLayer" to="Scoreboard" method="_on_canvas_layer_visibility_changed"]
+[connection signal="timeout" from="Timerrestart" to="Scoreboard" method="_on_timerrestart_timeout"]
