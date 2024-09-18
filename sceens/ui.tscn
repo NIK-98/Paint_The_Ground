@@ -225,23 +225,40 @@ max_length = 5
 expand_to_text_length = true
 select_all_on_focus = true
 
-[node name="Steuerung" type="Label" parent="Panel/CenterContainer/Net"]
+[node name="Info" type="Label" parent="Panel/CenterContainer/Net"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
-text = "Steuerung Tastatur:
-________________________________________________________
-- wasd = laufen
-- esc = exit
-- abbruch/back = c
+text = "Info:
+__________________________________________________________
+Tippe auto anstelle der IP ein,  um dich mit 
+dem ersten verfügbaren Lokalen Server
+automatisch zu verbinden
+__________________________________________________________
+Steuerung Tastatur:
+__________________________________________________________
+- laufen = WASD oder ⬆️⬅️⬇️➡️
+- exit = esc
+- conection versuch abbrechen  = C
 - Spieler-Liste = tab
-
+- links,rechts modus umschalten = M
+__________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
-________________________________________________________
+__________________________________________________________
 - Linker Stick = laufen
 - exit = menu button
-- abbruch/back = B button
-- Spieler-Liste = menü button"
+- conection versuch abbrechen  = B button
+- Spieler-Liste = menü button
+- links,rechts modus umschalten = Y button
+__________________________________________________________
+Steuerung Android:
+__________________________________________________________
+- virtuellen joystick (bei berüreung links oder rechts,
+ je nach modus) = laufen
+- exit = button links oben
+- conection versuch abbrechen  =button rechts in der Mitte
+- Spieler-Liste = button oben rechts
+- links,rechts modus umschalten = links neben Spieler-Liste"
 horizontal_alignment = 1
 
 [node name="ips_update_timer" type="Timer" parent="."]

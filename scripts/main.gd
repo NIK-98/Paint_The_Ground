@@ -101,8 +101,8 @@ func load_game():
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
-	
-
+		
+		
 func _on_leave_pressed():
 	Input.action_press("exit")
 	Input.action_release("exit")

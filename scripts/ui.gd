@@ -15,6 +15,8 @@ var loaded = false
 var esc_is_pressing = false
 var old_ips = []
 var local_address: PackedStringArray
+var client_erstellt = false
+var auto_connect_fail = false
 
 
 func save():
@@ -37,7 +39,7 @@ func _ready():
 	get_tree().paused = true
 	
 	
-func _process(delta):
+func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "UI"
@@ -114,6 +116,8 @@ func _on_host_pressed():
 		
 func _on_connect_pressed():
 	get_tree().paused = false
+	client_erstellt = false
+	auto_connect_fail = false
 	if block_host:
 		get_tree().paused = true
 		return
@@ -133,10 +137,27 @@ func _on_connect_pressed():
 		return
 	var peer = ENetMultiplayerPeer.new()
 	connectport = connectport.to_int()
-	peer.create_client(ip, connectport)
+	if ip == "auto":
+		local_address = IP.get_local_addresses()
+		var count_ips = 0
+		for i in local_address:
+			count_ips += 1
+			if (i.split('.').size() == 4) and i.begins_with("10.") or check_address_bereich(i,16,31) or i.begins_with("192.168."):
+				auto_connect_fail = false
+				check_client(peer, i, false)
+				if client_erstellt:
+					break
+		return
+	else:
+		check_client(peer, ip, true)
+
+
+func check_client(peer, address, msg: bool):
+	peer.create_client(address, connectport)
 	multiplayer.multiplayer_peer = peer
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Konnte Multiplayer client nicht starten.")
+		if msg:
+			OS.alert("Konnte Multiplayer client nicht starten.")
 		block_host = false
 		get_tree().paused = true
 		return
@@ -145,9 +166,11 @@ func _on_connect_pressed():
 		i += 1
 		$Panel/CenterContainer/Net/Connecting.text = str("Verbindung wird aufgebaut...", i)
 		await get_tree().create_timer(1).timeout
-		if i >= 20:
+		if i >= 10:
 			block_host = false
-			OS.alert("Verbindung fehlgeschlagen!")
+			if msg or not auto_connect_fail:
+				auto_connect_fail = true
+				OS.alert("Verbindung fehlgeschlagen!")
 			$Panel/CenterContainer/Net/Connecting.text = ""
 			get_tree().paused = true
 	if not block_host:
@@ -155,6 +178,7 @@ func _on_connect_pressed():
 		get_tree().paused = true
 		return
 	get_parent().visible = false
+	client_erstellt = true
 	
 	
 func change_level(scene: PackedScene):
@@ -169,3 +193,8 @@ func change_level(scene: PackedScene):
 
 func _on_ips_update_timeout():
 	get_local_ips()
+	
+
+func _input(_event):
+	if Input.is_action_just_pressed("modus"):
+		get_parent().get_parent()._on_change_pressed()
