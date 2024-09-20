@@ -198,3 +198,12 @@ func _on_ips_update_timeout():
 func _input(_event):
 	if Input.is_action_just_pressed("modus"):
 		get_parent().get_parent()._on_change_pressed()
+
+
+func _on_host_connect_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$Panel/CenterContainer/Net/Options/Option1.hide()
+		$Panel/CenterContainer/Net/Options/Option2.show()
+	else:
+		$Panel/CenterContainer/Net/Options/Option2.hide()
+		$Panel/CenterContainer/Net/Options/Option1.show()
