@@ -97,6 +97,7 @@ size_flags_vertical = 3
 
 [node name="Net" type="VBoxContainer" parent="Panel/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 80
 
 [node name="Connecting" type="Label" parent="Panel/CenterContainer/Net"]
 layout_mode = 2
@@ -114,6 +115,7 @@ toggle_mode = true
 text = "Host/Connect Wechsel"
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
+visible = false
 layout_mode = 2
 
 [node name="o1" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
@@ -184,7 +186,6 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
-visible = false
 layout_mode = 2
 
 [node name="o2" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
@@ -221,6 +222,9 @@ layout_mode = 2
 theme = SubResource("Theme_ihe75")
 theme_override_font_sizes/font_size = 85
 text = "localhost"
+placeholder_text = "localhost"
+max_length = 22
+expand_to_text_length = true
 select_all_on_focus = true
 
 [node name="punkt" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
