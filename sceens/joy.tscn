@@ -10,21 +10,15 @@
 
 [node name="joy" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = -56.0
-offset_top = -56.0
-offset_right = -56.0
-offset_bottom = -56.0
 scale = Vector2(1.78572, 1.78571)
 script = ExtResource("2_463r8")
 
 [node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="joy" type="TouchScreenButton" parent="Control"]
-position = Vector2(0, -0.560001)
+position = Vector2(-31.3599, -31.3601)
 texture_normal = ExtResource("1_xhhrx")
 visibility_mode = 1
 
@@ -53,6 +47,6 @@ scale = Vector2(0.196, 0.48)
 texture = ExtResource("6_mo5nj")
 
 [node name="Joy" type="Sprite2D" parent="Control/joy"]
-position = Vector2(31.3599, 31.9201)
+position = Vector2(31.3599, 31.3601)
 scale = Vector2(2.85715, 2.85714)
 texture = ExtResource("3_vt4s1")

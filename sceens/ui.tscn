@@ -115,7 +115,6 @@ toggle_mode = true
 text = "Host/Connect Wechsel"
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
-visible = false
 layout_mode = 2
 
 [node name="o1" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
@@ -186,6 +185,7 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
+visible = false
 layout_mode = 2
 
 [node name="o2" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
@@ -256,12 +256,7 @@ select_all_on_focus = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
-text = "Info:
-__________________________________________________________
-Tippe auto anstelle der IP ein,  um dich mit 
-dem ersten verfügbaren Lokalen Server
-automatisch zu verbinden
-__________________________________________________________
+text = "__________________________________________________________
 Steuerung Tastatur:
 __________________________________________________________
 - laufen = WASD oder ⬆️⬅️⬇️➡️
@@ -280,7 +275,7 @@ __________________________________________________________
 __________________________________________________________
 Steuerung Android:
 __________________________________________________________
-- virtuellen joystick (bei berüreung links oder rechts,
+- virtuellen joystick (links oder rechts,
  je nach modus) = laufen
 - exit = button links oben
 - conection versuch abbrechen  =button rechts in der Mitte

@@ -141,7 +141,7 @@ visibility_mode = 1
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
-position = Vector2(1652.86, 548.571)
+position = Vector2(1635.72, 558.571)
 texture_normal = ExtResource("8_40dan")
 passby_press = true
 visibility_mode = 1
@@ -163,10 +163,11 @@ visibility_mode = 1
 
 [node name="joy" parent="CanvasLayer" instance=ExtResource("6_oe035")]
 modulate = Color(1, 1, 1, 0.788235)
-offset_left = 91.429
-offset_top = 548.571
-offset_right = 91.429
-offset_bottom = 548.571
+anchors_preset = 0
+offset_left = 137.143
+offset_top = 617.143
+offset_right = 137.143
+offset_bottom = 617.143
 
 [node name="Beenden" type="CenterContainer" parent="CanvasLayer"]
 visible = false

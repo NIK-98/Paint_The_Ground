@@ -18,20 +18,19 @@ func _ready():
 	
 	
 func _input(event):
-	if event is InputEventScreenTouch:
-		if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
+	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
+		layer.visible = true
+		if event is InputEventScreenTouch:
 			if event.pressed:
 				set_process(true)
 				var entfernung_stick = abs(joy_start_position-get_global_mouse_position()).length()
 				if entfernung_stick < 500:
-					layer.visible = true
 					is_touch = true
 					global_position = get_global_mouse_position()
 				else:
 					global_position = joy_start_position
 			elif not event.pressed:
 				set_process(false)
-				layer.visible = false
 				is_touch = false
 				joystick.position = stick_center
 				global_position = joy_start_position

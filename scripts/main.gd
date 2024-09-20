@@ -144,9 +144,9 @@ func _on_nein_pressed():
 func _on_change_pressed():
 	if controll_switcher:
 		controll_switcher = false
-		$CanvasLayer/joy.joy_start_position = Vector2(91.429,548.571)
-		$CanvasLayer/Back.global_position = Vector2(1652.86,537.143)
+		$CanvasLayer/joy.joy_start_position = Vector2(137.143,617.143)
+		$CanvasLayer/Back.global_position = Vector2(1635.717,558.571)
 	else:
 		controll_switcher = true
-		$CanvasLayer/joy.joy_start_position = Vector2(1653.701,548.571)
-		$CanvasLayer/Back.global_position = Vector2(34.286,537.143)
+		$CanvasLayer/joy.joy_start_position = Vector2(1692.783,617.143)
+		$CanvasLayer/Back.global_position = Vector2(80.162,560)
