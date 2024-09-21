@@ -1,25 +1,24 @@
 extends Control
 
-@onready var joystick = $Control/joy/Joy
-@onready var layer = $"Control"
+@onready var joystick = $joy/Joy
 
 @export var maxLength = 50
 
-@onready var stick_center: Vector2 = get_parent().get_node("joy/Control/joy").texture_normal.get_size() / 2
-@onready var joy_start_position = get_parent().get_node("joy/Control/joy").global_position
+@onready var stick_center: Vector2 = $joy.texture_normal.get_size() / 2
+@onready var joy_start_position = global_position
 
 var is_touch: bool = false
 
 func _ready():
 	if OS.has_feature("dedicated_server"):
 		return
-	layer.visible = false
+	visible = false
 	set_process(false)
 	
 	
 func _input(event):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
-		layer.visible = true
+		visible = true
 		if event is InputEventScreenTouch:
 			if event.pressed:
 				set_process(true)
