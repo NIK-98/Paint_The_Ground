@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://chp0vp0g2i1r8"]
+
+[ext_resource type="Script" path="res://scripts/wertung_visuel.gd" id="1_nglny"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vx7r"]
+properties/0/path = NodePath(".:color")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:size")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Wertung_visuel" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -705.0
+offset_bottom = -770.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nglny")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3vx7r")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=47 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
 [ext_resource type="PackedScene" uid="uid://dqayoki230ek2" path="res://sceens/score_label.tscn" id="3_eqqiv"]
+[ext_resource type="PackedScene" uid="uid://chp0vp0g2i1r8" path="res://sceens/wertung_visuel.tscn" id="4_682dc"]
 [ext_resource type="PackedScene" uid="uid://cj1swxdws84yf" path="res://sceens/Name.tscn" id="4_jptae"]
 [ext_resource type="PackedScene" uid="uid://fv2dn4il1f71" path="res://sceens/floor.tscn" id="5_h5l3x"]
 [ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="6_w4ify"]
@@ -69,6 +70,10 @@ properties/17/spawn = true
 properties/17/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
 bg_color = Color(0, 0, 0, 0.584314)
 border_width_left = 10
 border_width_right = 10
@@ -336,6 +341,7 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
 score_label = ExtResource("3_eqqiv")
+score_visual = ExtResource("4_682dc")
 name_label = ExtResource("4_jptae")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -360,17 +366,37 @@ layer = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
 offset_left = 1104.0
-offset_top = 104.0
+offset_top = 163.0
 offset_right = 1254.0
-offset_bottom = 162.0
+offset_bottom = 221.0
 theme = SubResource("Theme_farg5")
 
 [node name="Wertung" type="VBoxContainer" parent="Werten/PanelContainer"]
 layout_mode = 2
 
+[node name="PanelContainer2" type="PanelContainer" parent="Werten"]
+offset_left = 344.0
+offset_top = 648.0
+offset_right = 939.0
+offset_bottom = 706.0
+theme = SubResource("Theme_farg5")
+
+[node name="clean" parent="Werten/PanelContainer2" instance=ExtResource("4_682dc")]
+custom_minimum_size = Vector2(575, 30)
+layout_mode = 2
+color = Color(0.513233, 0.513233, 0.513233, 1)
+
+[node name="visual" type="HBoxContainer" parent="Werten/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Werten"]
 _spawnable_scenes = PackedStringArray("res://sceens/score_label.tscn")
 spawn_path = NodePath("../PanelContainer/Wertung")
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="Werten"]
+_spawnable_scenes = PackedStringArray("res://sceens/wertung_visuel.tscn")
+spawn_path = NodePath("../PanelContainer2/visual")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -428,6 +454,7 @@ texture_normal = ExtResource("7_hdc0h")
 visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -457,6 +484,7 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
+visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]

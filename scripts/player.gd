@@ -165,6 +165,11 @@ func score_counter():
 			return
 		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung.rpc(name.to_int())
 		
+	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and last_score != score:
+		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
+			return
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, 1000)
+		
 
 @rpc("any_peer","call_local")
 func paint():

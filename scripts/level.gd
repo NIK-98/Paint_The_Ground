@@ -7,6 +7,7 @@ const bomb_spawn_genzen = 250
 @onready var main = get_parent().get_parent()
 @export var player_sceen: PackedScene
 @export var score_label: PackedScene
+@export var score_visual: PackedScene
 @export var name_label: PackedScene
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
@@ -120,6 +121,7 @@ func add_player(id: int):
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id, false)
+	add_score_visual(id, false)
 				
 	
 @rpc("any_peer","call_local")
@@ -161,6 +163,7 @@ func spawn_npc():
 			new_npc.name = str(multiplayer.get_unique_id())
 			get_node("Players").add_child(new_npc, true)
 			add_score(new_npc.name, true)
+			add_score_visual(new_npc.name, true)
 			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
 		
 
@@ -179,11 +182,26 @@ func add_score(id, np: bool):
 	if np:
 		new_score_label.is_npc = np
 		
+
+func add_score_visual(id, np: bool):
+	var new_score_visual = score_visual.instantiate()
+	new_score_visual.color = get_node("Players").get_node(str(id)).get_node("Color").color
+	new_score_visual.name = str(id)
+	get_node("Werten/PanelContainer2/visual").add_child(new_score_visual, true)
+	if np:
+		new_score_visual.is_npc = np
+		
 	
 func del_score(id):
 	if not get_node("Werten/PanelContainer/Wertung").has_node(str(id)):
 		return
 	get_node("Werten/PanelContainer/Wertung").get_node(str(id)).queue_free()
+	
+	
+func del_score_visuel(id):
+	if not get_node("Werten/PanelContainer2/visual").has_node(str(id)):
+		return
+	get_node("Werten/PanelContainer2/visual").get_node(str(id)).queue_free()
 
 
 func _input(_event):
@@ -210,6 +228,7 @@ func del_player(id: int):
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
 	del_score(id)
+	del_score_visuel(id)
 	del_npc(id)
 	
 
