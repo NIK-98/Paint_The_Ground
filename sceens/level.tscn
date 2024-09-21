@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=46 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -136,27 +136,6 @@ corner_detail = 1
 shadow_color = Color(0, 0, 0.956863, 0.6)
 shadow_size = 10
 
-[sub_resource type="Theme" id="Theme_u37or"]
-Button/colors/font_color = Color(0.102703, 0.396986, 1, 1)
-Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-Button/styles/normal = SubResource("StyleBoxFlat_57cek")
-Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
-
-[sub_resource type="Theme" id="Theme_3naol"]
-Button/colors/font_color = Color(0.768627, 0, 0.101961, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-Button/styles/normal = SubResource("StyleBoxFlat_57cek")
-Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
-
 [sub_resource type="Theme" id="Theme_4qfo0"]
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/font_sizes/font_size = 45
@@ -177,7 +156,7 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
-[sub_resource type="Image" id="Image_e244h"]
+[sub_resource type="Image" id="Image_irh7b"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 179, 179, 179, 153, 178, 178, 178, 166, 184, 184, 184, 18, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 166, 178, 178, 178, 151, 255, 255, 255, 0, 255, 255, 255, 0, 178, 178, 178, 166, 178, 178, 178, 217, 177, 177, 177, 179, 184, 184, 184, 18, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 179, 178, 178, 178, 217, 178, 178, 178, 165, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 177, 177, 177, 179, 184, 184, 184, 18, 184, 184, 184, 18, 178, 178, 178, 179, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 178, 178, 178, 197, 178, 178, 178, 197, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 165, 178, 178, 178, 165, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -187,7 +166,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_agq8w"]
-image = SubResource("Image_e244h")
+image = SubResource("Image_irh7b")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbtnl"]
 content_margin_left = 8.0
@@ -506,25 +485,10 @@ alignment = 1
 max_length = 8
 expand_to_text_length = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="J" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_u37or")
-button_mask = 3
-text = "Mänlich"
-
-[node name="M" type="Button" parent="loby/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_3naol")
-text = "Weiblich"
-
 [node name="Random" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_4qfo0")
-text = "Generate"
+text = "Zufalls Name"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -688,8 +652,6 @@ wait_time = 0.5
 
 [connection signal="pressed" from="CanvasLayer/zoomin" to="." method="_on_zoomin_pressed"]
 [connection signal="pressed" from="CanvasLayer/zoomout" to="." method="_on_zoomout_pressed"]
-[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/J" to="loby" method="_on_j_pressed"]
-[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/HBoxContainer/M" to="loby" method="_on_m_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
 [connection signal="item_selected" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_item_selected"]

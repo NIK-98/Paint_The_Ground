@@ -5,110 +5,28 @@ extends CanvasLayer
 @export var is_running = false
 @export var hidenloby = false
 
-var j_namen = ["Levi",
-			   "Emil",
-			   "Liam",
-			   "Anton",
-			   "Theo",
-			   "Paul",
-			   "Leano",
-			   "Elias",
-			   "Jakob",
-			   "Samuel",
-			   "Felix",
-			   "Michael",
-			   "Linus",
-			   "Aaron",
-			   "Leo",
-			   "Thomas",
-			   "Lukas",
-			   "Noah",
-			   "Leon",
-			   "Jonas",
-			   "David",
-			   "Levin",
-			   "Julian",
-			   "Daniel",
-			   "Milan",
-			   "Lio",
-			   "Matteo",
-			   "Valentin",
-			   "Oskar",
-			   "Elia",
-			   "Alexander",
-			   "Kian",
-			   "Finn",
-			   "Markus",
-			   "Jan",
-			   "Jonathan",
-			   "Moritz",
-			   "Joris",
-			   "Jonah",
-			   "Tim",
-			   "Jasper",
-			   "Luis",
-			   "Mika",
-			   "Oliver",
-			   "Niklas",
-			   "Luca",
-			   "Lorenz",
-			   "Tobias",
-			   "Fabian",
-			   "Maximilian",
-			   "Luan"]
-var m_namen = ["Lina",
-			   "Emilia",
-			   "Emma",
-			   "Ella",
-			   "Ida",
-			   "Lia",
-			   "Lea",
-			   "Amalia",
-			   "Leonie",
-			   "Laura",
-			   "Lena",
-			   "Mia",
-			   "Nora",
-			   "Mila",
-			   "Juna",
-			   "Anna",
-			   "Johanna",
-			   "Malia",
-			   "Luisa",
-			   "Maria",
-			   "Amelie",
-			   "Ava",
-			   "Julia",
-			   "Marie",
-			   "Antonia",
-			   "Noah",
-			   "Nele",
-			   "Elena",
-			   "Alina",
-			   "Leni",
-			   "Mara",
-			   "Mathilda",
-			   "Charlotte",
-			   "Liom",
-			   "Sophie",
-			   "Livia",
-			   "Lara",
-			   "Marlene",
-			   "Mina",
-			   "Sarah",
-			   "Mira",
-			   "Hanna",
-			   "Finn",
-			   "Romy",
-			   "Elisabeth",
-			   "Katharina",
-			   "Elsa",
-			   "Emily",
-			   "Marla",
-			   "Malou",
-			   "Elisa"
-			   ]
-var curent_list = []
+var namen = ["Levi","Emil","Liam","Anton","Theo",
+			 "Paul","Leano","Elias","Jakob","Samuel",
+			 "Felix","Michael","Linus","Aaron","Leo",
+			 "Thomas","Lukas","Noah","Leon","Jonas",
+			 "David","Levin","Julian","Daniel","Milan",
+			 "Lio","Matteo","Valentin","Oskar","Elia",
+			 "Alexander","Kian","Finn","Markus","Jan",
+			 "Jonathan","Moritz","Joris","Jonah","Tim",
+			 "Jasper","Luis","Mika","Oliver","Niklas",
+			 "Luca","Lorenz","Tobias","Fabian","Maximilian",
+			 "Luan","Lina","Emilia","Emma","Ella",
+			 "Ida","Lia","Lea","Amalia","Leonie",
+			 "Laura","Lena","Mia","Nora","Mila",
+			 "Juna","Anna","Johanna","Malia","Luisa",
+			 "Maria","Amelie","Ava","Julia","Marie",
+			 "Antonia","Noah","Nele","Elena","Alina",
+			 "Leni","Mara","Mathilda","Charlotte","Liom",
+			 "Sophie","Livia","Lara","Marlene","Mina",
+			 "Sarah","Mira","Hanna","Finn","Romy",
+			 "Elisabeth","Katharina","Elsa","Emily","Marla",
+			 "Malou","Elisa"
+			]
 
 	
 var esc_is_pressing_in_game = false
@@ -225,7 +143,6 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
-		$CenterContainer/VBoxContainer/HBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		update_warten.rpc()
@@ -239,21 +156,11 @@ func _on_enter_pressed():
 @rpc("any_peer","call_local")
 func update_warten():
 	$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
-	
-
-func _on_j_pressed():
-	curent_list = j_namen
-
-
-func _on_m_pressed():
-	curent_list = m_namen
 
 
 func _on_random_pressed():
-	if curent_list != []:
-		$CenterContainer/VBoxContainer/name_input.text = curent_list.pick_random()
-	else:
-		OS.alert("Mänlich oder Weiblich Wällen", "Auswahl")
+	namen.shuffle()
+	$CenterContainer/VBoxContainer/name_input.text = namen.pick_random()
 
 
 func _on_npcs_pressed():

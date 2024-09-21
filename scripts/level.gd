@@ -25,7 +25,6 @@ var blocked = false
 func _ready():
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
-	$loby/CenterContainer/VBoxContainer/HBoxContainer.visible = true
 	$loby/CenterContainer/VBoxContainer/Random.visible = true
 	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	$Werten.visible = false

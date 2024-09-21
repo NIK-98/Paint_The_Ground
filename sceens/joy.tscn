@@ -10,6 +10,7 @@
 
 [node name="joy" type="Control"]
 layout_mode = 3
+anchors_preset = 0
 scale = Vector2(1.78572, 1.78571)
 script = ExtResource("2_463r8")
 
