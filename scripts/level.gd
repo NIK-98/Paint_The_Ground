@@ -300,3 +300,17 @@ func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timer", true)
 	set_timer_subnode.rpc("Timerbomb", true)
 	starting_game()
+
+
+func _on_zoomin_pressed() -> void:
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom *= 0.9  # Zoom in
+	# Zoom-Grenzen anwenden
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
+
+
+func _on_zoomout_pressed() -> void:
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom *= 1.1 # Zoom out
+	# Zoom-Grenzen anwenden
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
+	$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)

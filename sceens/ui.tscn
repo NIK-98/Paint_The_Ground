@@ -264,6 +264,7 @@ __________________________________________________________
 - conection versuch abbrechen  = C
 - Spieler-Liste = tab
 - links,rechts modus umschalten = M
+- Zoom = Mausrad im Spiel
 __________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
 __________________________________________________________
@@ -272,6 +273,7 @@ __________________________________________________________
 - conection versuch abbrechen  = B button
 - Spieler-Liste = menü button
 - links,rechts modus umschalten = Y button
+- Zoom = RB/LB im Spiel
 __________________________________________________________
 Steuerung Android:
 __________________________________________________________
@@ -280,7 +282,8 @@ __________________________________________________________
 - exit = button links oben
 - conection versuch abbrechen  =button rechts in der Mitte
 - Spieler-Liste = button oben rechts
-- links,rechts modus umschalten = links neben Spieler-Liste"
+- links,rechts modus umschalten = links neben Spieler-Liste
+- Zoom = buttons unter dem wort Zoom im Spiel"
 horizontal_alignment = 1
 
 [node name="ips_update_timer" type="Timer" parent="."]

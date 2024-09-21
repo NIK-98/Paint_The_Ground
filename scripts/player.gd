@@ -20,6 +20,10 @@ var player_spawn_grenze = 200
 var ende = false
 @export var paint_radius = 2
 
+# Zoom-Grenzen festlegen
+var min_zoom = 0.8
+var max_zoom = 2.0
+
 @onready var camera = $Camera2D
 	
 func _enter_tree():
@@ -127,6 +131,29 @@ func Check_Time_Visible():
 		if i.is_in_group("time"):
 			if not i.visible:
 				i.visible = true
+				
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			camera.zoom *= 0.9  # Zoom in
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			camera.zoom *= 1.1  # Zoom out
+
+		# Zoom-Grenzen anwenden
+		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
+		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
+	
+	if Input.is_action_pressed("zoomin"):
+		camera.zoom *= 0.9  # Zoom in
+		# Zoom-Grenzen anwenden
+		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
+		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
+	if Input.is_action_pressed("zoomout"):
+		camera.zoom *= 1.1  # Zoom out
+		# Zoom-Grenzen anwenden
+		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
+		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
 
 @rpc("any_peer","call_local")
