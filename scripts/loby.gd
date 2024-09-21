@@ -181,7 +181,7 @@ func _on_speed_item_selected(index: int) -> void:
 		Global.speed_npcs = 5
 	#normal
 	if index == 1:
-		Global.speed_npcs = 10
+		Global.speed_npcs = 15
 	#schwer
 	if index == 2:
-		Global.speed_npcs = 15
+		Global.speed_npcs = 20
