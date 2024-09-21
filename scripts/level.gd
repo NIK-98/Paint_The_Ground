@@ -153,6 +153,9 @@ func spawn_new_bombe():
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
 		new_bombe.position = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+		for area in new_bombe.get_node("Area2DSpawnProtect").get_overlapping_areas():
+			while area.is_in_group("boomprotectspawn"):
+				new_bombe.position * 5
 		Bomben.add_child(new_bombe, true)
 		
 		

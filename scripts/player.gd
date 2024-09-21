@@ -4,7 +4,8 @@ extends CharacterBody2D
 @onready var main = get_parent().get_parent().get_parent().get_parent()
 @onready var level = get_parent().get_parent()
 
-const SPEED = 20
+const first_speed = 20
+var SPEED = first_speed
 var spawn = position
 var last_position = position
 var is_moving = true
@@ -232,3 +233,17 @@ func reset_player_vars():
 	Gametriggerstart = false
 	score = 0
 	paint_radius = 2
+
+
+func _on_area_2d_area_entered(area: Area2D):
+	if area.get_parent().is_in_group("npc") or area.get_parent().is_in_group("player"):
+		SPEED = SPEED / 2
+		$TimerresetSPEED.stop()
+		$TimerresetSPEED.start()
+
+
+func _on_timerreset_speed_timeout():
+	if SPEED < first_speed:
+		SPEED += 1
+	if SPEED == first_speed:
+		$TimerresetSPEED.stop()
