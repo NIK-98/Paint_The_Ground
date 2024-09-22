@@ -366,13 +366,14 @@ layer = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
 offset_left = 1104.0
-offset_top = 163.0
+offset_top = 99.0
 offset_right = 1254.0
-offset_bottom = 221.0
+offset_bottom = 129.0
 theme = SubResource("Theme_farg5")
 
 [node name="Wertung" type="VBoxContainer" parent="Werten/PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = -15
 
 [node name="PanelContainer2" type="PanelContainer" parent="Werten"]
 offset_left = 344.0
