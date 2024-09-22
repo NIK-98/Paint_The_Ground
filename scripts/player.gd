@@ -4,7 +4,8 @@ extends CharacterBody2D
 @onready var main = get_parent().get_parent().get_parent().get_parent()
 @onready var level = get_parent().get_parent()
 
-const first_speed = 20
+
+const first_speed = 20.0
 var SPEED = first_speed
 var spawn = position
 var last_position = position
@@ -237,6 +238,7 @@ func reset_player_vars():
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("npc") or area.get_parent().is_in_group("player"):
+		SPEED = first_speed
 		SPEED = SPEED / 2
 		$TimerresetSPEED.stop()
 		$TimerresetSPEED.start()

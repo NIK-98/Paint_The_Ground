@@ -6,7 +6,7 @@ extends Node2D
 const bomb_radius = 6
 var explode_pos = null
 var celle = 0
-		
+				
 		
 func _process(_delta):
 	if explode_pos != null:

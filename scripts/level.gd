@@ -19,6 +19,7 @@ var Max_clients = 6
 var loaded_seson = false
 var loaded = false
 var blocked = false
+var spawn_distance_bombe = 250
 
 
 @export var playerlist = []
@@ -150,12 +151,13 @@ func reset_bomben():
 
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
+		var pos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+		for child in Bomben.get_children():
+			if child.position.distance_to(pos) < spawn_distance_bombe:
+				return
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
-		new_bombe.position = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
-		for area in new_bombe.get_node("Area2DSpawnProtect").get_overlapping_areas():
-			while area.is_in_group("boomprotectspawn"):
-				new_bombe.position * 5
+		new_bombe.position = pos
 		Bomben.add_child(new_bombe, true)
 		
 		
