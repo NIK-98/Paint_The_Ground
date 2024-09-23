@@ -13,15 +13,12 @@ func _ready():
 	if OS.has_feature("dedicated_server"):
 		return
 	visible = false
-	set_process(false)
 	
 	
 func _input(event):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
-		visible = true
 		if event is InputEventScreenTouch:
 			if event.pressed:
-				set_process(true)
 				var entfernung_stick = abs(joy_start_position-get_global_mouse_position()).length()
 				if entfernung_stick < 500:
 					is_touch = true
@@ -29,13 +26,14 @@ func _input(event):
 				else:
 					global_position = joy_start_position
 			elif not event.pressed:
-				set_process(false)
 				is_touch = false
 				joystick.position = stick_center
 				global_position = joy_start_position
 				
 
 func _process(_delta):
+	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
+		visible = true
 	if is_touch:
 		joystick.global_position = get_global_mouse_position()
 		joystick.position = stick_center + (joystick.position - stick_center).limit_length(maxLength)

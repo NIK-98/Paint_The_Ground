@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=40 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -161,102 +161,15 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
-[sub_resource type="Image" id="Image_vqeie"]
-data = {
-"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 179, 179, 179, 153, 178, 178, 178, 166, 184, 184, 184, 18, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 166, 178, 178, 178, 151, 255, 255, 255, 0, 255, 255, 255, 0, 178, 178, 178, 166, 178, 178, 178, 217, 177, 177, 177, 179, 184, 184, 184, 18, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 179, 178, 178, 178, 217, 178, 178, 178, 165, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 177, 177, 177, 179, 184, 184, 184, 18, 184, 184, 184, 18, 178, 178, 178, 179, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 178, 178, 178, 197, 178, 178, 178, 197, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 177, 177, 177, 179, 178, 178, 178, 217, 178, 178, 178, 217, 177, 177, 177, 179, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 184, 184, 184, 18, 178, 178, 178, 165, 178, 178, 178, 165, 180, 180, 180, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
-"format": "RGBA8",
-"height": 12,
-"mipmaps": false,
-"width": 12
-}
-
-[sub_resource type="ImageTexture" id="ImageTexture_agq8w"]
-image = SubResource("Image_vqeie")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbtnl"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2gkk"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ipbw"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.225, 0.225, 0.225, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq3l4"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r74y8"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="Theme" id="Theme_qs1a5"]
-OptionButton/colors/font_color = Color(0, 0, 0, 1)
-OptionButton/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-OptionButton/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-OptionButton/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
-OptionButton/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-OptionButton/colors/font_outline_color = Color(0, 0, 0, 1)
-OptionButton/colors/font_pressed_color = Color(1, 1, 1, 1)
-OptionButton/constants/arrow_margin = 4
-OptionButton/constants/modulate_arrow = 0
-OptionButton/constants/outline_size = 0
-OptionButton/font_sizes/font_size = 45
-OptionButton/fonts/font = SubResource("SystemFont_8s71y")
-OptionButton/icons/arrow = SubResource("ImageTexture_agq8w")
-OptionButton/styles/disabled = SubResource("StyleBoxFlat_mbtnl")
-OptionButton/styles/disabled_mirrored = SubResource("StyleBoxFlat_w2gkk")
-OptionButton/styles/focus = SubResource("StyleBoxFlat_57cek")
-OptionButton/styles/hover = SubResource("StyleBoxFlat_57cek")
-OptionButton/styles/hover_mirrored = SubResource("StyleBoxFlat_6ipbw")
-OptionButton/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-OptionButton/styles/normal = SubResource("StyleBoxFlat_57cek")
-OptionButton/styles/normal_mirrored = SubResource("StyleBoxFlat_aq3l4")
-OptionButton/styles/pressed = SubResource("StyleBoxFlat_57cek")
-OptionButton/styles/pressed_mirrored = SubResource("StyleBoxFlat_r74y8")
+[sub_resource type="Theme" id="Theme_b4eyt"]
+Button/colors/font_color = Color(0, 0, 0.87451, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover = SubResource("StyleBoxFlat_57cek")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/normal = SubResource("StyleBoxFlat_57cek")
+Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dox0w"]
 expand_margin_top = 15.0
@@ -455,7 +368,6 @@ texture_normal = ExtResource("7_hdc0h")
 visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -485,7 +397,6 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
-visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
@@ -528,21 +439,14 @@ layout_mode = 2
 theme = SubResource("Theme_ywke1")
 text = "Solo NPCs: 1"
 
-[node name="Speed" type="OptionButton" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Speed" type="Button" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_qs1a5")
-alignment = 1
-selected = 0
-item_count = 3
-popup/item_0/text = "Einfach"
-popup/item_1/text = "Normal"
-popup/item_1/id = 1
-popup/item_2/text = "Schwer"
-popup/item_2/id = 2
+theme = SubResource("Theme_ywke1")
+text = "Einfach"
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ywke1")
+theme = SubResource("Theme_b4eyt")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
@@ -683,6 +587,6 @@ wait_time = 0.5
 [connection signal="pressed" from="CanvasLayer/zoomout" to="." method="_on_zoomout_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
-[connection signal="item_selected" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_item_selected"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_pressed"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="timeout" from="Timerrestart" to="Scoreboard" method="_on_timerrestart_timeout"]

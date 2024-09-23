@@ -4,6 +4,9 @@ extends CanvasLayer
 @export var player_wait_count = 0
 @export var is_running = false
 @export var hidenloby = false
+@onready var difficulty = $CenterContainer/VBoxContainer/VBoxContainer/Speed
+var difficulty_id = 0
+
 
 var namen = ["Levi","Emil","Liam","Anton","Theo",
 			 "Paul","Leano","Elias","Jakob","Samuel",
@@ -36,6 +39,10 @@ func _ready():
 	visible = true
 	$CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	$CenterContainer/VBoxContainer/Warten.connect("visibility_changed", _on_warten_visibility_changed.rpc)
+	
+	difficulty.text = "Einfach"
+	difficulty_id = 1
+	Global.speed_npcs = 5
 
 		
 func _process(_delta):
@@ -175,13 +182,16 @@ func _on_warten_visibility_changed():
 	$CenterContainer/VBoxContainer/Warten.visible = true
 
 
-func _on_speed_item_selected(index: int) -> void:
-	#einfach
-	if index == 0:
+func _on_speed_pressed():
+	if difficulty_id == 0:
+		difficulty.text = "Einfach"
 		Global.speed_npcs = 5
-	#normal
-	if index == 1:
+		difficulty_id = 1
+	elif difficulty_id == 1:
+		difficulty.text = "Normal"
 		Global.speed_npcs = 15
-	#schwer
-	if index == 2:
+		difficulty_id = 2
+	elif difficulty_id == 2:
+		difficulty.text = "Schwer"
 		Global.speed_npcs = 20
+		difficulty_id = 0
