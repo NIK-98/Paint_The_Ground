@@ -15,6 +15,18 @@ var loaded = false
 var esc_is_pressing = false
 var local_address: PackedStringArray
 
+var udp_server = UDPServer.new()
+var udp_port = 6969
+
+var udp_client := PacketPeerUDP.new()
+var udp_server_found = false
+var udp_requests = 3
+var delta_time = 0.0
+
+var auto_conect_ips = []
+var server_address_to_connect_to = ""
+var game_started = false
+
 
 func save():
 	var save_dict = {
@@ -34,9 +46,11 @@ func _ready():
 	name = "UI"
 	get_local_ips()
 	get_tree().paused = true
+	udp_client.set_broadcast_enabled(true)
+	udp_client.set_dest_address("255.255.255.255", udp_port)
 	
 	
-func _process(_delta):
+func _process(delta):
 	if not loaded:
 		loaded = true
 		name = "UI"
@@ -54,6 +68,58 @@ func _process(_delta):
 		get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
+	
+	
+	if not game_started:
+		udp_server.poll()
+		if udp_server.is_connection_available():
+			var udp_peer : PacketPeerUDP = udp_server.take_connection()
+			var packet = udp_peer.get_packet()
+			print("Recieved : %s from %s:%s" %
+					[
+						packet.get_string_from_ascii(),
+						udp_peer.get_packet_ip(),
+						udp_peer.get_packet_port(),
+					]
+			)
+			# Reply to valid udp_peer with server IP address example
+			var str_ips = ""
+			for l in IP.get_local_addresses():
+				if (l.split('.').size() == 4) and not l.begins_with("172.") and not l.begins_with("127.") and not l.begins_with("169.254"):
+					str_ips += str(l,",")
+			udp_peer.put_packet(str_ips.to_ascii_buffer())
+		
+	
+	
+
+	if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text == "auto":
+		udp_client.put_packet("Valid_Request".to_ascii_buffer())
+		if udp_client.get_available_packet_count() > 0:
+			server_address_to_connect_to = udp_client.get_packet().get_string_from_ascii()
+			await check_ip(server_address_to_connect_to)
+		
+		
+
+func check_ip(str_liste: String):
+	var temp_str = ""
+	auto_conect_ips = []
+	for x in str_liste:
+		if x != ",":
+			temp_str += x
+		else:
+			auto_conect_ips.append(temp_str)
+			temp_str = ""
+	print(auto_conect_ips)
+	for ips in auto_conect_ips:
+		var peer = ENetMultiplayerPeer.new()
+		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
+		connectport = connectport.to_int()
+		var check = peer.create_client(ips, connectport)
+		if check == OK:
+			peer = null
+			$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = str(ips)
+			return
+	
 
 
 func get_local_ips():
@@ -62,7 +128,7 @@ func get_local_ips():
 		for r in ip_list.get_children():
 			r.queue_free()
 		for i in local_address:
-			if (i.split('.').size() == 4) and i.begins_with("10.") or check_address_bereich(i,16,31) or i.begins_with("192.168."):
+			if (i.split('.').size() == 4) and not i.begins_with("172.") and not i.begins_with("127.") and not i.begins_with("169.254"):
 				var addr = preload("res://sceens/myip.tscn")
 				var new_addr = addr.instantiate()
 				new_addr.text = str(i)
@@ -109,6 +175,8 @@ func _on_host_pressed():
 	get_parent().visible = false
 	
 	change_level(load("res://sceens/level.tscn"))
+	
+	udp_server.listen(udp_port, "0.0.0.0")
 
 		
 func _on_connect_pressed():

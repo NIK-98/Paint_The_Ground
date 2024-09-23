@@ -256,7 +256,14 @@ select_all_on_focus = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
-text = "__________________________________________________________
+text = "
+__________________________________________________________
+Info:
+__________________________________________________________
+Tippe auto anstelle der IP ein,  um dich mit dem ersten 
+verfügbaren Lokalen Server automatisch zu verbinden, 
+wenn ein server existiert wird auto durch dessen IP ersetzt.
+__________________________________________________________
 Steuerung Tastatur:
 __________________________________________________________
 - laufen = WASD oder ⬆️⬅️⬇️➡️

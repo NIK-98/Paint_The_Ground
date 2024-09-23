@@ -323,6 +323,7 @@ func _on_timerwarte_timeout():
 	set_timer_subnode.rpc("Timer", true)
 	set_timer_subnode.rpc("Timerbomb", true)
 	starting_game()
+	main.get_node("CanvasLayer2/UI").game_started = true
 
 
 func _on_zoomin_pressed() -> void:
