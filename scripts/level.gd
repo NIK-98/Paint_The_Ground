@@ -1,7 +1,11 @@
 extends Node2D
 
 
-const bomb_spawn_genzen = 250
+const bomb_spawn_grenzen = 250
+const spawn_distance_bombe = 250
+const spawn_distance_power_up = 500
+var power_up_spawn_time = 10
+var powerup_auswahl = [0,0,0,0,0,1,1,1,2]
 
 
 @onready var main = get_parent().get_parent()
@@ -9,9 +13,11 @@ const bomb_spawn_genzen = 250
 @export var score_label: PackedScene
 @export var score_visual: PackedScene
 @export var name_label: PackedScene
+@export var powerup: PackedScene
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var npc = preload("res://sceens/npc.tscn")
+@onready var power_up = $PowerUP
 @onready var Bomben = get_node("Bomben")
 @export var Time_out = false
 @export var starting = false
@@ -19,7 +25,7 @@ var Max_clients = 6
 var loaded_seson = false
 var loaded = false
 var blocked = false
-var spawn_distance_bombe = 250
+var block_cells = []
 
 
 @export var playerlist = []
@@ -33,6 +39,7 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
+	$Timerpower.wait_time = power_up_spawn_time
 	
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
@@ -79,6 +86,7 @@ func _process(_delta):
 		$Timer.connect("timeout", _on_timer_timeout.rpc)
 		$Timerende.connect("timeout", _on_timerende_timeout.rpc)
 		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
+		$Timerpower.connect("timeout", _on_timerpower_timeout)
 		$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
 
 
@@ -151,7 +159,7 @@ func reset_bomben():
 
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
-		var pos = Vector2(randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.x-bomb_spawn_genzen),randi_range(bomb_spawn_genzen,Global.Spielfeld_Size.y-bomb_spawn_genzen))
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe:
 				return
@@ -159,6 +167,27 @@ func spawn_new_bombe():
 		new_bombe.name = "bombe"
 		new_bombe.position = pos
 		Bomben.add_child(new_bombe, true)
+		
+
+@rpc("any_peer","call_local")
+func reset_powerup():
+	for c in range(power_up.get_child_count()):
+		if power_up.get_child(c).is_in_group("power"):
+			power_up.get_child(c).queue_free()
+
+
+func spawn_new_powerup():
+	for i in range(Global.Spawn_powerup_limit):
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
+		var new_auswahl = powerup_auswahl.pick_random()
+		for child in power_up.get_children():
+			if child.position.distance_to(pos) < spawn_distance_bombe:
+				return
+		var new_power_up = powerup.instantiate()
+		new_power_up.name = "powerup"
+		new_power_up.position = pos
+		new_power_up.powerupid = new_auswahl
+		power_up.add_child(new_power_up, true)
 		
 		
 func spawn_npc():
@@ -238,9 +267,18 @@ func del_player(id: int):
 	
 
 @rpc("any_peer","call_local")
+func cell_blocker(block: bool, id: int):
+	if block:
+		block_cells.append(get_node("Players").get_node(str(id)).color_cell)
+	else:
+		block_cells.erase(get_node("Players").get_node(str(id)).color_cell)
+		
+		
+@rpc("any_peer","call_local")
 func _on_timer_timeout():
 	set_timer_subnode.rpc("Timer", false)
 	set_timer_subnode.rpc("Timerbomb", false)
+	set_timer_subnode.rpc("Timerpower", false)
 	set_timer_subnode.rpc("Timerende", true)
 	sync_time_out()
 	
@@ -293,7 +331,18 @@ func _on_timerbomb_timeout():
 	if is_multiplayer_authority():
 		spawn_new_bombe()
 		return
-	
+		
+
+func _on_timerpower_timeout():
+	if OS.has_feature("dedicated_server"):
+		spawn_new_powerup()
+		$Timerpower.wait_time = power_up_spawn_time
+		return
+	if is_multiplayer_authority():
+		spawn_new_powerup()
+		$Timerpower.wait_time = power_up_spawn_time
+		return
+		
 
 @rpc("any_peer","call_local")
 func _on_timerende_timeout():
@@ -320,8 +369,10 @@ func _on_timerwarte_timeout():
 	wertungs_anzeige_aktivieren()
 	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	reset_bomben()
+	reset_powerup()
 	set_timer_subnode.rpc("Timer", true)
 	set_timer_subnode.rpc("Timerbomb", true)
+	set_timer_subnode.rpc("Timerpower", true)
 	starting_game()
 	main.get_node("CanvasLayer2/UI").game_started = true
 

@@ -76,6 +76,7 @@ func _on_restart_pressed():
 	get_parent().reset_bomben()
 	get_parent().set_timer_subnode.rpc("Timer", true)
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
+	get_parent().set_timer_subnode.rpc("Timerpower", true)
 	get_parent().set_timer_subnode.rpc("Timerrestart", true)
 	set_visible_false.rpc("CanvasLayer", false)
 	

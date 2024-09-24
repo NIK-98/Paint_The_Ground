@@ -50,7 +50,7 @@ func _ready():
 	udp_client.set_dest_address("255.255.255.255", udp_port)
 	
 	
-func _process(delta):
+func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "UI"

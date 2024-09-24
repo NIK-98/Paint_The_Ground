@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://t8lgthjbldop"]
+
+[ext_resource type="Script" path="res://scripts/powerup.gd" id="1_exbtq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dplh5"]
+size = Vector2(32, 32)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lihb0"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:powerupid")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="powerup" type="Node2D" groups=["power"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_exbtq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.38419e-07, -4.47035e-08)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dplh5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lihb0")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

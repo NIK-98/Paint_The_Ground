@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bct2wlof30lbq"]
+[gd_scene load_steps=6 format=3 uid="uid://bct2wlof30lbq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d8fpb"]
+[ext_resource type="PackedScene" uid="uid://dm7ebs1e5eyht" path="res://sceens/timer_power_up.tscn" id="2_5wijq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ti31n"]
 size = Vector2(64, 64)
@@ -30,6 +31,7 @@ properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_d8fpb")
+timer_power_up = ExtResource("2_5wijq")
 
 [node name="Name" type="Label" parent="."]
 offset_left = -23.0
@@ -131,6 +133,8 @@ warte auf wertung!"
 
 [node name="TimerresetSPEED" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="powertimers" type="Node" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="TimerresetSPEED" to="." method="_on_timerreset_speed_timeout"]

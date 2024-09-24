@@ -22,7 +22,7 @@ func aktivate_bombe(cell: int, pos: Vector2):
 	for x in range(-bomb_radius, bomb_radius):
 		for y in range(-bomb_radius, bomb_radius):
 			var new_pos = Vector2i(x, y) + tile_position
-			if map.get_cell_source_id(new_pos) != -1:
+			if map.get_cell_source_id(new_pos) != -1 and map.get_cell_source_id(new_pos) not in level.block_cells:
 				map.set_cell(new_pos,cell,Vector2i(0, 0),0)
 	
 	

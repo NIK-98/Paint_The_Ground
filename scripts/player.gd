@@ -3,9 +3,10 @@ extends CharacterBody2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var main = get_parent().get_parent().get_parent().get_parent()
 @onready var level = get_parent().get_parent()
+@export var timer_power_up: PackedScene
 
 
-const first_speed = 20.0
+var first_speed = Global.speed_player
 var SPEED = first_speed
 var spawn = position
 var last_position = position
@@ -20,7 +21,11 @@ var last_score = score
 var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
-@export var paint_radius = 2
+@export var paint_radius = Global.painting_rad
+
+var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
+var power_time = [10,8,5]
+
 
 # Zoom-Grenzen festlegen
 var min_zoom = 0.8
@@ -80,6 +85,23 @@ func _physics_process(_delta):
 			if (velocity.x != 0 or velocity.y != 0):
 				paint.rpc()
 			score_counter.rpc()
+			for p in range(len(powerups)):
+				if not powerups[p][2] and powerups[p][0] != -1:
+					powerups[p][2] = true
+					var new_timer_power_up = timer_power_up.instantiate()
+					new_timer_power_up.connect("timeout", _on_timer_power_up_timeout)
+					new_timer_power_up.create_id = powerups[p][0]
+					$powertimers.add_child(new_timer_power_up)
+					new_timer_power_up.name = str(powerups[p][0])
+					if powerups[p][0] == 0:
+						new_timer_power_up.wait_time = power_time[0]
+					if powerups[p][0] == 1:
+						new_timer_power_up.wait_time = power_time[1]
+					if powerups[p][0] == 2:
+						new_timer_power_up.wait_time = power_time[2]
+					new_timer_power_up.start()
+					
+					
 		elif level.Time_out and not ende:
 			ende = true
 			sync_show_win_los_meldung.rpc(name.to_int())
@@ -179,7 +201,7 @@ func paint():
 	for x in range(paint_radius):
 		for y in range(paint_radius):
 			var pos = Vector2i(x,y) + tile_position
-			if map.get_cell_source_id(pos) != -1:
+			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) not in level.block_cells:
 				map.set_cell(pos,color_cell,Vector2i(0,0),0)
 		
 		
@@ -224,6 +246,8 @@ func color_change():
 			
 								
 func change_paint_rad():
+	if $powertimers.has_node("1"):
+		return
 	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
 	paint_radius = radius_varscheinlichkeit.pick_random()
 	
@@ -233,11 +257,13 @@ func reset_player_vars():
 	loaded = false
 	Gametriggerstart = false
 	score = 0
-	paint_radius = 2
+	paint_radius = Global.painting_rad
 
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("npc") or area.get_parent().is_in_group("player"):
+		if $powertimers.has_node("0"):
+			return
 		SPEED = first_speed
 		SPEED = SPEED / 2
 		$TimerresetSPEED.stop()
@@ -249,3 +275,29 @@ func _on_timerreset_speed_timeout():
 		SPEED += 1
 	if SPEED == first_speed:
 		$TimerresetSPEED.stop()
+
+
+func _on_timer_power_up_timeout():
+	for p in range(len(powerups)):
+		if powerups[p][1] == true:
+			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 0:
+				$powertimers.get_node(str(powerups[p][0])).queue_free()
+				SPEED = first_speed
+				powerups[p][1] = false
+				powerups[p][0] = -1
+				powerups[p][2] = false
+				return
+			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 1:
+				$powertimers.get_node(str(powerups[p][0])).queue_free()
+				paint_radius = Global.painting_rad
+				powerups[p][1] = false
+				powerups[p][0] = -1
+				powerups[p][2] = false
+				return
+			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 2:
+				$powertimers.get_node(str(powerups[p][0])).queue_free()
+				level.cell_blocker.rpc(false, name.to_int())
+				powerups[p][1] = false
+				powerups[p][0] = -1
+				powerups[p][2] = false
+				return
