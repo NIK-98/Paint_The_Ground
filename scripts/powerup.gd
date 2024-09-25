@@ -27,7 +27,7 @@ func _process(_delta):
 
 func aktivate_powerup(player: CharacterBody2D):
 	if powerupid == 0: # doppelter grundspeed
-		var ist_da_index = -1
+		var ist_da_index = 0
 		var ist_da = false
 		for aktive in range(len(player.powerups)):
 			if player.powerups[aktive][0] == powerupid:
@@ -39,7 +39,7 @@ func aktivate_powerup(player: CharacterBody2D):
 			player.powerups[ist_da_index][0] = powerupid
 			player.powerups[ist_da_index][1] = true
 	if powerupid == 1: # größerer färbradius
-		var ist_da_index = -1
+		var ist_da_index = 1
 		var ist_da = false
 		for aktive in range(len(player.powerups)):
 			if player.powerups[aktive][0] == powerupid:
@@ -51,7 +51,7 @@ func aktivate_powerup(player: CharacterBody2D):
 			player.powerups[ist_da_index][0] = powerupid
 			player.powerups[ist_da_index][1] = true
 	if powerupid == 2: # unübermalbares färben
-		var ist_da_index = -1
+		var ist_da_index = 2
 		var ist_da = false
 		for aktive in range(len(player.powerups)):
 			if player.powerups[aktive][0] == powerupid:

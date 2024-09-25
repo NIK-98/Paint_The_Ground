@@ -82,7 +82,6 @@ func _physics_process(delta):
 				if not powerups[p][2] and powerups[p][0] != -1:
 					powerups[p][2] = true
 					var new_timer_power_up = timer_power_up.instantiate()
-					new_timer_power_up.connect("timeout", _on_timer_power_up_timeout)
 					new_timer_power_up.create_id = powerups[p][0]
 					$powertimers.add_child(new_timer_power_up)
 					new_timer_power_up.name = str(powerups[p][0])
@@ -96,6 +95,13 @@ func _physics_process(delta):
 					
 		elif level.Time_out and not ende:
 			ende = true
+			for c in $powertimers.get_children():
+				c.stop()
+				c.queue_free()
+			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
+				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
+					return
+				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
 			level.get_node("Timerende").start()
 			
 
@@ -135,15 +141,21 @@ func paint():
 func score_counter():
 	last_score = score
 	score = len(map.get_used_cells_by_id(color_cell))
-	if level.get_node("Werten/PanelContainer/Wertung").get_child_count() > 0 and last_score != score:
-		if not level.get_node("Werten/PanelContainer/Wertung").has_node(str(name)):
+	
+	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and last_score != score:
+		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung").get_node(str(name)).wertung_npc(name)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name)
 	
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, 1000)
+	
+	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
+		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
+			return
+		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon_npc(powerups)
 		
 
 func Check_Time_Visible():
@@ -182,6 +194,7 @@ func reset_player_vars():
 	loaded = false
 	Gametriggerstart = false
 	score = 0
+	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
 	
 
@@ -200,29 +213,3 @@ func _on_timerreset_speed_timeout():
 		SPEED += 1
 	if SPEED == first_speed:
 		$TimerresetSPEED.stop()
-	
-	
-func _on_timer_power_up_timeout():
-	for p in range(len(powerups)):
-		if powerups[p][1] == true:
-			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 0:
-				$powertimers.get_node(str(powerups[p][0])).queue_free()
-				SPEED = first_speed
-				powerups[p][1] = false
-				powerups[p][0] = -1
-				powerups[p][2] = false
-				return
-			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 1:
-				$powertimers.get_node(str(powerups[p][0])).queue_free()
-				paint_radius = Global.painting_rad
-				powerups[p][1] = false
-				powerups[p][0] = -1
-				powerups[p][2] = false
-				return
-			if $powertimers.has_node(str(powerups[p][0])) and powerups[p][0] == 2:
-				$powertimers.get_node(str(powerups[p][0])).queue_free()
-				level.cell_blocker.rpc(false, name.to_int())
-				powerups[p][1] = false
-				powerups[p][0] = -1
-				powerups[p][2] = false
-				return

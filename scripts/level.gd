@@ -5,12 +5,13 @@ const bomb_spawn_grenzen = 250
 const spawn_distance_bombe = 250
 const spawn_distance_power_up = 500
 var power_up_spawn_time = 10
-var powerup_auswahl = [0,0,0,0,0,1,1,1,2]
+var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
 
 @onready var main = get_parent().get_parent()
 @export var player_sceen: PackedScene
 @export var score_label: PackedScene
+@export var powericons: PackedScene
 @export var score_visual: PackedScene
 @export var name_label: PackedScene
 @export var powerup: PackedScene
@@ -130,6 +131,7 @@ func add_player(id: int):
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
 	add_score(id, false)
+	add_power_icons(id, false)
 	add_score_visual(id, false)
 				
 	
@@ -197,6 +199,7 @@ func spawn_npc():
 			new_npc.name = str(multiplayer.get_unique_id())
 			get_node("Players").add_child(new_npc, true)
 			add_score(new_npc.name, true)
+			add_power_icons(new_npc.name, true)
 			add_score_visual(new_npc.name, true)
 			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
 		
@@ -212,9 +215,17 @@ func add_score(id, np: bool):
 	var new_score_label = score_label.instantiate()
 	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
 	new_score_label.name = str(id)
-	get_node("Werten/PanelContainer/Wertung").add_child(new_score_label, true)
+	get_node("Werten/PanelContainer/Wertung/werte").add_child(new_score_label, true)
 	if np:
 		new_score_label.is_npc = np
+		
+
+func add_power_icons(id, np: bool):
+	var new_powericons = powericons.instantiate()
+	new_powericons.name = str(id)
+	get_node("Werten/PanelContainer/Wertung/powerlist").add_child(new_powericons, true)
+	if np:
+		new_powericons.is_npc = np
 		
 
 func add_score_visual(id, np: bool):
@@ -227,9 +238,16 @@ func add_score_visual(id, np: bool):
 		
 	
 func del_score(id):
-	if not get_node("Werten/PanelContainer/Wertung").has_node(str(id)):
+	if not get_node("Werten/PanelContainer/Wertung/werte").has_node(str(id)):
 		return
-	get_node("Werten/PanelContainer/Wertung").get_node(str(id)).queue_free()
+	get_node("Werten/PanelContainer/Wertung/werte").get_node(str(id)).queue_free()
+	
+	
+
+func del_power_icons(id):
+	if not get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(id)):
+		return
+	get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(id)).queue_free()
 	
 	
 func del_score_visuel(id):
@@ -262,6 +280,7 @@ func del_player(id: int):
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
 	del_score(id)
+	del_power_icons(id)
 	del_score_visuel(id)
 	del_npc(id)
 	

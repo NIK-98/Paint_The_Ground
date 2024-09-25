@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4gotilqrea0s"]
+
+[ext_resource type="Script" path="res://scripts/powerupicon.gd" id="1_lcyim"]
+[ext_resource type="Texture2D" uid="uid://uemi3wmyrvo7" path="res://assets/powerups/empty.png" id="2_4pgxy"]
+
+[node name="powerupicon" type="HBoxContainer"]
+theme_override_constants/separation = 4
+script = ExtResource("1_lcyim")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_4pgxy")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_4pgxy")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_4pgxy")
+stretch_mode = 2
