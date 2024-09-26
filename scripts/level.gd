@@ -323,6 +323,8 @@ func sync_time_out():
 func reset_vars_level():
 	main.get_node("CanvasLayer2/UI").visible = false
 	map.reset_floor()
+	reset_powerup()
+	reset_bomben()
 	
 	
 	
