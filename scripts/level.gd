@@ -32,6 +32,8 @@ var block_cells = []
 @export var playerlist = []
 
 func _ready():
+	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+		$CanvasLayer/Labelzoom.visible = false
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
 	$loby/CenterContainer/VBoxContainer/Random.visible = true

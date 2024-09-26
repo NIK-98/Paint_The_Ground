@@ -33,7 +33,8 @@ func _input(event):
 
 func _process(_delta):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
-		visible = true
+		if OS.get_name() == "Android" or OS.get_name() == "IOS":
+			visible = true
 	if is_touch:
 		joystick.global_position = get_global_mouse_position()
 		joystick.position = stick_center + (joystick.position - stick_center).limit_length(maxLength)
