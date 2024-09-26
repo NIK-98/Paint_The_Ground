@@ -20,6 +20,8 @@ var first_speed = Global.speed_npcs
 var SPEED = first_speed
 var current_direktion = 0
 var curent_bomb = null
+var curent_powerup = null
+var curent_tarrget = null
 @export var paint_radius = Global.painting_rad
 
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
@@ -58,7 +60,7 @@ func _physics_process(delta):
 				time_last_change = 0
 				if curent_bomb == null:
 					set_random_direction()
-			if time_last_change == 0 and curent_bomb:
+			if time_last_change == 0 and (curent_bomb or curent_powerup):
 				random = 2
 				
 			paint()
@@ -167,15 +169,15 @@ func Check_Time_Visible():
 
 func move_npc():
 	var dir = Vector2()
-	if curent_bomb == null:
+	if curent_tarrget == null:
 		random = 1
 		
 	if random == 1:
 		#direction_wahrlos
 		dir = curent_direction * SPEED
 	elif random == 2:
-		#direction_bombe
-		dir = (curent_bomb.position - position).normalized() * SPEED
+		#direction_tarrget
+		dir = (curent_tarrget.position - position).normalized() * SPEED
 
 	return dir
 		
@@ -184,7 +186,18 @@ func set_random_direction():
 	# Zufällige Richtung generieren
 	if level.get_node("Bomben").get_child_count() > 0:
 		curent_bomb = level.get_node("Bomben").get_children().pick_random()
+	if level.get_node("PowerUP").get_child_count() > 0:
+		curent_powerup = level.get_node("PowerUP").get_children().pick_random()
+	if level.get_node("Bomben").get_child_count() > 0 and level.get_node("PowerUP").get_child_count() > 0:
+		curent_tarrget = [curent_bomb,curent_powerup].pick_random()
 		return
+	elif level.get_node("PowerUP").get_child_count() > 0:
+		curent_tarrget = curent_powerup
+		return
+	elif level.get_node("Bomben").get_child_count() > 0:
+		curent_tarrget = curent_bomb
+		return
+		
 	random = 1
 	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	

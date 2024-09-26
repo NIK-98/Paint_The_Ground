@@ -185,13 +185,13 @@ func _on_warten_visibility_changed():
 func _on_speed_pressed():
 	if difficulty_id == 0:
 		difficulty.text = "Einfach"
-		Global.speed_npcs = 5
+		Global.speed_npcs = 15
 		difficulty_id = 1
 	elif difficulty_id == 1:
 		difficulty.text = "Normal"
-		Global.speed_npcs = 15
+		Global.speed_npcs = 20
 		difficulty_id = 2
 	elif difficulty_id == 2:
 		difficulty.text = "Schwer"
-		Global.speed_npcs = 20
+		Global.speed_npcs = 30
 		difficulty_id = 0
