@@ -61,6 +61,17 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		get_parent().get_parent().get_node("Level/level").add_player(1)
 	
+	var args = OS.get_cmdline_args()
+	if OS.has_feature("dedicated_server") and args.has("-t"):
+		var argument_wert = args[args.find("-t") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "180" or argument_wert == "120" or argument_wert == "60":
+			$loby/CenterContainer/VBoxContainer/settime.text = str(argument_wert.to_int()," sec.")
+			$Timer.wait_time = argument_wert.to_int()
+		else:
+			$loby/CenterContainer/VBoxContainer/settime.text = str(120," sec.")
+			$Timer.wait_time = 120
+			
+	
 	
 func update_player_list(id: int, join: bool):
 	if join:

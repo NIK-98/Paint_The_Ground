@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=48 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -165,6 +165,54 @@ Button/styles/hover = SubResource("StyleBoxFlat_57cek")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
 Button/styles/normal = SubResource("StyleBoxFlat_57cek")
 Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88kex"]
+bg_color = Color(0, 0.811765, 0.294118, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.956863, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3rcq"]
+bg_color = Color(0, 0.811765, 0.294118, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.956863, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqk4p"]
+content_margin_left = 30.0
+content_margin_right = 30.0
+bg_color = Color(0, 0.811765, 0.294118, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.956863, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldi2y"]
+bg_color = Color(0, 0.811765, 0.294118, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
+shadow_color = Color(0, 0, 0.956863, 0.6)
+
+[sub_resource type="Theme" id="Theme_cpsan"]
+Button/colors/font_color = Color(0.544802, 0.00126815, 0.705635, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxFlat_88kex")
+Button/styles/hover = SubResource("StyleBoxFlat_o3rcq")
+Button/styles/normal = SubResource("StyleBoxFlat_lqk4p")
+Button/styles/pressed = SubResource("StyleBoxFlat_ldi2y")
 
 [sub_resource type="Theme" id="Theme_b4eyt"]
 Button/colors/font_color = Color(0, 0, 0.87451, 1)
@@ -484,6 +532,12 @@ text = "Solo NPCs: 1"
 layout_mode = 2
 theme = SubResource("Theme_ywke1")
 text = "Einfach"
+
+[node name="settime" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_cpsan")
+text = "120 sec."
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2

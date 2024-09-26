@@ -6,6 +6,7 @@ extends CanvasLayer
 @export var hidenloby = false
 @onready var difficulty = $CenterContainer/VBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
+var count_settime = 0
 
 
 var namen = ["Levi","Emil","Liam","Anton","Theo",
@@ -43,6 +44,10 @@ func _ready():
 	difficulty.text = "Einfach"
 	difficulty_id = 1
 	Global.speed_npcs = 5
+	
+	if multiplayer.is_server():
+		$CenterContainer/VBoxContainer/settime.visible = true
+		$CenterContainer/VBoxContainer/settime.connect("pressed",_on_settime_pressed)
 
 		
 func _process(_delta):
@@ -151,6 +156,7 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
+		$CenterContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		update_warten.rpc()
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
@@ -195,3 +201,17 @@ func _on_speed_pressed():
 		difficulty.text = "Schwer"
 		Global.speed_npcs = 30
 		difficulty_id = 0
+
+
+func _on_settime_pressed():
+	count_settime += 1
+	if count_settime == 1:
+		$CenterContainer/VBoxContainer/settime.text = str(180," sec.")
+		get_parent().get_node("Timer").wait_time = 180
+	if count_settime == 2:
+		$CenterContainer/VBoxContainer/settime.text = str(60," sec.")
+		get_parent().get_node("Timer").wait_time = 60
+	if count_settime == 3:
+		$CenterContainer/VBoxContainer/settime.text = str(120," sec.")
+		get_parent().get_node("Timer").wait_time = 120
+		count_settime = 0
