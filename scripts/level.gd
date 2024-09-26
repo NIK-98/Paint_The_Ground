@@ -4,7 +4,7 @@ extends Node2D
 const bomb_spawn_grenzen = 250
 const spawn_distance_bombe = 250
 const spawn_distance_power_up = 500
-var power_up_spawn_time = 10
+var power_up_spawn_time = Global.standart_powerup_spawn_time
 var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
 
@@ -27,6 +27,7 @@ var loaded_seson = false
 var loaded = false
 var blocked = false
 var block_cells = []
+var last_runde = false
 
 
 @export var playerlist = []
@@ -43,6 +44,7 @@ func _ready():
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
 	$Timerpower.wait_time = power_up_spawn_time
+	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 	
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
@@ -97,10 +99,19 @@ func _process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if not $Timer.is_stopped():
-		$CanvasLayer/Time.text = str(round($Timer.time_left))
 	if not $Timerbomb.is_stopped():
 		$CanvasLayer/Bomb_time.text = str(round($Timerbomb.time_left), " sec. bis zur nächsten Bomben verteilung!")
+	if not $Timer.is_stopped():
+		$CanvasLayer/Time.text = str(round($Timer.time_left))
+		if $Timer.time_left <= 30 and not last_runde:
+			last_runde = true
+			$Werten/CenterContainer/Letzen_sec.visible = true
+			$CanvasLayer/Time.set("theme_override_colors/font_color",Color.CRIMSON)
+			$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
+			power_up_spawn_time = 5
+			$Timerbomb.wait_time = 3
+			await get_tree().create_timer(2).timeout
+			$Werten/CenterContainer/Letzen_sec.visible = false
 
 		
 func verbindung_verloren():
@@ -332,6 +343,11 @@ func stoped_game():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
+	$CanvasLayer/Time.set("theme_override_colors/font_color",Color.BLACK)
+	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.BLACK)
+	last_runde = false
+	power_up_spawn_time = Global.standart_powerup_spawn_time
+	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 
 
 @rpc("any_peer","call_local")

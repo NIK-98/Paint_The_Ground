@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=43 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -70,6 +70,9 @@ properties/16/replication_mode = 1
 properties/17/path = NodePath(".:starting")
 properties/17/spawn = true
 properties/17/replication_mode = 1
+
+[sub_resource type="SystemFont" id="SystemFont_1kkt5"]
+font_names = PackedStringArray("AniMe Matrix - MB_EN")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 content_margin_left = 15.0
@@ -286,6 +289,23 @@ spawn_path = NodePath("../Players")
 
 [node name="Werten" type="CanvasLayer" parent="."]
 layer = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="Werten"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Letzen_sec" type="Label" parent="Werten/CenterContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.681535, 0.372164, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_fonts/font = SubResource("SystemFont_1kkt5")
+theme_override_font_sizes/font_size = 106
+text = "!!!Gib Alles!!!"
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
 offset_left = 1052.0
