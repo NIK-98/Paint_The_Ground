@@ -48,6 +48,10 @@ func _ready():
 	get_tree().paused = true
 	udp_client.set_broadcast_enabled(true)
 	udp_client.set_dest_address("255.255.255.255", udp_port)
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		$Panel/CenterContainer/Net/Info.visible = true
+	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+		$Panel/CenterContainer/Net/InfoPC.visible = true
 	
 	
 func _process(_delta):
