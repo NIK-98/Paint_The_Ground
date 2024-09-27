@@ -6,6 +6,10 @@ extends Timer
 var create_id = 0
 
 func _on_timeout():
+	queue_free()
+		
+
+func _exit_tree():
 	if Player.powerups[name.to_int()][0] == 0:
 		Player.SPEED = Player.first_speed
 		Player.powerups[name.to_int()][1] = false

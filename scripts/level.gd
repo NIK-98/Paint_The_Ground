@@ -324,6 +324,7 @@ func _on_timer_timeout():
 	set_timer_subnode.rpc("Timerpower", false)
 	set_timer_subnode.rpc("Timerende", true)
 	sync_time_out()
+	reset_vars_level()
 	
 
 @rpc("any_peer","call_local")
