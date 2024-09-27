@@ -58,9 +58,9 @@ func _physics_process(delta):
 			time_last_change += delta
 			if time_last_change >= direction_change_interval:
 				time_last_change = 0
-				if curent_bomb == null:
+				if curent_tarrget == null:
 					set_random_direction()
-			if time_last_change == 0 and (curent_bomb or curent_powerup):
+			if time_last_change == 0 and curent_tarrget:
 				random = 2
 				
 			paint()
