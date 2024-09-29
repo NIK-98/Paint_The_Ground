@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=49 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="6_w4ify"]
 [ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="7_hdc0h"]
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="9_7agv8"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="13_iuuq2"]
+[ext_resource type="Texture2D" uid="uid://d1p8oe23i3ffp" path="res://assets/buttons/uiedit.png" id="13_kybc6"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
@@ -105,124 +107,92 @@ bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
 [sub_resource type="Theme" id="Theme_n2nq7"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
 
-[sub_resource type="SystemFont" id="SystemFont_8psfh"]
-font_names = PackedStringArray("Berlin Sans FB")
-subpixel_positioning = 0
+[sub_resource type="SystemFont" id="SystemFont_2a4bu"]
+font_names = PackedStringArray("Cascadia Mono")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_435x7"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1dpt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6jnd"]
-bg_color = Color(0, 0.670588, 0.780392, 0.784314)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.886275, 0.709804)
-shadow_size = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5xyp"]
+texture = ExtResource("13_kybc6")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+expand_margin_left = 20.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 15.0
 
 [sub_resource type="Theme" id="Theme_lny4d"]
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 1)
 LineEdit/font_sizes/font_size = 45
-LineEdit/fonts/font = SubResource("SystemFont_8psfh")
-LineEdit/styles/focus = SubResource("StyleBoxEmpty_435x7")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_m6jnd")
+LineEdit/fonts/font = SubResource("SystemFont_2a4bu")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_n1dpt")
+LineEdit/styles/normal = SubResource("StyleBoxTexture_n5xyp")
 
 [sub_resource type="SystemFont" id="SystemFont_8s71y"]
 font_names = PackedStringArray("Cooper")
 subpixel_positioning = 0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57cek"]
-content_margin_left = 30.0
-content_margin_right = 30.0
-bg_color = Color(1.63645e-06, 0.81336, 0.295712, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.956863, 0.6)
-shadow_size = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_do8p0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e27jt"]
+texture = ExtResource("13_iuuq2")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6t8r"]
+texture = ExtResource("13_iuuq2")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
 [sub_resource type="Theme" id="Theme_4qfo0"]
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-Button/styles/normal = SubResource("StyleBoxFlat_57cek")
-Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/focus = SubResource("StyleBoxEmpty_do8p0")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c01q6"]
 
 [sub_resource type="Theme" id="Theme_ywke1"]
-Button/colors/font_color = Color(0.768627, 0.937255, 0.101961, 1)
+Button/colors/font_color = Color(1.92523e-07, 0.402723, 0.454316, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-Button/styles/normal = SubResource("StyleBoxFlat_57cek")
-Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/focus = SubResource("StyleBoxEmpty_c01q6")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88kex"]
-bg_color = Color(0, 0.811765, 0.294118, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.956863, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3rcq"]
-bg_color = Color(0, 0.811765, 0.294118, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.956863, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqk4p"]
-content_margin_left = 30.0
-content_margin_right = 30.0
-bg_color = Color(0, 0.811765, 0.294118, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.956863, 0.6)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldi2y"]
-bg_color = Color(0, 0.811765, 0.294118, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-shadow_color = Color(0, 0, 0.956863, 0.6)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rko0x"]
 
 [sub_resource type="Theme" id="Theme_cpsan"]
 Button/colors/font_color = Color(0.544802, 0.00126815, 0.705635, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_88kex")
-Button/styles/hover = SubResource("StyleBoxFlat_o3rcq")
-Button/styles/normal = SubResource("StyleBoxFlat_lqk4p")
-Button/styles/pressed = SubResource("StyleBoxFlat_ldi2y")
+Button/styles/focus = SubResource("StyleBoxEmpty_rko0x")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_42m5l"]
 
 [sub_resource type="Theme" id="Theme_b4eyt"]
 Button/colors/font_color = Color(0, 0, 0.87451, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover = SubResource("StyleBoxFlat_57cek")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_57cek")
-Button/styles/normal = SubResource("StyleBoxFlat_57cek")
-Button/styles/pressed = SubResource("StyleBoxFlat_57cek")
+Button/styles/focus = SubResource("StyleBoxEmpty_42m5l")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dox0w"]
 expand_margin_top = 15.0
@@ -243,47 +213,15 @@ font_color = Color(0.909804, 0.505882, 0, 1)
 outline_size = 10
 outline_color = Color(0.164706, 0.164706, 0.164706, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbhc3"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.733333, 0.560784, 0, 1)
-border_width_bottom = 10
-border_color = Color(0, 0.180392, 0.231373, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_color = Color(0, 0.8, 0.564706, 1)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08hjf"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.733333, 0.560784, 0, 1)
-border_width_bottom = 10
-border_color = Color(0, 0.180392, 0.231373, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 5
-
-[sub_resource type="SystemFont" id="SystemFont_cqbu0"]
-font_names = PackedStringArray("Centaur")
-subpixel_positioning = 0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gw143"]
 
 [sub_resource type="Theme" id="Theme_64oux"]
-default_font = SubResource("SystemFont_cqbu0")
+default_font = SubResource("SystemFont_jwpju")
 Button/font_sizes/font_size = 90
-Button/styles/focus = SubResource("StyleBoxFlat_mbhc3")
-Button/styles/hover = SubResource("StyleBoxFlat_mbhc3")
-Button/styles/normal = SubResource("StyleBoxFlat_08hjf")
+Button/styles/focus = SubResource("StyleBoxEmpty_gw143")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
 [sub_resource type="LabelSettings" id="LabelSettings_35yls"]
 font_size = 50
@@ -494,17 +432,15 @@ offset_bottom = 40.0
 texture = ExtResource("15_qppgb")
 
 [node name="CenterContainer" type="CenterContainer" parent="loby"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -261.0
-offset_right = 261.0
-offset_bottom = 288.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 35
 
 [node name="name_input" type="LineEdit" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -521,7 +457,7 @@ text = "Zufalls Name"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 35
 
 [node name="npcs" type="Button" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -591,6 +527,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="Label" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

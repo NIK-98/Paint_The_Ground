@@ -36,4 +36,4 @@ func _exit_tree():
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(Player.name)) and Player.get_parent().has_node("2"):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).clear_icon_npc.rpc(Player.powerups)
+		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).clear_icon_npc(Player.powerups)

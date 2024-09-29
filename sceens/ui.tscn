@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
 [ext_resource type="Texture2D" uid="uid://d1jwkv1peoon6" path="res://assets/background/Main.png" id="2_plmyg"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="3_3wiig"]
+[ext_resource type="Texture2D" uid="uid://d1p8oe23i3ffp" path="res://assets/buttons/uiedit.png" id="5_gpyg4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0wsa"]
 texture = ExtResource("2_plmyg")
@@ -17,64 +19,66 @@ Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/font_sizes/font_size = 50
 Label/fonts/font = SubResource("SystemFont_mlu1k")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmien"]
-bg_color = Color(0.6, 0.960784, 0.6, 1)
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
+[sub_resource type="SystemFont" id="SystemFont_8s71y"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
 
-[sub_resource type="Theme" id="Theme_mqa3c"]
-Button/colors/font_color = Color(0.438718, 0.00216328, 0.733864, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_cmien")
-Button/styles/hover = SubResource("StyleBoxFlat_cmien")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_cmien")
-Button/styles/normal = SubResource("StyleBoxFlat_cmien")
-Button/styles/pressed = SubResource("StyleBoxFlat_cmien")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_do8p0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxaaj"]
-bg_color = Color(0, 0.682353, 0.701961, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e27jt"]
+texture = ExtResource("3_3wiig")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2dh5"]
-bg_color = Color(0, 0.682353, 0.701961, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6t8r"]
+texture = ExtResource("3_3wiig")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83vjx"]
-bg_color = Color(0, 0.682353, 0.701961, 1)
+[sub_resource type="Theme" id="Theme_8c3yx"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxEmpty_do8p0")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
-[sub_resource type="Theme" id="Theme_lvwad"]
-Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
-Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
-Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
-Button/styles/pressed = null
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iph7h"]
+texture = ExtResource("5_gpyg4")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tww"]
-bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jt1ef"]
+texture = ExtResource("5_gpyg4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8ive"]
-bg_color = Color(0.894118, 0.466667, 0.152941, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfxwm"]
-bg_color = Color(0.894118, 0.466667, 0.152941, 1)
+[sub_resource type="SystemFont" id="SystemFont_xl51c"]
+font_names = PackedStringArray("Cascadia Mono")
 
 [sub_resource type="Theme" id="Theme_4377g"]
+default_font = SubResource("SystemFont_xl51c")
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
-LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
+LineEdit/styles/focus = SubResource("StyleBoxTexture_iph7h")
+LineEdit/styles/normal = SubResource("StyleBoxTexture_jt1ef")
 
-[sub_resource type="Theme" id="Theme_s33f1"]
-Button/colors/font_color = Color(0.376471, 0, 0.87451, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_qxaaj")
-Button/styles/hover = SubResource("StyleBoxFlat_s2dh5")
-Button/styles/normal = SubResource("StyleBoxFlat_83vjx")
-Button/styles/pressed = null
-
-[sub_resource type="Theme" id="Theme_ihe75"]
-LineEdit/colors/font_color = Color(0, 0, 0, 1)
-LineEdit/styles/focus = SubResource("StyleBoxFlat_w8tww")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_y8ive")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_hfxwm")
+[sub_resource type="Theme" id="Theme_yu42j"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/font_sizes/font_size = 45
+Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/focus = SubResource("StyleBoxEmpty_do8p0")
+Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
+Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
+Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
 [node name="UI" type="Control" groups=["Persist"]]
 process_mode = 3
@@ -109,37 +113,44 @@ layout_mode = 2
 
 [node name="Host_Connect" type="Button" parent="Panel/CenterContainer/Net/Options"]
 layout_mode = 2
-theme = SubResource("Theme_mqa3c")
+theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 75
 toggle_mode = true
 text = "Host/Connect Wechsel"
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="o1" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
 text = "Hosten:"
 horizontal_alignment = 1
 
 [node name="Host" type="Button" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
 layout_mode = 2
-theme = SubResource("Theme_lvwad")
+theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 85
 text = "Host"
 script = ExtResource("1_i02t5")
 
 [node name="o1_port" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
 text = "Port"
 horizontal_alignment = 1
@@ -187,39 +198,47 @@ layout_mode = 2
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="o2" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
 text = "Joinen:"
 horizontal_alignment = 1
 
 [node name="Connect" type="Button" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
 layout_mode = 2
-theme = SubResource("Theme_s33f1")
+theme = SubResource("Theme_yu42j")
 theme_override_font_sizes/font_size = 85
 text = "Connect"
 
 [node name="o3" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
 text = "Addresse"
 horizontal_alignment = 1
 
 [node name="remote1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2/o3"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Remote" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
 layout_mode = 2
-theme = SubResource("Theme_ihe75")
+theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "localhost"
 placeholder_text = "localhost"
@@ -232,13 +251,18 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_font_sizes/font_size = 85
 text = ":"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="o4" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
 text = "Port"
 horizontal_alignment = 1
