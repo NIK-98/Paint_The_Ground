@@ -1,12 +1,16 @@
 extends Node
 
 var save_path = "user://savetemp.save"
+var save_audio_setting_path = "user://saveaudiosettings.save"
+@onready var music_1 = $Music1
 
 var controll_switcher = false
-	
+		
+		
 func _ready():
 	if not OS.has_feature("dedicated_server"):
-		load_game()
+		load_game("Persist", save_path)
+		load_game("saveaudiosettings", save_audio_setting_path)
 		await get_tree().process_frame
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
@@ -34,11 +38,11 @@ func _notification(what):
 			DirAccess.remove_absolute(save_path)
 			
 	
-func save_game():
-	if FileAccess.file_exists(save_path):
-		DirAccess.remove_absolute(save_path)
-	var save_file = FileAccess.open(save_path, FileAccess.WRITE)
-	var save_nodes = get_tree().get_nodes_in_group("Persist")
+func save_game(group: String, path: String):
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(path)
+	var save_file = FileAccess.open(path, FileAccess.WRITE)
+	var save_nodes = get_tree().get_nodes_in_group(group)
 	for node in save_nodes:
 		# Check the node is an instanced scene so it can be instanced again during load.
 		if node.scene_file_path.is_empty():
@@ -61,21 +65,21 @@ func save_game():
 
 # Note: This can be called from anywhere inside the tree. This function
 # is path independent.
-func load_game():
-	if not FileAccess.file_exists(save_path):
+func load_game(group: String, path: String):
+	if not FileAccess.file_exists(path):
 		return # Error! We don't have a save to load.
 
 	# We need to revert the game state so we're not cloning objects
 	# during loading. This will vary wildly depending on the needs of a
 	# project, so take care with this step.
 	# For our example, we will accomplish this by deleting saveable objects.
-	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	var save_nodes = get_tree().get_nodes_in_group(group)
 	for i in save_nodes:
 		i.queue_free()
 
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
-	var save_file = FileAccess.open(save_path, FileAccess.READ)
+	var save_file = FileAccess.open(path, FileAccess.READ)
 	while save_file.get_position() < save_file.get_length():
 		var json_string = save_file.get_line()
 
@@ -123,7 +127,7 @@ func _on_tap_released():
 	
 
 
-func _on_ja_pressed():
+func _on_beenden_pressed():
 	if $CanvasLayer2/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/UI.esc_is_pressing = false
 		if FileAccess.file_exists(save_path):
@@ -134,11 +138,11 @@ func _on_ja_pressed():
 		get_node("Level/level/loby").esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		
-	$CanvasLayer/Beenden.visible = false
+	$CanvasLayer/Menu.visible = false
 	
 
-func _on_nein_pressed():
-	$CanvasLayer/Beenden.visible = false
+func _on_zurück_pressed():
+	$CanvasLayer/Menu.visible = false
 
 
 func _on_change_pressed():
@@ -150,3 +154,8 @@ func _on_change_pressed():
 		controll_switcher = true
 		$CanvasLayer/joy.joy_start_position = Vector2(1692.783,617.143)
 		$CanvasLayer/Back.global_position = Vector2(80.162,560)
+
+
+func _on_audio_pressed():
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_audio_menu = true

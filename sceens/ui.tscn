@@ -64,6 +64,7 @@ texture_margin_bottom = 10.0
 
 [sub_resource type="SystemFont" id="SystemFont_xl51c"]
 font_names = PackedStringArray("Cascadia Mono")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_4377g"]
 default_font = SubResource("SystemFont_xl51c")

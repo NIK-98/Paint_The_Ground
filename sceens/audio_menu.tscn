@@ -1,0 +1,235 @@
+[gd_scene load_steps=17 format=3 uid="uid://dfqq0gn33scbo"]
+
+[ext_resource type="Script" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
+[ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="2_bnt2n"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="3_f1425"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4hv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.733333, 0.560784, 0, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.180392, 0.231373, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 5
+
+[sub_resource type="SystemFont" id="SystemFont_5f2dd"]
+font_names = PackedStringArray("Centaur")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_hp1gm"]
+default_font = SubResource("SystemFont_5f2dd")
+Button/font_sizes/font_size = 90
+Button/styles/disabled = SubResource("StyleBoxFlat_lg4hv")
+Button/styles/focus = SubResource("StyleBoxFlat_lg4hv")
+Button/styles/hover = SubResource("StyleBoxFlat_lg4hv")
+Button/styles/normal = SubResource("StyleBoxFlat_lg4hv")
+Button/styles/pressed = SubResource("StyleBoxFlat_lg4hv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k7ia"]
+bg_color = Color(0, 0, 0.803922, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+expand_margin_left = 50.0
+expand_margin_top = 40.0
+expand_margin_right = 50.0
+expand_margin_bottom = 40.0
+shadow_color = Color(0, 0, 0.933333, 0.6)
+shadow_size = 90
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yyry"]
+bg_color = Color(0, 0.717647, 0.356863, 1)
+border_width_bottom = 2
+border_color = Color(0, 0.486275, 0.333333, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0.87451, 0.501961, 0, 0.768627)
+shadow_size = 5
+
+[sub_resource type="Theme" id="Theme_fm43a"]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_2yyry")
+
+[sub_resource type="SystemFont" id="SystemFont_x8p2u"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kab0b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h5uvm"]
+texture = ExtResource("3_f1425")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkrcp"]
+texture = ExtResource("3_f1425")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hawu"]
+texture = ExtResource("3_f1425")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="Theme" id="Theme_y4ci3"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 100
+Button/fonts/font = SubResource("SystemFont_x8p2u")
+Button/styles/focus = SubResource("StyleBoxEmpty_kab0b")
+Button/styles/hover = SubResource("StyleBoxTexture_h5uvm")
+Button/styles/normal = SubResource("StyleBoxTexture_fkrcp")
+Button/styles/pressed = SubResource("StyleBoxTexture_8hawu")
+
+[sub_resource type="Theme" id="Theme_yt4ax"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 100
+Button/fonts/font = SubResource("SystemFont_x8p2u")
+Button/styles/focus = SubResource("StyleBoxEmpty_kab0b")
+Button/styles/hover = SubResource("StyleBoxTexture_h5uvm")
+Button/styles/normal = SubResource("StyleBoxTexture_fkrcp")
+Button/styles/pressed = SubResource("StyleBoxTexture_8hawu")
+
+[node name="Audio_menu" type="Control" groups=["saveaudiosettings"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hp1gm")
+script = ExtResource("1_wxnn5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 7
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -237.5
+offset_right = 196.5
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1k7ia")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="master_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Gesamtlautstärke"
+
+[node name="master" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer2/Back")
+focus_neighbor_bottom = NodePath("../effects")
+theme = SubResource("Theme_fm43a")
+theme_override_icons/grabber = ExtResource("2_bnt2n")
+theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
+theme_override_icons/grabber_disabled = ExtResource("2_bnt2n")
+theme_override_icons/tick = ExtResource("2_bnt2n")
+min_value = -30.0
+max_value = 0.0
+
+[node name="Effecte_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Effektlautstärke"
+
+[node name="effects" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../master")
+focus_neighbor_bottom = NodePath("../music")
+theme = SubResource("Theme_fm43a")
+theme_override_icons/grabber = ExtResource("2_bnt2n")
+theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
+theme_override_icons/grabber_disabled = ExtResource("2_bnt2n")
+theme_override_icons/tick = ExtResource("2_bnt2n")
+min_value = -30.0
+max_value = 0.0
+
+[node name="music_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Musiklautstärke"
+
+[node name="music" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../effects")
+focus_neighbor_bottom = NodePath("../../VBoxContainer2/Reset")
+theme = SubResource("Theme_fm43a")
+theme_override_icons/grabber = ExtResource("2_bnt2n")
+theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
+theme_override_icons/grabber_disabled = ExtResource("2_bnt2n")
+theme_override_icons/tick = ExtResource("2_bnt2n")
+min_value = -30.0
+max_value = 0.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer/music")
+focus_neighbor_bottom = NodePath("../Back")
+theme = SubResource("Theme_y4ci3")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Reset"
+
+[node name="Back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Reset")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/master")
+theme = SubResource("Theme_yt4ax")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Zurück"
+
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_value_changed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_back_pressed"]

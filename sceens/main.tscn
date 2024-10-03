@@ -1,15 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=18 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="7_xeh0r"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
+[ext_resource type="PackedScene" uid="uid://dfqq0gn33scbo" path="res://sceens/audio_menu.tscn" id="9_gg8o3"]
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
+[ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="9_sbb33"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl7u4"]
-bg_color = Color(0, 0.667527, 0.805084, 1)
+bg_color = Color(0, 0, 0.803922, 1)
 corner_radius_top_left = 35
 corner_radius_top_right = 35
 corner_radius_bottom_right = 35
@@ -18,102 +21,45 @@ expand_margin_left = 50.0
 expand_margin_top = 40.0
 expand_margin_right = 50.0
 expand_margin_bottom = 40.0
+shadow_color = Color(0, 0, 0.933333, 0.6)
+shadow_size = 90
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rova"]
-bg_color = Color(0, 0.666667, 0.803922, 1)
-expand_margin_left = 30.0
-expand_margin_right = 30.0
+[sub_resource type="SystemFont" id="SystemFont_x8p2u"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
 
-[sub_resource type="Theme" id="Theme_47ifw"]
-Label/colors/font_color = Color(0, 0, 0, 1)
-Label/font_sizes/font_size = 50
-Label/styles/normal = SubResource("StyleBoxFlat_8rova")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kab0b"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scvyy"]
-bg_color = Color(0.733066, 0.579528, 1.92523e-07, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h5uvm"]
+texture = ExtResource("7_xeh0r")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udlca"]
-bg_color = Color(0.665557, 0, 0.0147375, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkrcp"]
+texture = ExtResource("7_xeh0r")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jm4l"]
-bg_color = Color(0.500758, 0.0942032, 0, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
-
-[sub_resource type="Theme" id="Theme_iehin"]
-Button/font_sizes/font_size = 100
-Button/styles/focus = SubResource("StyleBoxFlat_scvyy")
-Button/styles/hover = SubResource("StyleBoxFlat_scvyy")
-Button/styles/normal = SubResource("StyleBoxFlat_udlca")
-Button/styles/pressed = SubResource("StyleBoxFlat_7jm4l")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48w5a"]
-bg_color = Color(0.733333, 0.580392, 0, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hspt"]
-bg_color = Color(0.139212, 0.723929, 3.85046e-07, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fw6i"]
-bg_color = Color(0.17591, 0.459619, 9.62615e-08, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 1
-expand_margin_left = 30.0
-expand_margin_right = 30.0
-shadow_color = Color(0, 0, 0.717647, 0.764706)
-shadow_size = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hawu"]
+texture = ExtResource("7_xeh0r")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
 [sub_resource type="Theme" id="Theme_kbdh3"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
 Button/font_sizes/font_size = 100
-Button/styles/focus = SubResource("StyleBoxFlat_48w5a")
-Button/styles/hover = SubResource("StyleBoxFlat_48w5a")
-Button/styles/normal = SubResource("StyleBoxFlat_8hspt")
-Button/styles/pressed = SubResource("StyleBoxFlat_3fw6i")
+Button/fonts/font = SubResource("SystemFont_x8p2u")
+Button/styles/focus = SubResource("StyleBoxEmpty_kab0b")
+Button/styles/hover = SubResource("StyleBoxTexture_h5uvm")
+Button/styles/normal = SubResource("StyleBoxTexture_fkrcp")
+Button/styles/pressed = SubResource("StyleBoxTexture_8hawu")
 
 [node name="main" type="Node"]
 script = ExtResource("1_jo5ss")
@@ -175,7 +121,7 @@ offset_bottom = 0.342957
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Beenden" type="CenterContainer" parent="CanvasLayer"]
+[node name="Menu" type="CenterContainer" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,38 +131,49 @@ offset_bottom = 340.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Beenden"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Menu"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hl7u4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Beenden/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 40
 
-[node name="Beenden" type="Label" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_47ifw")
-text = "Beenden?"
-
-[node name="Ja" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_iehin")
-text = "JA"
-
-[node name="Nein" type="Button" parent="CanvasLayer/Beenden/PanelContainer/VBoxContainer"]
+[node name="Audio" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_kbdh3")
-text = "NEIN"
+theme_override_colors/font_color = Color(0.0313726, 0, 1, 1)
+text = "Audio"
+
+[node name="Beenden" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_kbdh3")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Beenden"
+
+[node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_kbdh3")
+theme_override_colors/font_color = Color(1, 0.529412, 0, 1)
+text = "Zurück"
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 6
 
 [node name="UI" parent="CanvasLayer2" instance=ExtResource("2_gk4y4")]
 
+[node name="Music1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_sbb33")
+volume_db = -10.0
+bus = &"music"
+
+[node name="Audio_menu" parent="." instance=ExtResource("9_gg8o3")]
+
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
 [connection signal="pressed" from="CanvasLayer/change" to="." method="_on_change_pressed"]
-[connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja" to="." method="_on_ja_pressed"]
-[connection signal="pressed" from="CanvasLayer/Beenden/PanelContainer/VBoxContainer/Nein" to="." method="_on_nein_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Audio" to="." method="_on_audio_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_pressed"]

@@ -51,10 +51,10 @@ func _ready():
 
 		
 func _process(_delta):
-	if Input.is_action_just_pressed("exit"):
+	if Input.is_action_just_pressed("exit") and not get_parent().main.get_node("Audio_menu/CanvasLayer").visible:
 		esc_is_pressing_in_game = true
-		get_parent().get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
-		get_parent().get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
+		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		return
 	if visible:
 		visible_loby()

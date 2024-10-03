@@ -10,6 +10,8 @@ var Max_clients = 6
 @onready var update_time_ips = $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip/Label2
 @onready var ips_update_timer = $ips_update_timer
 
+var save_path = "user://savetemp.save"
+
 
 var loaded = false
 var esc_is_pressing = false
@@ -66,10 +68,10 @@ func _process(_delta):
 	if Input.is_action_just_pressed("cancel"):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""
-	if Input.is_action_just_pressed("exit") and visible:
+	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible:
 		esc_is_pressing = true
-		get_parent().get_parent().get_node("CanvasLayer/Beenden").visible = true
-		get_parent().get_parent().get_node("CanvasLayer/Beenden/PanelContainer/VBoxContainer/Ja").grab_focus()
+		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
 	
@@ -157,7 +159,7 @@ func _on_host_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().get_parent().save_game()
+	get_parent().get_parent().save_game("Persist", save_path)
 	
 	var peer = ENetMultiplayerPeer.new()
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
@@ -192,7 +194,7 @@ func _on_connect_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().get_parent().save_game()
+	get_parent().get_parent().save_game("Persist", save_path)
 		
 	block_host = true
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
