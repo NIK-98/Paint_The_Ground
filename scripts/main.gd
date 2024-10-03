@@ -2,7 +2,6 @@ extends Node
 
 var save_path = "user://savetemp.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
-@onready var music_1 = $Music1
 
 var controll_switcher = false
 		

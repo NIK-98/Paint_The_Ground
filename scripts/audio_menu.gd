@@ -34,7 +34,7 @@ func _ready():
 	$CanvasLayer.visible = false
 	
 
-func _process(delta):
+func _process(_delta):
 	if Global.trigger_audio_menu:
 		Global.trigger_audio_menu = false
 		$CanvasLayer.visible = true
@@ -50,7 +50,7 @@ func _process(delta):
 		AudioServer.set_bus_volume_db(effects_bus, effects.value)
 		music.value = music_volume
 		AudioServer.set_bus_volume_db(music_bus, music.value)
-		main.music_1.play()
+		Global.music1_sound = true
 		
 		
 func _on_master_value_changed(value):

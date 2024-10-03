@@ -99,6 +99,7 @@ func _physics_process(_delta):
 					if powerups[p][0] == 2:
 						new_timer_power_up.wait_time = power_time[2]
 					new_timer_power_up.start()
+					Global.powerup_sound = true
 					
 					
 		elif level.Time_out and not ende:
@@ -281,6 +282,8 @@ func _on_area_2d_area_entered(area: Area2D):
 		SPEED = SPEED / 2
 		$TimerresetSPEED.stop()
 		$TimerresetSPEED.start()
+		Global.hit_sound = true
+		
 
 
 func _on_timerreset_speed_timeout():

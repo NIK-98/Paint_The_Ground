@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnccknl6kw5j3"]
+
+[ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="1_2t7wr"]
+[ext_resource type="Script" path="res://scripts/sounds.gd" id="1_okjby"]
+[ext_resource type="AudioStream" uid="uid://bt1ompa8o70qe" path="res://assets/sounds/effects/hit.ogg" id="3_vcsxs"]
+[ext_resource type="AudioStream" uid="uid://b24q2ut8ket3l" path="res://assets/sounds/effects/powerup.ogg" id="4_pmq6h"]
+[ext_resource type="AudioStream" uid="uid://b1y2r7s2c31ju" path="res://assets/sounds/effects/bombe.ogg" id="5_iahqh"]
+
+[node name="Sounds" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_okjby")
+
+[node name="Music1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_2t7wr")
+volume_db = -10.0
+bus = &"music"
+
+[node name="hit_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vcsxs")
+bus = &"Effects"
+
+[node name="powerup_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_pmq6h")
+bus = &"Effects"
+
+[node name="bombe_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iahqh")
+bus = &"Effects"
