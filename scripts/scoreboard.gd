@@ -78,6 +78,8 @@ func _on_restart_pressed():
 	get_parent().set_timer_subnode.rpc("Timerbomb", true)
 	get_parent().set_timer_subnode.rpc("Timerpower", true)
 	get_parent().set_timer_subnode.rpc("Timerrestart", true)
+	get_parent().main.get_node("CanvasLayer/joy").visible = true
+	get_parent().main.get_node("CanvasLayer/change").visible = true
 	set_visible_false.rpc("CanvasLayer", false)
 	
 	

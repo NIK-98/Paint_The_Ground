@@ -120,6 +120,7 @@ script = ExtResource("1_wxnn5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 7
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 anchors_preset = 8

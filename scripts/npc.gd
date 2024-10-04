@@ -94,6 +94,9 @@ func _physics_process(delta):
 					if powerups[p][0] == 2:
 						new_timer_power_up.wait_time = power_time[2]
 					new_timer_power_up.start()
+					if not $TimerresetSPEED.is_stopped():
+						$TimerresetSPEED.stop()
+					$slow_color.visible = false
 					
 		elif level.Time_out and not ende:
 			ende = true
@@ -219,6 +222,7 @@ func _on_area_2d_area_entered(area: Area2D):
 		SPEED = SPEED / 2
 		$TimerresetSPEED.stop()
 		$TimerresetSPEED.start()
+		$slow_color.visible = true
 		
 		
 func _on_timerreset_speed_timeout():
@@ -226,3 +230,4 @@ func _on_timerreset_speed_timeout():
 		SPEED += 1
 	if SPEED == first_speed:
 		$TimerresetSPEED.stop()
+		$slow_color.visible = false

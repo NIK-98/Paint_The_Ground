@@ -395,6 +395,7 @@ texture_normal = ExtResource("7_hdc0h")
 visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
+layer = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -574,7 +575,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 363.96)
 layout_mode = 2
 horizontal_scroll_mode = 0
 

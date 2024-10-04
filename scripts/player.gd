@@ -100,10 +100,15 @@ func _physics_process(_delta):
 						new_timer_power_up.wait_time = power_time[2]
 					new_timer_power_up.start()
 					Global.powerup_sound = true
+					if not $TimerresetSPEED.is_stopped():
+						$TimerresetSPEED.stop()
+					$slow_color.visible = false
 					
 					
 		elif level.Time_out and not ende:
 			ende = true
+			main.get_node("CanvasLayer/joy").visible = false
+			main.get_node("CanvasLayer/change").visible = false
 			for c in $powertimers.get_children():
 				c.stop()
 				c.queue_free()
@@ -283,6 +288,7 @@ func _on_area_2d_area_entered(area: Area2D):
 		$TimerresetSPEED.stop()
 		$TimerresetSPEED.start()
 		Global.hit_sound = true
+		$slow_color.visible = true
 		
 
 
@@ -291,3 +297,4 @@ func _on_timerreset_speed_timeout():
 		SPEED += 1
 	if SPEED == first_speed:
 		$TimerresetSPEED.stop()
+		$slow_color.visible = false

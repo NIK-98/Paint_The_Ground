@@ -294,7 +294,7 @@ Steuerung Android:
 __________________________________________________________
 - virtuellen joystick (links oder rechts,
  je nach modus) = laufen
-- exit = button links oben
+- exit / menü = button links oben
 - conection versuch abbrechen  =button rechts in der Mitte
 - Spieler-Liste = button oben rechts
 - links,rechts modus umschalten = links neben Spieler-Liste
@@ -303,7 +303,7 @@ __________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
 __________________________________________________________
 - Linker Stick = laufen
-- exit = menu button
+- exit / menü = menu button
 - conection versuch abbrechen  = B button
 - Spieler-Liste = menü button
 - links,rechts modus umschalten = Y button
@@ -326,7 +326,7 @@ __________________________________________________________
 Steuerung Tastatur:
 __________________________________________________________
 - laufen = WASD oder ⬆️⬅️⬇️➡️
-- exit = esc
+- exit / menü = esc
 - conection versuch abbrechen  = C
 - Spieler-Liste = tab
 - links,rechts modus umschalten = M
@@ -335,7 +335,7 @@ __________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
 __________________________________________________________
 - Linker Stick = laufen
-- exit = menu button
+- exit / menü = menu button
 - conection versuch abbrechen  = B button
 - Spieler-Liste = menü button
 - links,rechts modus umschalten = Y button

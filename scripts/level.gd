@@ -45,6 +45,7 @@ func _ready():
 	$Tap.visible = false
 	$Timerpower.wait_time = power_up_spawn_time
 	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
+	main.get_node("CanvasLayer/Back").visible = false
 	
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
