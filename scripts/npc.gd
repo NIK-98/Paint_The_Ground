@@ -123,15 +123,7 @@ func color_change():
 		if get_parent().get_node(str(name)) != null and i == 3:
 			color_cell = 9
 			get_node("Color").set_color(Color.HOT_PINK)
-			get_node("Name").set("theme_override_colors/font_color",Color.HOT_PINK)
-		
-								
-func change_paint_rad():
-	if $powertimers.has_node("1"):
-		return
-	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
-	paint_radius = radius_varscheinlichkeit.pick_random()
-	
+			get_node("Name").set("theme_override_colors/font_color",Color.HOT_PINK)	
 	
 
 func paint():

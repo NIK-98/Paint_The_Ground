@@ -261,13 +261,6 @@ func color_change():
 			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
 			get_node("CanvasLayer/Winner").set_color(Color.YELLOW)
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
-			
-								
-func change_paint_rad():
-	if $powertimers.has_node("1"):
-		return
-	var radius_varscheinlichkeit = [2,2,2,2,2,4] #1/6 chance auf grösseren radius
-	paint_radius = radius_varscheinlichkeit.pick_random()
 	
 
 func reset_player_vars():
