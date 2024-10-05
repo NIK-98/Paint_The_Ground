@@ -18,7 +18,7 @@ func update_icon_npc(powerups):
 	if powerups[0][1] == true and powerups[0][0] == 0:
 		$TextureRect.texture = load("res://assets/powerups/speedup.png")
 	if powerups[1][1] == true and powerups[1][0] == 1:
-		$TextureRect2.texture = load("res://assets/powerups/empty.png")
+		$TextureRect2.texture = load("res://assets/powerups/bigrad.png")
 	if powerups[2][1] == true and powerups[2][0] == 2:
 		$TextureRect3.texture = load("res://assets/powerups/protect.png")
 
