@@ -32,13 +32,17 @@ func _input(event):
 				
 
 func _process(_delta):
-	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
-		if OS.get_name() == "Android" or OS.get_name() == "IOS":
-			visible = true
+	if get_parent().get_parent().get_node("Level").get_child_count() > 0:
+		if get_parent().get_parent().get_node("Level/level").starting:
+			if OS.get_name() == "Android" or OS.get_name() == "IOS":
+				visible = true
+		elif visible:
+			visible = false
+			global_position = joy_start_position
 	if is_touch:
 		joystick.global_position = get_global_mouse_position()
 		joystick.position = stick_center + (joystick.position - stick_center).limit_length(maxLength)
-	
+		
 func get_joystick_dir() -> Vector2:
 	if is_touch:
 		var dir = joystick.position - stick_center

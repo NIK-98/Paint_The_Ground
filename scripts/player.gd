@@ -107,7 +107,6 @@ func _physics_process(_delta):
 					
 		elif level.Time_out and not ende:
 			ende = true
-			main.get_node("CanvasLayer/joy").visible = false
 			main.get_node("CanvasLayer/change").visible = false
 			for c in $powertimers.get_children():
 				c.stop()
@@ -180,12 +179,12 @@ func _input(event):
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
-	if Input.is_action_pressed("zoomin"):
+	if Input.is_action_pressed("zoomin") and not level.get_node("Scoreboard/CanvasLayer").visible:
 		camera.zoom *= 0.9  # Zoom in
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-	if Input.is_action_pressed("zoomout"):
+	if Input.is_action_pressed("zoomout") and not level.get_node("Scoreboard/CanvasLayer").visible:
 		camera.zoom *= 1.1  # Zoom out
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
