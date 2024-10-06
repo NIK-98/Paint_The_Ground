@@ -143,19 +143,19 @@ func moving():
 	if OS.has_feature("dedicated_server"):
 		return
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right"):
 			Input.action_press("right")
 		else:
 			Input.action_release("right")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left"):
 			Input.action_press("left")
 		else:
 			Input.action_release("left")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down"):
 			Input.action_press("down")
 		else:
 			Input.action_release("down")
-		if main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45:
+		if main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up"):
 			Input.action_press("up")
 		else:
 			Input.action_release("up")

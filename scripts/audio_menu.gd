@@ -91,6 +91,7 @@ func _on_back_pressed():
 		DirAccess.remove_absolute(save_audio_setting_path)
 		main.save_game("saveaudiosettings", save_audio_setting_path)
 	main.get_node("CanvasLayer/Menu").visible = true
+	main.get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 
 
 func _on_reset_pressed():

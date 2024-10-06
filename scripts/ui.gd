@@ -245,6 +245,20 @@ func _on_ips_update_timeout():
 	
 
 func _input(_event):
+	if Input.is_action_just_pressed("zoomout"):
+		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical < max(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y):
+			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical += 100
+			return
+		if $Panel.scroll_vertical < max(0, $Panel/CenterContainer.size.y - $Panel.size.y):
+			$Panel.scroll_vertical += 100
+			return
+	if Input.is_action_just_pressed("zoomin"):
+		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical >= min(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y) and $Panel.scroll_vertical <= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
+			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical -= 100
+			return
+		if $Panel.scroll_vertical >= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
+			$Panel.scroll_vertical -= 100
+			return
 	if Input.is_action_just_pressed("modus"):
 		get_parent().get_parent()._on_change_pressed()
 

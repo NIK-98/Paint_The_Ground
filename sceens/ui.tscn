@@ -92,6 +92,7 @@ layout_mode = 0
 offset_right = 1829.0
 offset_bottom = 1143.0
 scale = Vector2(0.7, 0.7)
+focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_w0wsa")
 horizontal_scroll_mode = 0
 
@@ -167,6 +168,7 @@ select_all_on_focus = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
+focus_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="yourip" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer"]
@@ -292,22 +294,40 @@ wenn ein server existiert wird auto durch dessen IP ersetzt.
 __________________________________________________________
 Steuerung Android:
 __________________________________________________________
-- virtuellen joystick (links oder rechts,
- je nach modus) = laufen
+- laufen = virtuellen joystick (links oder rechts,
+ je nach modus)
+- Menü navigation = über touch screen
 - exit / menü = button links oben
 - conection versuch abbrechen  =button rechts in der Mitte
 - Spieler-Liste = button oben rechts
 - links,rechts modus umschalten = links neben Spieler-Liste
 - Zoom = buttons unter dem wort Zoom im Spiel
+- Scrollen = über touch screen
+- Bestätigungen = über touch screen
+__________________________________________________________
+Steuerung Tastatur:
+__________________________________________________________
+- laufen = WASD
+- Menü navigation = ⬆️⬅️⬇️➡️
+- exit / menü = esc
+- conection versuch abbrechen  = C
+- Spieler-Liste = P
+- links,rechts modus umschalten = M
+- Zoom = Mausrad im Spiel
+- Scrollen = Maus bzw. Mausrad
+- Bestätigungen = Enter
 __________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
 __________________________________________________________
-- Linker Stick = laufen
+- laufen = Linker Stick
+- Menü navigation = ⬆️⬅️⬇️➡️
 - exit / menü = menu button
 - conection versuch abbrechen  = B button
-- Spieler-Liste = menü button
+- Spieler-Liste = X button
 - links,rechts modus umschalten = Y button
-- Zoom = RB/LB im Spiel"
+- Zoom = RB/LB im Spiel
+- Scrollen = RB/LB
+- Bestätigungen = A button"
 horizontal_alignment = 1
 
 [node name="InfoPC" type="Label" parent="Panel/CenterContainer/Net"]
@@ -325,21 +345,27 @@ wenn ein server existiert wird auto durch dessen IP ersetzt.
 __________________________________________________________
 Steuerung Tastatur:
 __________________________________________________________
-- laufen = WASD oder ⬆️⬅️⬇️➡️
+- laufen = WASD
+- Menü navigation = ⬆️⬅️⬇️➡️
 - exit / menü = esc
 - conection versuch abbrechen  = C
-- Spieler-Liste = tab
+- Spieler-Liste = P
 - links,rechts modus umschalten = M
 - Zoom = Mausrad im Spiel
+- Scrollen = Maus bzw. Mausrad
+- Bestätigungen = Enter
 __________________________________________________________
 Steuerung Gamepad(Xbox Controller beispiel):
 __________________________________________________________
-- Linker Stick = laufen
+- laufen = Linker Stick
+- Menü navigation = ⬆️⬅️⬇️➡️
 - exit / menü = menu button
 - conection versuch abbrechen  = B button
-- Spieler-Liste = menü button
+- Spieler-Liste = X button
 - links,rechts modus umschalten = Y button
 - Zoom = RB/LB im Spiel
+- Scrollen = RB/LB
+- Bestätigungen = A button
 "
 horizontal_alignment = 1
 

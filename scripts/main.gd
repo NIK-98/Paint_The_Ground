@@ -104,8 +104,8 @@ func load_game(group: String, path: String):
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
-		
-		
+			
+			
 func _on_leave_pressed():
 	Input.action_press("exit")
 	Input.action_release("exit")
@@ -123,9 +123,8 @@ func _on_tap_pressed():
 
 func _on_tap_released():
 	Input.action_release("Info")
-	
-
-
+			
+			
 func _on_beenden_pressed():
 	if $CanvasLayer2/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/UI.esc_is_pressing = false
@@ -142,6 +141,11 @@ func _on_beenden_pressed():
 
 func _on_zurück_pressed():
 	$CanvasLayer/Menu.visible = false
+	if $CanvasLayer2.visible:
+		$CanvasLayer2/UI/Panel/CenterContainer/Net/Options/Option1/o1/Host.grab_focus()
+	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/Scoreboard/CanvasLayer").visible:
+		get_node("Level/level/Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").grab_focus()
+		
 
 
 func _on_change_pressed():

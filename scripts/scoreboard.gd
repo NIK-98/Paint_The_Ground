@@ -93,6 +93,17 @@ func set_visible_false(nodepath: String, mode: bool):
 			obj.visible = mode
 
 
+func _input(_event):
+	if Input.is_action_just_pressed("zoomout") and $CanvasLayer.visible:
+		if $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical < max(0, $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.size.y - $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.size.y):
+			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical += 100
+			return
+	if Input.is_action_just_pressed("zoomin") and $CanvasLayer.visible:
+		if $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical >= min(0, $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.size.y - $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.size.y):
+			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical -= 100
+			return
+			
+
 func _on_timerrestart_timeout():
 	get_parent().set_timer_subnode.rpc("Timerrestart", false)
 	get_parent().starting_game()

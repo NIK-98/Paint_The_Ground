@@ -373,7 +373,8 @@ theme_override_fonts/font = SubResource("SystemFont_fe0qs")
 theme_override_font_sizes/font_size = 42
 
 [node name="zoomin" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(399, 54)
+position = Vector2(392, 128)
+rotation = 3.14159
 scale = Vector2(0.6, 0.6)
 texture_normal = ExtResource("6_w4ify")
 visibility_mode = 1
@@ -389,7 +390,8 @@ theme_override_font_sizes/font_size = 36
 text = "Zoom"
 
 [node name="zoomout" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(323, 54)
+position = Vector2(472, 128)
+rotation = 3.14159
 scale = Vector2(0.6, 0.6)
 texture_normal = ExtResource("7_hdc0h")
 visibility_mode = 1
@@ -445,6 +447,8 @@ theme_override_constants/separation = 35
 
 [node name="name_input" type="LineEdit" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Enter")
+focus_neighbor_bottom = NodePath("../Random")
 theme = SubResource("Theme_lny4d")
 placeholder_text = "Name?"
 alignment = 1
@@ -453,6 +457,8 @@ expand_to_text_length = true
 
 [node name="Random" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../name_input")
+focus_neighbor_bottom = NodePath("../VBoxContainer/npcs")
 theme = SubResource("Theme_4qfo0")
 text = "Zufalls Name"
 
@@ -462,22 +468,30 @@ theme_override_constants/separation = 35
 
 [node name="npcs" type="Button" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../../Random")
+focus_neighbor_bottom = NodePath("../Speed")
 theme = SubResource("Theme_ywke1")
 text = "Solo NPCs: 1"
 
 [node name="Speed" type="Button" parent="loby/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../npcs")
+focus_neighbor_bottom = NodePath("../../settime")
 theme = SubResource("Theme_ywke1")
 text = "Einfach"
 
 [node name="settime" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
+focus_neighbor_top = NodePath("../VBoxContainer/Speed")
+focus_neighbor_bottom = NodePath("../Enter")
 theme = SubResource("Theme_cpsan")
 text = "120 sec."
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../settime")
+focus_neighbor_bottom = NodePath("../name_input")
 theme = SubResource("Theme_b4eyt")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
