@@ -166,15 +166,15 @@ func _on_host_pressed():
 		port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	port = str(port)
 	if not port.is_valid_int():
-		OS.alert("Ist keine richtieger port.")
+		OS.alert("Ist keine richtieger port.", "Server Meldung")
 		get_tree().paused = true
 		return
 	port = port.to_int()
 	var check = peer.create_server(port, Max_clients)
 	if check != OK:
-		OS.alert("Server kann nicht erstellt werden!")
+		OS.alert("Server kann nicht erstellt werden!", "Server Meldung")
 		if port < 1024:
-			OS.alert("Versuchen sie einen port über 1024!")
+			OS.alert("Versuchen sie einen port über 1024!", "Server Meldung")
 		get_tree().paused = true
 		return
 	multiplayer.multiplayer_peer = peer
@@ -200,7 +200,7 @@ func _on_connect_pressed():
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not connectport.is_valid_int():
-		OS.alert("Ist keine richtieger port.")
+		OS.alert("Ist keine richtieger port.", "Server Meldung")
 		block_host = false
 		get_tree().paused = true
 		return
@@ -209,7 +209,7 @@ func _on_connect_pressed():
 	peer.create_client(ip, connectport)
 	multiplayer.multiplayer_peer = peer
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Konnte Multiplayer client nicht starten.")
+		OS.alert("Konnte Multiplayer client nicht starten.", "Server Meldung")
 		block_host = false
 		get_tree().paused = true
 		return
@@ -220,7 +220,7 @@ func _on_connect_pressed():
 		await get_tree().create_timer(1).timeout
 		if i >= 10:
 			block_host = false
-			OS.alert("Verbindung fehlgeschlagen!")
+			OS.alert("Verbindung fehlgeschlagen!", "Server Meldung")
 			$Panel/CenterContainer/Net/Connecting.text = ""
 			get_tree().paused = true
 	if not block_host:

@@ -120,7 +120,7 @@ func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
 	if multiplayer and multiplayer.is_server():
-		OS.alert("Server beendet!")
+		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()
 	if multiplayer:
 		for i in multiplayer.get_peers():
@@ -142,11 +142,11 @@ func _on_enter_pressed():
 		else:
 			vaild_text = true
 	if not vaild_text:
-		OS.alert("Bitte Namen Eingeben und \nlehrzeichen am ende vermeiden!")
+		OS.alert("Bitte Namen Eingeben und \nlehrzeichen am ende vermeiden!", "Server Meldung")
 		return
 	for i in get_parent().get_node("Players").get_children():
 		if i.get_node("Name").text == $CenterContainer/VBoxContainer/name_input.text:
-			OS.alert("Name Exsistiert Schon!")
+			OS.alert("Name Exsistiert Schon!", "Server Meldung")
 			return
 			
 	if $CenterContainer/VBoxContainer/name_input.text != "":

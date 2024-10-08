@@ -129,7 +129,7 @@ func _process(_delta):
 func verbindung_verloren():
 	if multiplayer:
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
-		OS.alert("Multiplayer Server wurde beendet.")
+		OS.alert("Multiplayer Server wurde beendet.", "Server Meldung")
 		wechsel_sceene_wenn_server_disconected()
 		return
 	
@@ -140,7 +140,7 @@ func wechsel_sceene_wenn_server_disconected():
 		
 @rpc("call_local")
 func voll():
-	OS.alert("Server Voll!")
+	OS.alert("Server Voll!", "Server Meldung")
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
@@ -290,7 +290,7 @@ func _input(_event):
 
 func kicked(id, antwort, show_msg: bool):
 	if multiplayer and show_msg:
-		OS.alert(antwort)
+		OS.alert(antwort, "Server Meldung")
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
 	if multiplayer and id in multiplayer.get_peers():
 		multiplayer.multiplayer_peer.disconnect_peer(id)
