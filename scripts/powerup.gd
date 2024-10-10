@@ -25,6 +25,7 @@ func _process(_delta):
 			return
 		
 
+@rpc("any_peer","call_local")
 func aktivate_powerup(player: CharacterBody2D):
 	if powerupid == 0: # doppelter grundspeed
 		var ist_da_index = 0
@@ -66,4 +67,4 @@ func aktivate_powerup(player: CharacterBody2D):
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		explode_pos = area.get_parent().position
-		aktivate_powerup(area.get_parent())
+		aktivate_powerup.rpc(area.get_parent())

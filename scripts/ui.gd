@@ -91,7 +91,7 @@ func _process(_delta):
 			# Reply to valid udp_peer with server IP address example
 			var str_ips = ""
 			for l in IP.get_local_addresses():
-				if (l.split('.').size() == 4) and not l.begins_with("172.") and not l.begins_with("127.") and not l.begins_with("169.254"):
+				if (l.split('.').size() == 4) and (l.begins_with("10.") or check_address_bereich(l,"172",16,31) or l.begins_with("192.168.")):
 					str_ips += str(l,",")
 			udp_peer.put_packet(str_ips.to_ascii_buffer())
 		
@@ -134,7 +134,7 @@ func get_local_ips():
 		for r in ip_list.get_children():
 			r.queue_free()
 		for i in local_address:
-			if (i.split('.').size() == 4) and not i.begins_with("172.") and not i.begins_with("127.") and not i.begins_with("169.254"):
+			if (i.split('.').size() == 4) and (i.begins_with("10.") or check_address_bereich(i,"172",16,31) or i.begins_with("192.168.")):
 				var addr = preload("res://sceens/myip.tscn")
 				var new_addr = addr.instantiate()
 				new_addr.text = str(i)
@@ -143,9 +143,9 @@ func get_local_ips():
 	
 	
 	
-func check_address_bereich(curent_ip: String, anfang: int, ende: int):
-	for i in range(anfang,ende):
-		if curent_ip.begins_with(str("172.",i,".")):
+func check_address_bereich(curent_ip: String, ip_block: String, anfang: int, ende: int):
+	for i in range(anfang,ende+1):
+		if curent_ip.begins_with(str(ip_block,".",i,".")):
 			return true
 	return false
 		
