@@ -69,9 +69,12 @@ func _process(_delta):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""
 	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible:
+		await get_tree().create_timer(0.1).timeout
 		esc_is_pressing = true
 		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		Global.trigger_host_focus = true
 		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+		Global.trigger_host_focus = false
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
 	
@@ -151,6 +154,7 @@ func check_address_bereich(curent_ip: String, ip_block: String, anfang: int, end
 		
 		
 func _on_host_pressed():
+	Global.ui_sound = true
 	get_tree().paused = false
 	if block_host:
 		get_tree().paused = true
@@ -186,6 +190,7 @@ func _on_host_pressed():
 
 		
 func _on_connect_pressed():
+	Global.ui_sound = true
 	get_tree().paused = false
 	if block_host:
 		get_tree().paused = true
@@ -264,9 +269,37 @@ func _input(_event):
 
 
 func _on_host_connect_toggled(toggled_on: bool) -> void:
+	Global.ui_sound = true
 	if toggled_on:
 		$Panel/CenterContainer/Net/Options/Option1.hide()
 		$Panel/CenterContainer/Net/Options/Option2.show()
 	else:
 		$Panel/CenterContainer/Net/Options/Option2.hide()
 		$Panel/CenterContainer/Net/Options/Option1.show()
+
+
+func _on_host_connect_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_host_connect_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_host_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_host_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_connect_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_connect_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true

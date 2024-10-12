@@ -3,7 +3,7 @@ extends Control
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	sounds(Global.hit_sound, Global.powerup_sound, Global.bombe_sound)
+	sounds(Global.hit_sound, Global.powerup_sound, Global.bombe_sound, Global.ui_sound, Global.ui_hover_sound)
 	if Global.music1_sound:
 		if $Music1.playing:
 			$Music1.stop()
@@ -11,7 +11,7 @@ func _process(_delta):
 		Global.music1_sound = false
 	
 
-func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool):
+func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool, ui_sound: bool, ui_hover_sound: bool):
 	if hit_sound:
 		if $hit_sound.playing:
 			$hit_sound.stop()
@@ -27,4 +27,14 @@ func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool):
 			$bombe_sound.stop()
 		$bombe_sound.play()
 		Global.bombe_sound = false
+	if ui_sound:
+		if $ui_sound.playing:
+			$ui_sound.stop()
+		$ui_sound.play()
+		Global.ui_sound = false
+	if ui_hover_sound:
+		if $ui_hover_sound.playing:
+			$ui_hover_sound.stop()
+		$ui_hover_sound.play()
+		Global.ui_hover_sound = false
 	

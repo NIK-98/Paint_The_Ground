@@ -402,7 +402,9 @@ func _on_timerende_timeout():
 	stoped_game()
 	if not OS.has_feature("dedicated_server"):
 		get_node("Scoreboard").update_scoreboard()
+	Global.trigger_host_focus = true
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
+	Global.trigger_host_focus = false
 	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
 	
 	

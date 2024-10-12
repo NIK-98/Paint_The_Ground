@@ -52,9 +52,12 @@ func _ready():
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("exit") and not get_parent().main.get_node("Audio_menu/CanvasLayer").visible:
+		await get_tree().create_timer(0.1).timeout
 		esc_is_pressing_in_game = true
 		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		Global.trigger_host_focus = true
 		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+		Global.trigger_host_focus = false
 		return
 	if visible:
 		visible_loby()
@@ -94,7 +97,6 @@ func update_player_count(positiv: bool):
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		get_tree().paused = true
 		exit("Verbindung Selber beendet!", true)
 		return
 				
@@ -135,6 +137,7 @@ func reset_loby():
 
 	
 func _on_enter_pressed():
+	Global.ui_sound = true
 	var vaild_text = false
 	for i in $CenterContainer/VBoxContainer/name_input.text:
 		if i == " ":
@@ -172,11 +175,13 @@ func update_warten():
 
 
 func _on_random_pressed():
+	Global.ui_sound = true
 	namen.shuffle()
 	$CenterContainer/VBoxContainer/name_input.text = namen.pick_random()
 
 
 func _on_npcs_pressed():
+	Global.ui_sound = true
 	Global.count_npcs += 1
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
@@ -189,6 +194,7 @@ func _on_warten_visibility_changed():
 
 
 func _on_speed_pressed():
+	Global.ui_sound = true
 	if difficulty_id == 0:
 		difficulty.text = "Einfach"
 		Global.speed_npcs = 15
@@ -204,6 +210,7 @@ func _on_speed_pressed():
 
 
 func _on_settime_pressed():
+	Global.ui_sound = true
 	count_settime += 1
 	if count_settime == 1:
 		$CenterContainer/VBoxContainer/settime.text = str(180," sec.")
@@ -215,3 +222,48 @@ func _on_settime_pressed():
 		$CenterContainer/VBoxContainer/settime.text = str(120," sec.")
 		get_parent().get_node("Timer").wait_time = 120
 		count_settime = 0
+
+
+func _on_random_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_random_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_npcs_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_npcs_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_speed_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_speed_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_settime_mouse_entered():
+	Global.ui_hover_sound = true
+	
+	
+func _on_settime_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_enter_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_enter_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true

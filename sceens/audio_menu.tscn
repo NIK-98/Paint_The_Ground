@@ -157,7 +157,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 35
-text = "Gesamtlautstärke"
+text = "Gesamt Lautstärke"
 
 [node name="master" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -175,9 +175,27 @@ max_value = 0.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 35
-text = "Effektlautstärke"
+text = "Effekt Lautstärke"
 
 [node name="effects" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../master")
+focus_neighbor_bottom = NodePath("../music")
+theme = SubResource("Theme_fm43a")
+theme_override_icons/grabber = ExtResource("2_bnt2n")
+theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
+theme_override_icons/grabber_disabled = ExtResource("2_bnt2n")
+theme_override_icons/tick = ExtResource("2_bnt2n")
+min_value = -30.0
+max_value = 0.0
+
+[node name="UI_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "UI Lautstärke"
+
+[node name="UI" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../master")
 focus_neighbor_bottom = NodePath("../music")
@@ -193,7 +211,7 @@ max_value = 0.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 35
-text = "Musiklautstärke"
+text = "Musik Lautstärke"
 
 [node name="music" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -229,8 +247,21 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "Zurück"
 
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_mouse_entered"]
 [connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_value_changed"]
+[connection signal="focus_exited" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_focus_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_mouse_entered"]
 [connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_mouse_entered"]
 [connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_back_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_back_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_back_pressed"]

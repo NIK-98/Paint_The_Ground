@@ -126,6 +126,8 @@ func _on_tap_released():
 			
 			
 func _on_beenden_pressed():
+	Global.ui_sound = true
+	await get_tree().create_timer(0.1).timeout
 	if $CanvasLayer2/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/UI.esc_is_pressing = false
 		if FileAccess.file_exists(save_path):
@@ -140,11 +142,20 @@ func _on_beenden_pressed():
 	
 
 func _on_zurück_pressed():
+	Global.ui_sound = true
 	$CanvasLayer/Menu.visible = false
 	if $CanvasLayer2.visible:
+		Global.trigger_host_focus = true
 		$CanvasLayer2/UI/Panel/CenterContainer/Net/Options/Option1/o1/Host.grab_focus()
+		Global.trigger_host_focus = false
 	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/Scoreboard/CanvasLayer").visible:
+		Global.trigger_host_focus = true
 		get_node("Level/level/Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").grab_focus()
+		Global.trigger_host_focus = false
+	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").visible:
+		Global.trigger_host_focus = true
+		get_node("Level/level/loby/CenterContainer/VBoxContainer/Enter").grab_focus()
+		Global.trigger_host_focus = false
 		
 
 
@@ -160,5 +171,33 @@ func _on_change_pressed():
 
 
 func _on_audio_pressed():
+	Global.ui_sound = true
 	$CanvasLayer/Menu.visible = false
 	Global.trigger_audio_menu = true
+
+
+func _on_audio_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_audio_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_beenden_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_beenden_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_zurück_mouse_entered():
+	Global.ui_hover_sound = true
+	
+
+func _on_zurück_focus_entered():
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true

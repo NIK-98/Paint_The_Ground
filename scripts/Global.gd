@@ -11,8 +11,11 @@ var painting_rad = 2
 var standart_powerup_spawn_time = 10
 var standart_bomben_spawn_time = 5
 var trigger_audio_menu = false
+var trigger_host_focus = false
 
 var music1_sound = false
 var hit_sound = false
 var powerup_sound = false
 var bombe_sound = false
+var ui_sound = false
+var ui_hover_sound = false

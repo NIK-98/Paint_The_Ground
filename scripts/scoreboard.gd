@@ -65,6 +65,7 @@ func _process(_delta):
 
 
 func _on_restart_pressed():
+	Global.ui_sound = true
 	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
@@ -107,3 +108,12 @@ func _input(_event):
 func _on_timerrestart_timeout():
 	get_parent().set_timer_subnode.rpc("Timerrestart", false)
 	get_parent().starting_game()
+
+
+func _on_restart_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_restart_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound= true

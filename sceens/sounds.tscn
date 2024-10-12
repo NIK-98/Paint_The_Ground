@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnccknl6kw5j3"]
+[gd_scene load_steps=7 format=3 uid="uid://cnccknl6kw5j3"]
 
 [ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="1_2t7wr"]
 [ext_resource type="Script" path="res://scripts/sounds.gd" id="1_okjby"]
 [ext_resource type="AudioStream" uid="uid://bt1ompa8o70qe" path="res://assets/sounds/effects/hit.ogg" id="3_vcsxs"]
 [ext_resource type="AudioStream" uid="uid://b24q2ut8ket3l" path="res://assets/sounds/effects/powerup.ogg" id="4_pmq6h"]
 [ext_resource type="AudioStream" uid="uid://b1y2r7s2c31ju" path="res://assets/sounds/effects/bombe.ogg" id="5_iahqh"]
+[ext_resource type="AudioStream" uid="uid://cvw8osh4j0qi6" path="res://assets/sounds/UI/UI.ogg" id="6_imvmc"]
 
 [node name="Sounds" type="Control"]
 process_mode = 3
@@ -32,3 +33,14 @@ bus = &"Effects"
 [node name="bombe_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_iahqh")
 bus = &"Effects"
+
+[node name="ui_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_imvmc")
+volume_db = 5.0
+bus = &"UI"
+
+[node name="ui_hover_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_imvmc")
+volume_db = 5.0
+pitch_scale = 4.0
+bus = &"UI"
