@@ -141,7 +141,7 @@ func sync_hide_win_los_meldung(id):
 func moving():
 	if OS.has_feature("dedicated_server"):
 		return
-	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+	if OS.get_name() == "Android" or OS.get_name() == "IOS":
 		if main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right"):
 			Input.action_press("right")
 		else:

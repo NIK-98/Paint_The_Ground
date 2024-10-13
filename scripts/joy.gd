@@ -16,28 +16,30 @@ func _ready():
 	
 	
 func _input(event):
-	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level").starting:
+	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and not get_parent().get_parent().get_node("Level/level").Time_out and not get_parent().get_parent().get_node("Level/level/loby").visible:
 		if event is InputEventScreenTouch:
-			if event.pressed:
+			if event.is_pressed():
 				var entfernung_stick = abs(joy_start_position-get_global_mouse_position()).length()
 				if entfernung_stick < 500:
 					is_touch = true
 					global_position = get_global_mouse_position()
 				else:
 					global_position = joy_start_position
-			elif not event.pressed:
+			if event.is_released():
 				is_touch = false
 				joystick.position = stick_center
 				global_position = joy_start_position
 				
 
-func _process(_delta):
+func _physics_process(_delta):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0:
-		if get_parent().get_parent().get_node("Level/level").starting:
+		if not get_parent().get_parent().get_node("Level/level").Time_out and not get_parent().get_parent().get_node("Level/level/loby").visible:
 			if OS.get_name() == "Android" or OS.get_name() == "IOS":
 				visible = true
 		elif visible:
 			visible = false
+			is_touch = false
+			joystick.position = stick_center
 			global_position = joy_start_position
 	if is_touch:
 		joystick.global_position = get_global_mouse_position()
@@ -48,4 +50,5 @@ func get_joystick_dir() -> Vector2:
 		var dir = joystick.position - stick_center
 		dir = dir.normalized()
 		return dir
-	return Vector2()
+	else:
+		return Vector2()
