@@ -27,51 +27,81 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Timerbomb:time_left")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Timerwarte:time_left")
+properties/3/path = NodePath("CanvasLayer/Bomb_time:text")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("CanvasLayer/Bomb_time:text")
+properties/4/path = NodePath("CanvasLayer/Time:text")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("CanvasLayer/Time:text")
+properties/5/path = NodePath("loby:visible")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("loby:visible")
+properties/6/path = NodePath("Timerbomb:process_callback")
 properties/6/spawn = true
 properties/6/replication_mode = 1
-properties/7/path = NodePath("Timerwarte:process_callback")
+properties/7/path = NodePath("Timerende:process_callback")
 properties/7/spawn = true
 properties/7/replication_mode = 1
-properties/8/path = NodePath("Timerbomb:process_callback")
+properties/8/path = NodePath("Timer:process_callback")
 properties/8/spawn = true
 properties/8/replication_mode = 1
-properties/9/path = NodePath("Timerende:process_callback")
+properties/9/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:text")
 properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath("Timer:process_callback")
+properties/9/replication_mode = 2
+properties/10/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_colors/font_color")
 properties/10/spawn = true
 properties/10/replication_mode = 1
-properties/11/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:text")
+properties/11/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_font_sizes/font_size")
 properties/11/spawn = true
-properties/11/replication_mode = 2
-properties/12/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_colors/font_color")
+properties/11/replication_mode = 1
+properties/12/path = NodePath("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart:button_pressed")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_font_sizes/font_size")
+properties/13/path = NodePath(".:Time_out")
 properties/13/spawn = true
 properties/13/replication_mode = 1
-properties/14/path = NodePath("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart:button_pressed")
+properties/14/path = NodePath(".:playerlist")
 properties/14/spawn = true
 properties/14/replication_mode = 1
-properties/15/path = NodePath(".:Time_out")
+properties/15/path = NodePath(".:starting")
 properties/15/spawn = true
 properties/15/replication_mode = 1
-properties/16/path = NodePath(".:playerlist")
+properties/16/path = NodePath("CanvasLayer/Time:visible")
 properties/16/spawn = true
 properties/16/replication_mode = 1
-properties/17/path = NodePath(".:starting")
+properties/17/path = NodePath("CanvasLayer/Bomb_time:visible")
 properties/17/spawn = true
 properties/17/replication_mode = 1
+properties/18/path = NodePath("loby/CenterContainer/VBoxContainer/start:button_pressed")
+properties/18/spawn = true
+properties/18/replication_mode = 1
+properties/19/path = NodePath("Timerrestart:wait_time")
+properties/19/spawn = true
+properties/19/replication_mode = 1
+properties/20/path = NodePath("Timerrestart:process_callback")
+properties/20/spawn = true
+properties/20/replication_mode = 1
+properties/21/path = NodePath("Timerpower:wait_time")
+properties/21/spawn = true
+properties/21/replication_mode = 1
+properties/22/path = NodePath("Timerpower:process_callback")
+properties/22/spawn = true
+properties/22/replication_mode = 1
+properties/23/path = NodePath("CanvasLayer/Time:theme_override_colors/font_color")
+properties/23/spawn = true
+properties/23/replication_mode = 1
+properties/24/path = NodePath("CanvasLayer/Bomb_time:theme_override_colors/font_color")
+properties/24/spawn = true
+properties/24/replication_mode = 1
+properties/25/path = NodePath("Werten/CenterContainer/Letzen_sec:text")
+properties/25/spawn = true
+properties/25/replication_mode = 1
+properties/26/path = NodePath("Werten/CenterContainer/Letzen_sec:visible")
+properties/26/spawn = true
+properties/26/replication_mode = 1
+properties/27/path = NodePath("Werten/CenterContainer/Letzen_sec:theme_override_colors/font_color")
+properties/27/spawn = true
+properties/27/replication_mode = 1
 
 [sub_resource type="SystemFont" id="SystemFont_1kkt5"]
 font_names = PackedStringArray("AniMe Matrix - MB_EN")
@@ -504,6 +534,12 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 60
 
+[node name="start" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_b4eyt")
+text = "start"
+
 [node name="Scoreboard" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
@@ -625,8 +661,6 @@ wait_time = 3.0
 [node name="Timerbomb" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="Timerwarte" type="Timer" parent="."]
-
 [node name="Timerrestart" type="Timer" parent="."]
 wait_time = 0.5
 
@@ -649,6 +683,9 @@ wait_time = 10.0
 [connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
+[connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/start" to="loby" method="_on_start_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/start" to="loby" method="_on_start_mouse_entered"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/start" to="loby" method="_on_start_pressed"]
 [connection signal="focus_entered" from="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart" to="Scoreboard" method="_on_restart_focus_entered"]
 [connection signal="mouse_entered" from="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart" to="Scoreboard" method="_on_restart_mouse_entered"]
 [connection signal="timeout" from="Timerrestart" to="Scoreboard" method="_on_timerrestart_timeout"]

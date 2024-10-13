@@ -59,15 +59,6 @@ func _process(_delta):
 		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		Global.trigger_host_focus = false
 		return
-	if visible:
-		visible_loby()
-
-	
-func visible_loby():
-	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible and not hidenloby:
-		if multiplayer.is_server() or is_multiplayer_authority() or OS.has_feature("dedicated_server"):
-			set_hidelobyvar.rpc()
-			get_parent().get_node("Timerwarte").start()
 	
 	
 @rpc("any_peer","call_local")
@@ -108,11 +99,11 @@ func server_exit():
 	get_parent().get_node("Timer").stop()
 	get_parent().get_node("Timerende").stop()
 	get_parent().get_node("Timerbomb").stop()
-	get_parent().get_node("Timerwarte").stop()
+	get_parent().get_node("Timerpower").stop()
 	get_parent().get_node("Timer").disconnect("timeout", get_parent()._on_timer_timeout.rpc)
 	get_parent().get_node("Timerende").disconnect("timeout", get_parent()._on_timerende_timeout.rpc)
-	get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout)
-	get_parent().get_node("Timerwarte").disconnect("timeout", get_parent()._on_timerwarte_timeout.rpc)
+	get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout.rpc)
+	get_parent().get_node("Timerpower").disconnect("timeout", get_parent()._on_timerpower_timeout.rpc)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
@@ -155,6 +146,9 @@ func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
+		Global.trigger_host_focus = true
+		$CenterContainer/VBoxContainer/start.grab_focus()
+		Global.trigger_host_focus = false
 		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
@@ -172,6 +166,8 @@ func _on_enter_pressed():
 @rpc("any_peer","call_local")
 func update_warten():
 	$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
+		$CenterContainer/VBoxContainer/start.visible = true
 
 
 func _on_random_pressed():
@@ -265,5 +261,44 @@ func _on_enter_mouse_entered():
 
 
 func _on_enter_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_start_pressed():
+	Global.ui_sound = true
+	if player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
+		exit("Kein Mitspieler auf dem Server Gefunden!", true)
+		return
+	if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
+		exit("Kein Mitspieler auf dem Server Gefunden!", true)
+		return
+	get_parent().reset_vars_level()
+	get_parent().wertungs_anzeige_aktivieren.rpc()
+	get_parent().reset_bomben()
+	get_parent().set_timer_subnode.rpc("Timer", true)
+	get_parent().set_timer_subnode.rpc("Timerbomb", true)
+	get_parent().set_timer_subnode.rpc("Timerpower", true)
+	get_parent().set_timer_subnode.rpc("Timerrestart", true)
+	get_parent().main.get_node("CanvasLayer/joy").visible = true
+	get_parent().main.get_node("CanvasLayer/change").visible = true
+	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
+	set_visiblity.rpc(str(name), false)
+	
+@rpc("any_peer","call_local")
+func set_visiblity(nodepath: String, mode: bool):
+	var obj = get_parent().get_node(nodepath)
+	if obj:
+		if mode:
+			obj.visible = mode
+		else:	
+			obj.visible = mode
+
+
+func _on_start_mouse_entered() -> void:
+	Global.ui_hover_sound = true
+
+
+func _on_start_focus_entered() -> void:
 	if not Global.trigger_host_focus:
 		Global.ui_hover_sound = true

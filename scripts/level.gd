@@ -102,9 +102,8 @@ func _process(_delta):
 		loaded = true
 		$Timer.connect("timeout", _on_timer_timeout.rpc)
 		$Timerende.connect("timeout", _on_timerende_timeout.rpc)
-		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
-		$Timerpower.connect("timeout", _on_timerpower_timeout)
-		$Timerwarte.connect("timeout", _on_timerwarte_timeout.rpc)
+		$Timerbomb.connect("timeout", _on_timerbomb_timeout.rpc)
+		$Timerpower.connect("timeout", _on_timerpower_timeout.rpc)
 
 
 		
@@ -376,6 +375,7 @@ func set_timer_subnode(nodepath: String, mode: bool):
 				obj.stop()
 	
 
+@rpc("any_peer","call_local")
 func _on_timerbomb_timeout():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_bombe()
@@ -385,6 +385,7 @@ func _on_timerbomb_timeout():
 		return
 		
 
+@rpc("any_peer","call_local")
 func _on_timerpower_timeout():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_powerup()
@@ -406,30 +407,6 @@ func _on_timerende_timeout():
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
 	Global.trigger_host_focus = false
 	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
-	
-	
-	
-
-@rpc("any_peer","call_local")
-func _on_timerwarte_timeout():
-	set_timer_subnode.rpc("Timerwarte", false)
-	if $loby.player_conect_count <= 1 and not $Players.has_node("2") and not OS.has_feature("dedicated_server"):
-		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
-		return
-	if $loby.player_conect_count <= 1 and OS.has_feature("dedicated_server"):
-		$loby.exit("Kein Mitspieler auf dem Server Gefunden!", true)
-		return
-	reset_vars_level()
-	$loby.visible = false
-	wertungs_anzeige_aktivieren()
-	$loby/CenterContainer/VBoxContainer/Warten.visible = false
-	reset_bomben()
-	reset_powerup()
-	set_timer_subnode.rpc("Timer", true)
-	set_timer_subnode.rpc("Timerbomb", true)
-	set_timer_subnode.rpc("Timerpower", true)
-	starting_game()
-	main.get_node("CanvasLayer2/UI").game_started = true
 
 
 func _on_zoomin_pressed() -> void:
