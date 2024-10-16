@@ -96,14 +96,16 @@ func _notification(what):
 func server_exit():
 	multiplayer.peer_connected.disconnect(get_parent().add_player)
 	multiplayer.peer_disconnected.disconnect(get_parent().del_player)
-	get_parent().get_node("Timer").stop()
-	get_parent().get_node("Timerende").stop()
-	get_parent().get_node("Timerbomb").stop()
-	get_parent().get_node("Timerpower").stop()
-	get_parent().get_node("Timer").disconnect("timeout", get_parent()._on_timer_timeout.rpc)
-	get_parent().get_node("Timerende").disconnect("timeout", get_parent()._on_timerende_timeout.rpc)
-	get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout.rpc)
-	get_parent().get_node("Timerpower").disconnect("timeout", get_parent()._on_timerpower_timeout.rpc)
+	if (multiplayer.is_server() or OS.has_feature("dedicated_server")):
+		get_parent().get_node("Timer").stop()
+		get_parent().get_node("Timerende").stop()
+		get_parent().get_node("Timerbomb").stop()
+		get_parent().get_node("Timerpower").stop()
+		get_parent().get_node("Timer").disconnect("timeout", get_parent()._on_timer_timeout)
+		get_parent().get_node("Timerende").disconnect("timeout", get_parent()._on_timerende_timeout)
+		get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout)
+		get_parent().get_node("Timerpower").disconnect("timeout", get_parent()._on_timerpower_timeout)
+		get_parent().get_node("Timerrestart").disconnect("timeout", get_parent().get_node("Scoreboard")._on_timerrestart_timeout)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
@@ -146,9 +148,6 @@ func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
-		Global.trigger_host_focus = true
-		$CenterContainer/VBoxContainer/start.grab_focus()
-		Global.trigger_host_focus = false
 		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
@@ -156,6 +155,9 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		update_warten.rpc()
+		Global.trigger_host_focus = true
+		$CenterContainer/VBoxContainer/start.grab_focus()
+		Global.trigger_host_focus = false
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/VBoxContainer/name_input.text)
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
@@ -276,14 +278,12 @@ func _on_start_pressed():
 	get_parent().reset_vars_level()
 	get_parent().wertungs_anzeige_aktivieren.rpc()
 	get_parent().reset_bomben()
-	get_parent().set_timer_subnode.rpc("Timer", true)
-	get_parent().set_timer_subnode.rpc("Timerbomb", true)
-	get_parent().set_timer_subnode.rpc("Timerpower", true)
-	get_parent().set_timer_subnode.rpc("Timerrestart", true)
-	get_parent().main.get_node("CanvasLayer/joy").visible = true
+	get_parent().game_starting_timers.rpc_id(1)
+	get_parent().game_restart_timer_start.rpc_id(1)
 	get_parent().main.get_node("CanvasLayer/change").visible = true
 	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
 	set_visiblity.rpc(str(name), false)
+	
 	
 @rpc("any_peer","call_local")
 func set_visiblity(nodepath: String, mode: bool):

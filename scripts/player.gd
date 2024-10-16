@@ -58,14 +58,13 @@ func _physics_process(_delta):
 		score_counter.rpc()
 	
 	
-	if get_parent().get_parent().starting:
+	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
 			paint.rpc()
 			score_counter.rpc()
-			Check_Time_Visible.rpc()
-		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
+		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
 				moving()
 				if position.x < get_node("Color").size.x:
@@ -105,7 +104,7 @@ func _physics_process(_delta):
 					$slow_color.visible = false
 					
 					
-		elif level.Time_out and not ende:
+		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
 			ende = true
 			main.get_node("CanvasLayer/change").visible = false
 			for c in $powertimers.get_children():
@@ -158,14 +157,6 @@ func moving():
 			Input.action_press("up")
 		else:
 			Input.action_release("up")
-			
-	
-@rpc("any_peer","call_local")
-func Check_Time_Visible():
-	for i in level.get_node("CanvasLayer").get_children():
-		if i.is_in_group("time"):
-			if not i.visible:
-				i.visible = true
 				
 
 func _input(event):

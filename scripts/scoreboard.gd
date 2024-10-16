@@ -34,7 +34,6 @@ func sync_list(NewScoreEintrag: Array):
 		get_node(name_feld).text = Scoreboard_List[eintrag][1]
 
 
-	
 func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
@@ -55,7 +54,6 @@ func update_scoreboard():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if not loaded:
-		update_scoreboard()
 		loaded = true
 	
 	if Input.is_action_pressed("right") and $CanvasLayer.visible:
@@ -75,13 +73,11 @@ func _on_restart_pressed():
 	get_parent().reset_vars_level()
 	get_parent().wertungs_anzeige_aktivieren.rpc()
 	get_parent().reset_bomben()
-	get_parent().set_timer_subnode.rpc("Timer", true)
-	get_parent().set_timer_subnode.rpc("Timerbomb", true)
-	get_parent().set_timer_subnode.rpc("Timerpower", true)
-	get_parent().set_timer_subnode.rpc("Timerrestart", true)
-	get_parent().main.get_node("CanvasLayer/joy").visible = true
+	get_parent().game_starting_timers.rpc_id(1)
+	get_parent().game_restart_timer_start.rpc_id(1)
 	get_parent().main.get_node("CanvasLayer/change").visible = true
 	set_visible_false.rpc("CanvasLayer", false)
+	
 	
 	
 @rpc("any_peer","call_local")
@@ -106,9 +102,20 @@ func _input(_event):
 			
 
 func _on_timerrestart_timeout():
-	get_parent().set_timer_subnode.rpc("Timerrestart", false)
-	get_parent().starting_game()
+	restart.rpc()
 
+
+@rpc("any_peer","call_local")
+func restart():
+	get_parent().game_restart_timer_stop.rpc_id(1)
+	set_visible_false.rpc("../CanvasLayer/Time", true)
+	set_visible_false.rpc("../CanvasLayer/Bomb_time", true)
+	if (multiplayer.is_server() or OS.has_feature("dedicated_server")):
+		if not get_parent().get_node("Timerbomb").is_stopped():
+			get_parent().update_bombtime.rpc(get_parent().get_node("Timerbomb").time_left)
+		if not get_parent().get_node("Timer").is_stopped():
+			get_parent().update_time.rpc(get_parent().get_node("Timer").time_left)
+	
 
 func _on_restart_mouse_entered():
 	Global.ui_hover_sound = true

@@ -16,7 +16,7 @@ func _ready():
 	
 	
 func _input(event):
-	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and not get_parent().get_parent().get_node("Level/level").Time_out and not get_parent().get_parent().get_node("Level/level/loby").visible:
+	if get_parent().get_parent().get_node("Level").get_child_count() > 0 and get_parent().get_parent().get_node("Level/level/CanvasLayer/Time").text.to_int() > 0 and not get_parent().get_parent().get_node("Level/level/loby").visible:
 		if event is InputEventScreenTouch:
 			if event.is_pressed():
 				var entfernung_stick = abs(joy_start_position-get_global_mouse_position()).length()
@@ -33,7 +33,7 @@ func _input(event):
 
 func _physics_process(_delta):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0:
-		if not get_parent().get_parent().get_node("Level/level").Time_out and not get_parent().get_parent().get_node("Level/level/loby").visible:
+		if get_parent().get_parent().get_node("Level/level/CanvasLayer/Time").text.to_int() > 0 and not get_parent().get_parent().get_node("Level/level/loby").visible:
 			if OS.get_name() == "Android" or OS.get_name() == "IOS":
 				visible = true
 		elif visible:

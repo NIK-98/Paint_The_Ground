@@ -45,16 +45,15 @@ func _physics_process(delta):
 		paint()
 		score_counter()
 	
-	if get_parent().get_parent().starting:
+	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map.reset_floor()
 			paint()
 			score_counter()
-			Check_Time_Visible()
 			level.get_node("Timer").start()
 			level.get_node("Timerbomb").start()
-		if level.get_node("CanvasLayer/Time").visible and not level.Time_out:
+		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			time_last_change += delta
 			if time_last_change >= direction_change_interval:
 				time_last_change = 0
@@ -98,7 +97,7 @@ func _physics_process(delta):
 						$TimerresetSPEED.stop()
 					$slow_color.visible = false
 					
-		elif level.Time_out and not ende:
+		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
 			ende = true
 			for c in $powertimers.get_children():
 				c.stop()
@@ -153,13 +152,6 @@ func score_counter():
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon_npc(powerups)
-		
-
-func Check_Time_Visible():
-	for i in level.get_node("CanvasLayer").get_children():
-		if i.is_in_group("time"):
-			if not i.visible:
-				i.visible = true
 
 
 func move_npc():
