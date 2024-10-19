@@ -93,7 +93,7 @@ func _process(_delta):
 			)
 			# Reply to valid udp_peer with server IP address example
 			var str_ips = ""
-			for l in IP.get_local_addresses():
+			for l in local_address:
 				if (l.split('.').size() == 4) and (l.begins_with("10.") or check_address_bereich(l,"172",16,31) or l.begins_with("192.168.")):
 					str_ips += str(l,",")
 			udp_peer.put_packet(str_ips.to_ascii_buffer())
@@ -132,16 +132,23 @@ func check_ip(str_liste: String):
 
 
 func get_local_ips():
-	if IP.get_local_addresses() != local_address:
-		local_address = IP.get_local_addresses()
-		for r in ip_list.get_children():
-			r.queue_free()
-		for i in local_address:
-			if (i.split('.').size() == 4) and (i.begins_with("10.") or check_address_bereich(i,"172",16,31) or i.begins_with("192.168.")):
-				var addr = preload("res://sceens/myip.tscn")
-				var new_addr = addr.instantiate()
-				new_addr.text = str(i)
-				ip_list.add_child(new_addr)
+	var interfaces = IP.get_local_interfaces()
+	local_address = []
+	for iface in interfaces:
+		if ((OS.get_name() == "linux" or OS.get_name() == "Android" or OS.get_name() == "IOS") and not iface["name"].begins_with("lo")) or ((OS.get_name() == "Windows") and not iface["friendly"].begins_with("v")):
+			var addr = iface["addresses"]
+			for a in addr:
+				local_address.append(a)
+
+		
+	for r in ip_list.get_children():
+		r.queue_free()
+	for i in local_address:
+		if (i.split('.').size() == 4) and (i.begins_with("10.") or check_address_bereich(i,"172",16,31) or i.begins_with("192.168.")):
+			var addr = preload("res://sceens/myip.tscn")
+			var new_addr = addr.instantiate()
+			new_addr.text = str(i)
+			ip_list.add_child(new_addr)
 		
 	
 	
