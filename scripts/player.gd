@@ -54,6 +54,7 @@ func _physics_process(_delta):
 		loaded = true
 		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 		sync_hide_win_los_meldung.rpc(name.to_int())
+		map.reset_floor()
 		paint.rpc()
 		score_counter.rpc()
 	
@@ -61,6 +62,7 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
+			map.reset_floor()
 			paint.rpc()
 			score_counter.rpc()
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
