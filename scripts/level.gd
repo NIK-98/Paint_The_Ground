@@ -104,10 +104,11 @@ func _process(_delta):
 		$Timerende.connect("timeout", _on_timerende_timeout)
 		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
-		$Timerrestart.connect("timeout", $Scoreboard._on_timerrestart_timeout)
-
-
-		
+		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
+		set_process(false)
+	
+	
+func _physics_process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -194,7 +195,6 @@ func del_text_tap(id: int):
 			
 			
 
-@rpc("any_peer","call_local")
 func reset_bomben():
 	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
@@ -213,7 +213,6 @@ func spawn_new_bombe():
 		Bomben.add_child(new_bombe, true)
 		
 
-@rpc("any_peer","call_local")
 func reset_powerup():
 	for c in range(power_up.get_child_count()):
 		if power_up.get_child(c).is_in_group("power"):
@@ -439,6 +438,15 @@ func _on_timerende_timeout():
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
 	Global.trigger_host_focus = false
 	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
+	
+
+func _on_timerrestart_timeout():
+	game_restart_timer_stop()
+	game_starting_timers()
+	$CanvasLayer/Time.visible = true
+	$CanvasLayer/Bomb_time.visible = true
+	$CanvasLayer/start_in.visible = false
+	game_update()
 
 
 func _on_zoomin_pressed() -> void:

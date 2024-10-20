@@ -61,7 +61,6 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			map.reset_floor()
 			paint.rpc()
 			score_counter.rpc()
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:

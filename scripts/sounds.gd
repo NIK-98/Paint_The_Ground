@@ -2,7 +2,7 @@ extends Control
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _physics_process(_delta):
 	sounds(Global.hit_sound, Global.powerup_sound, Global.bombe_sound, Global.ui_sound, Global.ui_hover_sound)
 	if Global.music1_sound:
 		if $Music1.playing:

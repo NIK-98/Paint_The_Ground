@@ -31,9 +31,6 @@ var namen = ["Levi","Emil","Liam","Anton","Theo",
 			 "Elisabeth","Katharina","Elsa","Emily","Marla",
 			 "Malou","Elisa"
 			]
-
-	
-var esc_is_pressing_in_game = false
 	
 	
 func _ready():
@@ -48,17 +45,6 @@ func _ready():
 	if multiplayer.is_server():
 		$CenterContainer/VBoxContainer/settime.visible = true
 		$CenterContainer/VBoxContainer/settime.connect("pressed",_on_settime_pressed)
-
-		
-func _process(_delta):
-	if Input.is_action_just_pressed("exit") and not get_parent().main.get_node("Audio_menu/CanvasLayer").visible:
-		await get_tree().create_timer(0.1).timeout
-		esc_is_pressing_in_game = true
-		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-		Global.trigger_host_focus = true
-		get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-		Global.trigger_host_focus = false
-		return
 	
 	
 @rpc("any_peer","call_local")
@@ -96,16 +82,6 @@ func _notification(what):
 func server_exit():
 	multiplayer.peer_connected.disconnect(get_parent().add_player)
 	multiplayer.peer_disconnected.disconnect(get_parent().del_player)
-	if (multiplayer.is_server() or OS.has_feature("dedicated_server")):
-		get_parent().get_node("Timer").stop()
-		get_parent().get_node("Timerende").stop()
-		get_parent().get_node("Timerbomb").stop()
-		get_parent().get_node("Timerpower").stop()
-		get_parent().get_node("Timer").disconnect("timeout", get_parent()._on_timer_timeout)
-		get_parent().get_node("Timerende").disconnect("timeout", get_parent()._on_timerende_timeout)
-		get_parent().get_node("Timerbomb").disconnect("timeout", get_parent()._on_timerbomb_timeout)
-		get_parent().get_node("Timerpower").disconnect("timeout", get_parent()._on_timerpower_timeout)
-		get_parent().get_node("Timerrestart").disconnect("timeout", get_parent().get_node("Scoreboard")._on_timerrestart_timeout)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()

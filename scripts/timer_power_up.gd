@@ -31,7 +31,8 @@ func _exit_tree():
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(Player.name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).clear_icon.rpc(Player.powerups)
+		if multiplayer.has_multiplayer_peer():
+			level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).clear_icon.rpc(Player.powerups)
 		
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(Player.name)) and Player.get_parent().has_node("2"):

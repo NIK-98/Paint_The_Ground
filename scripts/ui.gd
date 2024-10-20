@@ -64,7 +64,10 @@ func _process(_delta):
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
 		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = port
+		set_process(false)
 		
+
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("cancel"):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""

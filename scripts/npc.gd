@@ -48,11 +48,8 @@ func _physics_process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			map.reset_floor()
 			paint()
 			score_counter()
-			level.get_node("Timer").start()
-			level.get_node("Timerbomb").start()
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			time_last_change += delta
 			if time_last_change >= direction_change_interval:

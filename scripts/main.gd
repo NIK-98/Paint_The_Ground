@@ -134,8 +134,8 @@ func _on_beenden_pressed():
 			DirAccess.remove_absolute(save_path)
 		get_tree().quit()
 		return
-	if multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby").esc_is_pressing_in_game:
-		get_node("Level/level/loby").esc_is_pressing_in_game = false
+	if multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and Global.esc_is_pressing_in_game:
+		Global.esc_is_pressing_in_game = false
 		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		
 	$CanvasLayer/Menu.visible = false
@@ -205,3 +205,14 @@ func _on_zurück_mouse_entered():
 func _on_zurück_focus_entered():
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Global.ui_hover_sound = true
+		
+
+func _input(_event):
+	if Input.is_action_just_pressed("exit") and not get_node("Audio_menu/CanvasLayer").visible:
+		await get_tree().create_timer(0.1).timeout
+		Global.esc_is_pressing_in_game = true
+		get_node("CanvasLayer/Menu").visible = true
+		Global.trigger_host_focus = true
+		get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+		Global.trigger_host_focus = false
+		return

@@ -18,7 +18,7 @@ func _ready():
 		$Sprite2D.texture = load("res://assets/powerups/protect.png")
 		
 
-func _process(_delta):
+func _physics_process(_delta):
 	if explode_pos != null:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			queue_free()

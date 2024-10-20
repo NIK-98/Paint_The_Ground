@@ -38,16 +38,10 @@ func _ready():
 	$CanvasLayer.visible = false
 	
 
-func _process(_delta):
-	if Global.trigger_audio_menu:
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back.grab_focus()
-		Global.trigger_audio_menu = false
-		$CanvasLayer.visible = true
-		
-		
+func _process(_delta):	
 	if not loaded:
-		name = "Audio_menu"
 		loaded = true
+		name = "Audio_menu"
 		master.value = master_volume
 		AudioServer.set_bus_volume_db(master_bus, master.value)
 		effects.value = effects_volume
@@ -57,7 +51,13 @@ func _process(_delta):
 		music.value = music_volume
 		AudioServer.set_bus_volume_db(music_bus, music.value)
 		Global.music1_sound = true
-		
+		set_process(false)
+	
+func _physics_process(_delta):
+	if Global.trigger_audio_menu:
+		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back.grab_focus()
+		Global.trigger_audio_menu = false
+		$CanvasLayer.visible = true	
 		
 func _on_master_value_changed(value):
 	master_volume = master.value

@@ -99,15 +99,6 @@ func _input(_event):
 		if $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical >= min(0, $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.size.y - $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.size.y):
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical -= 100
 			return
-			
-
-func _on_timerrestart_timeout():
-	get_parent().game_restart_timer_stop.rpc()
-	get_parent().game_starting_timers.rpc()
-	set_visible_false.rpc("../CanvasLayer/Time", true)
-	set_visible_false.rpc("../CanvasLayer/Bomb_time", true)
-	set_visible_false.rpc("../CanvasLayer/start_in", false)
-	get_parent().game_update()
 	
 
 func _on_restart_mouse_entered():
