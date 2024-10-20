@@ -106,7 +106,6 @@ func _physics_process(delta):
 				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 					return
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
-			level.get_node("Timerende").start()
 			
 
 func color_change():

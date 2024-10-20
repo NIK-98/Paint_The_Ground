@@ -34,6 +34,7 @@ func sync_list(NewScoreEintrag: Array):
 		get_node(name_feld).text = Scoreboard_List[eintrag][1]
 
 
+@rpc("any_peer","call_local")
 func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
@@ -51,7 +52,7 @@ func update_scoreboard():
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).reset_player_vars()
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+		
 func _process(_delta):
 	if not loaded:
 		loaded = true
@@ -70,12 +71,11 @@ func _on_restart_pressed():
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	get_parent().reset_vars_level()
+	get_parent().reset_vars_level.rpc()
 	get_parent().wertungs_anzeige_aktivieren.rpc()
-	get_parent().reset_bomben()
-	get_parent().game_starting_timers.rpc_id(1)
-	get_parent().game_restart_timer_start.rpc_id(1)
+	get_parent().game_restart_timer_start.rpc()
 	get_parent().main.get_node("CanvasLayer/change").visible = true
+	set_visible_false.rpc("../CanvasLayer/start_in", true)
 	set_visible_false.rpc("CanvasLayer", false)
 	
 	
@@ -102,19 +102,12 @@ func _input(_event):
 			
 
 func _on_timerrestart_timeout():
-	restart.rpc()
-
-
-@rpc("any_peer","call_local")
-func restart():
-	get_parent().game_restart_timer_stop.rpc_id(1)
+	get_parent().game_restart_timer_stop.rpc()
+	get_parent().game_starting_timers.rpc()
 	set_visible_false.rpc("../CanvasLayer/Time", true)
 	set_visible_false.rpc("../CanvasLayer/Bomb_time", true)
-	if (multiplayer.is_server() or OS.has_feature("dedicated_server")):
-		if not get_parent().get_node("Timerbomb").is_stopped():
-			get_parent().update_bombtime.rpc(get_parent().get_node("Timerbomb").time_left)
-		if not get_parent().get_node("Timer").is_stopped():
-			get_parent().update_time.rpc(get_parent().get_node("Timer").time_left)
+	set_visible_false.rpc("../CanvasLayer/start_in", false)
+	get_parent().game_update()
 	
 
 func _on_restart_mouse_entered():

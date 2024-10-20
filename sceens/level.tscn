@@ -17,56 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bktx8"]
-properties/0/path = NodePath("CanvasLayer/Bomb_time:text")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("CanvasLayer/Time:text")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("loby:visible")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:text")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_colors/font_color")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_font_sizes/font_size")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath(".:playerlist")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath("CanvasLayer/Time:visible")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath("CanvasLayer/Bomb_time:visible")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath("CanvasLayer/Time:theme_override_colors/font_color")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath("CanvasLayer/Bomb_time:theme_override_colors/font_color")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath("Werten/CenterContainer/Letzen_sec:text")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath("Werten/CenterContainer/Letzen_sec:visible")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath("Werten/CenterContainer/Letzen_sec:theme_override_colors/font_color")
-properties/13/spawn = true
-properties/13/replication_mode = 1
-properties/14/path = NodePath("loby/CenterContainer/VBoxContainer/start:button_pressed")
-properties/14/spawn = true
-properties/14/replication_mode = 1
-properties/15/path = NodePath("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart:button_pressed")
-properties/15/spawn = true
-properties/15/replication_mode = 1
-
 [sub_resource type="SystemFont" id="SystemFont_1kkt5"]
 font_names = PackedStringArray("AniMe Matrix - MB_EN")
 
@@ -235,6 +185,71 @@ font_color = Color(0.0156863, 0.0784314, 1, 1)
 outline_size = 25
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_p5trk"]
+properties/0/path = NodePath("CanvasLayer/Time:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CanvasLayer/Time:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CanvasLayer/Time:theme_override_colors/font_color")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("CanvasLayer/Bomb_time:text")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("CanvasLayer/Bomb_time:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("CanvasLayer/Bomb_time:theme_override_colors/font_color")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("loby:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:text")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("loby/CenterContainer/VBoxContainer/Warten:theme_override_colors/font_color")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath(".:playerlist")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath("Werten/CenterContainer/Letzen_sec:text")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath("Werten/CenterContainer/Letzen_sec:visible")
+properties/12/spawn = true
+properties/12/replication_mode = 1
+properties/13/path = NodePath("Werten/CenterContainer/Letzen_sec:theme_override_colors/font_color")
+properties/13/spawn = true
+properties/13/replication_mode = 1
+properties/14/path = NodePath("loby/CenterContainer/VBoxContainer/start:visible")
+properties/14/spawn = true
+properties/14/replication_mode = 1
+properties/15/path = NodePath(".:time")
+properties/15/spawn = true
+properties/15/replication_mode = 1
+properties/16/path = NodePath(".:bomb_time")
+properties/16/spawn = true
+properties/16/replication_mode = 1
+properties/17/path = NodePath("CanvasLayer/start_in:text")
+properties/17/spawn = true
+properties/17/replication_mode = 1
+properties/18/path = NodePath("CanvasLayer/start_in:visible")
+properties/18/spawn = true
+properties/18/replication_mode = 1
+properties/19/path = NodePath("CanvasLayer/start_in:theme_override_colors/font_color")
+properties/19/spawn = true
+properties/19/replication_mode = 1
+properties/20/path = NodePath(".:start_time")
+properties/20/spawn = true
+properties/20/replication_mode = 1
+
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
 player_sceen = ExtResource("2_yu47c")
@@ -243,9 +258,6 @@ powericons = ExtResource("4_76kf3")
 score_visual = ExtResource("4_682dc")
 name_label = ExtResource("4_jptae")
 powerup = ExtResource("6_eeewr")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_bktx8")
 
 [node name="floor" parent="." instance=ExtResource("5_h5l3x")]
 
@@ -365,6 +377,20 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 15
 theme_override_fonts/font = SubResource("SystemFont_fe0qs")
 theme_override_font_sizes/font_size = 42
+
+[node name="start_in" type="Label" parent="CanvasLayer" groups=["time"]]
+visible = false
+offset_left = 95.0
+offset_top = 336.0
+offset_right = 1210.0
+offset_bottom = 464.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = SubResource("SystemFont_1kkt5")
+theme_override_font_sizes/font_size = 106
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="zoomin" type="TouchScreenButton" parent="CanvasLayer"]
 position = Vector2(392, 128)
@@ -626,10 +652,13 @@ wait_time = 3.0
 wait_time = 5.0
 
 [node name="Timerrestart" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 3.0
 
 [node name="Timerpower" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_p5trk")
 
 [connection signal="pressed" from="CanvasLayer/zoomin" to="." method="_on_zoomin_pressed"]
 [connection signal="pressed" from="CanvasLayer/zoomout" to="." method="_on_zoomout_pressed"]

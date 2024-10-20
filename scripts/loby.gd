@@ -275,12 +275,11 @@ func _on_start_pressed():
 	if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	get_parent().reset_vars_level()
+	get_parent().reset_vars_level.rpc()
 	get_parent().wertungs_anzeige_aktivieren.rpc()
-	get_parent().reset_bomben()
-	get_parent().game_starting_timers.rpc_id(1)
-	get_parent().game_restart_timer_start.rpc_id(1)
+	get_parent().game_restart_timer_start.rpc()
 	get_parent().main.get_node("CanvasLayer/change").visible = true
+	set_visiblity.rpc("CanvasLayer/start_in", true)
 	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
 	set_visiblity.rpc(str(name), false)
 	

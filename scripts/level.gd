@@ -27,6 +27,9 @@ var blocked = false
 var block_cells = []
 var last_runde = false
 
+@export var time = 0.0
+@export var bomb_time = 0.0
+@export var start_time = 0.0
 
 @export var playerlist = []
 
@@ -44,7 +47,6 @@ func _ready():
 	$Timerpower.wait_time = power_up_spawn_time
 	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 	main.get_node("CanvasLayer/Back").visible = false
-	
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
 		return
@@ -95,7 +97,7 @@ func is_server_run_game():
 	
 	
 	
-func _physics_process(_delta):
+func _process(_delta):
 	if not loaded and not get_tree().paused and (multiplayer.is_server() or OS.has_feature("dedicated_server")):
 		loaded = true
 		$Timer.connect("timeout", _on_timer_timeout)
@@ -109,31 +111,36 @@ func _physics_process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
-	if (multiplayer.is_server() or OS.has_feature("dedicated_server")):
-		if not $Timerbomb.is_stopped():
-			update_bombtime.rpc($Timerbomb.time_left)
-		if not $Timer.is_stopped():
-			update_time.rpc($Timer.time_left)
-	if not $Timer.is_stopped():
-		if $Timer.time_left <= 30 and not last_runde:
+	game_update()
+	
+	
+func game_update():
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		time = $Timer.time_left
+		bomb_time = $Timerbomb.time_left
+		start_time = $Timerrestart.time_left
+		if not $Timer.is_stopped() and time <= 30 and not last_runde:
 			last_runde = true
-			$Werten/CenterContainer/Letzen_sec.visible = true
-			$CanvasLayer/Time.set("theme_override_colors/font_color",Color.CRIMSON)
-			$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
-			power_up_spawn_time = 5
-			$Timerbomb.wait_time = 3
-			await get_tree().create_timer(2).timeout
-			$Werten/CenterContainer/Letzen_sec.visible = false
-			
+			update_lastrund.rpc()
+		update_timer_texte.rpc(time, bomb_time, start_time)
+		
+		
+@rpc("any_peer","call_local")
+func update_timer_texte(t, t_bomb, t_start):
+	$CanvasLayer/Time.text = str(round(t))
+	$CanvasLayer/Bomb_time.text = str(round(t_bomb), " sec. bis zur nächsten Bomben verteilung!")
+	$CanvasLayer/start_in.text = str("Start in ", round(t_start), " Sec.")
 
+			
 @rpc("any_peer","call_local")
-func update_time(time):
-	$CanvasLayer/Time.text = str(round(time))
-		
-		
-@rpc("any_peer","call_local")
-func update_bombtime(time):
-	$CanvasLayer/Bomb_time.text = str(round(time), " sec. bis zur nächsten Bomben verteilung!")
+func update_lastrund():
+	$Werten/CenterContainer/Letzen_sec.visible = true
+	$CanvasLayer/Time.set("theme_override_colors/font_color",Color.CRIMSON)
+	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
+	power_up_spawn_time = 5
+	$Timerbomb.wait_time = 3
+	await get_tree().create_timer(2).timeout
+	$Werten/CenterContainer/Letzen_sec.visible = false
 		
 		
 func verbindung_verloren():
@@ -329,21 +336,19 @@ func cell_blocker(block: bool, id: int):
 		
 		
 func _on_timer_timeout():
-	game_ende.rpc()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		reset_powerup()
+		reset_bomben()
+		map.reset_floor()
+	game_stoping_timers.rpc()
+	game_end_timer_start.rpc()
+	reset_vars_level.rpc()
 	
+
 
 @rpc("any_peer","call_local")
-func game_ende():
-	game_stoping_timers.rpc_id(1)
-	game_end_timer_start.rpc_id(1)
-	reset_vars_level()
-	
-
 func reset_vars_level():
 	main.get_node("CanvasLayer2/UI").visible = false
-	map.reset_floor()
-	reset_powerup()
-	reset_bomben()
 	
 	
 	
@@ -367,44 +372,45 @@ func stoped_game():
 
 @rpc("any_peer","call_local")
 func game_starting_timers():
-	$Timer.start()
-	$Timerbomb.start()
-	$Timerpower.start()
-	
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$Timer.start()
+		$Timerbomb.start()
+		$Timerpower.start()
+		
 	
 @rpc("any_peer","call_local")
 func game_stoping_timers():
-	$Timer.stop()
-	$Timerbomb.stop()
-	$Timerpower.stop()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$Timer.stop()
+		$Timerbomb.stop()
+		$Timerpower.stop()
 	
 
 @rpc("any_peer","call_local")
 func game_end_timer_start():
-	$Timerende.start()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$Timerende.start()
 	
 	
 @rpc("any_peer","call_local")
 func game_end_timer_stop():
-	$Timerende.stop()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):	
+		$Timerende.stop()
 	
 
 @rpc("any_peer","call_local")
 func game_restart_timer_start():
-	$Timerrestart.start()
-	
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$Timerrestart.start()
+		
 	
 @rpc("any_peer","call_local")
 func game_restart_timer_stop():
-	$Timerrestart.stop()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):	
+		$Timerrestart.stop()
 	
 
 func _on_timerbomb_timeout():
-	bomben_ende.rpc()
-		
-
-@rpc("any_peer","call_local")
-func bomben_ende():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_bombe()
 		return
@@ -414,11 +420,6 @@ func bomben_ende():
 		
 
 func _on_timerpower_timeout():
-	power_ende.rpc()
-		
-		
-@rpc("any_peer","call_local")
-func power_ende():
 	if OS.has_feature("dedicated_server"):
 		spawn_new_powerup()
 		$Timerpower.wait_time = power_up_spawn_time
@@ -430,15 +431,10 @@ func power_ende():
 		
 
 func _on_timerende_timeout():
-	timerende_wertung.rpc()
-	
-	
-@rpc("any_peer","call_local")
-func timerende_wertung():
-	game_end_timer_stop.rpc_id(1)
+	game_end_timer_stop.rpc()
 	stoped_game.rpc()
 	if not OS.has_feature("dedicated_server"):
-		get_node("Scoreboard").update_scoreboard()
+		get_node("Scoreboard").update_scoreboard.rpc()
 	Global.trigger_host_focus = true
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
 	Global.trigger_host_focus = false
