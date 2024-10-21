@@ -36,11 +36,12 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
-
+	position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
+	
+	
 func _physics_process(delta):
 	if not loaded:
 		loaded = true
-		position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 		set_random_direction()
 		paint()
 		score_counter()
@@ -48,8 +49,6 @@ func _physics_process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			paint()
-			score_counter()
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			time_last_change += delta
 			if time_last_change >= direction_change_interval:

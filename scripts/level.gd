@@ -316,7 +316,6 @@ func kicked(id, antwort, show_msg: bool):
 func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
-	$loby.update_player_count.rpc(false)
 	update_player_list(id, false)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
@@ -335,10 +334,6 @@ func cell_blocker(block: bool, id: int):
 		
 		
 func _on_timer_timeout():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		reset_powerup()
-		reset_bomben()
-		map.reset_floor()
 	game_stoping_timers.rpc()
 	game_end_timer_start.rpc()
 	reset_vars_level.rpc()
@@ -347,6 +342,10 @@ func _on_timer_timeout():
 
 @rpc("any_peer","call_local")
 func reset_vars_level():
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		reset_powerup()
+		reset_bomben()
+		map.reset_floor()
 	main.get_node("CanvasLayer2/UI").visible = false
 	
 	

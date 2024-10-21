@@ -64,20 +64,7 @@ func _process(_delta):
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
 		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = port
-		set_process(false)
 		
-
-func _physics_process(_delta):
-	if Input.is_action_just_pressed("cancel"):
-		block_host = false
-		$Panel/CenterContainer/Net/Connecting.text = ""
-	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible:
-		await get_tree().create_timer(0.1).timeout
-		esc_is_pressing = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-		Global.trigger_host_focus = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-		Global.trigger_host_focus = false
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
 	
@@ -109,6 +96,24 @@ func _physics_process(_delta):
 		if udp_client.get_available_packet_count() > 0:
 			server_address_to_connect_to = udp_client.get_packet().get_string_from_ascii()
 			await check_ip(server_address_to_connect_to)
+			
+	
+	if get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_node("Level/level/loby").visible:
+		set_process(false)
+		
+		
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("cancel"):
+		block_host = false
+		$Panel/CenterContainer/Net/Connecting.text = ""
+	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible:
+		await get_tree().create_timer(0.1).timeout
+		esc_is_pressing = true
+		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		Global.trigger_host_focus = true
+		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+		Global.trigger_host_focus = false
 		
 		
 

@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var level = get_parent().get_parent()
+@onready var Players = get_parent().get_parent().get_node("Players")
 
 
 var explode_pos = null
@@ -16,6 +17,7 @@ func _ready():
 		$Sprite2D.texture = load("res://assets/powerups/bigrad.png")
 	if powerupid == 2: # unübermalbares färben
 		$Sprite2D.texture = load("res://assets/powerups/protect.png")
+	set_physics_process(false)
 		
 
 func _physics_process(_delta):
@@ -26,45 +28,46 @@ func _physics_process(_delta):
 		
 
 @rpc("any_peer","call_local")
-func aktivate_powerup(player: CharacterBody2D):
+func aktivate_powerup(player_id: int):
 	if powerupid == 0: # doppelter grundspeed
 		var ist_da_index = 0
 		var ist_da = false
-		for aktive in range(len(player.powerups)):
-			if player.powerups[aktive][0] == powerupid:
+		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
+			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
 				ist_da_index = aktive
 				ist_da = true
 		if not ist_da:
-			player.SPEED = player.first_speed
-			player.SPEED *= 2
-			player.powerups[ist_da_index][0] = powerupid
-			player.powerups[ist_da_index][1] = true
+			Players.get_node(str(player_id)).SPEED = Players.get_node(str(player_id)).first_speed
+			Players.get_node(str(player_id)).SPEED *= 2
+			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
+			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	if powerupid == 1: # größerer färbradius
 		var ist_da_index = 1
 		var ist_da = false
-		for aktive in range(len(player.powerups)):
-			if player.powerups[aktive][0] == powerupid:
+		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
+			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
 				ist_da_index = aktive
 				ist_da = true
 		if not ist_da:
-			player.paint_radius = Global.painting_rad
-			player.paint_radius = 6
-			player.powerups[ist_da_index][0] = powerupid
-			player.powerups[ist_da_index][1] = true
+			Players.get_node(str(player_id)).paint_radius = Global.painting_rad
+			Players.get_node(str(player_id)).paint_radius = 6
+			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
+			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	if powerupid == 2: # unübermalbares färben
 		var ist_da_index = 2
 		var ist_da = false
-		for aktive in range(len(player.powerups)):
-			if player.powerups[aktive][0] == powerupid:
+		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
+			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
 				ist_da_index = aktive
 				ist_da = true
 		if not ist_da:
-			level.cell_blocker.rpc(true, player.name.to_int())
-			player.powerups[ist_da_index][0] = powerupid
-			player.powerups[ist_da_index][1] = true
+			level.cell_blocker.rpc(true, Players.get_node(str(player_id)).name.to_int())
+			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
+			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	
 	
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		explode_pos = area.get_parent().position
-		aktivate_powerup.rpc(area.get_parent())
+		set_physics_process(true)
+		aktivate_powerup.rpc(str(area.get_parent().name).to_int())

@@ -53,7 +53,7 @@ func update_player_wait(positive: bool):
 		player_wait_count += 1
 	elif player_wait_count > 0:
 		player_wait_count -= 1
-
+		
 
 @rpc("any_peer","call_local")	
 func set_hidelobyvar():
@@ -90,6 +90,10 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
+	update_player_count.rpc(false)
+	if not $CenterContainer/VBoxContainer/Enter.visible:
+		update_player_wait.rpc(false)
+	update_warten.rpc()
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()
@@ -130,7 +134,6 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
-		update_warten.rpc()
 		Global.trigger_host_focus = true
 		$CenterContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
@@ -139,14 +142,19 @@ func _on_enter_pressed():
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
+		update_warten.rpc()
 		
 
 @rpc("any_peer","call_local")
 func update_warten():
 	$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
 	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
+		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
 		$CenterContainer/VBoxContainer/start.visible = true
-
+	if player_wait_count == 1 and player_conect_count == 1 and not get_parent().loaded_seson:
+		$CenterContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
+		$CenterContainer/VBoxContainer/start.visible = true
 
 func _on_random_pressed():
 	Global.ui_sound = true
@@ -251,6 +259,7 @@ func _on_start_pressed():
 	if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
+	reset_player_wait.rpc()
 	get_parent().reset_vars_level.rpc()
 	get_parent().wertungs_anzeige_aktivieren.rpc()
 	get_parent().game_restart_timer_start.rpc()
@@ -258,6 +267,12 @@ func _on_start_pressed():
 	set_visiblity.rpc("CanvasLayer/start_in", true)
 	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
 	set_visiblity.rpc(str(name), false)
+	
+	
+
+@rpc("any_peer","call_local")
+func reset_player_wait():
+	player_wait_count = 0
 	
 	
 @rpc("any_peer","call_local")

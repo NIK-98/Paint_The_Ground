@@ -38,10 +38,10 @@ func sync_list(NewScoreEintrag: Array):
 func update_scoreboard():
 	if loaded:
 		for n in get_parent().get_node("Players").get_children():
-			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").player_wait_count == 1:
+			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").player_wait_count == 0:
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text)
-				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
+				sync_list([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
 				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
 				get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars()
@@ -72,11 +72,13 @@ func _on_restart_pressed():
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	get_parent().reset_vars_level.rpc()
-	get_parent().wertungs_anzeige_aktivieren.rpc()
-	get_parent().game_restart_timer_start.rpc()
-	get_parent().main.get_node("CanvasLayer/change").visible = true
-	set_visible_false.rpc("../CanvasLayer/start_in", true)
-	set_visible_false.rpc("CanvasLayer", false)
+	$"../loby".update_player_wait.rpc(true)
+	set_visible_false.rpc("../loby", true)
+	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/start", false)
+	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/Warten", true)
+	await get_tree().create_timer(0.5).timeout
+	$CanvasLayer.visible = false
+	$"../loby".update_warten.rpc()
 	
 	
 	

@@ -47,23 +47,21 @@ func _ready():
 	$Camera2D.limit_right = Global.Spielfeld_Size.x
 	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 	color_change()
-	map.reset_floor()
+	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
+
 
 func _physics_process(_delta):
 	if not loaded:
 		loaded = true
-		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 		sync_hide_win_los_meldung.rpc(name.to_int())
 		map.reset_floor()
-		paint.rpc()
-		score_counter.rpc()
+		paint()
+		score_counter()
 	
 	
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			paint.rpc()
-			score_counter.rpc()
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
 				moving()
@@ -82,8 +80,8 @@ func _physics_process(_delta):
 				velocity = move*SPEED
 				move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
-				paint.rpc()
-			score_counter.rpc()
+				paint()
+			score_counter()
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:
 					powerups[p][2] = true
@@ -182,7 +180,6 @@ func _input(event):
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
 
-@rpc("any_peer","call_local")
 func score_counter():
 	last_score = score
 	score = len(map.get_used_cells_by_id(color_cell))
@@ -203,7 +200,6 @@ func score_counter():
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
 		
 
-@rpc("any_peer","call_local")
 func paint():
 	var tile_position = map.local_to_map(position)
 	for x in range(paint_radius):
