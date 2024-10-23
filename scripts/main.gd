@@ -2,6 +2,7 @@ extends Node
 
 var save_path = "user://savetemp.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
+var save_grafik_path = "user://savegrafiksettings.save"
 
 var controll_switcher = false
 		
@@ -10,6 +11,7 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
 		load_game("saveaudiosettings", save_audio_setting_path)
+		load_game("savegrafik", save_grafik_path)
 		await get_tree().process_frame
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
@@ -208,7 +210,7 @@ func _on_zurück_focus_entered():
 		
 
 func _input(_event):
-	if Input.is_action_just_pressed("exit") and not get_node("Audio_menu/CanvasLayer").visible:
+	if Input.is_action_just_pressed("exit") and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible:
 		await get_tree().create_timer(0.1).timeout
 		Global.esc_is_pressing_in_game = true
 		get_node("CanvasLayer/Menu").visible = true
@@ -216,3 +218,18 @@ func _input(_event):
 		get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		Global.trigger_host_focus = false
 		return
+
+
+func _on_grafik_pressed():
+	Global.ui_sound = true
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_grafik_menu = true
+
+
+func _on_grafik_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_grafik_mouse_entered():
+	Global.ui_hover_sound = true

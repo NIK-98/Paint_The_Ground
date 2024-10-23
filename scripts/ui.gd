@@ -30,6 +30,7 @@ var server_address_to_connect_to = ""
 var game_started = false
 
 
+
 func save():
 	var save_dict = {
 		"filename" : get_scene_file_path(),
@@ -99,22 +100,7 @@ func _process(_delta):
 			
 	
 	if get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_node("Level/level/loby").visible:
-		set_process(false)
-		
-		
-
-func _physics_process(_delta):
-	if Input.is_action_just_pressed("cancel"):
-		block_host = false
-		$Panel/CenterContainer/Net/Connecting.text = ""
-	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible:
-		await get_tree().create_timer(0.1).timeout
-		esc_is_pressing = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-		Global.trigger_host_focus = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-		Global.trigger_host_focus = false
-		
+		set_process(false)	
 		
 
 func check_ip(str_liste: String):
@@ -178,7 +164,11 @@ func _on_host_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().get_parent().save_game("Persist", save_path)
+	if not FileAccess.file_exists(save_path):
+		get_parent().get_parent().save_game("Persist", save_path)
+	else:
+		DirAccess.remove_absolute(save_path)
+		get_parent().get_parent().save_game("Persist", save_path)
 	
 	var peer = ENetMultiplayerPeer.new()
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
@@ -214,7 +204,11 @@ func _on_connect_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-	get_parent().get_parent().save_game("Persist", save_path)
+	if not FileAccess.file_exists(save_path):
+		get_parent().get_parent().save_game("Persist", save_path)
+	else:
+		DirAccess.remove_absolute(save_path)
+		get_parent().get_parent().save_game("Persist", save_path)
 		
 	block_host = true
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
@@ -281,6 +275,16 @@ func _input(_event):
 			return
 	if Input.is_action_just_pressed("modus"):
 		get_parent().get_parent()._on_change_pressed()
+	if Input.is_action_just_pressed("cancel"):
+		block_host = false
+		$Panel/CenterContainer/Net/Connecting.text = ""
+	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible:
+		await get_tree().create_timer(0.1).timeout
+		esc_is_pressing = true
+		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+		Global.trigger_host_focus = true
+		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+		Global.trigger_host_focus = false
 
 
 func _on_host_connect_toggled(toggled_on: bool) -> void:

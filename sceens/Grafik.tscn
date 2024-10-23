@@ -1,0 +1,182 @@
+[gd_scene load_steps=15 format=3 uid="uid://df63gdj4k26fk"]
+
+[ext_resource type="Script" path="res://scripts/Grafik.gd" id="1_eivg8"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="2_ocm4c"]
+[ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="3_e5k8t"]
+[ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="4_5a07j"]
+[ext_resource type="Texture2D" uid="uid://blts4cu60dts1" path="res://assets/grafik/arrow.png" id="5_btqo4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cxsb"]
+bg_color = Color(0, 0, 0.803922, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+expand_margin_left = 50.0
+expand_margin_top = 40.0
+expand_margin_right = 50.0
+expand_margin_bottom = 40.0
+shadow_color = Color(0, 0, 0.933333, 0.6)
+shadow_size = 90
+
+[sub_resource type="SystemFont" id="SystemFont_ts5tn"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_531ej"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i0jnr"]
+texture = ExtResource("2_ocm4c")
+expand_margin_left = 45.0
+expand_margin_top = 25.0
+expand_margin_right = 45.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x84ex"]
+texture = ExtResource("2_ocm4c")
+expand_margin_left = 40.0
+expand_margin_top = 20.0
+expand_margin_right = 40.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_008lu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0eepr"]
+
+[sub_resource type="SystemFont" id="SystemFont_5f2dd"]
+font_names = PackedStringArray("Centaur")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_xef24"]
+default_font = SubResource("SystemFont_5f2dd")
+default_font_size = 40
+Button/font_sizes/font_size = 40
+Button/fonts/font = SubResource("SystemFont_ts5tn")
+Button/styles/focus = SubResource("StyleBoxEmpty_531ej")
+Button/styles/hover = SubResource("StyleBoxTexture_i0jnr")
+Button/styles/normal = SubResource("StyleBoxTexture_x84ex")
+Button/styles/pressed = SubResource("StyleBoxTexture_x84ex")
+CheckBox/constants/h_separation = 10
+CheckBox/font_sizes/font_size = 40
+CheckBox/fonts/font = SubResource("SystemFont_ts5tn")
+CheckBox/icons/checked = ExtResource("3_e5k8t")
+CheckBox/icons/unchecked = ExtResource("4_5a07j")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_008lu")
+CheckBox/styles/hover = SubResource("StyleBoxTexture_i0jnr")
+CheckBox/styles/hover_mirrored = SubResource("StyleBoxTexture_i0jnr")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxTexture_i0jnr")
+CheckBox/styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_i0jnr")
+CheckBox/styles/normal = SubResource("StyleBoxTexture_x84ex")
+CheckBox/styles/pressed = SubResource("StyleBoxTexture_x84ex")
+OptionButton/colors/font_color = Color(0.529167, 0.00170508, 0.733464, 1)
+OptionButton/constants/h_separation = 10
+OptionButton/font_sizes/font_size = 40
+OptionButton/fonts/font = SubResource("SystemFont_ts5tn")
+OptionButton/icons/arrow = ExtResource("5_btqo4")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_0eepr")
+OptionButton/styles/hover = SubResource("StyleBoxTexture_i0jnr")
+OptionButton/styles/normal = SubResource("StyleBoxTexture_x84ex")
+OptionButton/styles/pressed = SubResource("StyleBoxTexture_x84ex")
+
+[node name="Grafik" type="Control" groups=["savegrafik"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eivg8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 7
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 800.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0cxsb")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 65
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="FullScreen" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer2/back")
+focus_neighbor_bottom = NodePath("../V_Sync")
+theme = SubResource("Theme_xef24")
+theme_override_colors/font_color = Color(0.60153, 0.309394, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "Vollbild"
+
+[node name="V_Sync" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../FullScreen")
+focus_neighbor_bottom = NodePath("../OptionButton")
+theme = SubResource("Theme_xef24")
+theme_override_colors/font_color = Color(0.6, 0.309804, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "V-Sync"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../V_Sync")
+theme = SubResource("Theme_xef24")
+theme_override_colors/font_color = Color(0.6, 0.309804, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../back")
+theme = SubResource("Theme_xef24")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "Reset"
+
+[node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Reset")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/FullScreen")
+theme = SubResource("Theme_xef24")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "Zurück"
+
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_full_screen_toggled"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_v_sync_toggled"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_focus_entered"]
+[connection signal="item_selected" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_mouse_entered"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_back_pressed"]

@@ -45,8 +45,8 @@ expand_margin_bottom = 40.0
 shadow_color = Color(0, 0, 0.933333, 0.6)
 shadow_size = 90
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yyry"]
-bg_color = Color(0, 0.717647, 0.356863, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci6gb"]
+bg_color = Color(7.33994e-07, 0.31624, 0.142891, 1)
 border_width_bottom = 2
 border_color = Color(0, 0.486275, 0.333333, 1)
 border_blend = true
@@ -58,29 +58,29 @@ shadow_color = Color(0.87451, 0.501961, 0, 0.768627)
 shadow_size = 5
 
 [sub_resource type="Theme" id="Theme_fm43a"]
-HSlider/styles/grabber_area = SubResource("StyleBoxFlat_2yyry")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ci6gb")
 
-[sub_resource type="SystemFont" id="SystemFont_x8p2u"]
+[sub_resource type="SystemFont" id="SystemFont_faqhp"]
 font_names = PackedStringArray("Cooper")
 subpixel_positioning = 0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kab0b"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5hexo"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h5uvm"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_meg3q"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 25.0
 expand_margin_top = 25.0
 expand_margin_right = 25.0
 expand_margin_bottom = 25.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkrcp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k88vg"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 20.0
 expand_margin_top = 20.0
 expand_margin_right = 20.0
 expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hawu"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xojp"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 20.0
 expand_margin_top = 20.0
@@ -91,21 +91,21 @@ expand_margin_bottom = 20.0
 Button/colors/font_outline_color = Color(1, 1, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_x8p2u")
-Button/styles/focus = SubResource("StyleBoxEmpty_kab0b")
-Button/styles/hover = SubResource("StyleBoxTexture_h5uvm")
-Button/styles/normal = SubResource("StyleBoxTexture_fkrcp")
-Button/styles/pressed = SubResource("StyleBoxTexture_8hawu")
+Button/fonts/font = SubResource("SystemFont_faqhp")
+Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
+Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
+Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
 
 [sub_resource type="Theme" id="Theme_yt4ax"]
 Button/colors/font_outline_color = Color(1, 1, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_x8p2u")
-Button/styles/focus = SubResource("StyleBoxEmpty_kab0b")
-Button/styles/hover = SubResource("StyleBoxTexture_h5uvm")
-Button/styles/normal = SubResource("StyleBoxTexture_fkrcp")
-Button/styles/pressed = SubResource("StyleBoxTexture_8hawu")
+Button/fonts/font = SubResource("SystemFont_faqhp")
+Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
+Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
+Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
 
 [node name="Audio_menu" type="Control" groups=["saveaudiosettings"]]
 process_mode = 3
@@ -120,7 +120,6 @@ script = ExtResource("1_wxnn5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 7
-visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 anchors_preset = 8
@@ -235,6 +234,8 @@ focus_neighbor_top = NodePath("../../VBoxContainer/music")
 focus_neighbor_bottom = NodePath("../Back")
 theme = SubResource("Theme_y4ci3")
 theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
 text = "Reset"
 
@@ -244,6 +245,8 @@ focus_neighbor_top = NodePath("../Reset")
 focus_neighbor_bottom = NodePath("../../VBoxContainer/master")
 theme = SubResource("Theme_yt4ax")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
 text = "Zurück"
 
