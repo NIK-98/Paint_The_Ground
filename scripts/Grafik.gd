@@ -37,7 +37,7 @@ func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "Grafik"
-		if OS.get_name() == "Windows" or OS.get_name() == "linux":
+		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 			for i in Resolutions.keys():
 				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, " Gerät"):
 					break
@@ -137,7 +137,7 @@ func _on_full_screen_toggled(toggled_on):
 
 func _on_reset_pressed():
 	Global.ui_sound = true
-	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		option_button.visible = false
 		full_screen.set_pressed_no_signal(true)
 		_on_full_screen_toggled(true)

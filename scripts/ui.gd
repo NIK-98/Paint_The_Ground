@@ -53,7 +53,7 @@ func _ready():
 	udp_client.set_dest_address("255.255.255.255", udp_port)
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
 		$Panel/CenterContainer/Net/Info.visible = true
-	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		$Panel/CenterContainer/Net/InfoPC.visible = true
 	
 	
@@ -137,7 +137,7 @@ func get_local_ips():
 	var interfaces = IP.get_local_interfaces()
 	local_address = []
 	for iface in interfaces:
-		if ((OS.get_name() == "linux" or OS.get_name() == "Android" or OS.get_name() == "IOS") and not iface["name"].begins_with("lo")) or ((OS.get_name() == "Windows") and not iface["friendly"].begins_with("v")):
+		if ((OS.get_name() == "Linux" or OS.get_name() == "Android" or OS.get_name() == "IOS") and not iface["name"].begins_with("lo")) or ((OS.get_name() == "Windows") and not iface["friendly"].begins_with("v")):
 			var addr = iface["addresses"]
 			for a in addr:
 				local_address.append(a)

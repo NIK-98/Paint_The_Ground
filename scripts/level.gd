@@ -34,7 +34,7 @@ var last_runde = false
 @export var playerlist = []
 
 func _ready():
-	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		$CanvasLayer/Labelzoom.visible = false
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
