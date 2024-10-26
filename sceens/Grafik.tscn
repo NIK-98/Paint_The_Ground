@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://df63gdj4k26fk"]
+[gd_scene load_steps=20 format=3 uid="uid://df63gdj4k26fk"]
 
 [ext_resource type="Script" path="res://scripts/Grafik.gd" id="1_eivg8"]
 [ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="2_ocm4c"]
 [ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="3_e5k8t"]
 [ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="4_5a07j"]
 [ext_resource type="Texture2D" uid="uid://blts4cu60dts1" path="res://assets/grafik/arrow.png" id="5_btqo4"]
+[ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="6_pwbip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cxsb"]
 bg_color = Color(0, 0, 0.803922, 1)
@@ -78,6 +79,33 @@ OptionButton/styles/hover = SubResource("StyleBoxTexture_i0jnr")
 OptionButton/styles/normal = SubResource("StyleBoxTexture_x84ex")
 OptionButton/styles/pressed = SubResource("StyleBoxTexture_x84ex")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_usotk"]
+texture = ExtResource("2_ocm4c")
+expand_margin_left = 40.0
+expand_margin_top = 20.0
+expand_margin_right = 40.0
+expand_margin_bottom = 40.0
+
+[sub_resource type="Theme" id="Theme_v28ht"]
+Label/font_sizes/font_size = 25
+Label/fonts/font = SubResource("SystemFont_ts5tn")
+Label/styles/normal = SubResource("StyleBoxTexture_usotk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci6gb"]
+bg_color = Color(7.33994e-07, 0.31624, 0.142891, 1)
+border_width_bottom = 2
+border_color = Color(0, 0.486275, 0.333333, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0.87451, 0.501961, 0, 0.768627)
+shadow_size = 5
+
+[sub_resource type="Theme" id="Theme_7f03j"]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ci6gb")
+
 [node name="Grafik" type="Control" groups=["savegrafik"]]
 process_mode = 3
 layout_mode = 3
@@ -93,7 +121,7 @@ layer = 7
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 offset_right = 1280.0
-offset_bottom = 800.0
+offset_bottom = 720.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
@@ -137,10 +165,39 @@ text = "V-Sync"
 [node name="OptionButton" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../V_Sync")
+focus_neighbor_bottom = NodePath("../VBoxContainer/Fps")
 theme = SubResource("Theme_xef24")
 theme_override_colors/font_color = Color(0.6, 0.309804, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="FPS_MAX" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_v28ht")
+theme_override_colors/font_color = Color(0.529412, 0, 0.733333, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+text = "Max FPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fps" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../OptionButton")
+focus_neighbor_bottom = NodePath("../../../VBoxContainer2/Reset")
+theme = SubResource("Theme_7f03j")
+theme_override_icons/grabber = ExtResource("6_pwbip")
+theme_override_icons/grabber_highlight = ExtResource("6_pwbip")
+theme_override_icons/grabber_disabled = ExtResource("6_pwbip")
+theme_override_icons/tick = ExtResource("6_pwbip")
+min_value = 40.0
+max_value = 200.0
+step = 40.0
+value = 80.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -148,6 +205,7 @@ theme_override_constants/separation = 35
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer/VBoxContainer/Fps")
 focus_neighbor_bottom = NodePath("../back")
 theme = SubResource("Theme_xef24")
 theme_override_colors/font_color = Color(1, 1, 0, 1)
@@ -174,6 +232,9 @@ text = "Zurück"
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_focus_entered"]
 [connection signal="item_selected" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_mouse_entered"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_fps_value_changed"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]

@@ -4,51 +4,55 @@ extends Control
 @onready var full_screen = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen
 @onready var v_sync = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back
+@onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
+@onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
 
 var save_grafik_path = "user://savegrafiksettings.save"
 	
 	
-var Resolutions = {"3840x2160":Vector2i(3840,2160),
-				   "2560x1440":Vector2i(2560,1440),
-				   "1920x1080":Vector2i(1920,1080),
-				   "1366x768":Vector2i(1366,768),
-				   "1536x864":Vector2i(1536,864),
-				   "1280x720":Vector2i(1280,720),
-				   "1280x800":Vector2i(1280,800),
-				   "1440x900":Vector2i(1440,900),
-				   "1600x900":Vector2i(1600,900),
-				   "1024x600":Vector2i(1024,600),
-				   "800x600": Vector2i(800,600)}
+var Resolutions = {"1920x1080 FullHD":Vector2i(1920,1080),
+				   "1280x720 HD":Vector2i(1280,720),
+				   "1280x800 WXGA":Vector2i(1280,800),
+				   "1024x768 XGA":Vector2i(1024,768)
+				  }
+
 
 var id = 0
 var v_sync_mode = false
 var fullscreen_mode = true
+var max_frams = 200
 
 
 var loaded = false
+var reset = false
 	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	name = "Grafik"
 	$CanvasLayer.visible = false
-	Add_Resolutions()
-	Check_mode()
-	
+
 	
 func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "Grafik"
+		if OS.get_name() == "Windows" or OS.get_name() == "linux":
+			for i in Resolutions.keys():
+				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, " Gerät"):
+					break
+				Resolutions[str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, " Gerät")] = DisplayServer.screen_get_size()
+			Add_Resolutions()
+			full_screen.set_pressed_no_signal(fullscreen_mode)
+			_on_full_screen_toggled(fullscreen_mode)
+			_on_option_button_item_selected(id)
+			Set_Resulutuns_text()
+		if OS.get_name() == "Android" or OS.get_name() == "IOS":
+			option_button.visible = false
+			full_screen.visible = false
+		_on_fps_value_changed(max_frams)
 		v_sync.set_pressed_no_signal(v_sync_mode)
 		_on_v_sync_toggled(v_sync_mode)
-		full_screen.set_pressed_no_signal(fullscreen_mode)
-		_on_full_screen_toggled(fullscreen_mode)
-		_on_option_button_item_selected(id)
-		option_button.select(id)
-		if not FileAccess.file_exists(save_grafik_path):
-			set_default_size()
-		Set_Resulutuns_text()
 		set_process(false)
 	
 	
@@ -71,56 +75,31 @@ func save():
 		"id" : id,
 		"v_sync_mode" : v_sync_mode,
 		"fullscreen_mode" : fullscreen_mode,
+		"max_frams" : max_frams
 	}
 	return save_dict
-	
-		 
-func Check_mode():
-	var _window = get_window()
-	var mode = _window.get_mode()
-	
-	if mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
-		option_button.visible = false
-		full_screen.set_pressed_no_signal(true)
 		
 		
 func Add_Resolutions():
 	var Current_Resulution = get_window().get_size()
 	var ID = 0
-	
 	for r in Resolutions:
 		option_button.add_item(r, ID)
 		
 		if Resolutions[r] == Current_Resulution:
 			option_button.select(ID)
+			id = ID
 		
 		ID += 1
 
 
 func _on_option_button_item_selected(index):
 	Global.ui_sound = true
+	reset = false
 	var ID = option_button.get_item_text(index)
 	id = index
 	get_window().set_size(Resolutions[ID])
 	Centre_Window()
-	
-	
-func set_default_size():
-	var default_Resulution = DisplayServer.screen_get_size()
-	var ID = 0
-	
-	for r in Resolutions:
-		if Resolutions[r] == default_Resulution:
-			option_button.select(ID)
-			option_button.set_text(str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y))
-			Global.ui_sound = true
-			get_window().set_size(Resolutions[option_button.get_item_text(ID)])
-			Centre_Window()
-			return
-		
-		ID += 1
-	option_button.select(6)
-	option_button.set_text("1280x800")
 	
 
 func Centre_Window():
@@ -130,10 +109,15 @@ func Centre_Window():
 
 func Set_Resulutuns_text():
 	var Resolutions_text = str(get_window().get_size().x,"x",get_window().get_size().y)
-	option_button.set_text(Resolutions_text)
+	for i in Resolutions.keys():
+		if i.begins_with(Resolutions_text):
+			option_button.set_text(i)
+			option_button.select(id)
+			
 
 func _on_full_screen_toggled(toggled_on):
 	Global.ui_sound = true
+	reset = false
 	if toggled_on:
 		fullscreen_mode = true
 		get_window().set_mode(Window.MODE_EXCLUSIVE_FULLSCREEN)
@@ -141,25 +125,34 @@ func _on_full_screen_toggled(toggled_on):
 	else:
 		fullscreen_mode = false
 		get_window().set_mode(Window.MODE_WINDOWED)
+		for i in Resolutions.keys():
+			if i.begins_with(str(get_window().get_size())):
+				option_button.set_text(i)
+		option_button.select(id)
 		Centre_Window()
 		option_button.visible = true
+		_on_option_button_item_selected(id)
+		Set_Resulutuns_text()
 
 
 func _on_reset_pressed():
 	Global.ui_sound = true
-	if FileAccess.file_exists(save_grafik_path):
-		DirAccess.remove_absolute(save_grafik_path)
-	option_button.visible = false
-	get_window().set_mode(Window.MODE_EXCLUSIVE_FULLSCREEN)
-	Set_Resulutuns_text()
-	Centre_Window()
-	Check_mode()
+	if OS.get_name() == "Windows" or OS.get_name() == "linux":
+		option_button.visible = false
+		full_screen.set_pressed_no_signal(true)
+		_on_full_screen_toggled(true)
+	Engine.max_fps = 0
+	fps_max.text = "Unbegrenzt FPS"
+	fps.value = fps.max_value
+	max_frams = fps.max_value
 	v_sync.set_pressed_no_signal(false)
 	_on_v_sync_toggled(false)
+	reset = true
 
 
 func _on_v_sync_toggled(toggled_on: bool) -> void:
 	Global.ui_sound = true
+	reset = false
 	if toggled_on:
 		v_sync_mode = true
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
@@ -183,6 +176,9 @@ func _on_back_pressed():
 	get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 	Global.trigger_host_focus = false
 	
+	if reset and FileAccess.file_exists(save_grafik_path):
+		DirAccess.remove_absolute(save_grafik_path)
+	
 
 func _on_mouse_entered():
 	Global.ui_hover_sound = true
@@ -191,3 +187,17 @@ func _on_mouse_entered():
 func _on_focus_entered():
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Global.ui_hover_sound = true
+
+
+func _on_fps_value_changed(value):
+	Global.ui_sound = true
+	if value < 200:
+		Engine.max_fps = value
+		fps_max.text = str(value, " Max FPS")
+		fps.value = value
+		max_frams = value
+	else:
+		Engine.max_fps = 0
+		fps_max.text = "Unbegrenzt FPS"
+		fps.value = value
+		max_frams = fps.max_value

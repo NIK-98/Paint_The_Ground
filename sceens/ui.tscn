@@ -84,7 +84,13 @@ Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 [node name="UI" type="Control" groups=["Persist"]]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jid7m")
 
 [node name="Panel" type="ScrollContainer" parent="."]
@@ -95,6 +101,7 @@ scale = Vector2(0.7, 0.7)
 focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_w0wsa")
 horizontal_scroll_mode = 0
+scroll_deadzone = 30
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel"]
 layout_mode = 2
