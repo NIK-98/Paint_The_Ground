@@ -28,16 +28,6 @@ func aktivate_bombe(cell: int, pos: Vector2):
 			var distance = new_pos.distance_to(tile_position)
 			if map.get_cell_source_id(new_pos) != -1 and map.get_cell_source_id(new_pos) not in level.block_cells and distance < bomb_radius:
 				map.set_cell(new_pos,cell,Vector2i(0, 0),0)
-	#var used_cells = map.get_used_cells()
-	#var area_radius = $Area2Daktiv/CollisionShape2D.scale.x*10/2
-	#
-	#for cellen in used_cells:
-		#var cell_world_pos = map.local_to_map(cellen)
-		#var cell_center = tile_position + map.tile_set.tile_size / 2
-		#var distance = tile_position.distance_to(cell_center)
-		#prints(distance,area_radius)
-		#if distance <= area_radius:
-			#map.set_cell(cell_center,cell,Vector2i(0, 0),0)
 	
 	
 func _on_area_2d_area_entered(area):
