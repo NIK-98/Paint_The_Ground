@@ -46,7 +46,7 @@ disabled = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(31, 32)
+position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_p0g61")
 
 [node name="TimerresetSPEED" type="Timer" parent="."]

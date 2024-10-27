@@ -121,11 +121,12 @@ func color_change():
 	
 
 func paint():
-	var tile_position = map.local_to_map(position)
-	for x in range(paint_radius):
-		for y in range(paint_radius):
+	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
+	for x in range(-paint_radius,paint_radius):
+		for y in range(-paint_radius,paint_radius):
 			var pos = Vector2i(x,y) + tile_position
-			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) not in level.block_cells:
+			var distance = pos.distance_to(tile_position)
+			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
 				map.set_cell(pos,color_cell,Vector2i(0,0),0)
 			
 

@@ -38,7 +38,7 @@ func aktivate_powerup(player_id: int):
 				ist_da = true
 		if not ist_da:
 			Players.get_node(str(player_id)).SPEED = Players.get_node(str(player_id)).first_speed
-			Players.get_node(str(player_id)).SPEED *= 2
+			Players.get_node(str(player_id)).SPEED *= 1.5
 			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
 			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	if powerupid == 1: # größerer färbradius
@@ -50,7 +50,7 @@ func aktivate_powerup(player_id: int):
 				ist_da = true
 		if not ist_da:
 			Players.get_node(str(player_id)).paint_radius = Global.painting_rad
-			Players.get_node(str(player_id)).paint_radius = 6
+			Players.get_node(str(player_id)).paint_radius = 4
 			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
 			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	if powerupid == 2: # unübermalbares färben

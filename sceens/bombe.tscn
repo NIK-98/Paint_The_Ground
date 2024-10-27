@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctvl7k2hphpvs"]
+[gd_scene load_steps=6 format=3 uid="uid://ctvl7k2hphpvs"]
 
 [ext_resource type="Texture2D" uid="uid://cofso2pqd70dj" path="res://assets/Boomb/boomb.png" id="1_3bc5a"]
 [ext_resource type="Script" path="res://scripts/bombe.gd" id="1_d6tas"]
@@ -10,6 +10,8 @@ radius = 36.8917
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ochxm"]
 
 [node name="Bombe" type="Node2D" groups=["boom"]]
 script = ExtResource("1_d6tas")
@@ -26,4 +28,12 @@ shape = SubResource("CircleShape2D_hce8j")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rgxeq")
 
+[node name="Area2Daktiv" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2Daktiv"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_ochxm")
+one_way_collision_margin = 0.0
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2Daktiv" to="." method="_on_area_2_daktiv_body_entered"]
