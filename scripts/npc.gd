@@ -142,7 +142,7 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and last_score != score:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, 1000)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):

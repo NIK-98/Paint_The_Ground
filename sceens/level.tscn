@@ -508,6 +508,17 @@ focus_neighbor_bottom = NodePath("../Enter")
 theme = SubResource("Theme_cpsan")
 text = "120 sec."
 
+[node name="Map" type="Button" parent="loby/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+focus_neighbor_top = NodePath("../VBoxContainer/Speed")
+focus_neighbor_bottom = NodePath("../Enter")
+theme = SubResource("Theme_cpsan")
+theme_override_colors/font_color = Color(0.387014, 0.390815, 0.289187, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "Kleine  Map"
+
 [node name="Enter" type="Button" parent="loby/CenterContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../settime")
@@ -673,6 +684,9 @@ replication_config = SubResource("SceneReplicationConfig_p5trk")
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_pressed"]
 [connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/settime" to="loby" method="_on_settime_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/settime" to="loby" method="_on_settime_mouse_entered"]
+[connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_mouse_entered"]
+[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_pressed"]
 [connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]

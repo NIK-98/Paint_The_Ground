@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var difficulty = $CenterContainer/VBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
+var count_map_size = 1
 
 
 var namen = ["Levi","Emil","Liam","Anton","Theo",
@@ -45,6 +46,7 @@ func _ready():
 	if multiplayer.is_server():
 		$CenterContainer/VBoxContainer/settime.visible = true
 		$CenterContainer/VBoxContainer/settime.connect("pressed",_on_settime_pressed)
+		$CenterContainer/VBoxContainer/Map.visible = true
 	
 	
 @rpc("any_peer","call_local")
@@ -133,6 +135,7 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/settime.visible = false
+		$CenterContainer/VBoxContainer/Map.visible = false
 		$CenterContainer/VBoxContainer/Warten.visible = true
 		Global.trigger_host_focus = true
 		$CenterContainer/VBoxContainer/start.grab_focus()
@@ -292,3 +295,33 @@ func _on_start_mouse_entered() -> void:
 func _on_start_focus_entered() -> void:
 	if not Global.trigger_host_focus:
 		Global.ui_hover_sound = true
+
+
+func _on_map_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_map_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_map_pressed():
+	Global.ui_sound = true
+	count_map_size += 1
+	if count_map_size == 1:
+		$CenterContainer/VBoxContainer/Map.text = str("Kleine  Map")
+		Global.feld_size_mul = 2
+	if count_map_size == 2:
+		$CenterContainer/VBoxContainer/Map.text = str("Normale  Map")
+		Global.feld_size_mul = 3
+	if count_map_size == 3:
+		$CenterContainer/VBoxContainer/Map.text = str("Große  Map")
+		Global.feld_size_mul = 5
+		count_map_size = 0
+	map_set.rpc(Global.feld_size_mul)
+
+
+@rpc("any_peer","call_local")
+func map_set(faktor):
+	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*faktor

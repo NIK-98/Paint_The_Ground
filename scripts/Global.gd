@@ -1,6 +1,8 @@
 extends Node
 
-var Spielfeld_Size = Vector2(1280*2,800*2)
+var feld_size_mul = 2
+var Standard_Spielfeld_Size = Vector2(1280,800)
+var Spielfeld_Size = Standard_Spielfeld_Size*feld_size_mul
 const Spawn_bomben_limit = 6
 const Spawn_powerup_limit = 4
 var npcs_anzahl = 3

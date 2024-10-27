@@ -71,6 +71,20 @@ func _ready():
 		else:
 			$loby/CenterContainer/VBoxContainer/settime.text = str(120," sec.")
 			$Timer.wait_time = 120
+	if OS.has_feature("dedicated_server") and args.has("-map"):
+		var argument_wert = args[args.find("-map") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "2":
+			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
+			Global.feld_size_mul = argument_wert.to_int()
+		elif argument_wert == "3":
+			$loby/CenterContainer/VBoxContainer/Map.text = str("Normale Map")
+			Global.feld_size_mul = argument_wert.to_int()
+		elif argument_wert == "5":
+			$loby/CenterContainer/VBoxContainer/Map.text = str("Große Map")
+			Global.feld_size_mul = argument_wert.to_int()
+		else:
+			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
+			Global.feld_size_mul = 2
 			
 	
 	
@@ -345,7 +359,7 @@ func reset_vars_level():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		reset_powerup()
 		reset_bomben()
-		map.reset_floor()
+		map.reset_floor.rpc()
 	main.get_node("CanvasLayer2/UI").visible = false
 	
 	
