@@ -65,6 +65,7 @@ func _process(_delta):
 
 func _on_restart_pressed():
 	Global.ui_sound = true
+	
 	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
@@ -76,7 +77,6 @@ func _on_restart_pressed():
 	set_visible_false.rpc("../loby", true)
 	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/start", false)
 	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/Warten", true)
-	await get_tree().create_timer(0.5).timeout
 	$CanvasLayer.visible = false
 	$"../loby".update_warten.rpc()
 	

@@ -53,7 +53,7 @@ func _ready():
 func update_player_wait(positive: bool):
 	if positive:
 		player_wait_count += 1
-	elif player_wait_count > 0:
+	elif player_wait_count > 1:
 		player_wait_count -= 1
 		
 
@@ -126,12 +126,6 @@ func _on_enter_pressed():
 		if i.get_node("Name").text == $CenterContainer/VBoxContainer/name_input.text:
 			OS.alert("Name Exsistiert Schon!", "Server Meldung")
 			return
-	
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", true)
-		await get_tree().create_timer(0.1).timeout
-		map_set.rpc(Global.feld_size_mul)
-		set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", false)
 		
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
@@ -152,6 +146,11 @@ func _on_enter_pressed():
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
 		update_warten.rpc()
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", true)
+			await get_tree().create_timer(0.1).timeout
+			map_set.rpc(Global.feld_size_mul)
+			set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", false)
 		
 
 @rpc("any_peer","call_local")
@@ -160,7 +159,8 @@ func update_warten():
 	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
 		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
 		$CenterContainer/VBoxContainer/start.visible = true
-	if player_wait_count == 1 and player_conect_count == 1 and not get_parent().loaded_seson:
+	if (player_wait_count == 1 and player_conect_count == 1) or get_parent().loaded_seson:
+		get_parent().loaded_seson = false
 		$CenterContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
 		$CenterContainer/VBoxContainer/start.visible = true
