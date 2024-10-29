@@ -71,8 +71,8 @@ func _on_restart_pressed():
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	get_parent().reset_vars_level.rpc()
 	$"../loby".update_player_wait.rpc(true)
+	get_parent().reset_vars_level.rpc()
 	set_visible_false.rpc("../loby", true)
 	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/start", false)
 	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/Warten", true)

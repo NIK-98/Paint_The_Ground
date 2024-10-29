@@ -7,10 +7,8 @@ var is_npc = false
 
 @rpc("any_peer","call_local")
 func wertung(id):
-	for i in map.get_used_cells_by_id(Players.get_node(str(id)).color_cell):
-		get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
+	get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
 		
 
 func wertung_npc(id):
-	for i in map.get_used_cells_by_id(Players.get_node(str(id)).color_cell):
-		get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)
+	get_parent().get_node(str(id)).text = str(Players.get_node(str(id)).score)

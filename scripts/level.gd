@@ -351,7 +351,6 @@ func _on_timer_timeout():
 	game_stoping_timers.rpc()
 	game_end_timer_start.rpc()
 	reset_vars_level.rpc()
-	
 
 
 @rpc("any_peer","call_local")
@@ -359,7 +358,6 @@ func reset_vars_level():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		reset_powerup()
 		reset_bomben()
-		map.reset_floor.rpc()
 	main.get_node("CanvasLayer2/UI").visible = false
 	
 	
@@ -450,6 +448,8 @@ func _on_timerende_timeout():
 	Global.trigger_host_focus = true
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
 	Global.trigger_host_focus = false
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$loby.map_set.rpc(Global.feld_size_mul)
 	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
 	
 

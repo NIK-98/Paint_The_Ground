@@ -43,7 +43,6 @@ func _physics_process(delta):
 	if not loaded:
 		loaded = true
 		set_random_direction()
-		paint()
 		score_counter()
 	
 	if level.get_node("CanvasLayer/Time").visible:
@@ -187,11 +186,12 @@ func set_random_direction():
 		
 func reset_player_vars():
 	ende = false
-	loaded = false
-	Gametriggerstart = false
 	score = 0
+	last_score = score
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
+	loaded = false
+	Gametriggerstart = false
 	
 
 func _on_area_2d_area_entered(area: Area2D):

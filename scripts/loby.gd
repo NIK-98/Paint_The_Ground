@@ -126,7 +126,13 @@ func _on_enter_pressed():
 		if i.get_node("Name").text == $CenterContainer/VBoxContainer/name_input.text:
 			OS.alert("Name Exsistiert Schon!", "Server Meldung")
 			return
-			
+	
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", true)
+		await get_tree().create_timer(0.1).timeout
+		map_set.rpc(Global.feld_size_mul)
+		set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", false)
+		
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
@@ -319,9 +325,21 @@ func _on_map_pressed():
 		$CenterContainer/VBoxContainer/Map.text = str("Große  Map")
 		Global.feld_size_mul = 5
 		count_map_size = 0
-	map_set.rpc(Global.feld_size_mul)
 
+
+
+@rpc("any_peer","call_local")
+func set_visible_warte_map(nodepath: String, mode: bool):
+	var obj = get_node(nodepath)
+	if obj:
+		if mode:
+			obj.visible = mode
+		else:	
+			obj.visible = mode
+			
 
 @rpc("any_peer","call_local")
 func map_set(faktor):
 	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*faktor
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		get_parent().map.reset_floor.rpc()

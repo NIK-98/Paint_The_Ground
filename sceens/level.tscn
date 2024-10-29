@@ -249,6 +249,15 @@ properties/19/replication_mode = 1
 properties/20/path = NodePath(".:start_time")
 properties/20/spawn = true
 properties/20/replication_mode = 1
+properties/21/path = NodePath("loby/CenterContainer/VBoxContainer/warte_map:text")
+properties/21/spawn = true
+properties/21/replication_mode = 1
+properties/22/path = NodePath("loby/CenterContainer/VBoxContainer/warte_map:theme_override_colors/font_color")
+properties/22/spawn = true
+properties/22/replication_mode = 1
+properties/23/path = NodePath("loby/CenterContainer/VBoxContainer/warte_map:visible")
+properties/23/spawn = true
+properties/23/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -527,6 +536,17 @@ theme = SubResource("Theme_b4eyt")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
+[node name="warte_map" type="Label" parent="loby/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 45
+text = "Lade Map..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -654,7 +674,7 @@ theme_override_constants/outline_size = 25
 theme_override_font_sizes/font_size = 40
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 5.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0

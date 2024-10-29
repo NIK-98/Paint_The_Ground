@@ -54,8 +54,6 @@ func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
-		map.reset_floor()
-		paint()
 		score_counter()
 	
 	
@@ -254,12 +252,13 @@ func color_change():
 
 func reset_player_vars():
 	ende = false
-	loaded = false
-	Gametriggerstart = false
 	score = 0
+	last_score = score
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
-
+	loaded = false
+	Gametriggerstart = false
+	
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("npc") or area.get_parent().is_in_group("player"):
