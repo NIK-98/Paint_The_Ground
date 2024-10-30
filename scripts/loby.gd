@@ -159,8 +159,7 @@ func update_warten():
 	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
 		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
 		$CenterContainer/VBoxContainer/start.visible = true
-	if (player_wait_count == 1 and player_conect_count == 1) or get_parent().loaded_seson:
-		get_parent().loaded_seson = false
+	if player_wait_count == 1 and player_conect_count == 1 and not get_parent().loaded_seson and not get_parent().get_node("Players").has_node("2"):
 		$CenterContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
 		$CenterContainer/VBoxContainer/start.visible = true

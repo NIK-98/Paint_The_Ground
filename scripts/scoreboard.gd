@@ -50,7 +50,7 @@ func update_scoreboard():
 		sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(multiplayer.get_unique_id())).text.to_int(), get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text])
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
-		get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).reset_player_vars()
+		get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).reset_player_vars.rpc()
 		
 		
 func _process(_delta):

@@ -17,7 +17,6 @@ var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
 var score = 0
-var last_score = score
 var move = Input.get_vector("left","right","up","down")
 var player_spawn_grenze = 200
 var ende = false
@@ -181,15 +180,14 @@ func _input(event):
 	
 
 func score_counter():
-	last_score = score
 	score = len(map.get_used_cells_by_id(color_cell))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and last_score != score:
+	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int())
 		
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and last_score != score:
+	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
@@ -250,10 +248,11 @@ func color_change():
 			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 	
 
+
+@rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false
 	score = 0
-	last_score = score
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
 	loaded = false

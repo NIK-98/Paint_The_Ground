@@ -6,7 +6,6 @@ extends CharacterBody2D
 
 
 var score = 0
-var last_score = score
 var color_cell = 0
 var loaded = false
 var npc_spawn_grenze = 200
@@ -130,15 +129,14 @@ func paint():
 			
 
 func score_counter():
-	last_score = score
 	score = len(map.get_used_cells_by_id(color_cell))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and last_score != score:
+	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name)
 	
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and last_score != score:
+	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
@@ -187,7 +185,6 @@ func set_random_direction():
 func reset_player_vars():
 	ende = false
 	score = 0
-	last_score = score
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
 	loaded = false
