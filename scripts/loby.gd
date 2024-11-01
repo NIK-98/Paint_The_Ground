@@ -37,7 +37,6 @@ var namen = ["Levi","Emil","Liam","Anton","Theo",
 func _ready():
 	visible = true
 	$CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
-	$CenterContainer/VBoxContainer/Warten.connect("visibility_changed", _on_warten_visibility_changed.rpc)
 	
 	difficulty.text = "Einfach"
 	difficulty_id = 1
@@ -53,8 +52,38 @@ func _ready():
 func update_player_wait(positive: bool):
 	if positive:
 		player_wait_count += 1
-	elif player_wait_count > 1:
+		$CenterContainer/VBoxContainer/Warten.visible = true
+		$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+	if not positive and player_wait_count > 0:
 		player_wait_count -= 1
+		if player_wait_count == 0:
+			$CenterContainer/VBoxContainer/Warten.visible = false
+		else:
+			$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+	
+	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
+		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
+		if multiplayer.is_server():
+			$CenterContainer/VBoxContainer/start.visible = true
+			Global.trigger_host_focus = true
+			$"CenterContainer/VBoxContainer/start".grab_focus()
+			Global.trigger_host_focus = false
+		if OS.has_feature("dedicated_server"):
+			vor_start_trigger()
+			await get_tree().create_timer(0.1).timeout
+			get_parent().map.reset_floor.rpc()
+			reset_wait_count.rpc()
+	if player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not get_parent().get_node("Players").has_node("2"):
+		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
+		$CenterContainer/VBoxContainer/name_input.visible = false
+		$CenterContainer/VBoxContainer/Enter.visible = false
+		$CenterContainer/VBoxContainer/Random.visible = false
+		$CenterContainer/VBoxContainer/settime.visible = false
+		$CenterContainer/VBoxContainer/Map.visible = false
+		$CenterContainer/VBoxContainer/Warten.visible = true
+		$CenterContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
+		$CenterContainer/VBoxContainer/start.visible = true
 		
 
 @rpc("any_peer","call_local")	
@@ -95,7 +124,6 @@ func exit(msg: String, show_msg: bool):
 	update_player_count.rpc(false)
 	if not $CenterContainer/VBoxContainer/Enter.visible:
 		update_player_wait.rpc(false)
-	update_warten.rpc()
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()
@@ -136,7 +164,6 @@ func _on_enter_pressed():
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/VBoxContainer/Map.visible = false
-		$CenterContainer/VBoxContainer/Warten.visible = true
 		Global.trigger_host_focus = true
 		$CenterContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
@@ -145,24 +172,10 @@ func _on_enter_pressed():
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
-		update_warten.rpc()
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", true)
 			await get_tree().create_timer(0.1).timeout
 			map_set.rpc(Global.feld_size_mul)
-			set_visible_warte_map.rpc("CenterContainer/VBoxContainer/warte_map", false)
 		
-
-@rpc("any_peer","call_local")
-func update_warten():
-	$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
-	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
-		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
-		$CenterContainer/VBoxContainer/start.visible = true
-	if player_wait_count == 1 and player_conect_count == 1 and not get_parent().loaded_seson and not get_parent().get_node("Players").has_node("2"):
-		$CenterContainer/VBoxContainer/start.text = "Beenden"
-		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
-		$CenterContainer/VBoxContainer/start.visible = true
 
 func _on_random_pressed():
 	Global.ui_sound = true
@@ -177,10 +190,6 @@ func _on_npcs_pressed():
 		Global.count_npcs = 1
 	$CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 
-
-@rpc("any_peer","call_local")
-func _on_warten_visibility_changed():
-	$CenterContainer/VBoxContainer/Warten.visible = true
 
 
 func _on_speed_pressed():
@@ -267,20 +276,28 @@ func _on_start_pressed():
 	if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	reset_player_wait.rpc()
-	get_parent().reset_vars_level.rpc()
-	get_parent().wertungs_anzeige_aktivieren.rpc()
-	get_parent().game_restart_timer_start.rpc()
-	get_parent().main.get_node("CanvasLayer/change").visible = true
-	set_visiblity.rpc("CanvasLayer/start_in", true)
-	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
-	set_visiblity.rpc(str(name), false)
+	vor_start_trigger()
+	await get_tree().create_timer(0.1).timeout
+	get_parent().map.reset_floor.rpc()
+	reset_wait_count.rpc()
 	
+
+func vor_start_trigger():
+	$CenterContainer/VBoxContainer/warte_map.visible = true
+	$CenterContainer/VBoxContainer/Warten.visible = false
+	$CenterContainer/VBoxContainer/start.visible = false
+	
+	
+func start_trigger():
+	$CenterContainer/VBoxContainer/warte_map.visible = false
+	get_parent().wertungs_anzeige_aktivieren()
+	get_parent().get_node("CanvasLayer/start_in").visible = true
 	
 
 @rpc("any_peer","call_local")
-func reset_player_wait():
+func reset_wait_count():
 	player_wait_count = 0
+	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
 	
 	
 @rpc("any_peer","call_local")
@@ -325,20 +342,8 @@ func _on_map_pressed():
 		Global.feld_size_mul = 5
 		count_map_size = 0
 
-
-
-@rpc("any_peer","call_local")
-func set_visible_warte_map(nodepath: String, mode: bool):
-	var obj = get_node(nodepath)
-	if obj:
-		if mode:
-			obj.visible = mode
-		else:	
-			obj.visible = mode
 			
 
 @rpc("any_peer","call_local")
 func map_set(faktor):
 	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*faktor
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		get_parent().map.reset_floor.rpc()

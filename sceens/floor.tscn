@@ -8,3 +8,6 @@ use_parent_material = true
 tile_set = ExtResource("1_hsdqa")
 use_kinematic_bodies = true
 script = ExtResource("1_6wjps")
+
+[node name="delay_reset" type="Timer" parent="."]
+wait_time = 0.1

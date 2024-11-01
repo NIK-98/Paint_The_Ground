@@ -73,17 +73,15 @@ func _on_restart_pressed():
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	$"../loby".update_player_wait.rpc(true)
-	get_parent().reset_vars_level.rpc()
-	set_visible_false.rpc("../loby", true)
-	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/start", false)
-	set_visible_false.rpc("../loby/CenterContainer/VBoxContainer/Warten", true)
+	get_parent().reset_vars_level.rpc_id(1)
+	set_visiblety.rpc_id(1,"../loby", true)
+	set_visiblety.rpc_id(1,"../loby/CenterContainer/VBoxContainer/Warten", true)
 	$CanvasLayer.visible = false
-	$"../loby".update_warten.rpc()
 	
 	
 	
 @rpc("any_peer","call_local")
-func set_visible_false(nodepath: String, mode: bool):
+func set_visiblety(nodepath: String, mode: bool):
 	var obj = get_node(nodepath)
 	if obj:
 		if mode:

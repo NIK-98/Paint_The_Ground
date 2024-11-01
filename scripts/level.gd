@@ -26,6 +26,7 @@ var loaded = false
 var blocked = false
 var block_cells = []
 var last_runde = false
+var start_gedrückt = 0
 
 @export var time = 0.0
 @export var bomb_time = 0.0
@@ -358,7 +359,6 @@ func reset_vars_level():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		reset_powerup()
 		reset_bomben()
-	main.get_node("CanvasLayer2/UI").visible = false
 	
 	
 	
@@ -445,13 +445,37 @@ func _on_timerende_timeout():
 	stoped_game.rpc()
 	if not OS.has_feature("dedicated_server"):
 		get_node("Scoreboard").update_scoreboard.rpc()
+	$Scoreboard.set_visiblety.rpc("CanvasLayer", true)
 	Global.trigger_host_focus = true
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
 	Global.trigger_host_focus = false
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$loby.map_set.rpc(Global.feld_size_mul)
-	$Scoreboard.set_visible_false.rpc("CanvasLayer", true)
 	
+
+@rpc("any_peer","call_local")
+func start_button_gedrückt():
+	start_game.rpc_id(1)
+
+
+@rpc("any_peer","call_local")
+func start_game():
+	start_gedrückt += 1
+	if start_gedrückt == len(playerlist):
+		$loby.visible = false
+		game_restart_timer_start()
+		$CanvasLayer/start_in.visible = false
+		$loby.start_trigger()
+		start_gedrückt = 0
+		
+
+@rpc("any_peer","call_local")
+func set_visiblety(nodepath: String, mode: bool):
+	var obj = get_node(nodepath)
+	if obj:
+		if mode:
+			obj.visible = mode
+		else:	
+			obj.visible = mode
+			
 
 func _on_timerrestart_timeout():
 	game_restart_timer_stop()
