@@ -73,7 +73,7 @@ func update_player_wait(positive: bool):
 			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
-	if player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/VBoxContainer/VBoxContainer.visible:
+	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/VBoxContainer/VBoxContainer.visible:
 		no_players()
 		
 
@@ -92,7 +92,7 @@ func update_player_count(positiv: bool):
 		player_conect_count += 1
 	if not positiv and player_conect_count > 0:
 		player_conect_count -= 1
-		if player_wait_count <= 1 and player_conect_count == 1:
+		if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
 			no_players()
 		
 		
