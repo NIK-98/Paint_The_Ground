@@ -73,17 +73,8 @@ func update_player_wait(positive: bool):
 			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
-	if player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not get_parent().get_node("Players").has_node("2"):
-		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
-		$CenterContainer/VBoxContainer/name_input.visible = false
-		$CenterContainer/VBoxContainer/Enter.visible = false
-		$CenterContainer/VBoxContainer/Random.visible = false
-		$CenterContainer/VBoxContainer/settime.visible = false
-		$CenterContainer/VBoxContainer/Map.visible = false
-		$CenterContainer/VBoxContainer/Warten.visible = true
-		$CenterContainer/VBoxContainer/start.text = "Beenden"
-		$CenterContainer/VBoxContainer/Warten.text = str("keiner auf dem server!")
-		$CenterContainer/VBoxContainer/start.visible = true
+	if player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/VBoxContainer/VBoxContainer.visible:
+		no_players()
 		
 
 @rpc("any_peer","call_local")	
@@ -99,8 +90,27 @@ func namen_text_update(id, text):
 func update_player_count(positiv: bool):
 	if positiv:
 		player_conect_count += 1
-	elif player_conect_count > 0:
+	if not positiv and player_conect_count > 0:
 		player_conect_count -= 1
+		if player_wait_count <= 1 and player_conect_count == 1:
+			no_players()
+		
+		
+
+func no_players():
+	if not visible:
+		visible = true
+		get_tree().paused = true
+	$CenterContainer/VBoxContainer/VBoxContainer.visible = false
+	$CenterContainer/VBoxContainer/name_input.visible = false
+	$CenterContainer/VBoxContainer/Enter.visible = false
+	$CenterContainer/VBoxContainer/Random.visible = false
+	$CenterContainer/VBoxContainer/settime.visible = false
+	$CenterContainer/VBoxContainer/Map.visible = false
+	$CenterContainer/VBoxContainer/Warten.visible = true
+	$CenterContainer/VBoxContainer/start.text = "Beenden"
+	$CenterContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+	$CenterContainer/VBoxContainer/start.visible = true
 	
 	
 func _notification(what):
