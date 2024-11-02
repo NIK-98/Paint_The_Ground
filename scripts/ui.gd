@@ -107,8 +107,14 @@ func _process(_delta):
 		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		Global.trigger_host_focus = false
 	
+	if Input.is_action_just_pressed("modus"):
+		get_parent().get_parent()._on_change_pressed()
+	if Input.is_action_just_pressed("cancel"):
+		block_host = false
+		$Panel/CenterContainer/Net/Connecting.text = ""
+	
 	if get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_node("Level/level/loby").visible:
-		set_process(false)	
+		set_process(false)
 		
 
 func check_ip(str_liste: String):
@@ -281,11 +287,6 @@ func _input(_event):
 		if $Panel.scroll_vertical >= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
 			$Panel.scroll_vertical -= 100
 			return
-	if Input.is_action_just_pressed("modus"):
-		get_parent().get_parent()._on_change_pressed()
-	if Input.is_action_just_pressed("cancel"):
-		block_host = false
-		$Panel/CenterContainer/Net/Connecting.text = ""
 
 
 func _on_host_connect_toggled(toggled_on: bool) -> void:
