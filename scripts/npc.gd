@@ -182,6 +182,7 @@ func set_random_direction():
 	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	
 		
+@rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false
 	score = 0

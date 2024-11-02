@@ -43,8 +43,6 @@ func _ready():
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
-	$Camera2D.limit_right = Global.Spielfeld_Size.x
-	$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 	color_change()
 	position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 
@@ -59,8 +57,6 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			$Camera2D.limit_right = Global.Spielfeld_Size.x
-			$Camera2D.limit_bottom = Global.Spielfeld_Size.y
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
 				moving()

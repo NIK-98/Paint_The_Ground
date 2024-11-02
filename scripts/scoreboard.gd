@@ -34,24 +34,20 @@ func sync_list(NewScoreEintrag: Array):
 		get_node(name_feld).text = Scoreboard_List[eintrag][1]
 
 
-@rpc("any_peer","call_local")
 func update_scoreboard():
 	if loaded:
+		update_eigene_anzeige.rpc()
 		for n in get_parent().get_node("Players").get_children():
-			if n.has_method("move_npc") and get_parent().get_node("loby").player_conect_count == 1 and get_parent().get_node("loby").player_wait_count == 0:
-				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text)
-				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text)
-				sync_list([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
-				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
-				$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(n.name)).get_node("Color").color)
-				get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars()
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(multiplayer.get_unique_id())).text)
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
-		sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(multiplayer.get_unique_id())).text.to_int(), get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text])
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
-		get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).reset_player_vars.rpc()
-		
+			sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
+			get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars.rpc()
+
+@rpc("any_peer","call_local")	
+func update_eigene_anzeige():
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(multiplayer.get_unique_id())).text)
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
+	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
+			
 		
 func _process(_delta):
 	if not loaded:

@@ -349,9 +349,11 @@ func cell_blocker(block: bool, id: int):
 		
 		
 func _on_timer_timeout():
-	game_stoping_timers.rpc()
-	game_end_timer_start.rpc()
-	reset_vars_level.rpc()
+	$Timer.stop()
+	$Timerbomb.stop()
+	$Timerpower.stop()
+	$Timerende.start()
+	reset_vars_level.rpc_id(1)
 
 
 @rpc("any_peer","call_local")
@@ -378,46 +380,6 @@ func stoped_game():
 	last_runde = false
 	power_up_spawn_time = Global.standart_powerup_spawn_time
 	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
-
-
-@rpc("any_peer","call_local")
-func game_starting_timers():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$Timer.start()
-		$Timerbomb.start()
-		$Timerpower.start()
-		
-	
-@rpc("any_peer","call_local")
-func game_stoping_timers():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$Timer.stop()
-		$Timerbomb.stop()
-		$Timerpower.stop()
-	
-
-@rpc("any_peer","call_local")
-func game_end_timer_start():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$Timerende.start()
-	
-	
-@rpc("any_peer","call_local")
-func game_end_timer_stop():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):	
-		$Timerende.stop()
-	
-
-@rpc("any_peer","call_local")
-func game_restart_timer_start():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$Timerrestart.start()
-		
-	
-@rpc("any_peer","call_local")
-func game_restart_timer_stop():
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):	
-		$Timerrestart.stop()
 	
 
 func _on_timerbomb_timeout():
@@ -441,10 +403,9 @@ func _on_timerpower_timeout():
 		
 
 func _on_timerende_timeout():
-	game_end_timer_stop.rpc()
+	$Timerende.stop()
 	stoped_game.rpc()
-	if not OS.has_feature("dedicated_server"):
-		get_node("Scoreboard").update_scoreboard.rpc()
+	get_node("Scoreboard").update_scoreboard()
 	$Scoreboard.set_visiblety.rpc("CanvasLayer", true)
 	Global.trigger_host_focus = true
 	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
@@ -461,7 +422,7 @@ func start_game():
 	start_gedrückt += 1
 	if start_gedrückt == len(playerlist):
 		$loby.visible = false
-		game_restart_timer_start()
+		$Timerrestart.start()
 		$CanvasLayer/start_in.visible = false
 		$loby.start_trigger()
 		start_gedrückt = 0
@@ -478,8 +439,10 @@ func set_visiblety(nodepath: String, mode: bool):
 			
 
 func _on_timerrestart_timeout():
-	game_restart_timer_stop()
-	game_starting_timers()
+	$Timerrestart.stop()
+	$Timer.start()
+	$Timerbomb.start()
+	$Timerpower.start()
 	$CanvasLayer/Time.visible = true
 	$CanvasLayer/Bomb_time.visible = true
 	$CanvasLayer/start_in.visible = false
