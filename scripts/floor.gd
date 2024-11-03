@@ -7,10 +7,10 @@ var bereit_count = 0
 
 @rpc("any_peer","call_local")
 func reset_floor():
-	for x in range(Global.Spielfeld_Size.x):
-		for y in range(Global.Spielfeld_Size.y):
-			var tile_position = local_to_map(Vector2i(x,y))
-			set_cell(tile_position,0,Vector2i(0,0),0)
+	var tile_position = local_to_map(Vector2i(Global.Spielfeld_Size))
+	for x in range(tile_position.x):
+		for y in range(tile_position.y):
+			set_cell(Vector2i(x,y),0,Vector2i(0,0),0)	
 	level_bereit_check.rpc_id(1)
 			
 
