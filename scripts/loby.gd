@@ -115,10 +115,9 @@ func no_players():
 	
 	
 func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_WM_GO_BACK_REQUEST or (what == NOTIFICATION_APPLICATION_FOCUS_OUT and (OS.get_name() == "Android" or OS.get_name() == "iOS")):
 		exit("Verbindung Selber beendet!", true)
 		return
-				
 			
 
 func server_exit():
@@ -132,9 +131,6 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
-	update_player_count.rpc(false)
-	if not $CenterContainer/VBoxContainer/Enter.visible:
-		update_player_wait.rpc(false)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()

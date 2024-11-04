@@ -96,6 +96,9 @@ func update_player_list(id: int, join: bool):
 	else:
 		playerlist.erase(id)
 		print(str("Peer: ",id," Disconnected!"))
+		$loby.update_player_count.rpc(false)
+		if not $loby/CenterContainer/VBoxContainer/Enter.visible:
+			$loby.update_player_wait.rpc(false)
 		
 
 @rpc("any_peer","call_local")
@@ -123,7 +126,7 @@ func _process(_delta):
 		set_process(false)
 	
 	
-func _physics_process(_delta):
+func _physics_process(_delta):	
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
