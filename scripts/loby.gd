@@ -185,7 +185,7 @@ func _on_enter_pressed():
 			get_parent().spawn_npc()
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			await get_tree().create_timer(0.1).timeout
-			map_set.rpc(Global.feld_size_mul)
+			map_set.rpc()
 		
 
 func _on_random_pressed():
@@ -356,5 +356,5 @@ func _on_map_pressed():
 			
 
 @rpc("any_peer","call_local")
-func map_set(faktor):
-	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*faktor
+func map_set():
+	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*Global.feld_size_mul

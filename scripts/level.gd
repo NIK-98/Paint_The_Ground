@@ -187,7 +187,6 @@ func add_player(id: int):
 	update_player_list(id, true)
 	var player = player_sceen.instantiate()
 	player.name = str(id)
-	player.position = Vector2(randf_range(player.player_spawn_grenze,Global.Spielfeld_Size.x-player.player_spawn_grenze-player.get_node("Color").size.x),randi_range(player.player_spawn_grenze,Global.Spielfeld_Size.y-player.player_spawn_grenze-player.get_node("Color").size.y))
 	get_node("Players").add_child(player, true)
 	add_score(id, false)
 	add_power_icons(id, false)

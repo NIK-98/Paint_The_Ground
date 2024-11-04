@@ -44,12 +44,14 @@ func _ready():
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
 	color_change()
+	
 
 
 func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
+		position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
 		score_counter()
 	
 	
