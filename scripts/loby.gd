@@ -45,6 +45,7 @@ func _ready():
 	if multiplayer.is_server():
 		$CenterContainer/VBoxContainer/settime.visible = true
 		$CenterContainer/VBoxContainer/settime.connect("pressed",_on_settime_pressed)
+		$CenterContainer/VBoxContainer/Map.connect("pressed",_on_map_pressed)
 		$CenterContainer/VBoxContainer/Map.visible = true
 	
 	
@@ -71,7 +72,7 @@ func update_player_wait(positive: bool):
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
 			await get_tree().create_timer(0.1).timeout
-			get_parent().map.reset_floor.rpc()
+			get_parent().map.reset_floor.rpc(Global.Spielfeld_Size)
 			reset_wait_count.rpc()
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/VBoxContainer/VBoxContainer.visible:
 		no_players()
@@ -288,7 +289,7 @@ func _on_start_pressed():
 		return
 	vor_start_trigger()
 	await get_tree().create_timer(0.1).timeout
-	get_parent().map.reset_floor.rpc()
+	get_parent().map.reset_floor.rpc(Global.Spielfeld_Size)
 	reset_wait_count.rpc()
 	
 

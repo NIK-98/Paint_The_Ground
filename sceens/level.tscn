@@ -707,7 +707,6 @@ replication_config = SubResource("SceneReplicationConfig_p5trk")
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/settime" to="loby" method="_on_settime_mouse_entered"]
 [connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_mouse_entered"]
-[connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Map" to="loby" method="_on_map_pressed"]
 [connection signal="focus_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
