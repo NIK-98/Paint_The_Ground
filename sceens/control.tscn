@@ -1,7 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfmrdi2wbhcxg"]
+[gd_scene load_steps=22 format=3 uid="uid://bfmrdi2wbhcxg"]
 
 [ext_resource type="Script" path="res://scripts/control.gd" id="1_7db0h"]
 [ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="1_gaecw"]
+[ext_resource type="Texture2D" uid="uid://d22wtuyivljcq" path="res://assets/controll/joydot.png" id="3_huynd"]
+[ext_resource type="Texture2D" uid="uid://b5pfu1bkgxei6" path="res://assets/controll/joy.png" id="4_715vf"]
+[ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="5_2e4kb"]
+[ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="6_nignh"]
+[ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="7_i4wwu"]
+[ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="8_nf4qe"]
+[ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="9_mycru"]
+[ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="10_2o4h5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8frf"]
 bg_color = Color(0, 0, 0.803922, 1)
@@ -16,14 +24,12 @@ expand_margin_bottom = 40.0
 shadow_color = Color(0, 0, 0.933333, 0.6)
 shadow_size = 90
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xtiqk"]
-content_margin_left = 100.0
-content_margin_top = 10.0
-content_margin_right = 100.0
-content_margin_bottom = 10.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkgp"]
+content_margin_left = 60.0
+content_margin_right = 60.0
 
 [sub_resource type="Theme" id="Theme_a88cm"]
-ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_xtiqk")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_lfkgp")
 
 [sub_resource type="Theme" id="Theme_0ryx2"]
 Label/font_sizes/font_size = 100
@@ -77,6 +83,7 @@ Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
 
 [node name="Control" type="Control" groups=["saveinputsettings"]]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -118,23 +125,20 @@ theme_override_constants/separation = 45
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 238.43)
+custom_minimum_size = Vector2(0, 244.85)
 layout_mode = 2
 theme = SubResource("Theme_a88cm")
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 75
+theme_override_constants/separation = 90
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_constants/separation = -15
 
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_0ryx2")
 theme_override_colors/font_color = Color(0.888332, 0.833534, 0, 1)
@@ -145,80 +149,567 @@ text = "Steuerung"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="line" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/VBoxContainer"]
+[node name="line" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_0ryx2")
 theme_override_colors/font_color = Color(0.519232, 0.480749, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
-text = "--------------------------------------------------------"
+text = "_______________________________________________"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="laufen" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen"]
 layout_mode = 2
-theme_override_constants/separation = 130
-
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
-layout_mode = 2
+offset_left = -50.0
+offset_right = 67.0
+offset_bottom = 49.0
 theme = SubResource("Theme_0ryx2")
 theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
-text = "Steuerung"
+text = "Laufen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen"]
+layout_mode = 0
+offset_left = 221.0
+offset_top = -10.0
+offset_right = 477.0
+offset_bottom = 54.0
+theme_override_constants/separation = 44
+
+[node name="pc" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 25
+text = "WASD"
+
+[node name="PC" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/HBoxContainer/pc"]
+layout_mode = 2
+offset_left = 18.5
+offset_top = -75.5
+offset_right = 62.5
+offset_bottom = -26.5
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.533333, 0.321569, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 30
+text = "PC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="con" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Stick  L"
+
+[node name="Controller" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/HBoxContainer/con"]
+layout_mode = 2
+offset_left = -16.5
+offset_top = -75.5
+offset_right = 154.5
+offset_bottom = -26.5
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 30
+text = "X-Box"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Android" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen"]
+layout_mode = 2
+offset_left = 601.5
+offset_top = -10.5
+offset_right = 665.5
+offset_bottom = 53.5
+texture = ExtResource("4_715vf")
+
+[node name="Androiddot" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/Android"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+offset_left = 11.5
+offset_top = 11.5
+offset_right = 51.5
+offset_bottom = 51.5
+texture = ExtResource("3_huynd")
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/laufen/Android"]
+layout_mode = 0
+offset_left = -43.0
+offset_top = -74.0
+offset_right = 102.0
+offset_bottom = -25.0
+theme_override_colors/font_color = Color(0.214238, 0.938065, 0.688789, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 30
+text = "Android"
+horizontal_alignment = 1
+
+[node name="navigation" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/navigation"]
+layout_mode = 2
+offset_left = -49.0
+offset_right = 134.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Navigation"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/navigation"]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 4.0
+offset_right = 452.0
+offset_bottom = 53.0
+theme_override_constants/separation = 51
+
+[node name="pc1" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/navigation/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 25
+text = "↑ ↓ → ←
+"
+
+[node name="con1" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/navigation/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "D-Pad"
+
+[node name="Android1" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/navigation"]
+layout_mode = 2
+offset_left = 577.5
+offset_top = 3.5
+offset_right = 680.5
+offset_bottom = 52.5
+theme_override_colors/font_color = Color(0.615686, 0.894118, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Touch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="menu" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/menu"]
+layout_mode = 2
+offset_left = -49.0
+offset_right = 48.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Menü"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/menu"]
+offset_left = 221.5
+offset_top = 1.5
+offset_right = 496.5
+offset_bottom = 43.5
+theme_override_constants/separation = 90
+
+[node name="pc2" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/menu/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 25
+text = "ESC"
+
+[node name="con2" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/menu/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Menü"
+
+[node name="Android2" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/menu"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+offset_left = 609.5
+offset_top = 1.5
+offset_right = 657.5
+offset_bottom = 49.5
+texture = ExtResource("5_2e4kb")
+expand_mode = 1
+
+[node name="abbrechen" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/abbrechen"]
+layout_mode = 2
+offset_left = -47.0
+offset_right = 137.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Abbrechen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/abbrechen"]
+offset_left = 222.0
+offset_right = 558.0
+offset_bottom = 52.0
+theme_override_constants/separation = 151
+
+[node name="pc3" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/abbrechen/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1ar31")
 theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
-text = "pc"
+text = "C"
 
-[node name="PC" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2/Button"]
-layout_mode = 2
-offset_left = -2.5
-offset_top = -73.5
-offset_right = 41.5
-offset_bottom = -24.5
-theme = SubResource("Theme_0ryx2")
-theme_override_colors/font_color = Color(0.533333, 0.321569, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 30
-theme_override_font_sizes/font_size = 35
-text = "PC"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button2" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
+[node name="con3" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/abbrechen/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1ar31")
 theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
-text = "xbox"
+text = "B"
 
-[node name="Controller" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2/Button2"]
+[node name="Android3" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/abbrechen"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = -43.5
-offset_top = -73.5
-offset_right = 127.5
-offset_bottom = -24.5
+offset_left = 610.5
+offset_top = -0.5
+offset_right = 658.5
+offset_bottom = 47.5
+texture = ExtResource("6_nignh")
+expand_mode = 1
+
+[node name="Spieler_Liste" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Spieler_Liste"]
+layout_mode = 2
+offset_left = -49.0
+offset_right = 158.0
+offset_bottom = 49.0
 theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Spieler-Liste"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Spieler_Liste"]
+offset_left = 221.5
+offset_top = -2.5
+offset_right = 556.5
+offset_bottom = 45.5
+theme_override_constants/separation = 150
+
+[node name="pc4" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Spieler_Liste/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "P"
+
+[node name="con4" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Spieler_Liste/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
 theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
-text = "Controller"
+text = "X"
+
+[node name="Android4" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Spieler_Liste"]
+layout_mode = 2
+offset_left = 611.0
+offset_top = -2.0
+offset_right = 658.0
+offset_bottom = 46.0
+texture = ExtResource("7_i4wwu")
+expand_mode = 1
+
+[node name="Haendigkeit" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Haendigkeit"]
+layout_mode = 2
+offset_left = -50.0
+offset_right = 134.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Händigkeit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Haendigkeit"]
+offset_left = 221.5
+offset_top = 3.5
+offset_right = 556.5
+offset_bottom = 51.5
+theme_override_constants/separation = 143
+
+[node name="pc5" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Haendigkeit/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "M"
+
+[node name="con5" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Haendigkeit/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Y"
+
+[node name="Android5" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Haendigkeit"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+offset_left = 610.5
+offset_top = 3.5
+offset_right = 658.5
+offset_bottom = 51.5
+texture = ExtResource("8_nf4qe")
+expand_mode = 1
+
+[node name="Zoom" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom"]
+layout_mode = 2
+offset_left = -50.0
+offset_right = 46.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Zoom"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom"]
+offset_left = 222.5
+offset_top = 1.5
+offset_right = 548.5
+offset_bottom = 43.5
+theme_override_constants/separation = 63
+
+[node name="pc6" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Rad"
+
+[node name="con6" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "RB/LB"
+
+[node name="Android6in" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+offset_left = 585.5
+offset_top = -6.5
+offset_right = 633.5
+offset_bottom = 41.5
+texture = ExtResource("9_mycru")
+expand_mode = 1
+
+[node name="Android6out" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Zoom"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+offset_left = 638.0
+offset_top = -6.0
+offset_right = 686.0
+offset_bottom = 42.0
+texture = ExtResource("10_2o4h5")
+expand_mode = 1
+
+[node name="Scrollen" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Scrollen"]
+layout_mode = 2
+offset_left = -50.0
+offset_right = 85.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Scrollen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Scrollen"]
+offset_left = 221.5
+offset_top = -0.5
+offset_right = 556.5
+offset_bottom = 41.5
+theme_override_constants/separation = 63
+
+[node name="pc7" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Scrollen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Rad"
+
+[node name="con7" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Scrollen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "RB/LB"
+
+[node name="Android7" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Scrollen"]
+layout_mode = 2
+offset_left = 581.0
+offset_right = 684.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0.615686, 0.894118, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Touch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bestaetigungen" type="Control" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Bestaetigungen"]
+layout_mode = 2
+offset_left = -53.0
+offset_right = 193.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Bestätigungen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Bestaetigungen"]
+offset_left = 222.5
+offset_top = 5.5
+offset_right = 488.5
+offset_bottom = 47.5
+theme_override_constants/separation = 70
+
+[node name="pc8" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Bestaetigungen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Enter"
+
+[node name="con8" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Bestaetigungen/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "A"
+
+[node name="Android8" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/Bestaetigungen"]
+layout_mode = 0
+offset_left = 560.5
+offset_top = -0.5
+offset_right = 705.5
+offset_bottom = 48.5
+theme_override_colors/font_color = Color(0.615686, 0.894118, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Touch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
