@@ -1,0 +1,254 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfmrdi2wbhcxg"]
+
+[ext_resource type="Script" path="res://scripts/control.gd" id="1_7db0h"]
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="1_gaecw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8frf"]
+bg_color = Color(0, 0, 0.803922, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+expand_margin_left = 50.0
+expand_margin_top = 40.0
+expand_margin_right = 50.0
+expand_margin_bottom = 40.0
+shadow_color = Color(0, 0, 0.933333, 0.6)
+shadow_size = 90
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xtiqk"]
+content_margin_left = 100.0
+content_margin_top = 10.0
+content_margin_right = 100.0
+content_margin_bottom = 10.0
+
+[sub_resource type="Theme" id="Theme_a88cm"]
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_xtiqk")
+
+[sub_resource type="Theme" id="Theme_0ryx2"]
+Label/font_sizes/font_size = 100
+
+[sub_resource type="SystemFont" id="SystemFont_faqhp"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5hexo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_meg3q"]
+texture = ExtResource("1_gaecw")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k88vg"]
+texture = ExtResource("1_gaecw")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xojp"]
+texture = ExtResource("1_gaecw")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="Theme" id="Theme_1ar31"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 100
+Button/fonts/font = SubResource("SystemFont_faqhp")
+Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
+Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
+Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
+
+[sub_resource type="Theme" id="Theme_by47x"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 100
+Button/fonts/font = SubResource("SystemFont_faqhp")
+Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
+Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
+Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
+
+[node name="Control" type="Control" groups=["saveinputsettings"]]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7db0h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 7
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -566.5
+offset_top = -237.5
+offset_right = 566.5
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l8frf")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 238.43)
+layout_mode = 2
+theme = SubResource("Theme_a88cm")
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.888332, 0.833534, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Steuerung"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="line" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.519232, 0.480749, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "--------------------------------------------------------"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 130
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Steuerung"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "pc"
+
+[node name="PC" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2/Button"]
+layout_mode = 2
+offset_left = -2.5
+offset_top = -73.5
+offset_right = 41.5
+offset_bottom = -24.5
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.533333, 0.321569, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "PC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "xbox"
+
+[node name="Controller" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/HBoxContainer2/Button2"]
+layout_mode = 2
+offset_left = -43.5
+offset_top = -73.5
+offset_right = 127.5
+offset_bottom = -24.5
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Controller"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Back")
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Reset"
+
+[node name="Back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Reset")
+theme = SubResource("Theme_by47x")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Zurück"
+
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back" to="." method="_on_back_pressed"]

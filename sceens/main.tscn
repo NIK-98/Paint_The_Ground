@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=20 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
+[ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl7u4"]
 bg_color = Color(0, 0, 0.803922, 1)
@@ -151,6 +152,13 @@ theme = SubResource("Theme_kbdh3")
 theme_override_colors/font_color = Color(0.0313726, 0, 1, 1)
 text = "Grafik"
 
+[node name="Eingabe" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_kbdh3")
+theme_override_colors/font_color = Color(0.0313726, 0, 1, 1)
+text = "Eingabe
+"
+
 [node name="Beenden" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_kbdh3")
@@ -174,6 +182,9 @@ layer = 6
 
 [node name="Audio_menu" parent="." instance=ExtResource("9_gg8o3")]
 
+[node name="Control" parent="." instance=ExtResource("12_v5gxd")]
+process_mode = 3
+
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
@@ -185,6 +196,9 @@ layer = 6
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]

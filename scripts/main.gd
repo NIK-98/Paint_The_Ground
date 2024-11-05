@@ -210,7 +210,7 @@ func _on_zurück_focus_entered():
 		
 
 func _input(_event):
-	if Input.is_action_just_pressed("exit") and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible:
+	if Input.is_action_just_pressed("exit") and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible and not $Control/CanvasLayer.visible:
 		await get_tree().create_timer(0.1).timeout
 		Global.esc_is_pressing_in_game = true
 		get_node("CanvasLayer/Menu").visible = true
@@ -226,10 +226,25 @@ func _on_grafik_pressed():
 	Global.trigger_grafik_menu = true
 
 
-func _on_grafik_focus_entered() -> void:
+func _on_grafik_focus_entered():
 	if not Global.trigger_host_focus:
 		Global.ui_hover_sound = true
 
 
 func _on_grafik_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_eingabe_pressed() :
+	Global.ui_sound = true
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_input_menu = true
+
+
+func _on_eingabe_focus_entered():
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_eingabe_mouse_entered():
 	Global.ui_hover_sound = true

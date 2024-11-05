@@ -99,7 +99,7 @@ func _process(_delta):
 			await check_ip(server_address_to_connect_to)
 			
 	
-	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible:
+	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_node("Control/CanvasLayer").visible:
 		await get_tree().create_timer(0.1).timeout
 		esc_is_pressing = true
 		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true

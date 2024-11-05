@@ -45,7 +45,7 @@ expand_margin_bottom = 40.0
 shadow_color = Color(0, 0, 0.933333, 0.6)
 shadow_size = 90
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wp1yl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oggd1"]
 bg_color = Color(7.33994e-07, 0.31624, 0.142891, 1)
 border_width_bottom = 2
 border_color = Color(0, 0.486275, 0.333333, 1)
@@ -58,29 +58,29 @@ shadow_color = Color(0.87451, 0.501961, 0, 0.768627)
 shadow_size = 5
 
 [sub_resource type="Theme" id="Theme_fm43a"]
-HSlider/styles/grabber_area = SubResource("StyleBoxFlat_wp1yl")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_oggd1")
 
-[sub_resource type="SystemFont" id="SystemFont_faqhp"]
+[sub_resource type="SystemFont" id="SystemFont_t22yn"]
 font_names = PackedStringArray("Cooper")
 subpixel_positioning = 0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5hexo"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2vstp"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_meg3q"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qbhqg"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 25.0
 expand_margin_top = 25.0
 expand_margin_right = 25.0
 expand_margin_bottom = 25.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k88vg"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7r3qy"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 20.0
 expand_margin_top = 20.0
 expand_margin_right = 20.0
 expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xojp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wbugv"]
 texture = ExtResource("3_f1425")
 expand_margin_left = 20.0
 expand_margin_top = 20.0
@@ -91,21 +91,21 @@ expand_margin_bottom = 20.0
 Button/colors/font_outline_color = Color(1, 1, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_faqhp")
-Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
-Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
-Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
-Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
+Button/fonts/font = SubResource("SystemFont_t22yn")
+Button/styles/focus = SubResource("StyleBoxEmpty_2vstp")
+Button/styles/hover = SubResource("StyleBoxTexture_qbhqg")
+Button/styles/normal = SubResource("StyleBoxTexture_7r3qy")
+Button/styles/pressed = SubResource("StyleBoxTexture_wbugv")
 
 [sub_resource type="Theme" id="Theme_yt4ax"]
 Button/colors/font_outline_color = Color(1, 1, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_faqhp")
-Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
-Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
-Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
-Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
+Button/fonts/font = SubResource("SystemFont_t22yn")
+Button/styles/focus = SubResource("StyleBoxEmpty_2vstp")
+Button/styles/hover = SubResource("StyleBoxTexture_qbhqg")
+Button/styles/normal = SubResource("StyleBoxTexture_7r3qy")
+Button/styles/pressed = SubResource("StyleBoxTexture_wbugv")
 
 [node name="Audio_menu" type="Control" groups=["saveaudiosettings"]]
 process_mode = 3
