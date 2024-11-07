@@ -316,9 +316,9 @@ func del_score_visuel(id):
 
 
 func _input(_event):
-	if Input.is_action_pressed("Info"):
+	if Input.is_action_pressed("Info") or Input.is_action_pressed("Info_con"):
 		$Tap.visible = true
-	if Input.is_action_just_released("Info"):
+	if Input.is_action_just_released("Info") or Input.is_action_just_released("Info_con"):
 		$Tap.visible = false
 
 

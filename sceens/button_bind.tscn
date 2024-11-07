@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://c64bvuv6igryb"]
+
+[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="1_mkeye"]
+[ext_resource type="Script" path="res://scripts/button_bind.gd" id="1_s8ryp"]
+
+[sub_resource type="Theme" id="Theme_0ryx2"]
+Label/font_sizes/font_size = 100
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62n8v"]
+
+[sub_resource type="SystemFont" id="SystemFont_faqhp"]
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5hexo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_meg3q"]
+texture = ExtResource("1_mkeye")
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k88vg"]
+texture = ExtResource("1_mkeye")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xojp"]
+texture = ExtResource("1_mkeye")
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="Theme" id="Theme_1ar31"]
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 100
+Button/fonts/font = SubResource("SystemFont_faqhp")
+Button/styles/focus = SubResource("StyleBoxEmpty_5hexo")
+Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
+Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8fnti"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6is6g"]
+
+[node name="Button_bind" type="Control" groups=["bind"]]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("1_s8ryp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 978.0
+offset_bottom = 49.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_0ryx2")
+theme_override_colors/font_color = Color(0, 0.828189, 0.271528, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "Aktion"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_62n8v")
+
+[node name="pc" type="Button" parent="HBoxContainer" groups=["input_pc"]]
+physics_interpolation_mode = 0
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.531734, 0.322639, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+toggle_mode = true
+text = "pc-key"
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8fnti")
+
+[node name="con" type="Button" parent="HBoxContainer" groups=["input_con"]]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = SubResource("Theme_1ar31")
+theme_override_colors/font_color = Color(0.647059, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+toggle_mode = true
+text = "controler-key"
+
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6is6g")
+
+[node name="Android" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.615686, 0.894118, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 35
+text = "key"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="focus_entered" from="HBoxContainer/pc" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="HBoxContainer/pc" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="HBoxContainer/pc" to="." method="_on_pc_toggled"]
+[connection signal="focus_entered" from="HBoxContainer/con" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="HBoxContainer/con" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="HBoxContainer/con" to="." method="_on_con_toggled"]

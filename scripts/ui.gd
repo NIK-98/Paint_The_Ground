@@ -99,17 +99,18 @@ func _process(_delta):
 			await check_ip(server_address_to_connect_to)
 			
 	
-	if Input.is_action_just_pressed("exit") and visible and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_node("Control/CanvasLayer").visible:
-		await get_tree().create_timer(0.1).timeout
-		esc_is_pressing = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-		Global.trigger_host_focus = true
-		get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-		Global.trigger_host_focus = false
+	if get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().has_node("Control/CanvasLayer"):
+		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_node("Control/CanvasLayer").visible:
+			await get_tree().create_timer(0.1).timeout
+			esc_is_pressing = true
+			get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+			Global.trigger_host_focus = true
+			get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+			Global.trigger_host_focus = false
 	
-	if Input.is_action_just_pressed("modus"):
+	if (Input.is_action_just_pressed("modus") or Input.is_action_just_pressed("modus_con")):
 		get_parent().get_parent()._on_change_pressed()
-	if Input.is_action_just_pressed("cancel"):
+	if (Input.is_action_just_pressed("cancel") or Input.is_action_just_pressed("cancel_con")):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""
 	
@@ -273,14 +274,14 @@ func _on_ips_update_timeout():
 	
 
 func _input(_event):
-	if Input.is_action_just_pressed("zoomout"):
+	if (Input.is_action_just_pressed("zoomout") or Input.is_action_just_pressed("zoomout_con")):
 		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical < max(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y):
 			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical += 100
 			return
 		if $Panel.scroll_vertical < max(0, $Panel/CenterContainer.size.y - $Panel.size.y):
 			$Panel.scroll_vertical += 100
 			return
-	if Input.is_action_just_pressed("zoomin"):
+	if (Input.is_action_just_pressed("zoomin") or Input.is_action_just_pressed("zoomin_con")):
 		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical >= min(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y) and $Panel.scroll_vertical <= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
 			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical -= 100
 			return

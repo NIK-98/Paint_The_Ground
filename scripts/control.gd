@@ -40,7 +40,7 @@ func _physics_process(_delta):
 		back.grab_focus()
 		Global.trigger_input_menu = false
 		$CanvasLayer.visible = true	
-
+		
 
 func _on_reset_pressed() -> void:
 	Global.ui_sound = true
@@ -70,5 +70,3 @@ func _on_focus_entered():
 
 func _on_mouse_entered():
 	Global.ui_hover_sound = true
-	
-	

@@ -72,7 +72,11 @@ func _physics_process(_delta):
 					
 				if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
 					Input.action_release("down")
-				move = Input.get_vector("left","right","up","down")
+				if Input.get_connected_joypads().size() > 1:
+					move = Input.get_vector("pad_left","pad_right","pad_up","pad_down")
+				else:
+					move = Input.get_vector("left","right","up","down")
+					
 				velocity = move*SPEED
 				move_and_collide(velocity)
 			if (velocity.x != 0 or velocity.y != 0):
@@ -164,12 +168,12 @@ func _input(event):
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
-	if Input.is_action_pressed("zoomin") and not level.get_node("Scoreboard/CanvasLayer").visible:
+	if (Input.is_action_pressed("zoomin") or Input.is_action_pressed("zoomin_con")) and not level.get_node("Scoreboard/CanvasLayer").visible:
 		camera.zoom *= 0.9  # Zoom in
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-	if Input.is_action_pressed("zoomout") and not level.get_node("Scoreboard/CanvasLayer").visible:
+	if (Input.is_action_pressed("zoomout") or Input.is_action_pressed("zoomout_con")) and not level.get_node("Scoreboard/CanvasLayer").visible:
 		camera.zoom *= 1.1  # Zoom out
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
