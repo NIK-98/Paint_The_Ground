@@ -84,7 +84,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1.10999
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7db0h")
@@ -93,6 +92,10 @@ script = ExtResource("1_7db0h")
 layer = 7
 scale = Vector2(0.82, 0.82)
 transform = Transform2D(0.82, 0, 0, 0.82, 0, 0)
+
+[node name="blank" type="TextureRect" parent="CanvasLayer"]
+offset_right = 1561.0
+offset_bottom = 976.0
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 anchors_preset = 14
@@ -107,7 +110,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
-custom_minimum_size = Vector2(0, 161.93)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l8frf")
 

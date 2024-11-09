@@ -51,10 +51,6 @@ func _ready():
 	get_tree().paused = true
 	udp_client.set_broadcast_enabled(true)
 	udp_client.set_dest_address("255.255.255.255", udp_port)
-	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		$Panel/CenterContainer/Net/Info.visible = true
-	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
-		$Panel/CenterContainer/Net/InfoPC.visible = true
 	
 	
 func _process(_delta):
@@ -274,21 +270,16 @@ func _on_ips_update_timeout():
 	
 
 func _input(_event):
-	if (Input.is_action_just_pressed("zoomout") or Input.is_action_just_pressed("zoomout_con")):
-		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical < max(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y):
-			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical += 100
-			return
-		if $Panel.scroll_vertical < max(0, $Panel/CenterContainer.size.y - $Panel.size.y):
-			$Panel.scroll_vertical += 100
-			return
-	if (Input.is_action_just_pressed("zoomin") or Input.is_action_just_pressed("zoomin_con")):
-		if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical >= min(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y) and $Panel.scroll_vertical <= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
-			$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical -= 100
-			return
-		if $Panel.scroll_vertical >= min(0, $Panel/CenterContainer.size.y - $Panel.size.y):
-			$Panel.scroll_vertical -= 100
-			return
-
+	if get_parent().get_parent().has_node("Control/CanvasLayer") and not get_parent().get_parent().get_node("Control/CanvasLayer").visible:
+		if (Input.is_action_just_pressed("zoomout") or Input.is_action_just_pressed("zoomout_con")):
+			if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical < max(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y):
+				$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical += 100
+				return
+		if (Input.is_action_just_pressed("zoomin") or Input.is_action_just_pressed("zoomin_con")):
+			if $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical >= min(0, $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip.size.y - $Panel/CenterContainer/Net/Options/Option1/ScrollContainer.size.y):
+				$Panel/CenterContainer/Net/Options/Option1/ScrollContainer.scroll_vertical -= 100
+				return
+				
 
 func _on_host_connect_toggled(toggled_on: bool) -> void:
 	Global.ui_sound = true

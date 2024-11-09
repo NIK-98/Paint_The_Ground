@@ -158,7 +158,7 @@ func moving():
 				
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and not main.get_node("Control/CanvasLayer").visible:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			camera.zoom *= 0.9  # Zoom in
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:

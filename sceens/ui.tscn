@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=20 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="3_3wiig"]
 [ext_resource type="Texture2D" uid="uid://d1p8oe23i3ffp" path="res://assets/buttons/uiedit.png" id="5_gpyg4"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0wsa"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3j30k"]
 texture = ExtResource("2_plmyg")
 
 [sub_resource type="SystemFont" id="SystemFont_mlu1k"]
@@ -81,6 +81,9 @@ Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
 Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
 Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
+[sub_resource type="SystemFont" id="SystemFont_eho4t"]
+font_names = PackedStringArray("Algerian")
+
 [node name="UI" type="Control" groups=["Persist"]]
 process_mode = 3
 layout_mode = 3
@@ -93,15 +96,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jid7m")
 
-[node name="Panel" type="ScrollContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 1829.0
 offset_bottom = 1143.0
 scale = Vector2(0.7, 0.7)
 focus_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_w0wsa")
-horizontal_scroll_mode = 0
-scroll_deadzone = 30
+theme_override_styles/panel = SubResource("StyleBoxTexture_3j30k")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel"]
 layout_mode = 2
@@ -287,93 +288,19 @@ expand_to_text_length = true
 select_all_on_focus = true
 
 [node name="Info" type="Label" parent="Panel/CenterContainer/Net"]
-visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0.701961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = SubResource("SystemFont_eho4t")
 theme_override_font_sizes/font_size = 40
 text = "
-__________________________________________________________
 Info:
 __________________________________________________________
 Tippe auto anstelle der IP ein,  um dich mit dem ersten 
 verfügbaren Lokalen Server automatisch zu verbinden, 
 wenn ein server existiert wird auto durch dessen IP ersetzt.
-__________________________________________________________
-Steuerung Android:
-__________________________________________________________
-- laufen = virtuellen joystick (links oder rechts,
- je nach modus)
-- Menü navigation = über touch screen
-- exit / menü = button links oben
-- conection versuch abbrechen  =button rechts in der Mitte
-- Spieler-Liste = button oben rechts
-- links,rechts modus umschalten = links neben Spieler-Liste
-- Zoom = buttons unter dem wort Zoom im Spiel
-- Scrollen = über touch screen
-- Bestätigungen = über touch screen
-__________________________________________________________
-Steuerung Tastatur:
-__________________________________________________________
-- laufen = WASD
-- Menü navigation = ⬆️⬅️⬇️➡️ oder Tab taste
-- exit / menü = esc
-- conection versuch abbrechen  = C
-- Spieler-Liste = P
-- links,rechts modus umschalten = M
-- Zoom = Mausrad im Spiel
-- Scrollen = Maus bzw. Mausrad
-- Bestätigungen = Enter
-__________________________________________________________
-Steuerung Gamepad(Xbox Controller beispiel):
-__________________________________________________________
-- laufen = Linker Stick
-- Menü navigation = ⬆️⬅️⬇️➡️
-- exit / menü = menu button
-- conection versuch abbrechen  = B button
-- Spieler-Liste = X button
-- links,rechts modus umschalten = Y button
-- Zoom = RB/LB im Spiel
-- Scrollen = RB/LB
-- Bestätigungen = A button"
-horizontal_alignment = 1
-
-[node name="InfoPC" type="Label" parent="Panel/CenterContainer/Net"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "
-__________________________________________________________
-Info:
-__________________________________________________________
-Tippe auto anstelle der IP ein,  um dich mit dem ersten 
-verfügbaren Lokalen Server automatisch zu verbinden, 
-wenn ein server existiert wird auto durch dessen IP ersetzt.
-__________________________________________________________
-Steuerung Tastatur:
-__________________________________________________________
-- laufen = WASD
-- Menü navigation = ⬆️⬅️⬇️➡️ oder Tab taste
-- exit / menü = esc
-- conection versuch abbrechen  = C
-- Spieler-Liste = P
-- links,rechts modus umschalten = M
-- Zoom = Mausrad im Spiel
-- Scrollen = Maus bzw. Mausrad
-- Bestätigungen = Enter
-__________________________________________________________
-Steuerung Gamepad(Xbox Controller beispiel):
-__________________________________________________________
-- laufen = Linker Stick
-- Menü navigation = ⬆️⬅️⬇️➡️
-- exit / menü = menu button
-- conection versuch abbrechen  = B button
-- Spieler-Liste = X button
-- links,rechts modus umschalten = Y button
-- Zoom = RB/LB im Spiel
-- Scrollen = RB/LB
-- Bestätigungen = A button
-"
+__________________________________________________________"
 horizontal_alignment = 1
 
 [node name="ips_update_timer" type="Timer" parent="."]

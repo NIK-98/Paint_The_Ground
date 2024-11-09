@@ -196,7 +196,6 @@ func set_text_key():
 	var action_con_events = InputMap.action_get_events(aktion_controler_name)
 	if not action_events.is_empty():
 		var action_event = action_events[0]
-		prints(action_event)
 		if action_event.is_class("InputEventKey"):
 			var action_keycode = OS.get_keycode_string(action_event.physical_keycode)
 			if aktion_pc_name == "ui_accept":
