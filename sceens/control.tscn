@@ -266,6 +266,12 @@ aktion_pc_name = "zoomout"
 aktion_controler_name = "zoomout_con"
 android_name = "Zoom Linker Pfeil"
 
+[node name="Button_bind11" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+layout_mode = 2
+aktion_pc_name = "ui_accept"
+aktion_controler_name = "ui_accept"
+android_name = "Touch"
+
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100

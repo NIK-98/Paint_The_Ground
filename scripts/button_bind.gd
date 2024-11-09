@@ -51,7 +51,7 @@ var X_Box_button_names = {
 	JOY_BUTTON_PADDLE1: "P1",
 	JOY_BUTTON_PADDLE2: "P2",
 	JOY_BUTTON_PADDLE3: "P3",
-	JOY_BUTTON_PADDLE4: "P4",
+	JOY_BUTTON_PADDLE4: "P4"
 }
 
 var X_Box_axis_names = {
@@ -85,6 +85,8 @@ func set_aktion_name():
 			label.text = "Spieler-Liste"
 		"modus":
 			label.text = "Händigkeit"
+		"ui_accept":
+			label.text = "Bestätigen"
 			
 			
 	match aktion_controler_name:
@@ -108,6 +110,8 @@ func set_aktion_name():
 			label.text = "Spieler-Liste"
 		"modus_con":
 			label.text = "Händigkeit"
+		"ui_accept":
+			label.text = "Bestätigen"
 	
 	
 func _ready() -> void:
@@ -192,8 +196,11 @@ func set_text_key():
 	var action_con_events = InputMap.action_get_events(aktion_controler_name)
 	if not action_events.is_empty():
 		var action_event = action_events[0]
+		prints(action_event)
 		if action_event.is_class("InputEventKey"):
 			var action_keycode = OS.get_keycode_string(action_event.physical_keycode)
+			if aktion_pc_name == "ui_accept":
+				action_keycode = OS.get_keycode_string(action_event.keycode)
 			if action_keycode != "":
 				pc.text = "%s" % action_keycode
 				save_pc_text = "%s" % action_keycode
@@ -202,8 +209,12 @@ func set_text_key():
 				save_pc_text = "%s" % pc.text
 			save_pc_code = action_event.physical_keycode
 		save_aktion_pc_name = aktion_pc_name
+		
 	if not action_con_events.is_empty():
 		var action_con_event = action_con_events[0]
+		for x in action_con_events:
+			if x.is_class("InputEventJoypadButton") and aktion_controler_name == "ui_accept":
+				action_con_event = x
 		if action_con_event.is_class("InputEventJoypadButton"):
 			var action_con_keycode = action_con_event.get_button_index()
 			con.text = "%s" % X_Box_button_names.get(action_con_keycode)
@@ -211,7 +222,7 @@ func set_text_key():
 			save_con_code = action_con_keycode
 			save_ev_con_name = "button_index"
 		if action_con_event.is_class("InputEventJoypadMotion"):
-			var action_con_keycode = action_con_event.axis 
+			var action_con_keycode = action_con_event.axis
 			con.text = "%s" % X_Box_axis_names.get(action_con_keycode)
 			save_con_text = "%s" % X_Box_axis_names.get(action_con_keycode)
 			save_con_code = action_con_keycode
@@ -262,7 +273,7 @@ func _on_con_toggled(toggled_on: bool) -> void:
 					i.get_parent().get_parent().con.toggle_mode = true
 					i.get_parent().get_parent().set_process_unhandled_input(false)
 			set_text_key()
-	
+		
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("ui_accept"):
