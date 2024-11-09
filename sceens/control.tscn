@@ -78,7 +78,8 @@ Button/styles/hover = SubResource("StyleBoxTexture_meg3q")
 Button/styles/normal = SubResource("StyleBoxTexture_k88vg")
 Button/styles/pressed = SubResource("StyleBoxTexture_5xojp")
 
-[node name="Control" type="Control" groups=["saveinputsettings"]]
+[node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -129,6 +130,7 @@ theme_override_constants/separation = 115
 custom_minimum_size = Vector2(798.415, 351.045)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5lotk")
+follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
@@ -204,61 +206,61 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 90
 theme_override_styles/separator = SubResource("StyleBoxEmpty_w8mvk")
 
-[node name="Rechts" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "right"
 aktion_controler_name = "pad_right"
 android_name = "Touch Joystick"
 
-[node name="Links" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind2" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "left"
 aktion_controler_name = "pad_left"
 android_name = "Touch Joystick"
 
-[node name="Hoch" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind3" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "up"
 aktion_controler_name = "pad_up"
 android_name = "Touch Joystick"
 
-[node name="Runter" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind4" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "down"
 aktion_controler_name = "pad_down"
 android_name = "Touch Joystick"
 
-[node name="Menu" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind5" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "exit"
 aktion_controler_name = "exit_con"
 android_name = "Oben Links"
 
-[node name="Abbrechen" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind6" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "cancel"
 aktion_controler_name = "cancel_con"
 android_name = "Mitte Rechts(UI)"
 
-[node name="Spieler_Liste" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind7" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "Info"
 aktion_controler_name = "Info_con"
 android_name = "Oben Rechts"
 
-[node name="Haendigkeit" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind8" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "modus"
 aktion_controler_name = "modus_con"
 android_name = "Neben Spieler Liste"
 
-[node name="Scroll_Zoom_Rein" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind9" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "zoomin"
 aktion_controler_name = "zoomin_con"
 android_name = "Zoom Rechter Pfeil"
 
-[node name="Scroll_Zoom_Raus" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+[node name="Button_bind10" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "zoomout"
 aktion_controler_name = "zoomout_con"

@@ -4,7 +4,7 @@ extends Control
 @onready var main = $"/root/main/"
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back
 @onready var reset = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset
-
+@onready var v_box_button_container = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer
 
 var save_input_setting_path = "user://saveinputsettings.save"
 
@@ -12,19 +12,7 @@ var loaded = false
 var reseted = false
 
 
-func save():
-	var save_dict = {
-		"parent_name" : name,
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x, # Vector2 is not supported by JSON
-		"pos_y" : position.y
-	}
-	return save_dict
-
-
 func _ready():
-	name = "Control"
 	$CanvasLayer.visible = false
 	
 	
@@ -45,6 +33,9 @@ func _physics_process(_delta):
 func _on_reset_pressed() -> void:
 	Global.ui_sound = true
 	reseted = true
+	for i in v_box_button_container.get_children():
+		if i .is_in_group("bind"):
+			i.set_process(true)			
 
 
 func _on_back_pressed() -> void:

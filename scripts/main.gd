@@ -3,6 +3,7 @@ extends Node
 var save_path = "user://savetemp.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
+var save_input_setting_path = "user://saveinputsettings.save"
 
 var controll_switcher = false
 		
@@ -12,6 +13,7 @@ func _ready():
 		load_game("Persist", save_path)
 		load_game("saveaudiosettings", save_audio_setting_path)
 		load_game("savegrafik", save_grafik_path)
+		load_game("saveinputsettings", save_input_setting_path)
 		await get_tree().process_frame
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
