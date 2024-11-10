@@ -24,9 +24,6 @@ var save_aktion_controler_name = ""
 var save_con_code = 0
 var save_ev_con_name = ""
 
-var def_pc_text = ""
-var def_con_text = ""
-
 
 var save_input_setting_path = "user://saveinputsettings.save"
 
@@ -116,11 +113,11 @@ func set_aktion_name():
 	
 func _ready() -> void:
 	set_process_unhandled_input(false)
+	if FileAccess.file_exists(save_input_setting_path):
+		return
 	android.text = android_name
 	set_aktion_name()
 	set_text_key()
-	def_pc_text = pc.text
-	def_con_text = con.text	
 	
 			
 func save():
@@ -142,9 +139,9 @@ func save():
 		"save_aktion_controler_name" : save_aktion_controler_name
 	}
 	return save_dict
-	
-
-func _process(_delta):	
+			
+			
+func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "Button_bind"
@@ -179,12 +176,16 @@ func _process(_delta):
 	
 	if control.reseted:
 		_reset()
-	
+
+func _physics_process(_delta):
+	if pc.text == "drücke eine taste":
+		pc.grab_focus()
+	if con.text == "drücke eine taste":
+		con.grab_focus()
+		
 	
 func _reset():
 	set_process_unhandled_input(false)
-	pc.text = def_pc_text
-	con.text = def_con_text
 	InputMap.load_from_project_settings()
 	set_aktion_name()
 	set_text_key()
@@ -230,43 +231,34 @@ func set_text_key():
 			
 			
 func _on_pc_toggled(toggled_on: bool) -> void:
-	control.reseted = false
-	if Global.sperre_con:
-		return
 	Global.ui_sound = true
-	if Input.get_connected_joypads().size() <= 1:
-		if toggled_on:
-			Global.sperre_pc = true
-			pc.text = "drücke eine taste"
-			set_process_unhandled_input(true)
-			for i in get_tree().get_nodes_in_group("input_pc"):
-				if i.get_parent().get_parent().aktion_pc_name != aktion_pc_name:
-					i.get_parent().get_parent().pc.toggle_mode = false
-					i.get_parent().get_parent().set_process_unhandled_input(false)		
-		else:
-			Global.sperre_pc = false
-			for i in get_tree().get_nodes_in_group("input_pc"):
-				if i.get_parent().get_parent().aktion_pc_name != aktion_pc_name:
-					i.get_parent().get_parent().pc.toggle_mode = true
-					i.get_parent().get_parent().set_process_unhandled_input(false)
-			set_text_key()
+	if toggled_on:
+		for i in get_tree().get_nodes_in_group("input_pc"):
+			if i.get_parent().get_parent().aktion_pc_name != aktion_pc_name:
+				i.get_parent().get_parent().pc.toggle_mode = false
+				i.get_parent().get_parent().set_process_unhandled_input(false)	
+		pc.text = "drücke eine taste"
+		set_process_unhandled_input(true)	
+	else:
+		for i in get_tree().get_nodes_in_group("input_pc"):
+			if i.get_parent().get_parent().aktion_pc_name != aktion_pc_name:
+				i.get_parent().get_parent().pc.toggle_mode = true
+				i.get_parent().get_parent().set_process_unhandled_input(false)
+		set_text_key()
 
 
 func _on_con_toggled(toggled_on: bool) -> void:
-	if Global.sperre_pc:
-		return
-	Global.ui_sound = true	
-	if Input.get_connected_joypads().size() > 1:
+	Global.ui_sound = true
+	var action_con_event = InputMap.action_get_events(aktion_controler_name)[0]
+	if (action_con_event.is_class("InputEventJoypadButton") or action_con_event.is_class("InputEventJoypadMotion")):
 		if toggled_on:
-			Global.sperre_con = true
-			con.text = "drücke eine taste"
-			set_process_unhandled_input(toggled_on)
 			for i in get_tree().get_nodes_in_group("input_con"):
 				if i.get_parent().get_parent().aktion_controler_name != aktion_controler_name:
 					i.get_parent().get_parent().con.toggle_mode = false
-					i.get_parent().get_parent().set_process_unhandled_input(false)		
+					i.get_parent().get_parent().set_process_unhandled_input(false)	
+			con.text = "drücke eine taste"
+			set_process_unhandled_input(toggled_on)	
 		else:
-			Global.sperre_con = false
 			for i in get_tree().get_nodes_in_group("input_con"):
 				if i.get_parent().get_parent().aktion_controler_name != aktion_controler_name:
 					i.get_parent().get_parent().con.toggle_mode = true
@@ -279,12 +271,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Markiere die Eingabe als verarbeitet, damit sie nicht weitergegeben wird
 		get_viewport().set_input_as_handled()
 		return  # Beende die Funktion, um die Eingabe zu ignorieren
-	if Input.get_connected_joypads().size() > 1 and con.text == "drücke eine taste":
-		rebind_con_button(event)
-		con.button_pressed = false
-	elif pc.text == "drücke eine taste":
-		rebind_pc_button(event)
-		pc.button_pressed = false
+		
+	if not event is InputEventMouseButton:
+		if con.text == "drücke eine taste" and (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
+			rebind_con_button(event)
+			con.button_pressed = false
+		elif pc.text == "drücke eine taste":
+			rebind_pc_button(event)
+			pc.button_pressed = false
 		
 	
 func rebind_pc_button(event):
@@ -294,7 +288,6 @@ func rebind_pc_button(event):
 	set_process_unhandled_input(false)
 	set_text_key()
 	set_aktion_name()
-	Global.sperre_pc = false
 	
 
 func rebind_con_button(event):
@@ -304,8 +297,6 @@ func rebind_con_button(event):
 	set_process_unhandled_input(false)
 	set_text_key()
 	set_aktion_name()
-	Global.sperre_con = false
-
 
 func _on_focus_entered() -> void:
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

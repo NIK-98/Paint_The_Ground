@@ -285,7 +285,6 @@ theme_override_constants/separation = 40
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../Back")
 theme = SubResource("Theme_1ar31")
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -295,7 +294,6 @@ text = "Reset"
 
 [node name="Back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../Reset")
 theme = SubResource("Theme_by47x")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

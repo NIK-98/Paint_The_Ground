@@ -9,6 +9,8 @@ var difficulty_id = 0
 var count_settime = 0
 var count_map_size = 1
 
+var map_faktor = 2
+
 
 var namen = ["Levi","Emil","Liam","Anton","Theo",
 			 "Paul","Leano","Elias","Jakob","Samuel",
@@ -72,7 +74,7 @@ func update_player_wait(positive: bool):
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
 			await get_tree().create_timer(0.1).timeout
-			get_parent().map.reset_floor.rpc(Global.Spielfeld_Size)
+			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/VBoxContainer/VBoxContainer.visible:
 		no_players()
@@ -180,8 +182,7 @@ func _on_enter_pressed():
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			await get_tree().create_timer(0.1).timeout
-			map_set.rpc()
+			map_set.rpc(map_faktor)
 		
 
 func _on_random_pressed():
@@ -285,7 +286,7 @@ func _on_start_pressed():
 		return
 	vor_start_trigger()
 	await get_tree().create_timer(0.1).timeout
-	get_parent().map.reset_floor.rpc(Global.Spielfeld_Size)
+	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
 	
 
@@ -340,17 +341,16 @@ func _on_map_pressed():
 	count_map_size += 1
 	if count_map_size == 1:
 		$CenterContainer/VBoxContainer/Map.text = str("Kleine  Map")
-		Global.feld_size_mul = 2
+		map_faktor = 2
 	if count_map_size == 2:
 		$CenterContainer/VBoxContainer/Map.text = str("Normale  Map")
-		Global.feld_size_mul = 3
+		map_faktor = 3
 	if count_map_size == 3:
 		$CenterContainer/VBoxContainer/Map.text = str("Große  Map")
-		Global.feld_size_mul = 5
+		map_faktor = 5
 		count_map_size = 0
-
-			
+		
 
 @rpc("any_peer","call_local")
-func map_set():
-	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*Global.feld_size_mul
+func map_set(factor):
+	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*factor

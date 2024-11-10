@@ -82,7 +82,8 @@ Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
 Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 
 [sub_resource type="SystemFont" id="SystemFont_eho4t"]
-font_names = PackedStringArray("Algerian")
+font_names = PackedStringArray("Cooper")
+subpixel_positioning = 0
 
 [node name="UI" type="Control" groups=["Persist"]]
 process_mode = 3

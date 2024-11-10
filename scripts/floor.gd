@@ -6,8 +6,8 @@ var bereit_count = 0
 
 
 @rpc("any_peer","call_local")
-func reset_floor(map_size: Vector2):
-	var tile_position = local_to_map(map_size)
+func reset_floor():
+	var tile_position = local_to_map(Global.Spielfeld_Size)
 	for x in range(tile_position.x):
 		for y in range(tile_position.y):
 			set_cell(Vector2i(x,y),0,Vector2i(0,0),0)	

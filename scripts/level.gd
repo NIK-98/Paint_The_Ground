@@ -76,16 +76,16 @@ func _ready():
 		var argument_wert = args[args.find("-map") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "2":
 			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
-			Global.feld_size_mul = argument_wert.to_int()
+			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "3":
 			$loby/CenterContainer/VBoxContainer/Map.text = str("Normale Map")
-			Global.feld_size_mul = argument_wert.to_int()
+			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "5":
 			$loby/CenterContainer/VBoxContainer/Map.text = str("Große Map")
-			Global.feld_size_mul = argument_wert.to_int()
+			$loby.map_faktor = argument_wert.to_int()
 		else:
 			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
-			Global.feld_size_mul = 2
+			$loby.map_faktor = 2
 			
 	
 	
