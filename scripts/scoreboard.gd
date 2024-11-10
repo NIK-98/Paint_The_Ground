@@ -72,7 +72,6 @@ func _on_restart_pressed():
 	$"../loby".update_player_wait.rpc(true)
 	get_parent().reset_vars_level.rpc_id(1)
 	set_visiblety.rpc_id(1,"../loby", true)
-	set_visiblety.rpc_id(1,"../loby/CenterContainer/VBoxContainer/Warten", true)
 	$CanvasLayer.visible = false
 	
 	

@@ -122,6 +122,7 @@ Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
 Button/colors/font_color = Color(0.544802, 0.00126815, 0.705635, 1)
 Button/font_sizes/font_size = 45
 Button/fonts/font = SubResource("SystemFont_8s71y")
+Button/styles/disabled = SubResource("StyleBoxTexture_j6t8r")
 Button/styles/focus = SubResource("StyleBoxEmpty_rko0x")
 Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
 Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
@@ -258,6 +259,18 @@ properties/22/replication_mode = 1
 properties/23/path = NodePath("Werten:visible")
 properties/23/spawn = true
 properties/23/replication_mode = 1
+properties/24/path = NodePath("loby/CenterContainer/VBoxContainer/VBoxContainer/npcs:text")
+properties/24/spawn = true
+properties/24/replication_mode = 1
+properties/25/path = NodePath("loby/CenterContainer/VBoxContainer/VBoxContainer/Speed:text")
+properties/25/spawn = true
+properties/25/replication_mode = 1
+properties/26/path = NodePath("loby/CenterContainer/VBoxContainer/settime:text")
+properties/26/spawn = true
+properties/26/replication_mode = 1
+properties/27/path = NodePath("loby/CenterContainer/VBoxContainer/Map:text")
+properties/27/spawn = true
+properties/27/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -502,16 +515,17 @@ theme = SubResource("Theme_ywke1")
 text = "Einfach"
 
 [node name="settime" type="Button" parent="loby/CenterContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme = SubResource("Theme_cpsan")
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
 text = "120 sec."
 
 [node name="Map" type="Button" parent="loby/CenterContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme = SubResource("Theme_cpsan")
-theme_override_colors/font_color = Color(0.387014, 0.390815, 0.289187, 1)
+theme_override_colors/font_color = Color(0.388235, 0.392157, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 text = "Kleine  Map"
@@ -523,12 +537,12 @@ text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
 [node name="Warten" type="Label" parent="loby/CenterContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 60
+text = "Kein Spieler Bereit!"
 
 [node name="warte_map" type="Label" parent="loby/CenterContainer/VBoxContainer"]
 visible = false

@@ -39,7 +39,6 @@ func _enter_tree():
 func _ready():
 	if name.to_int() == multiplayer.get_unique_id():
 		camera.make_current()
-	level.visibility_npc_settings.rpc()
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
@@ -53,7 +52,7 @@ func _physics_process(_delta):
 		sync_hide_win_los_meldung.rpc(name.to_int())
 		score_counter()
 	
-	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").visible:
+	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))

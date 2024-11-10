@@ -43,7 +43,7 @@ func _physics_process(delta):
 		set_random_direction()
 		score_counter()
 	
-	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").visible:
+	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))

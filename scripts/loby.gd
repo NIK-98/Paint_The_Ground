@@ -55,16 +55,13 @@ func _ready():
 func update_player_wait(positive: bool):
 	if positive:
 		player_wait_count += 1
-		$CenterContainer/VBoxContainer/Warten.visible = true
 		$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
 	if not positive and player_wait_count > 0:
 		player_wait_count -= 1
-		if player_wait_count == 0:
-			$CenterContainer/VBoxContainer/Warten.visible = false
-		else:
+		if player_wait_count != 0:
 			$CenterContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
 	
-	if player_conect_count == player_wait_count and $CenterContainer/VBoxContainer/Warten.visible:
+	if player_conect_count == player_wait_count:
 		$CenterContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/VBoxContainer/start.visible = true
@@ -110,7 +107,6 @@ func no_players():
 	$CenterContainer/VBoxContainer/Random.visible = false
 	$CenterContainer/VBoxContainer/settime.visible = false
 	$CenterContainer/VBoxContainer/Map.visible = false
-	$CenterContainer/VBoxContainer/Warten.visible = true
 	$CenterContainer/VBoxContainer/start.text = "Beenden"
 	$CenterContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
 	$CenterContainer/VBoxContainer/start.visible = true
@@ -167,12 +163,14 @@ func _on_enter_pressed():
 	if $CenterContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		update_player_wait.rpc(true)
-		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
+		$CenterContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
+		$CenterContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		$CenterContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/VBoxContainer/Enter.visible = false
 		$CenterContainer/VBoxContainer/Random.visible = false
 		$CenterContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/VBoxContainer/Map.visible = false
+		$CenterContainer/VBoxContainer/VBoxContainer.visible = false
 		Global.trigger_host_focus = true
 		$CenterContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
@@ -292,7 +290,6 @@ func _on_start_pressed():
 
 func vor_start_trigger():
 	$CenterContainer/VBoxContainer/warte_map.visible = true
-	$CenterContainer/VBoxContainer/Warten.visible = false
 	$CenterContainer/VBoxContainer/start.visible = false
 	
 	

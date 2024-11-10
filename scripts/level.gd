@@ -40,7 +40,6 @@ func _ready():
 	$loby/CenterContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/VBoxContainer/Enter.visible = true
 	$loby/CenterContainer/VBoxContainer/Random.visible = true
-	$loby/CenterContainer/VBoxContainer/Warten.visible = false
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
@@ -102,11 +101,23 @@ func update_player_list(id: int, join: bool):
 		
 
 @rpc("any_peer","call_local")
-func visibility_npc_settings():
+func set_npc_settings():
 	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
-		$loby/CenterContainer/VBoxContainer/VBoxContainer.visible = true
+		$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.disabled = false
+		$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.disabled = false
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+			$loby._on_speed_pressed()
+		$loby/CenterContainer/VBoxContainer/Warten.text = "Solo Modus!"
 	else:
-		$loby/CenterContainer/VBoxContainer/VBoxContainer.visible = false
+		$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
+		$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
+		if not multiplayer.is_server() and not OS.has_feature("dedicated_server"):
+			$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.visible = false
+			$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.visible = false
+			$loby/CenterContainer/VBoxContainer/settime.disabled = true
+			$loby/CenterContainer/VBoxContainer/Map.disabled = true
+		$loby/CenterContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
 
 
 @rpc("any_peer","call_local")
@@ -194,6 +205,7 @@ func add_player(id: int):
 	add_score(id, false)
 	add_power_icons(id, false)
 	add_score_visual(id, false)
+	set_npc_settings.rpc()
 				
 	
 @rpc("any_peer","call_local")
