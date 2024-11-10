@@ -211,7 +211,7 @@ func _on_zurück_focus_entered():
 		Global.ui_hover_sound = true
 		
 
-func _input(_event):
+func _physics_process(_delta):
 	if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible and not $Control/CanvasLayer.visible:
 		await get_tree().create_timer(0.1).timeout
 		Global.esc_is_pressing_in_game = true

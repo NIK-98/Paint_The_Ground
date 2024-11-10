@@ -78,13 +78,20 @@ layer = 8
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 
-[node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
+[node name="Leave" type="TextureButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.415686)
-position = Vector2(38.5714, 31.4286)
-scale = Vector2(0.797619, 0.785714)
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.086
+anchor_right = 0.056
+anchor_bottom = 0.086
+offset_left = -51.68
+offset_top = -48.8018
+offset_right = 68.3203
+offset_bottom = 71.1979
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("7_dpqrl")
-passby_press = true
-visibility_mode = 1
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
