@@ -17,7 +17,7 @@ var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
 var score = 0
-var move = Input.get_vector("left","right","up","down")
+var move = Vector2i.ZERO
 var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
@@ -71,7 +71,6 @@ func _physics_process(_delta):
 				if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-$Color.size.y:
 					Input.action_release("down")
 				moving()
-				move = Input.get_vector("left","right","up","down")
 					
 				velocity = move*SPEED
 				move_and_collide(velocity)
@@ -136,39 +135,31 @@ func moving():
 	if OS.has_feature("dedicated_server"):
 		return
 	if OS.get_name() == "Android" or OS.get_name() == "IOS":
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right")) and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
-			Input.action_press("right")
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
+			move.x = 1
+		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
+			move.x = -1
 		else:
-			Input.action_release("right")
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left")) and position.x > get_node("Color").size.x:
-			Input.action_press("left")
+			move.x = 0
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
+			move.y = 1
+		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
+			move.y = -1
 		else:
-			Input.action_release("left")
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down")) and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
-			Input.action_press("down")
+			move.y = 0
+	else:
+		if (Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
+			move.x = 1
+		elif (Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
+			move.x = -1
 		else:
-			Input.action_release("down")
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up")) and position.y > get_node("Color").size.y:
-			Input.action_press("up")
+			move.x = 0
+		if (Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
+			move.y = 1
+		elif (Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
+			move.y = -1
 		else:
-			Input.action_release("up")
-	elif Input.get_connected_joypads().size() > 1:
-		if Input.is_action_pressed("pad_right") and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
-			Input.action_press("right")
-		else:
-			Input.action_release("right")
-		if Input.is_action_pressed("pad_left") and position.x > get_node("Color").size.x:
-			Input.action_press("left")
-		else:
-			Input.action_release("left")
-		if Input.is_action_pressed("pad_down") and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
-			Input.action_press("down")
-		else:
-			Input.action_release("down")
-		if Input.is_action_pressed("pad_up") and position.y > get_node("Color").size.y:
-			Input.action_press("up")
-		else:
-			Input.action_release("up")
+			move.y = 0
 
 			
 func _input(event):
