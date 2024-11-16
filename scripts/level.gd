@@ -37,9 +37,9 @@ var start_gedrückt = 0
 func _ready():
 	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		$CanvasLayer/Labelzoom.visible = false
-	$loby/CenterContainer/VBoxContainer/name_input.visible = true
-	$loby/CenterContainer/VBoxContainer/Enter.visible = true
-	$loby/CenterContainer/VBoxContainer/Random.visible = true
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/Enter.visible = true
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
@@ -52,41 +52,54 @@ func _ready():
 		return
 		
 	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(del_player)
+	multiplayer.peer_disconnected.connect(del_player)	
 		
 		
 	for id in multiplayer.get_peers():
-		get_parent().get_parent().get_node("Level/level").add_player(id)
+		add_player(id)
 
 
 	if not OS.has_feature("dedicated_server"):
-		get_parent().get_parent().get_node("Level/level").add_player(1)
+		add_player(1)
+		
+		
+	if $loby.vs_mode:
+		for m in range(2):
+			if m == 0:
+				add_score("Red", false, Color.DARK_RED)
+				add_score_visual("Red", false, Color.DARK_RED)
+			if m == 1:
+				add_score("Blue", false, Color.DEEP_SKY_BLUE)
+				add_score_visual("Blue", false, Color.DEEP_SKY_BLUE)
+				
 	
 	var args = OS.get_cmdline_args()
 	if OS.has_feature("dedicated_server") and args.has("-t"):
 		var argument_wert = args[args.find("-t") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "180" or argument_wert == "120" or argument_wert == "60":
-			$loby/CenterContainer/VBoxContainer/settime.text = str(argument_wert.to_int()," sec.")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(argument_wert.to_int()," sec.")
 			$Timer.wait_time = argument_wert.to_int()
 		else:
-			$loby/CenterContainer/VBoxContainer/settime.text = str(120," sec.")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(120," sec.")
 			$Timer.wait_time = 120
 	if OS.has_feature("dedicated_server") and args.has("-map"):
 		var argument_wert = args[args.find("-map") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "2":
-			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Kleine Map")
 			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "3":
-			$loby/CenterContainer/VBoxContainer/Map.text = str("Normale Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Normale Map")
 			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "5":
-			$loby/CenterContainer/VBoxContainer/Map.text = str("Große Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Große Map")
 			$loby.map_faktor = argument_wert.to_int()
 		else:
-			$loby/CenterContainer/VBoxContainer/Map.text = str("Kleine Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Kleine Map")
 			$loby.map_faktor = 2
 			
 	
+func set_vs_mode(mode):
+	$loby.vs_mode = mode
 	
 func update_player_list(id: int, join: bool):
 	if join:
@@ -96,28 +109,34 @@ func update_player_list(id: int, join: bool):
 		playerlist.erase(id)
 		print(str("Peer: ",id," Disconnected!"))
 		$loby.update_player_count.rpc(false)
-		if not $loby/CenterContainer/VBoxContainer/Enter.visible:
+		if not $loby/CenterContainer/HBoxContainer/VBoxContainer/Enter.visible:
 			$loby.update_player_wait.rpc(false)
 		
 
 @rpc("any_peer","call_local")
 func set_npc_settings():
 	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
-		$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.disabled = false
-		$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.disabled = false
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = false
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = false
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 			$loby._on_speed_pressed()
-		$loby/CenterContainer/VBoxContainer/Warten.text = "Solo Modus!"
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
+		if $loby.vs_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
 	else:
-		$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
-		$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		if not multiplayer.is_server() and not OS.has_feature("dedicated_server"):
-			$loby/CenterContainer/VBoxContainer/VBoxContainer/npcs.visible = false
-			$loby/CenterContainer/VBoxContainer/VBoxContainer/Speed.visible = false
-			$loby/CenterContainer/VBoxContainer/settime.disabled = true
-			$loby/CenterContainer/VBoxContainer/Map.disabled = true
-		$loby/CenterContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.visible = false
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.visible = false
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.disabled = true
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.disabled = true
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
+		if $loby.vs_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "VS-Mode!"
+		
+		
 
 
 @rpc("any_peer","call_local")
@@ -202,9 +221,15 @@ func add_player(id: int):
 	var player = player_sceen.instantiate()
 	player.name = str(id)
 	get_node("Players").add_child(player, true)
-	add_score(id, false)
+	if not $loby.vs_mode:
+		add_score(id, false)
+		add_score_visual(id, false)
+	else:
+		if playerlist.size() == 1:
+			$loby._on_team_toggled(false)
+		elif playerlist.size() > 1:
+			$loby._on_team_toggled(true)
 	add_power_icons(id, false)
-	add_score_visual(id, false)
 	set_npc_settings.rpc()
 				
 	
@@ -213,15 +238,21 @@ func add_text_tap(id: int, text: String):
 	if is_multiplayer_authority():
 		var new_name = name_label.instantiate()
 		new_name.name = str(id)
-		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
 		new_name.text = text
+		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
+		var list_name = new_name.duplicate()
+		list_name.set("theme_override_font_size", 5)
 		get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
+		get_node("Werten/PanelContainer/Wertung/name").add_child(list_name, true)
 		
 		
 func del_text_tap(id: int):
 	if not get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").has_node(str(id)):
 		return
 	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)).queue_free()
+	if not get_node("Werten/PanelContainer/Wertung/name").has_node(str(id)):
+		return
+	get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)).queue_free()
 			
 			
 
@@ -265,13 +296,28 @@ func spawn_new_powerup():
 		
 func spawn_npc():
 	if $Players.has_node("1"):
-		for i in range(Global.count_npcs):
+		for i in range($loby.blue_npc_members):
 			var new_npc = npc.instantiate()
 			new_npc.name = str(multiplayer.get_unique_id())
 			get_node("Players").add_child(new_npc, true)
-			add_score(new_npc.name, true)
+			if not $loby.vs_mode:
+				add_score(new_npc.name, true)
+				add_score_visual(new_npc.name, true)
+			else:
+				$loby.join_blue(new_npc.name.to_int())
 			add_power_icons(new_npc.name, true)
-			add_score_visual(new_npc.name, true)
+			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
+		Global.ui_sound = true
+		for i in range($loby.red_npc_members):
+			var new_npc = npc.instantiate()
+			new_npc.name = str(multiplayer.get_unique_id())
+			get_node("Players").add_child(new_npc, true)
+			if not $loby.vs_mode:
+				add_score(new_npc.name, true)
+				add_score_visual(new_npc.name, true)
+			else:
+				$loby.join_red(new_npc.name.to_int())
+			add_power_icons(new_npc.name, true)
 			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
 		
 
@@ -282,9 +328,12 @@ func del_npc(id):
 		get_node("Players").get_node(str(id)).queue_free()
 	
 	
-func add_score(id, np: bool):
+func add_score(id, np: bool, color_vs = null):
 	var new_score_label = score_label.instantiate()
-	new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
+	if not $loby.vs_mode:
+		new_score_label.set("theme_override_colors/font_color",get_node("Players").get_node(str(id)).get_node("Color").color)
+	else:
+		new_score_label.set("theme_override_colors/font_color",color_vs)
 	new_score_label.name = str(id)
 	get_node("Werten/PanelContainer/Wertung/werte").add_child(new_score_label, true)
 	if np:
@@ -299,9 +348,12 @@ func add_power_icons(id, np: bool):
 		new_powericons.is_npc = np
 		
 
-func add_score_visual(id, np: bool):
+func add_score_visual(id, np: bool, color_vs = null):
 	var new_score_visual = score_visual.instantiate()
-	new_score_visual.color = get_node("Players").get_node(str(id)).get_node("Color").color
+	if not $loby.vs_mode:
+		new_score_visual.color = get_node("Players").get_node(str(id)).get_node("Color").color
+	else:
+		new_score_visual.color = color_vs
 	new_score_visual.name = str(id)
 	get_node("Werten/PanelContainer2/visual").add_child(new_score_visual, true)
 	if np:
@@ -349,9 +401,10 @@ func del_player(id: int):
 	update_player_list(id, false)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
-	del_score(id)
+	if not $loby.vs_mode:
+		del_score(id)
+		del_score_visuel(id)
 	del_power_icons(id)
-	del_score_visuel(id)
 	del_npc(id)
 	
 

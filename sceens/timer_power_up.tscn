@@ -4,5 +4,3 @@
 
 [node name="TimerPowerUp" type="Timer"]
 script = ExtResource("1_vt44m")
-
-[connection signal="timeout" from="." to="." method="_on_timeout"]

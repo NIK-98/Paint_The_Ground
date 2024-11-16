@@ -23,6 +23,9 @@ var ende = false
 var input_mode = 0 # 0=pc 1=controller
 @export var paint_radius = Global.painting_rad
 
+var team = "Red"
+
+
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 var power_time = [10,8,5]
 
@@ -42,8 +45,8 @@ func _ready():
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
-	color_change()
-	
+	if not level.get_node("loby").vs_mode:
+		color_change()
 
 
 func _physics_process(_delta):
@@ -52,7 +55,7 @@ func _physics_process(_delta):
 		sync_hide_win_los_meldung.rpc(name.to_int())
 		score_counter()
 	
-	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
+	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
@@ -116,9 +119,14 @@ func sync_show_win_los_meldung(id):
 	var obj_id = id
 	if obj_id == multiplayer.get_unique_id():
 		for i in level.get_node("Werten/PanelContainer/Wertung/werte").get_children():
-			if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).text.to_int():
-				get_node("CanvasLayer/Los").visible = true
-				break
+			if not level.get_node("loby").vs_mode:
+				if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).text.to_int():
+					get_node("CanvasLayer/Los").visible = true
+					break
+			else:
+				if i.text.to_int() > level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).text.to_int():
+					get_node("CanvasLayer/Los").visible = true
+					break
 		if not get_node("CanvasLayer/Los").visible:
 			get_node("CanvasLayer/Winner").visible = true
 
@@ -192,17 +200,26 @@ func _input(event):
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0:
+	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int())
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int(), team)
+	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
+		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
+			return
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), team)
 		
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0:
+		
+	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
+		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
+			return
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
+	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)

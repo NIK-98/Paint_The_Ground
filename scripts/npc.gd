@@ -23,6 +23,8 @@ var curent_powerup = null
 var curent_tarrget = null
 @export var paint_radius = Global.painting_rad
 
+var team = "Blue"
+
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 var power_time = [10,8,5]
 	
@@ -43,7 +45,7 @@ func _physics_process(delta):
 		set_random_direction()
 		score_counter()
 	
-	if level.get_node("loby/CenterContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
+	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
@@ -132,12 +134,20 @@ func paint():
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0:
+	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name, team)
+	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
+		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
+			return
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), team)
 	
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0:
+	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
+		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
+			return
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))

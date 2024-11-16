@@ -156,13 +156,13 @@ func _on_zurück_pressed():
 		Global.trigger_host_focus = true
 		get_node("Level/level/Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").grab_focus()
 		Global.trigger_host_focus = false
-	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/VBoxContainer/Enter").visible:
+	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/Enter").visible:
 		Global.trigger_host_focus = true
-		get_node("Level/level/loby/CenterContainer/VBoxContainer/Enter").grab_focus()
+		get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/Enter").grab_focus()
 		Global.trigger_host_focus = false
-	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/VBoxContainer/start").visible:	
+	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/start").visible:	
 		Global.trigger_host_focus = true
-		get_node("Level/level/loby/CenterContainer/VBoxContainer/start").grab_focus()
+		get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/start").grab_focus()
 		Global.trigger_host_focus = false
 		
 

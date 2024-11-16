@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=24 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
 [ext_resource type="Texture2D" uid="uid://d1jwkv1peoon6" path="res://assets/background/Main.png" id="2_plmyg"]
 [ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="3_3wiig"]
 [ext_resource type="Texture2D" uid="uid://d1p8oe23i3ffp" path="res://assets/buttons/uiedit.png" id="5_gpyg4"]
+[ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="6_f5c87"]
+[ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="7_t52r0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3j30k"]
 texture = ExtResource("2_plmyg")
@@ -71,6 +73,16 @@ default_font = SubResource("SystemFont_xl51c")
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/styles/focus = SubResource("StyleBoxTexture_iph7h")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_jt1ef")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vueer"]
+
+[sub_resource type="Theme" id="Theme_nbfwq"]
+CheckBox/constants/h_separation = 20
+CheckBox/constants/outline_size = 30
+CheckBox/font_sizes/font_size = 45
+CheckBox/icons/checked = ExtResource("6_f5c87")
+CheckBox/icons/unchecked = ExtResource("7_t52r0")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_vueer")
 
 [sub_resource type="Theme" id="Theme_yu42j"]
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
@@ -206,6 +218,14 @@ horizontal_alignment = 1
 
 [node name="ip_list" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip"]
 layout_mode = 2
+
+[node name="o2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+layout_mode = 2
+
+[node name="vs" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
+layout_mode = 2
+theme = SubResource("Theme_nbfwq")
+text = "VS-Mode"
 
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 visible = false
