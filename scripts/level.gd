@@ -296,6 +296,7 @@ func spawn_new_powerup():
 		
 func spawn_npc():
 	if $Players.has_node("1"):
+		$loby.check_team()
 		for i in range($loby.blue_npc_members):
 			var new_npc = npc.instantiate()
 			new_npc.name = str(multiplayer.get_unique_id())
