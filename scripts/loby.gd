@@ -118,6 +118,7 @@ func no_players():
 	if not visible:
 		visible = true
 		get_tree().paused = true
+	get_parent().is_server_run_game.rpc()
 	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/Enter.visible = false
@@ -246,9 +247,7 @@ func _on_npcs_pressed():
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
 	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
-	check_team_member.rpc()
-	if get_parent().playerlist.size() == 1:
-		check_npc_team_member()
+	check_team()
 
 
 
@@ -421,6 +420,10 @@ func _on_team_toggled(toggled_on):
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_focus_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_pressed_color", Color.DEEP_SKY_BLUE)
+		check_team()
+	
+
+func check_team():
 	check_team_member.rpc()
 	if get_parent().playerlist.size() == 1:
 		check_npc_team_member()
@@ -441,7 +444,7 @@ func check_team_member():
 			blue_player_members += 1
 	$CenterContainer/HBoxContainer/team/red.text = str(red_members)
 	$CenterContainer/HBoxContainer/team/blue.text = str(blue_members)
-	
+
 
 func check_npc_team_member():
 	var npc_rest = Global.count_npcs%2
