@@ -73,21 +73,6 @@ func update_player_wait(positive: bool):
 		player_wait_count -= 1
 		if player_wait_count != 0:
 			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
-	
-	if player_conect_count == player_wait_count:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
-		if multiplayer.is_server():
-			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
-			Global.trigger_host_focus = true
-			$"CenterContainer/HBoxContainer/VBoxContainer/start".grab_focus()
-			Global.trigger_host_focus = false
-		if OS.has_feature("dedicated_server"):
-			vor_start_trigger()
-			await get_tree().create_timer(0.1).timeout
-			get_parent().map.reset_floor.rpc()
-			reset_wait_count.rpc()
-	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
-		no_players()
 		
 
 @rpc("any_peer","call_local")	
@@ -155,6 +140,7 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
+	update_player_counters.rpc_id(multiplayer.get_unique_id(), false)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()
@@ -162,7 +148,50 @@ func exit(msg: String, show_msg: bool):
 		for i in multiplayer.get_peers():
 			get_parent().kicked(i, msg, show_msg)
 	
-		
+
+@rpc("any_peer","call_local")
+func update_player_counters(connected: bool):
+	if not connected:
+		if $CenterContainer/HBoxContainer/VBoxContainer/Enter.visible:
+			update_player_count.rpc(false)
+		else:
+			update_player_count.rpc(false)
+			update_player_wait.rpc(false)
+	else:
+		update_player_wait.rpc(true)
+	update_rady_status.rpc()
+	if vs_mode:
+		check_team()
+
+@rpc("any_peer","call_local")
+func update_rady_status():
+	if player_conect_count == player_wait_count and not vs_mode:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
+		if multiplayer.is_server():
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+			Global.trigger_host_focus = true
+			$"CenterContainer/HBoxContainer/VBoxContainer/start".grab_focus()
+			Global.trigger_host_focus = false
+		if OS.has_feature("dedicated_server"):
+			vor_start_trigger()
+			await get_tree().create_timer(0.1).timeout
+			get_parent().map.reset_floor.rpc()
+			reset_wait_count.rpc()
+	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
+		if multiplayer.is_server():
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+			Global.trigger_host_focus = true
+			$"CenterContainer/HBoxContainer/VBoxContainer/start".grab_focus()
+			Global.trigger_host_focus = false
+		if OS.has_feature("dedicated_server"):
+			vor_start_trigger()
+			await get_tree().create_timer(0.1).timeout
+			get_parent().map.reset_floor.rpc()
+			reset_wait_count.rpc()
+	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
+		no_players()
+
 
 func reset_loby():
 	if OS.has_feature("dedicated_server"):
@@ -213,7 +242,7 @@ func _on_enter_pressed():
 			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
-		update_player_wait.rpc(true)
+		update_player_counters.rpc_id(multiplayer.get_unique_id(), true)
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
@@ -227,7 +256,7 @@ func _on_enter_pressed():
 		$CenterContainer/HBoxContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
-		namen_text_update.rpc_id(multiplayer.get_unique_id(), multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
+		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
@@ -329,6 +358,14 @@ func _on_enter_focus_entered():
 
 func _on_start_pressed():
 	Global.ui_sound = true
+	if vs_mode:
+		check_teams()
+		if not vaild_team:
+			blue_team_cound = 0
+			red_team_cound = 0
+			vaild_team = false
+			OS.alert("Nur ein Team erkannt!", "Server Meldung")
+			return
 	if player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
 		exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
@@ -409,19 +446,30 @@ func map_set(factor):
 func _on_team_toggled(toggled_on):
 	if vs_mode:
 		if not toggled_on:
-			join_red.rpc(multiplayer.get_unique_id())
+			switch_team.rpc(multiplayer.get_unique_id(),toggled_on)
+		elif toggled_on:
+			switch_team.rpc(multiplayer.get_unique_id(),toggled_on)
+		check_team()
+		update_rady_status.rpc()
+	
+	
+@rpc("any_peer","call_local")
+func switch_team(id: int, switch_to_blue: bool):
+	if not switch_to_blue:
+		join_red(id)
+		if id == multiplayer.get_unique_id():
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_color", Color.RED)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_focus_color", Color.RED)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_color", Color.RED)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_pressed_color", Color.RED)
-		elif toggled_on:
-			join_blue.rpc(multiplayer.get_unique_id())
+	elif switch_to_blue:
+		join_blue(id)
+		if id == multiplayer.get_unique_id():
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_focus_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_pressed_color", Color.DEEP_SKY_BLUE)
-		check_team()
-	
+		
 
 func check_team():
 	check_team_member.rpc()
@@ -483,11 +531,13 @@ func check_npc_team_member():
 	$CenterContainer/HBoxContainer/team/red.text = str(red_members)
 		
 	
-@rpc("any_peer","call_local")	
 func join_red(id):
 	get_parent().get_node("Players").get_node(str(id)).team = "Red"
 	get_parent().get_node("Players").get_node(str(id)).color_cell = 2
 	get_parent().get_node("Players").get_node(str(id)).get_node("Color").color = Color.DARK_RED
+	
+	if get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").has_node(str(id)):
+		change_names_colors_vs.rpc(id)
 	
 	get_parent().get_node("Players").get_node(str(id)).get_node("Name").set("theme_override_colors/font_color",Color.DARK_RED)
 	if id != 2 and id != 3 and id != 4:
@@ -495,13 +545,21 @@ func join_red(id):
 		get_parent().get_node("Players").get_node(str(id)).get_node("CanvasLayer/Los").set_color(Color.DARK_RED)
 		
 		
-@rpc("any_peer","call_local")
 func join_blue(id):
 	get_parent().get_node("Players").get_node(str(id)).team = "Blue"
 	get_parent().get_node("Players").get_node(str(id)).color_cell = 4
 	get_parent().get_node("Players").get_node(str(id)).get_node("Color").color = Color.DEEP_SKY_BLUE
 	
+	if get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").has_node(str(id)):
+		change_names_colors_vs.rpc(id)
+		
 	get_parent().get_node("Players").get_node(str(id)).get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
 	if id != 2 and id != 3 and id != 4:
 		get_parent().get_node("Players").get_node(str(id)).get_node("CanvasLayer/Winner").set_color(Color.DEEP_SKY_BLUE)
 		get_parent().get_node("Players").get_node(str(id)).get_node("CanvasLayer/Los").set_color(Color.DEEP_SKY_BLUE)
+
+
+@rpc("any_peer","call_local")
+func change_names_colors_vs(id):
+	get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
+	get_parent().get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)

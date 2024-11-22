@@ -28,6 +28,12 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:paint_radius")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:color_cell")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:team")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_d8fpb")

@@ -13,7 +13,7 @@ var last_position = position
 var is_moving = true
 var tile_size = 64
 var tile_size_multipl = 1.5
-var color_cell = 0
+@export var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
 var score = 0
@@ -23,8 +23,7 @@ var ende = false
 var input_mode = 0 # 0=pc 1=controller
 @export var paint_radius = Global.painting_rad
 
-var team = "Red"
-
+@export var team = "Red"
 
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 var power_time = [10,8,5]
@@ -209,21 +208,20 @@ func score_counter():
 			return
 		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), team)
 		
-		
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
+		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	
-	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0 and not level.get_node("loby").vs_mode:
+	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
-		
+	
 
 func paint():
 	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))

@@ -24,7 +24,7 @@ var Max_clients = 6
 var loaded_seson = false
 var loaded = false
 var blocked = false
-var block_cells = []
+@export var block_cells = []
 var last_runde = false
 var start_gedrückt = 0
 
@@ -101,6 +101,7 @@ func _ready():
 func set_vs_mode(mode):
 	$loby.vs_mode = mode
 	
+	
 func update_player_list(id: int, join: bool):
 	if join:
 		playerlist.append(id)
@@ -108,10 +109,8 @@ func update_player_list(id: int, join: bool):
 	else:
 		playerlist.erase(id)
 		print(str("Peer: ",id," Disconnected!"))
-		$loby.update_player_count.rpc(false)
-		if not $loby/CenterContainer/HBoxContainer/VBoxContainer/Enter.visible:
-			$loby.update_player_wait.rpc(false)
-		
+	
+			
 
 @rpc("any_peer","call_local")
 func set_npc_settings():
@@ -225,10 +224,8 @@ func add_player(id: int):
 		add_score(id, false)
 		add_score_visual(id, false)
 	else:
-		if playerlist.size() == 1:
-			$loby._on_team_toggled(false)
-		elif playerlist.size() > 1:
-			$loby._on_team_toggled(true)
+		$loby.switch_team.rpc(id,false)
+		$loby.check_team()
 	add_power_icons(id, false)
 	set_npc_settings.rpc()
 				

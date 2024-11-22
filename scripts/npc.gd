@@ -146,18 +146,18 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
+		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(score, map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var_npc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
 	
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 			return
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon_npc(powerups)
-
-
+	
+	
 func move_npc():
 	var dir = Vector2()
 	if curent_tarrget == null:

@@ -81,14 +81,13 @@ func _process(_delta):
 
 func _on_restart_pressed():
 	Global.ui_sound = true
-	
 	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	$"../loby".update_player_wait.rpc(true)
+	$"../loby".update_player_counters.rpc_id(multiplayer.get_unique_id(), true)
 	get_parent().reset_vars_level.rpc_id(1)
 	set_visiblety.rpc_id(1,"../loby", true)
 	$CanvasLayer.visible = false

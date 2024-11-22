@@ -301,6 +301,9 @@ properties/33/replication_mode = 1
 properties/34/path = NodePath("loby/CenterContainer/HBoxContainer/team/blue:theme_override_colors/font_color")
 properties/34/spawn = true
 properties/34/replication_mode = 1
+properties/35/path = NodePath(".:block_cells")
+properties/35/spawn = true
+properties/35/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -777,7 +780,7 @@ theme_override_constants/outline_size = 25
 theme_override_font_sizes/font_size = 40
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 5.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0
