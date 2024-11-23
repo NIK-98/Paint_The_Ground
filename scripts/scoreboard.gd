@@ -18,9 +18,6 @@ func sort_scoreboard(a,b):
 
 @rpc("any_peer","call_local")
 func sync_list(NewScoreEintrag: Array):
-	if get_parent().get_node("loby").vs_mode:
-		if NewScoreEintrag in Scoreboard_List:
-			return
 	Scoreboard_List.append(NewScoreEintrag)
 	Scoreboard_List.sort_custom(sort_scoreboard)
 	for eintrag in range(len(Scoreboard_List)):
@@ -40,14 +37,17 @@ func sync_list(NewScoreEintrag: Array):
 
 func update_scoreboard():
 	if loaded:
+		var team_wertung = false
 		update_eigene_anzeige.rpc()
 		for n in get_parent().get_node("Players").get_children():
 			if not get_parent().get_node("loby").vs_mode:
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
-			else:
-				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.team)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).team])
-				
+			elif not team_wertung:
+				team_wertung = true
+				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str("Red")).text.to_int(), "Red"])
+				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str("Blue")).text.to_int(), "Blue"])
 			get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars.rpc()
+				
 
 @rpc("any_peer","call_local")	
 func update_eigene_anzeige():

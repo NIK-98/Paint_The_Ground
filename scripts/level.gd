@@ -293,8 +293,7 @@ func spawn_new_powerup():
 		
 func spawn_npc():
 	if $Players.has_node("1"):
-		$loby.check_team()
-		for i in range($loby.blue_npc_members):
+		for i in range(Global.count_npcs):
 			var new_npc = npc.instantiate()
 			new_npc.name = str(multiplayer.get_unique_id())
 			get_node("Players").add_child(new_npc, true)
@@ -306,17 +305,8 @@ func spawn_npc():
 			add_power_icons(new_npc.name, true)
 			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
 		Global.ui_sound = true
-		for i in range($loby.red_npc_members):
-			var new_npc = npc.instantiate()
-			new_npc.name = str(multiplayer.get_unique_id())
-			get_node("Players").add_child(new_npc, true)
-			if not $loby.vs_mode:
-				add_score(new_npc.name, true)
-				add_score_visual(new_npc.name, true)
-			else:
-				$loby.join_red(new_npc.name.to_int())
-			add_power_icons(new_npc.name, true)
-			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
+		if $loby.vs_mode:
+			$loby.check_team()
 		
 
 func del_npc(id):

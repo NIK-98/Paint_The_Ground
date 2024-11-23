@@ -14,16 +14,10 @@ var map_faktor = 2
 
 var blue_team_cound = 0
 var red_team_cound = 0
-var vaild_team = false
+var vaild_team = true
 
 var red_members = 0
 var blue_members = 0
-
-var red_npc_members = 0
-var blue_npc_members = 0
-
-var red_player_members = 0
-var blue_player_members = 0
 
 var namen = ["Levi","Emil","Liam","Anton","Theo",
 			 "Paul","Leano","Elias","Jakob","Samuel",
@@ -88,8 +82,6 @@ func namen_text_update(id, text):
 func update_player_count(positiv: bool):
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
-	if vs_mode:
-		$CenterContainer/HBoxContainer/team.visible = true
 	if positiv:
 		player_conect_count += 1
 	if not positiv and player_conect_count > 0:
@@ -189,7 +181,7 @@ func update_rady_status():
 			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
-	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
+	elif multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
 		no_players()
 
 
@@ -232,17 +224,8 @@ func _on_enter_pressed():
 		if i.get_node("Name").text == $CenterContainer/HBoxContainer/VBoxContainer/name_input.text:
 			OS.alert("Name Exsistiert Schon!", "Server Meldung")
 			return
-	if vs_mode:
-		check_teams()
-		if not vaild_team:
-			blue_team_cound = 0
-			red_team_cound = 0
-			vaild_team = false
-			OS.alert("Nur ein Team erkannt!", "Server Meldung")
-			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
-		update_player_counters.rpc_id(multiplayer.get_unique_id(), true)
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
@@ -251,12 +234,14 @@ func _on_enter_pressed():
 		$CenterContainer/HBoxContainer/VBoxContainer/settime.visible = false
 		$CenterContainer/HBoxContainer/VBoxContainer/Map.visible = false
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible = false
-		$CenterContainer/HBoxContainer/team.visible = false
 		Global.trigger_host_focus = true
 		$CenterContainer/HBoxContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
 		get_parent().add_text_tap.rpc(multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
+		if vs_mode:
+			$CenterContainer/HBoxContainer/team.visible = true
+		update_player_counters.rpc_id(multiplayer.get_unique_id(), true)
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
@@ -276,7 +261,6 @@ func _on_npcs_pressed():
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
 	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
-	check_team()
 
 
 
@@ -358,7 +342,7 @@ func _on_enter_focus_entered():
 
 func _on_start_pressed():
 	Global.ui_sound = true
-	if vs_mode:
+	if vs_mode and player_wait_count > 1:
 		check_teams()
 		if not vaild_team:
 			blue_team_cound = 0
@@ -473,7 +457,7 @@ func switch_team(id: int, switch_to_blue: bool):
 
 func check_team():
 	check_team_member.rpc()
-	if get_parent().playerlist.size() == 1:
+	if get_parent().get_node("Players").has_node("2"):
 		check_npc_team_member()
 			
 			
@@ -481,51 +465,38 @@ func check_team():
 func check_team_member():
 	red_members = 0
 	blue_members = 0
-	red_player_members = 0
-	blue_player_members = 0
 	for m in get_parent().get_node("Players").get_children():
+		if m.get_node("Name").text.is_empty():
+			continue
 		if m.team == "Red":
 			red_members += 1
-			red_player_members += 1
 		if m.team == "Blue":
 			blue_members += 1
-			blue_player_members += 1
 	$CenterContainer/HBoxContainer/team/red.text = str(red_members)
 	$CenterContainer/HBoxContainer/team/blue.text = str(blue_members)
 
 
 func check_npc_team_member():
-	var npc_rest = Global.count_npcs%2
-	var npc_teil = floor(Global.count_npcs/2.0)
-	red_npc_members = 0
-	blue_npc_members = 0
 	if Global.count_npcs == 1 and get_parent().get_node("Players/1").team == "Blue":
-		red_members += npc_rest
-		red_npc_members += npc_rest
+		switch_team(2,false)
 	elif Global.count_npcs == 2 and get_parent().get_node("Players/1").team == "Blue":
-		red_members += npc_teil
-		blue_members += npc_teil
-		red_npc_members += npc_teil
-		blue_npc_members += npc_teil
+		switch_team(2,false)
+		switch_team(3,false)
 	elif Global.count_npcs == 3 and get_parent().get_node("Players/1").team == "Blue":
-		red_members += npc_teil+npc_rest
-		blue_members += npc_teil
-		red_npc_members += npc_teil+npc_rest
-		blue_npc_members += npc_teil
+		switch_team(2,false)
+		switch_team(3,false)
+		switch_team(4,true)
 		
 	elif Global.count_npcs == 1 and get_parent().get_node("Players/1").team == "Red":
-		blue_members += npc_rest
-		blue_npc_members += npc_rest
+		switch_team(2,true)
 	elif Global.count_npcs == 2 and get_parent().get_node("Players/1").team == "Red":
-		blue_members += npc_teil
-		red_members += npc_teil
-		blue_npc_members += npc_teil
-		red_npc_members += npc_teil
+		switch_team(2,true)
+		switch_team(3,true)
 	elif Global.count_npcs == 3 and get_parent().get_node("Players/1").team == "Red":
-		blue_members += npc_teil+npc_rest
-		red_members += npc_teil
-		blue_npc_members = npc_teil+npc_rest
-		red_npc_members += npc_teil
+		switch_team(2,true)
+		switch_team(3,true)
+		switch_team(4,false)
+	check_team_member()
 			
 	$CenterContainer/HBoxContainer/team/blue.text = str(blue_members)
 	$CenterContainer/HBoxContainer/team/red.text = str(red_members)
