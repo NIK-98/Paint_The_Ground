@@ -12,7 +12,7 @@ var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
 var time_last_change = 0
-var direction_change_interval = 0.5  # Intervall in Sekunden
+var direction_change_interval = 1  # Intervall in Sekunden
 var curent_direction = Vector2() # für warloses folgen
 var random = 1
 var first_speed = Global.speed_npcs
@@ -39,7 +39,7 @@ func _ready():
 			npc_count += 1
 	
 	
-func _physics_process(delta):
+func _process(delta):
 	if not loaded:
 		loaded = true
 		set_random_direction()
@@ -61,7 +61,7 @@ func _physics_process(delta):
 				
 			paint()
 			score_counter()
-			velocity = move_npc()
+			velocity = move_npc()*SPEED
 				
 			if position.x < get_node("Color").size.x:
 				curent_direction.x = 1
@@ -137,11 +137,11 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name, team)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name)
 	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), team)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int())
 	
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
@@ -165,10 +165,10 @@ func move_npc():
 		
 	if random == 1:
 		#direction_wahrlos
-		dir = curent_direction * SPEED
+		dir = curent_direction
 	elif random == 2:
 		#direction_tarrget
-		dir = (curent_tarrget.position - position).normalized() * SPEED
+		dir = (curent_tarrget.position - position).normalized()
 
 	return dir
 		
@@ -181,12 +181,24 @@ func set_random_direction():
 		curent_powerup = level.get_node("PowerUP").get_children().pick_random()
 	if level.get_node("Bomben").get_child_count() > 0 and level.get_node("PowerUP").get_child_count() > 0:
 		curent_tarrget = [curent_bomb,curent_powerup].pick_random()
+		random = randi_range(1,2)
+		if random == 1:
+			curent_tarrget = null
+			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		return
 	elif level.get_node("PowerUP").get_child_count() > 0:
 		curent_tarrget = curent_powerup
+		random = randi_range(1,2)
+		if random == 1:
+			curent_tarrget = null
+			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		return
 	elif level.get_node("Bomben").get_child_count() > 0:
 		curent_tarrget = curent_bomb
+		random = randi_range(1,2)
+		if random == 1:
+			curent_tarrget = null
+			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		return
 		
 	random = 1
@@ -216,7 +228,8 @@ func _on_area_2d_area_entered(area: Area2D):
 		
 func _on_timerreset_speed_timeout():
 	if SPEED < first_speed:
-		SPEED += 1
-	if SPEED == first_speed:
+		SPEED += 0.1
+	if SPEED >= first_speed:
+		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false

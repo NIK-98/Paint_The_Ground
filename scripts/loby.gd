@@ -47,9 +47,9 @@ func _ready():
 	visible = true
 	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	
-	difficulty.text = "Einfach"
+	difficulty.text = "Normal"
 	difficulty_id = 1
-	Global.speed_npcs = 5
+	Global.speed_npcs = Global.npc_normal
 	
 	if multiplayer.is_server():
 		$CenterContainer/HBoxContainer/VBoxContainer/settime.visible = true

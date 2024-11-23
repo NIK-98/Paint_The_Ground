@@ -16,7 +16,7 @@ var tile_size_multipl = 1.5
 @export var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
-var score = 0
+@export var score = 0
 var move = Vector2i.ZERO
 var player_spawn_grenze = 200
 var ende = false
@@ -48,7 +48,7 @@ func _ready():
 		color_change()
 
 
-func _physics_process(_delta):
+func _process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
@@ -77,8 +77,7 @@ func _physics_process(_delta):
 				velocity = move*SPEED
 				move_and_collide(velocity)
 					
-			if (velocity.x != 0 or velocity.y != 0):
-				paint()
+			paint()
 			score_counter()
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:
@@ -202,11 +201,11 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int(), team)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int())
 	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), team)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int())
 		
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
@@ -299,7 +298,8 @@ func _on_area_2d_area_entered(area: Area2D):
 
 func _on_timerreset_speed_timeout():
 	if SPEED < first_speed:
-		SPEED += 1
-	if SPEED == first_speed:
+		SPEED += 0.1
+	if SPEED >= first_speed:
+		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false

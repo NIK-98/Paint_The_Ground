@@ -34,6 +34,9 @@ properties/6/replication_mode = 1
 properties/7/path = NodePath(".:team")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath(".:score")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_d8fpb")
