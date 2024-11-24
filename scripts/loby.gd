@@ -146,7 +146,7 @@ func exit(msg: String, show_msg: bool):
 @rpc("any_peer","call_local")
 func update_player_counters(connected: bool):
 	if not connected:
-		if $CenterContainer/HBoxContainer/VBoxContainer/Enter.visible:
+		if $CenterContainer/HBoxContainer/VBoxContainer/Enter.visible or get_parent().get_node("Scoreboard/CanvasLayer").visible:
 			update_player_count.rpc(false)
 		else:
 			update_player_count.rpc(false)
@@ -183,7 +183,7 @@ func update_rady_status():
 			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
-	elif multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
+	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and not $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible:
 		no_players()
 
 
