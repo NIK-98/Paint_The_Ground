@@ -75,7 +75,7 @@ func _process(_delta):
 				moving()
 					
 				velocity = move*SPEED
-				move_and_collide(velocity)
+				move_and_slide()
 			
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
@@ -299,7 +299,7 @@ func _on_area_2d_area_entered(area: Area2D):
 
 func _on_timerreset_speed_timeout():
 	if SPEED < first_speed:
-		SPEED += 0.1
+		SPEED += 100
 	if SPEED >= first_speed:
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
