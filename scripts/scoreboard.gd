@@ -3,9 +3,8 @@ extends Control
 @export var Scoreboard_List = []
 var first_select_button = false
 var loaded = false
-
 		
-	
+
 func _ready():
 	$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.connect("pressed", _on_restart_pressed)	
 
@@ -29,16 +28,42 @@ func sync_list(NewScoreEintrag: Array):
 			newnode.get_node("Platz0").name = str("Platz",eintrag)
 			newnode.get_node("name0").name = str("name",eintrag)
 			newnode.get_node("Score0").name = str("Score",eintrag)
+			
 		var score_feld = str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/Score",eintrag)
 		var name_feld = str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)
 		get_node(score_feld).text = str(Scoreboard_List[eintrag][0])
 		get_node(name_feld).text = Scoreboard_List[eintrag][1]
+		
+		
+@rpc("any_peer","call_local")
+func set_name_color_eintrag():
+	for eintrag in range(len(Scoreboard_List)):
+		for n in get_parent().get_node("Players").get_children():
+			if not get_parent().get_node("loby").vs_mode:
+				if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text:
+					sync_name_color_eintrag.rpc(n.name, eintrag)
+			else:
+				if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == "Red":
+					sync_name_color_eintrag.rpc("Red", eintrag)
+				elif get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == "Blue":
+					sync_name_color_eintrag.rpc("Blue", eintrag)
+				
+	
+@rpc("any_peer","call_local")	
+func sync_name_color_eintrag(id, eintrag):
+	if not get_parent().get_node("loby").vs_mode:
+		get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
+	else:
+		if id == "Red":
+			get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).set("theme_override_colors/font_color",Color.DARK_RED)
+		elif id == "Blue":
+			get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
+		
 
 
 func update_scoreboard():
 	if loaded:
 		var team_wertung = false
-		update_eigene_anzeige.rpc()
 		for n in get_parent().get_node("Players").get_children():
 			if not get_parent().get_node("loby").vs_mode:
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(n.name)).text.to_int(), get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text])
@@ -47,8 +72,10 @@ func update_scoreboard():
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str("Red")).text.to_int(), "Red"])
 				sync_list.rpc([get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str("Blue")).text.to_int(), "Blue"])
 			get_parent().get_node("Players").get_node(str(n.name)).reset_player_vars.rpc()
-				
-
+		update_eigene_anzeige.rpc()
+		set_name_color_eintrag.rpc()
+		
+		
 @rpc("any_peer","call_local")	
 func update_eigene_anzeige():
 	if not get_parent().get_node("loby").vs_mode:

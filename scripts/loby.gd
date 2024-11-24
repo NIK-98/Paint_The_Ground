@@ -104,6 +104,8 @@ func no_players():
 	$CenterContainer/HBoxContainer/VBoxContainer/Map.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+	if get_parent().get_node("Scoreboard/CanvasLayer").visible:
+		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
 	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 	
 	
@@ -360,6 +362,8 @@ func _on_start_pressed():
 	await get_tree().create_timer(0.1).timeout
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
+	if $CenterContainer/HBoxContainer/team.visible:
+		set_visiblity.rpc("loby/CenterContainer/HBoxContainer/team", false)
 	
 
 func vor_start_trigger():
