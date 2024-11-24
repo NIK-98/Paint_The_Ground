@@ -59,7 +59,8 @@ func _process(delta):
 			if time_last_change == 0 and curent_tarrget:
 				random = 2
 				
-			paint()
+			if velocity.x != 0 or velocity.y != 0:
+				paint()
 			score_counter()
 			velocity = move_npc()*SPEED
 				

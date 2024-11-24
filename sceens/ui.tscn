@@ -334,6 +334,7 @@ autostart = true
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_vs_toggled"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]

@@ -76,8 +76,9 @@ func _process(_delta):
 					
 				velocity = move*SPEED
 				move_and_collide(velocity)
-					
-			paint()
+			
+			if velocity.x != 0 or velocity.y != 0:
+				paint()
 			score_counter()
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:

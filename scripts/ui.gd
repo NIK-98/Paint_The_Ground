@@ -9,6 +9,7 @@ var Max_clients = 6
 @onready var ip_list = $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip/ip_list
 @onready var update_time_ips = $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip/Label2
 @onready var ips_update_timer = $ips_update_timer
+@onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
 
 var save_path = "user://savetemp.save"
 
@@ -28,6 +29,7 @@ var delta_time = 0.0
 var auto_conect_ips = []
 var server_address_to_connect_to = ""
 var game_started = false
+var vs_mode = false
 
 
 
@@ -40,7 +42,8 @@ func save():
 		"ip" : ip,
 		"connectport" : connectport,
 		"port" : port,
-		"Max_clients" : Max_clients
+		"Max_clients" : Max_clients,
+		"vs_mode" : vs_mode
 	}
 	return save_dict
 	
@@ -61,6 +64,10 @@ func _process(_delta):
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
 		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = port
+		if vs_mode:
+			vs.set_pressed(true)
+		else:
+			vs.set_pressed(false)
 		
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
@@ -316,3 +323,10 @@ func _on_connect_mouse_entered():
 func _on_connect_focus_entered():
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Global.ui_hover_sound = true
+
+
+func _on_vs_toggled(toggled_on: bool):
+	if toggled_on:
+		vs_mode = true
+	else:
+		vs_mode = false
