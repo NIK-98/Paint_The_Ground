@@ -13,17 +13,17 @@ var last_position = position
 var is_moving = true
 var tile_size = 64
 var tile_size_multipl = 1.5
-@export var color_cell = 0
+var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
-@export var score = 0
+var score = 0
 var move = Vector2i.ZERO
 var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
 @export var paint_radius = Global.painting_rad
 
-@export var team = "Red"
+var team = "Red"
 
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 var power_time = [10,8,5]
@@ -93,6 +93,7 @@ func _process(_delta):
 						new_timer_power_up.wait_time = power_time[1]
 					if powerups[p][0] == 2:
 						new_timer_power_up.wait_time = power_time[2]
+					level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
 					new_timer_power_up.start()
 					Global.powerup_sound = true
 					if not $TimerresetSPEED.is_stopped():
@@ -211,16 +212,11 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(name.to_int())
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), map.get_felder_summe(Global.Spielfeld_Size, Vector2i(64,64)))
-	
-	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
-		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
-			return
-		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int())
 	
 
 func paint():

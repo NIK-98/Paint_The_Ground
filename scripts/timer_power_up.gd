@@ -28,6 +28,7 @@ func _exit_tree():
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
+	level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).update_icon.rpc(Player.powerups)
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(Player.name)):
 			return
