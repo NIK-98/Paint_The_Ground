@@ -134,7 +134,6 @@ func server_exit():
 func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
-	update_player_counters.rpc_id(multiplayer.get_unique_id(), false)
 	if multiplayer and multiplayer.is_server():
 		OS.alert("Server beendet!", "Server Meldung")
 		server_exit()
@@ -143,7 +142,6 @@ func exit(msg: String, show_msg: bool):
 			get_parent().kicked(i, msg, show_msg)
 	
 
-@rpc("any_peer","call_local")
 func update_player_counters(connected: bool):
 	if not connected:
 		if $CenterContainer/HBoxContainer/VBoxContainer/Enter.visible or get_parent().get_node("Scoreboard/CanvasLayer").visible:
@@ -183,7 +181,7 @@ func update_rady_status():
 			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
-	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) > 1:
+	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
 		no_players()
 
 
@@ -243,10 +241,10 @@ func _on_enter_pressed():
 		namen_text_update.rpc(multiplayer.get_unique_id(), $CenterContainer/HBoxContainer/VBoxContainer/name_input.text)
 		if vs_mode:
 			$CenterContainer/HBoxContainer/team.visible = true
-		update_player_counters.rpc_id(multiplayer.get_unique_id(), true)
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
+		update_player_counters(true)
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			map_set.rpc(map_faktor)
 		

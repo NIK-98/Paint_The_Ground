@@ -109,6 +109,7 @@ func update_player_list(id: int, join: bool):
 	else:
 		playerlist.erase(id)
 		print(str("Peer: ",id," Disconnected!"))
+		$loby.update_player_counters(false)
 	
 			
 
