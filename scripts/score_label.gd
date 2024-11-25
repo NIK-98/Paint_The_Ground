@@ -7,11 +7,11 @@ extends Label
 var is_npc = false
 
 @rpc("any_peer","call_local")
-func wertung(id):
+func wertung(id, score):
 	if Players.has_node(str(id)):
-		text = str(Players.get_node(str(id)).score)
+		get_parent().get_node(str(id)).text = str(score)
 		
 
-func wertung_npc(id):
+func wertung_npc(id, score):
 	if Players.has_node(str(id)):
-		text = str(Players.get_node(str(id)).score)
+		get_parent().get_node(str(id)).text = str(score)

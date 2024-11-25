@@ -517,7 +517,7 @@ func join_red(id):
 		get_parent().get_node("Players").get_node(str(id)).get_node("CanvasLayer/Winner").set_color(Color.DARK_RED)
 		get_parent().get_node("Players").get_node(str(id)).get_node("CanvasLayer/Los").set_color(Color.DARK_RED)
 		
-		
+
 func join_blue(id):
 	get_parent().get_node("Players").get_node(str(id)).team = "Blue"
 	get_parent().get_node("Players").get_node(str(id)).color_cell = 4

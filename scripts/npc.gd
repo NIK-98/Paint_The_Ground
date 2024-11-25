@@ -139,20 +139,20 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int())
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), score)
 	
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(name.to_int())
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var_npc(name.to_int())
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var_npc(name.to_int(), score)
 	
 	
 func move_npc():
