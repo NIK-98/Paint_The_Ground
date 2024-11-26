@@ -399,7 +399,6 @@ func del_player(id: int):
 	del_npc(id)
 	
 
-@rpc("any_peer","call_local")
 func cell_blocker(block: bool, id: int):
 	if block:
 		block_cells.append(get_node("Players").get_node(str(id)).color_cell)

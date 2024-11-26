@@ -63,7 +63,7 @@ func aktivate_powerup(player_id: int):
 				ist_da_index = aktive
 				ist_da = true
 		if not ist_da:
-			level.cell_blocker.rpc(true, Players.get_node(str(player_id)).name.to_int())
+			level.cell_blocker(true, Players.get_node(str(player_id)).name.to_int())
 			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
 			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
 	

@@ -383,6 +383,7 @@ layout_mode = 2
 color = Color(0.513233, 0.513233, 0.513233, 1)
 
 [node name="visual" type="HBoxContainer" parent="Werten/PanelContainer2"]
+custom_minimum_size = Vector2(575, 30)
 layout_mode = 2
 theme_override_constants/separation = 0
 
@@ -504,6 +505,7 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
+visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]

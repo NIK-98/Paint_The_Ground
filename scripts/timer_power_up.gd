@@ -23,7 +23,7 @@ func _exit_tree():
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
 	if Player.powerups[name.to_int()][0] == 2:
-		level.cell_blocker.rpc(false, Player.name.to_int())
+		level.cell_blocker(false, Player.name.to_int())
 		Player.powerups[name.to_int()][1] = false
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false

@@ -39,7 +39,7 @@ func _ready():
 			npc_count += 1
 	
 	
-func _process(delta):
+func _physics_process(delta):
 	if not loaded:
 		loaded = true
 		set_random_direction()
@@ -59,9 +59,6 @@ func _process(delta):
 			if time_last_change == 0 and curent_tarrget:
 				random = 2
 				
-			if velocity.x != 0 or velocity.y != 0:
-				paint()
-			score_counter()
 			velocity = move_npc()*SPEED
 				
 			if position.x < get_node("Color").size.x:
@@ -77,6 +74,26 @@ func _process(delta):
 				curent_direction.y = -1
 				
 			move_and_slide()
+					
+		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
+			ende = true
+			for c in $powertimers.get_children():
+				c.stop()
+				c.queue_free()
+			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
+				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
+					return
+				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
+
+
+func _process(delta):
+	if level.get_node("CanvasLayer/Time").visible:
+		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
+			if velocity.x != 0 or velocity.y != 0:
+				paint()
+			score_counter()
+			velocity = move_npc()*SPEED
+			
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:
 					powerups[p][2] = true
@@ -94,18 +111,8 @@ func _process(delta):
 					new_timer_power_up.start()
 					if not $TimerresetSPEED.is_stopped():
 						$TimerresetSPEED.stop()
-					$slow_color.visible = false
+					$slow_color.visible = false			
 					
-		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
-			ende = true
-			for c in $powertimers.get_children():
-				c.stop()
-				c.queue_free()
-			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
-				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
-					return
-				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
-			
 
 func color_change():
 	for i in range(len(get_parent().get_children())):
@@ -139,20 +146,20 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung_npc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung(name.to_int(), score)
 	
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var_npc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var_npc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var(name.to_int(), score)
 	
 	
 func move_npc():

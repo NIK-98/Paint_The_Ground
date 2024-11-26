@@ -48,7 +48,7 @@ func _ready():
 		color_change()
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
@@ -76,7 +76,24 @@ func _process(_delta):
 					
 				velocity = move*SPEED
 				move_and_slide()
-			
+					
+					
+		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
+			ende = true
+			main.get_node("CanvasLayer/change").visible = false
+			for c in $powertimers.get_children():
+				c.stop()
+				c.queue_free()
+			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
+				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
+					return
+				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon.rpc(powerups)
+			sync_show_win_los_meldung.rpc(name.to_int())
+
+
+func _process(_delta):
+	if level.get_node("CanvasLayer/Time").visible:
+		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
@@ -99,20 +116,7 @@ func _process(_delta):
 					if not $TimerresetSPEED.is_stopped():
 						$TimerresetSPEED.stop()
 					$slow_color.visible = false
-					
-					
-		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
-			ende = true
-			main.get_node("CanvasLayer/change").visible = false
-			for c in $powertimers.get_children():
-				c.stop()
-				c.queue_free()
-			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
-				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
-					return
-				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon.rpc(powerups)
-			sync_show_win_los_meldung.rpc(name.to_int())
-			
+	
 
 @rpc("any_peer","call_local")
 func sync_show_win_los_meldung(id):
@@ -202,20 +206,20 @@ func score_counter():
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung(name.to_int(), score)
 		
 	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var(name.to_int(), score)
 	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), score)
+		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var(name.to_int(), score)
 	
 
 func paint():
