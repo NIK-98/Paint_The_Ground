@@ -86,7 +86,7 @@ func _physics_process(delta):
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
 
 
-func _process(delta):
+func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
@@ -136,7 +136,7 @@ func paint():
 		for y in range(-paint_radius,paint_radius):
 			var pos = Vector2i(x,y) + tile_position
 			var distance = pos.distance_to(tile_position)
-			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
+			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
 				map.set_cell(pos,color_cell,Vector2i(0,0),0)
 			
 

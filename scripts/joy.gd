@@ -31,7 +31,7 @@ func _input(event):
 				global_position = joy_start_position
 				
 
-func _process(_delta):
+func _physics_process(_delta):
 	if get_parent().get_parent().get_node("Level").get_child_count() > 0:
 		if get_parent().get_parent().get_node("Level/level/CanvasLayer/Time").text.to_int() > 0 and not get_parent().get_parent().get_node("Level/level/loby").visible:
 			if OS.get_name() == "Android" or OS.get_name() == "IOS":
@@ -44,6 +44,7 @@ func _process(_delta):
 	if is_touch:
 		joystick.global_position = get_global_mouse_position()
 		joystick.position = stick_center + (joystick.position - stick_center).limit_length(maxLength)
+		
 		
 func get_joystick_dir() -> Vector2:
 	if is_touch:
