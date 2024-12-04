@@ -18,16 +18,8 @@ var loaded = false
 var esc_is_pressing = false
 var local_address: PackedStringArray
 
-var udp_server = UDPServer.new()
-var udp_port = 6969
-
-var udp_client := PacketPeerUDP.new()
-var udp_server_found = false
-var udp_requests = 3
-var delta_time = 0.0
-
 var auto_conect_ips = []
-var server_address_to_connect_to = ""
+var server_port_to_connect_to = ""
 var game_started = false
 var vs_mode = false
 
@@ -52,14 +44,15 @@ func _ready():
 	name = "UI"
 	get_local_ips()
 	get_tree().paused = true
-	udp_client.set_broadcast_enabled(true)
-	udp_client.set_dest_address("255.255.255.255", udp_port)
 	
 	
 func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "UI"
+		for n in get_parent().get_children():
+			if n.is_in_group("SB"):
+				get_parent().move_child(n,get_parent().get_child_count())
 		$Panel/CenterContainer/Net/Options/Option2/o4/port.text = connectport
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
@@ -71,35 +64,6 @@ func _process(_delta):
 		
 	
 	update_time_ips.text = str("update in ",floor(ips_update_timer.time_left),"s")
-	
-	
-	if not game_started:
-		udp_server.poll()
-		if udp_server.is_connection_available():
-			var udp_peer : PacketPeerUDP = udp_server.take_connection()
-			var packet = udp_peer.get_packet()
-			print("Recieved : %s from %s:%s" %
-					[
-						packet.get_string_from_ascii(),
-						udp_peer.get_packet_ip(),
-						udp_peer.get_packet_port(),
-					]
-			)
-			# Reply to valid udp_peer with server IP address example
-			var str_ips = ""
-			for l in local_address:
-				if (l.split('.').size() == 4) and (l.begins_with("10.") or check_address_bereich(l,"172",16,31) or l.begins_with("192.168.")):
-					str_ips += str(l,",")
-			udp_peer.put_packet(str_ips.to_ascii_buffer())
-		
-	
-	
-
-	if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text == "auto":
-		udp_client.put_packet("Valid_Request".to_ascii_buffer())
-		if udp_client.get_available_packet_count() > 0:
-			server_address_to_connect_to = udp_client.get_packet().get_string_from_ascii()
-			await check_ip(server_address_to_connect_to)
 			
 	
 	if get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().has_node("Control/CanvasLayer"):
@@ -119,28 +83,6 @@ func _process(_delta):
 	
 	if get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_node("Level/level/loby").visible:
 		set_process(false)
-		
-
-func check_ip(str_liste: String):
-	var temp_str = ""
-	auto_conect_ips = []
-	for x in str_liste:
-		if x != ",":
-			temp_str += x
-		else:
-			auto_conect_ips.append(temp_str)
-			temp_str = ""
-	print(auto_conect_ips)
-	for ips in auto_conect_ips:
-		var peer = ENetMultiplayerPeer.new()
-		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
-		connectport = connectport.to_int()
-		var check = peer.create_client(ips, connectport)
-		if check == OK:
-			peer = null
-			$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = str(ips)
-			return
-	
 
 
 func get_local_ips():
@@ -208,8 +150,9 @@ func _on_host_pressed():
 	get_parent().visible = false
 	
 	change_level(load("res://sceens/level.tscn"))
+	var server_send = preload("res://sceens/server_sender.tscn").instantiate()
+	get_parent().get_node("Server_Browser").add_child(server_send)
 	
-	udp_server.listen(udp_port, "0.0.0.0")
 
 		
 func _on_connect_pressed():
@@ -293,8 +236,10 @@ func _on_host_connect_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		$Panel/CenterContainer/Net/Options/Option1.hide()
 		$Panel/CenterContainer/Net/Options/Option2.show()
+		get_parent().get_node("Server_Browser").show()
 	else:
 		$Panel/CenterContainer/Net/Options/Option2.hide()
+		get_parent().get_node("Server_Browser").hide()
 		$Panel/CenterContainer/Net/Options/Option1.show()
 
 

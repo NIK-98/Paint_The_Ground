@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=23 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
@@ -92,10 +92,6 @@ Button/styles/focus = SubResource("StyleBoxEmpty_do8p0")
 Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
 Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
 Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
-
-[sub_resource type="SystemFont" id="SystemFont_eho4t"]
-font_names = PackedStringArray("Cooper")
-subpixel_positioning = 0
 
 [node name="UI" type="Control" groups=["Persist"]]
 process_mode = 3
@@ -307,22 +303,6 @@ text = "11111"
 max_length = 5
 expand_to_text_length = true
 select_all_on_focus = true
-
-[node name="Info" type="Label" parent="Panel/CenterContainer/Net"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0.701961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 30
-theme_override_fonts/font = SubResource("SystemFont_eho4t")
-theme_override_font_sizes/font_size = 40
-text = "
-Info:
-__________________________________________________________
-Tippe auto anstelle der IP ein,  um dich mit dem ersten 
-verfügbaren Lokalen Server automatisch zu verbinden, 
-wenn ein server existiert wird auto durch dessen IP ersetzt.
-__________________________________________________________"
-horizontal_alignment = 1
 
 [node name="ips_update_timer" type="Timer" parent="."]
 wait_time = 20.0

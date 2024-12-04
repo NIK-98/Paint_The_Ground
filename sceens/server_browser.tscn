@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi32ikn3hovn8"]
+
+[ext_resource type="Script" path="res://scripts/server_browser.gd" id="1_7wumd"]
+[ext_resource type="PackedScene" uid="uid://d2toul7of8yi6" path="res://sceens/servers_lisener.tscn" id="2_yfoxl"]
+
+[node name="Server_Browser" type="VBoxContainer" groups=["SB"]]
+offset_right = 1214.0
+offset_bottom = 315.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_7wumd")
+
+[node name="Servers_Lisener" parent="." instance=ExtResource("2_yfoxl")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 40
+text = "Alle  Server"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1214.39, 250)
+layout_mode = 2
+size_flags_vertical = 4
+horizontal_scroll_mode = 0
+
+[connection signal="new_server" from="Servers_Lisener" to="." method="_on_servers_lisener_new_server"]
+[connection signal="remove_server" from="Servers_Lisener" to="." method="_on_servers_lisener_remove_server"]

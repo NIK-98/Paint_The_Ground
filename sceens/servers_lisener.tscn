@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2toul7of8yi6"]
+
+[ext_resource type="Script" path="res://scripts/servers_lisener.gd" id="1_greuk"]
+
+[node name="Servers_Lisener" type="Node"]
+process_mode = 3
+script = ExtResource("1_greuk")
