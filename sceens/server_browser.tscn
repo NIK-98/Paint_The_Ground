@@ -27,7 +27,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1214.39, 250)
+custom_minimum_size = Vector2(1200, 150)
 layout_mode = 2
 size_flags_vertical = 4
 horizontal_scroll_mode = 0

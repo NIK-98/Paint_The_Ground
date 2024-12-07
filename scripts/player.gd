@@ -41,6 +41,9 @@ func _enter_tree():
 func _ready():
 	if name.to_int() == multiplayer.get_unique_id():
 		camera.make_current()
+	else:
+		set_physics_process(false)
+		set_process(false)
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
@@ -52,7 +55,7 @@ func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
-		score_counter()
+		score_counter.rpc()
 	
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
@@ -61,6 +64,8 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
+				bomben_trigger()
+				powerup_trigger()
 				if position.x < get_node("Color").size.x:
 					Input.action_release("left")
 					
@@ -91,12 +96,45 @@ func _physics_process(_delta):
 			sync_show_win_los_meldung.rpc(name.to_int())
 
 
+func bomben_trigger():
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("boom"):
+			area.get_parent().celle = color_cell
+			if not self.is_in_group("npc"):
+				Global.bombe_sound = true
+			area.get_parent().aktivate_bombe.rpc(area.get_parent().celle)
+			clean_boom.rpc(area.get_parent().get_path())
+			break
+	
+
+@rpc("authority","reliable","call_local")	
+func clean_boom(node_path):
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		var object = get_node(node_path)
+		object.queue_free()
+		
+
+func powerup_trigger():
+	for area in $Area2D.get_overlapping_areas():
+		if area.is_in_group("power"):
+			area.get_parent().id = name.to_int()
+			area.get_parent().aktivate_powerup.rpc(area.get_parent().id)
+			clean_power.rpc(area.get_parent().get_path())
+	
+
+@rpc("authority","reliable","call_local")	
+func clean_power(node_path):
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		var object = get_node(node_path)
+		object.queue_free()
+	
+	
 func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
-				paint()
-			score_counter()
+				paint.rpc()
+			score_counter.rpc()
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:
 					powerups[p][2] = true
@@ -201,6 +239,7 @@ func _input(event):
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
 
+@rpc("any_peer","call_local")
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	
@@ -226,6 +265,7 @@ func score_counter():
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), score)
 	
 
+@rpc("any_peer","call_local")
 func paint():
 	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
 	for x in range(-paint_radius,paint_radius):

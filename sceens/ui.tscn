@@ -183,6 +183,23 @@ max_length = 5
 expand_to_text_length = true
 select_all_on_focus = true
 
+[node name="Label2" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 35
+theme_override_font_sizes/font_size = 65
+text = "Server Name"
+horizontal_alignment = 1
+
+[node name="namen" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+layout_mode = 2
+theme = SubResource("Theme_4377g")
+theme_override_font_sizes/font_size = 85
+text = "Server"
+max_length = 7
+select_all_on_focus = true
+
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
 focus_mode = 2
@@ -265,13 +282,13 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Remote" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "localhost"
 placeholder_text = "localhost"
 max_length = 22
-expand_to_text_length = true
 select_all_on_focus = true
 
 [node name="punkt" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]

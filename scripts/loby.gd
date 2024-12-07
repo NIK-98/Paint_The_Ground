@@ -3,7 +3,6 @@ extends CanvasLayer
 @export var player_conect_count = 0
 @export var player_wait_count = 0
 @export var is_running = false
-@export var hidenloby = false
 @export var vs_mode = false
 @onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
@@ -67,11 +66,7 @@ func update_player_wait(positive: bool):
 		player_wait_count -= 1
 		if player_wait_count != 0:
 			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
-		
 
-@rpc("any_peer","call_local")	
-func set_hidelobyvar():
-	hidenloby = not hidenloby
 	
 @rpc("any_peer","call_local")	
 func namen_text_update(id, text):
@@ -166,7 +161,6 @@ func update_rady_status():
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
-			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
 	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
@@ -178,7 +172,6 @@ func update_rady_status():
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
-			await get_tree().create_timer(0.1).timeout
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
@@ -226,6 +219,7 @@ func _on_enter_pressed():
 			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
+		get_parent().main.get_node("CanvasLayer2/Server_Browser").queue_free()
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
@@ -357,7 +351,6 @@ func _on_start_pressed():
 		exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
 	vor_start_trigger()
-	await get_tree().create_timer(0.1).timeout
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
 	if $CenterContainer/HBoxContainer/team.visible:

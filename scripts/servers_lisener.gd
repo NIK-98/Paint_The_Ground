@@ -10,11 +10,12 @@ var servers = {}
 
 @export var server_clean_time = 3
 
-func _init() -> void:
+func _enter_tree() -> void:
 	clean_up_timer.wait_time = server_clean_time
 	clean_up_timer.one_shot = false
 	clean_up_timer.autostart = true
 	clean_up_timer.connect("timeout", clean_up)
+	add_child(clean_up_timer)
 
 
 func _ready() -> void:

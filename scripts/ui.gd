@@ -10,6 +10,7 @@ var Max_clients = 6
 @onready var update_time_ips = $Panel/CenterContainer/Net/Options/Option1/ScrollContainer/yourip/Label2
 @onready var ips_update_timer = $ips_update_timer
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
+@onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 
 var save_path = "user://savetemp.save"
 
@@ -165,6 +166,7 @@ func _on_connect_pressed():
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+	prints(ip,port)
 	if not FileAccess.file_exists(save_path):
 		get_parent().get_parent().save_game("Persist", save_path)
 	else:

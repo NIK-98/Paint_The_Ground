@@ -34,7 +34,7 @@ func _on_reset_pressed() -> void:
 	Global.ui_sound = true
 	reseted = true
 	for i in v_box_button_container.get_children():
-		if i .is_in_group("bind"):
+		if i.is_in_group("bind"):
 			i.set_process(true)			
 
 

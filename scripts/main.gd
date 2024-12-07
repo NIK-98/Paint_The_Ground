@@ -4,11 +4,18 @@ var save_path = "user://savetemp.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
+var server_browser_new = preload("res://sceens/server_browser.tscn")
 
 var controll_switcher = false
 		
 		
 func _ready():
+	var new_browser = server_browser_new.instantiate()
+	new_browser.offset_left = 32.0
+	new_browser.offset_top = 568.0
+	new_browser.offset_right = 1246.0
+	new_browser.offset_bottom = 883.0
+	$CanvasLayer2.add_child(new_browser)
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
 		load_game("saveaudiosettings", save_audio_setting_path)

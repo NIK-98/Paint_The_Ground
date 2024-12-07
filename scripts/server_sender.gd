@@ -1,7 +1,7 @@
 extends Node
 
 @export var broadcast_interval = 1.0
-var server_info = {"name" : "LAN Game"}
+var server_info = {"name" : "LAN Game", "port" : 11111}
 
 var socket_udp
 var broadcast_timer = Timer.new()
@@ -23,7 +23,8 @@ func _enter_tree() -> void:
 		
 
 func broadcast():
-	server_info.name = "<Server Name>"
+	server_info.name = get_parent().get_parent().get_node("UI").namen.text
+	server_info.port = get_parent().get_parent().get_node("UI").port
 	var packetmsg = JSON.stringify(server_info)
 	var packet = packetmsg.to_ascii_buffer()
 	socket_udp.put_packet(packet)

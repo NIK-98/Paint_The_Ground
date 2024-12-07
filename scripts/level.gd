@@ -44,13 +44,18 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	$Timerpower.wait_time = power_up_spawn_time
-	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 	main.get_node("CanvasLayer/Back").visible = false
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
+		$Timer.queue_free()
+		$Timerende.queue_free()
+		$Timerbomb.queue_free()
+		$Timerrestart.queue_free()
+		$Timerpower.queue_free()
 		return
 		
+	$Timerpower.wait_time = power_up_spawn_time
+	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)	
 		
@@ -172,6 +177,7 @@ func game_update():
 		start_time = $Timerrestart.time_left
 		if not $Timer.is_stopped() and time <= 30 and not last_runde:
 			last_runde = true
+			$Timerbomb.wait_time = 3
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
 		
@@ -189,7 +195,6 @@ func update_lastrund():
 	$CanvasLayer/Time.set("theme_override_colors/font_color",Color.CRIMSON)
 	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
 	power_up_spawn_time = 5
-	$Timerbomb.wait_time = 3
 	await get_tree().create_timer(2).timeout
 	$Werten/CenterContainer/Letzen_sec.visible = false
 		
@@ -437,27 +442,16 @@ func stoped_game():
 	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.BLACK)
 	last_runde = false
 	power_up_spawn_time = Global.standart_powerup_spawn_time
-	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		$Timerbomb.wait_time = Global.standart_bomben_spawn_time
 	
 
 func _on_timerbomb_timeout():
-	if OS.has_feature("dedicated_server"):
-		spawn_new_bombe()
-		return
-	if is_multiplayer_authority():
-		spawn_new_bombe()
-		return
+	spawn_new_bombe()
 		
 
 func _on_timerpower_timeout():
-	if OS.has_feature("dedicated_server"):
-		spawn_new_powerup()
-		$Timerpower.wait_time = power_up_spawn_time
-		return
-	if is_multiplayer_authority():
-		spawn_new_powerup()
-		$Timerpower.wait_time = power_up_spawn_time
-		return
+	spawn_new_powerup()
 		
 
 func _on_timerende_timeout():
