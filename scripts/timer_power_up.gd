@@ -5,11 +5,13 @@ extends Timer
 
 var create_id = 0
 
+
 func _on_timeout():
 	queue_free()
 
 
 func _exit_tree():
+	name = str(create_id)
 	if Player.powerups[name.to_int()][0] == 0:
 		Player.SPEED = Player.first_speed
 		Player.powerups[name.to_int()][1] = false
@@ -23,7 +25,7 @@ func _exit_tree():
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
 	if Player.powerups[name.to_int()][0] == 2:
-		level.cell_blocker.rpc(false, Player.name.to_int())
+		level.cell_blocker.rpc(false, Player.color_cell)
 		Player.powerups[name.to_int()][1] = false
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false

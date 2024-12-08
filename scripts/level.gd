@@ -162,7 +162,7 @@ func _process(_delta):
 		set_process(false)
 	
 	
-func _physics_process(_delta):	
+func _physics_process(_delta):
 	$loby.reset_loby()
 	var fps = Engine.get_frames_per_second()
 	$"CanvasLayer/fps".text = str("FPS: ", fps)
@@ -404,11 +404,18 @@ func del_player(id: int):
 	
 
 @rpc("any_peer","call_local")
-func cell_blocker(block: bool, id: int):
-	if block:
-		block_cells.append(get_node("Players").get_node(str(id)).color_cell)
-	else:
-		block_cells.erase(get_node("Players").get_node(str(id)).color_cell)
+func cell_blocker(block: bool, cell: int):
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		if block:
+			block_cells.append(cell)
+		else:
+			block_cells.erase(cell)
+		update_cell_blocker.rpc(block_cells)
+			
+	
+@rpc("any_peer","call_local")		
+func update_cell_blocker(list: Array):
+	block_cells = list
 		
 		
 func _on_timer_timeout():
