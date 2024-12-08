@@ -51,8 +51,6 @@ func _physics_process(delta):
 			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			bomben_trigger()
-			powerup_trigger()
 			time_last_change += delta
 			if time_last_change >= direction_change_interval:
 				time_last_change = 0
@@ -86,37 +84,6 @@ func _physics_process(delta):
 				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 					return
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
-
-
-func bomben_trigger():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("boom"):
-			area.get_parent().celle = color_cell
-			if not self.is_in_group("npc"):
-				Global.bombe_sound = true
-			area.get_parent().aktivate_bombe(area.get_parent().celle)
-			clean_boom(area.get_parent().get_path())
-			break
-	
-
-func clean_boom(node_path):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		var object = get_node(node_path)
-		object.queue_free()
-		
-
-func powerup_trigger():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("power"):
-			area.get_parent().id = name.to_int()
-			area.get_parent().aktivate_powerup(area.get_parent().id)
-			clean_power(area.get_parent().get_path())
-	
-	
-func clean_power(node_path):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		var object = get_node(node_path)
-		object.queue_free()
 		
 
 func _process(_delta):

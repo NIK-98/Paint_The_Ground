@@ -10,6 +10,9 @@ radius = 36.8917
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:distroy")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Bombe" type="Node2D" groups=["boom"]]
 script = ExtResource("1_d6tas")
@@ -25,3 +28,5 @@ shape = SubResource("CircleShape2D_hce8j")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rgxeq")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

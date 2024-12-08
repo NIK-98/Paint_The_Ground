@@ -12,6 +12,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:powerupid")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:distroy")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="powerup" type="Node2D" groups=["power"]]
 scale = Vector2(2, 2)
@@ -27,3 +30,5 @@ shape = SubResource("RectangleShape2D_dplh5")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_lihb0")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

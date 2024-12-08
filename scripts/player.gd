@@ -64,8 +64,6 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
-				bomben_trigger()
-				powerup_trigger()
 				if position.x < get_node("Color").size.x:
 					Input.action_release("left")
 					
@@ -94,40 +92,7 @@ func _physics_process(_delta):
 					return
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon.rpc(powerups)
 			sync_show_win_los_meldung.rpc(name.to_int())
-
-
-func bomben_trigger():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("boom"):
-			area.get_parent().celle = color_cell
-			if not self.is_in_group("npc"):
-				Global.bombe_sound = true
-			area.get_parent().aktivate_bombe.rpc(area.get_parent().celle)
-			clean_boom.rpc(area.get_parent().get_path())
-			break
-	
-
-@rpc("authority","reliable","call_local")	
-func clean_boom(node_path):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		var object = get_node(node_path)
-		object.queue_free()
 		
-
-func powerup_trigger():
-	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("power"):
-			area.get_parent().id = name.to_int()
-			area.get_parent().aktivate_powerup.rpc(area.get_parent().id)
-			clean_power.rpc(area.get_parent().get_path())
-	
-
-@rpc("authority","reliable","call_local")	
-func clean_power(node_path):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		var object = get_node(node_path)
-		object.queue_free()
-	
 	
 func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
@@ -338,7 +303,6 @@ func _on_area_2d_area_entered(area: Area2D):
 		Global.hit_sound = true
 		$slow_color.visible = true
 		
-
 
 func _on_timerreset_speed_timeout():
 	if SPEED < first_speed:
