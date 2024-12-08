@@ -25,7 +25,7 @@ var input_mode = 0 # 0=pc 1=controller
 
 @export var team = "Red"
 
-var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
+@export var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 var power_time = [10,8,5]
 
 # Zoom-Grenzen festlegen
@@ -41,9 +41,6 @@ func _enter_tree():
 func _ready():
 	if name.to_int() == multiplayer.get_unique_id():
 		camera.make_current()
-	else:
-		set_physics_process(false)
-		set_process(false)
 	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
@@ -55,7 +52,7 @@ func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
-		score_counter.rpc()
+		score_counter()
 	
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
@@ -98,8 +95,8 @@ func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
-				paint.rpc()
-			score_counter.rpc()
+				paint()
+			score_counter()
 			for p in range(len(powerups)):
 				if not powerups[p][2] and powerups[p][0] != -1:
 					powerups[p][2] = true
@@ -204,7 +201,6 @@ func _input(event):
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
 
-@rpc("any_peer","call_local")
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	
@@ -230,7 +226,6 @@ func score_counter():
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), score)
 	
 
-@rpc("any_peer","call_local")
 func paint():
 	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
 	for x in range(-paint_radius,paint_radius):
