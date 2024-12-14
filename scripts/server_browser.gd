@@ -1,7 +1,7 @@
 extends VBoxContainer
 
 @onready var servers_lisener = $Servers_Lisener
-@onready var v_box_container = $VBoxContainer/ScrollContainer
+@onready var v_box_container = $VBoxContainer/ScrollContainer/VBoxContainer
 
 
 func _ready() -> void:
