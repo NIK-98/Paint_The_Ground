@@ -522,7 +522,7 @@ theme_override_colors/font_color = Color(0.681535, 0.372164, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 50
 theme_override_fonts/font = ExtResource("9_5ce5b")
-theme_override_font_sizes/font_size = 106
+theme_override_font_sizes/font_size = 80
 text = "!!!Gib Alles!!!"
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
@@ -623,7 +623,7 @@ theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("9_5ce5b")
-theme_override_font_sizes/font_size = 106
+theme_override_font_sizes/font_size = 80
 horizontal_alignment = 1
 vertical_alignment = 1
 
