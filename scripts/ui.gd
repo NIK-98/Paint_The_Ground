@@ -89,17 +89,13 @@ func check_address_bereich(curent_ip: String, ip_block: String, anfang: int, end
 func _on_host_pressed():
 	Global.ui_sound = true
 	get_tree().paused = false
-	
-	var vaild_text = false
-	for i in namen.text:
-		if i == " ":
-			vaild_text = false
-		else:
-			vaild_text = true
-	if not vaild_text:
-		OS.alert("Bitte Namen Eingeben und \nlehrzeichen am ende vermeiden!", "Server Meldung")
+			
+	if namen.text.is_empty():
+		OS.alert("Bitte Namen Eingeben!", "Server Meldung")
 		get_tree().paused = true
 		return
+	namen.text = namen.text.lstrip(" ")
+	namen.text = namen.text.rstrip(" ")
 		
 	if block_host:
 		get_tree().paused = true

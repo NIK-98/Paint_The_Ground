@@ -204,15 +204,12 @@ func check_teams():
 	
 func _on_enter_pressed():
 	Global.ui_sound = true
-	var vaild_text = false
-	for i in $CenterContainer/HBoxContainer/VBoxContainer/name_input.text:
-		if i == " ":
-			vaild_text = false
-		else:
-			vaild_text = true
-	if not vaild_text:
-		OS.alert("Bitte Namen Eingeben und \nlehrzeichen am ende vermeiden!", "Server Meldung")
+	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.is_empty():
+		OS.alert("Bitte Namen Eingeben!", "Server Meldung")
 		return
+	$CenterContainer/HBoxContainer/VBoxContainer/name_input.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.lstrip(" ")
+	$CenterContainer/HBoxContainer/VBoxContainer/name_input.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.rstrip(" ")
+	
 	for i in get_parent().get_node("Players").get_children():
 		if i.get_node("Name").text == $CenterContainer/HBoxContainer/VBoxContainer/name_input.text:
 			OS.alert("Name Exsistiert Schon!", "Server Meldung")
