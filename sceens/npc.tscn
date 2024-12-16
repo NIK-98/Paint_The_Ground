@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c18npvb2udrey"]
+[gd_scene load_steps=6 format=3 uid="uid://c18npvb2udrey"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_85ml5"]
 [ext_resource type="PackedScene" uid="uid://dm7ebs1e5eyht" path="res://sceens/timer_power_up.tscn" id="2_od6ef"]
+[ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="3_lj7w4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teehr"]
 size = Vector2(64, 64)
@@ -19,6 +20,7 @@ offset_top = -42.0
 offset_right = 87.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("3_lj7w4")
 theme_override_font_sizes/font_size = 25
 text = "NPC"
 horizontal_alignment = 1

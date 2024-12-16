@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bct2wlof30lbq"]
+[gd_scene load_steps=7 format=3 uid="uid://bct2wlof30lbq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d8fpb"]
 [ext_resource type="PackedScene" uid="uid://dm7ebs1e5eyht" path="res://sceens/timer_power_up.tscn" id="2_5wijq"]
+[ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="3_pajrd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ti31n"]
 size = Vector2(64, 64)
@@ -51,6 +52,7 @@ offset_top = -42.0
 offset_right = 87.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("3_pajrd")
 theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1

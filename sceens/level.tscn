@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="18_c4hof"]
+[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="18_pn6tv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 content_margin_left = 15.0
@@ -338,13 +339,8 @@ expand_margin_bottom = 15.0
 [sub_resource type="Theme" id="Theme_ggqog"]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_dox0w")
 
-[sub_resource type="SystemFont" id="SystemFont_jwpju"]
-font_names = PackedStringArray("Agency FB")
-font_weight = 975
-subpixel_positioning = 0
-
 [sub_resource type="LabelSettings" id="LabelSettings_k4y7c"]
-font = SubResource("SystemFont_jwpju")
+font = ExtResource("18_pn6tv")
 font_size = 70
 font_color = Color(0.909804, 0.505882, 0, 1)
 outline_size = 10
@@ -381,13 +377,15 @@ Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
 Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 
 [sub_resource type="LabelSettings" id="LabelSettings_35yls"]
+font = ExtResource("18_pn6tv")
 font_size = 50
 font_color = Color(1, 1, 0, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k53ee"]
-font_size = 40
+font = ExtResource("18_pn6tv")
+font_size = 60
 font_color = Color(0.824396, 0, 0.152995, 1)
 outline_size = 10
 outline_color = Color(1, 0.713726, 0, 1)
@@ -655,6 +653,7 @@ visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
 layer = 6
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -675,6 +674,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0.815686, 0.960784, 1)
 theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 42
 text = "!!!!Spieler!!!!!"
 
@@ -895,7 +895,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-theme_override_fonts/font = SubResource("SystemFont_jwpju")
+theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 70
 text = "Spieler:"
 horizontal_alignment = 1
@@ -923,13 +923,14 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 41
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 process_mode = 3
-custom_minimum_size = Vector2(0, 363.96)
+custom_minimum_size = Vector2(750, 363.96)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -950,14 +951,16 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0156863, 0.0784314, 1, 1)
 theme_override_constants/line_spacing = 3
 theme_override_constants/outline_size = 25
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("18_pn6tv")
+theme_override_font_sizes/font_size = 60
 
 [node name="Score0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0, 0.152941, 1)
 theme_override_colors/font_outline_color = Color(1, 0.713726, 0, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 45
+theme_override_fonts/font = ExtResource("18_pn6tv")
+theme_override_font_sizes/font_size = 60
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
 wait_time = 120.0
