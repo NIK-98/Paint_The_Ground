@@ -146,8 +146,8 @@ func set_npc_settings():
 @rpc("any_peer","call_local")
 func is_server_run_game():
 	Max_clients = 0
-	main.get_node("CanvasLayer2/UI").game_started = false
-	main.get_node("CanvasLayer2/UI").set_process(false)
+	main.get_node("CanvasLayer2/Control/UI").game_started = false
+	main.get_node("CanvasLayer2/Control/UI").set_process(false)
 	
 	
 	

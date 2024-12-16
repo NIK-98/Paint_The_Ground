@@ -15,7 +15,7 @@ func _ready():
 	new_browser.offset_top = 568.0
 	new_browser.offset_right = 1246.0
 	new_browser.offset_bottom = 883.0
-	$CanvasLayer2.add_child(new_browser)
+	$CanvasLayer2/Control.add_child(new_browser)
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
 		load_game("saveaudiosettings", save_audio_setting_path)
@@ -28,18 +28,18 @@ func _ready():
 	var args = OS.get_cmdline_args()
 	if args.has("-p"):
 		var argument_wert = args[args.find("-p") + 1] # Wert des spezifischen Arguments
-		$CanvasLayer2/UI.port = argument_wert
-	if not $CanvasLayer2/UI.port.is_valid_int():
+		$CanvasLayer2/Control/UI.port = argument_wert
+	if not $CanvasLayer2/Control/UI.port.is_valid_int():
 		prints("Das Argument '-p' wurde nicht uebergeben, ist der standard Port oder ist fehlerhaft. Port ist der standard port 11111!")
-		$CanvasLayer2/UI.port = "11111"
-	prints("Port wurde auf ", $CanvasLayer2/UI.port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
+		$CanvasLayer2/Control/UI.port = "11111"
+	prints("Port wurde auf ", $CanvasLayer2/Control/UI.port, " gesetzt! achtung ports unter 1024 gehen vermutlich nicht!")
 	
 	
-	$CanvasLayer2/UI.Max_clients = 6
+	$CanvasLayer2/Control/UI.Max_clients = 6
 	if DisplayServer.get_name() == "headless":
-		$CanvasLayer2/UI.Max_clients = 7
+		$CanvasLayer2/Control/UI.Max_clients = 7
 		print("Startet Dedicated Server.")
-		$CanvasLayer2/UI._on_host_pressed.call_deferred()
+		$CanvasLayer2/Control/UI._on_host_pressed.call_deferred()
 		
 
 func _notification(what):
@@ -139,8 +139,8 @@ func _on_tap_released():
 func _on_beenden_pressed():
 	Global.ui_sound = true
 	await get_tree().create_timer(0.1).timeout
-	if $CanvasLayer2/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
-		$CanvasLayer2/UI.esc_is_pressing = false
+	if $CanvasLayer2/Control/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
+		$CanvasLayer2/Control/UI.esc_is_pressing = false
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
 		get_tree().quit()
@@ -157,7 +157,7 @@ func _on_zurück_pressed():
 	$CanvasLayer/Menu.visible = false
 	if $CanvasLayer2.visible:
 		Global.trigger_host_focus = true
-		$CanvasLayer2/UI/Panel/CenterContainer/Net/Options/Option1/o1/Host.grab_focus()
+		$CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o1/Host.grab_focus()
 		Global.trigger_host_focus = false
 	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/Scoreboard/CanvasLayer").visible:
 		Global.trigger_host_focus = true

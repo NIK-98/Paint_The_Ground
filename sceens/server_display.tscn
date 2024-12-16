@@ -86,7 +86,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 [node name="server_display" type="Label" groups=["server_display"]]
 custom_minimum_size = Vector2(1215, 0)
 offset_right = 1232.0
-offset_bottom = 104.0
+offset_bottom = 77.0
 theme = SubResource("Theme_bse12")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_iigv4")

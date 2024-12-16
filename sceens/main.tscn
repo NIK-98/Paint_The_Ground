@@ -321,7 +321,16 @@ text = "Zurück"
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 6
 
-[node name="UI" parent="CanvasLayer2" instance=ExtResource("2_gk4y4")]
+[node name="Control" type="Control" parent="CanvasLayer2"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" parent="CanvasLayer2/Control" instance=ExtResource("2_gk4y4")]
+layout_mode = 1
+offset_right = -40.0
+offset_bottom = -40.0
 
 [node name="Sounds" parent="." instance=ExtResource("9_s2wik")]
 

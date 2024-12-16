@@ -76,7 +76,7 @@ func namen_text_update(id, text):
 @rpc("any_peer","call_local")
 func update_player_count(positiv: bool):
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
+		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 	if positiv:
 		player_conect_count += 1
 	if not positiv and player_conect_count > 0:
@@ -216,7 +216,7 @@ func _on_enter_pressed():
 			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
-		get_parent().main.get_node("CanvasLayer2/Server_Browser").queue_free()
+		get_parent().main.get_node("CanvasLayer2/Control/Server_Browser").queue_free()
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
@@ -368,7 +368,7 @@ func start_trigger():
 @rpc("any_peer","call_local")
 func reset_wait_count():
 	player_wait_count = 0
-	get_parent().main.get_node("CanvasLayer2/UI").game_started = true
+	get_parent().main.get_node("CanvasLayer2/Control/UI").game_started = true
 	
 	
 @rpc("any_peer","call_local")

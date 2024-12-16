@@ -60,22 +60,22 @@ func _process(_delta):
 			vs.set_pressed(false)
 			
 	
-	if get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().has_node("Control/CanvasLayer"):
-		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_node("Control/CanvasLayer").visible:
+	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer"):
+		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible:
 			await get_tree().create_timer(0.1).timeout
 			esc_is_pressing = true
-			get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
 			Global.trigger_host_focus = true
-			get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 			Global.trigger_host_focus = false
 	
 	if (Input.is_action_just_pressed("modus") or Input.is_action_just_pressed("modus_con")):
-		get_parent().get_parent()._on_change_pressed()
+		get_parent().get_parent().get_parent()._on_change_pressed()
 	if (Input.is_action_just_pressed("cancel") or Input.is_action_just_pressed("cancel_con")):
 		block_host = false
 		$Panel/CenterContainer/Net/Connecting.text = ""
 	
-	if get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_node("Level/level/loby").visible:
+	if get_parent().get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_parent().get_node("Level/level/loby").visible:
 		set_process(false)
 
 	
@@ -105,13 +105,13 @@ func _on_host_pressed():
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 	if not FileAccess.file_exists(save_path):
-		get_parent().get_parent().save_game("Persist", save_path)
+		get_parent().get_parent().get_parent().save_game("Persist", save_path)
 	else:
 		DirAccess.remove_absolute(save_path)
-		get_parent().get_parent().save_game("Persist", save_path)
+		get_parent().get_parent().get_parent().save_game("Persist", save_path)
 	
 	var peer = ENetMultiplayerPeer.new()
-	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
+	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().get_parent().save_path):
 		port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	port = str(port)
 	if not port.is_valid_int():
@@ -147,13 +147,13 @@ func _on_connect_pressed():
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 	prints(ip,port)
 	if not FileAccess.file_exists(save_path):
-		get_parent().get_parent().save_game("Persist", save_path)
+		get_parent().get_parent().get_parent().save_game("Persist", save_path)
 	else:
 		DirAccess.remove_absolute(save_path)
-		get_parent().get_parent().save_game("Persist", save_path)
+		get_parent().get_parent().get_parent().save_game("Persist", save_path)
 		
 	block_host = true
-	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().save_path):
+	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not connectport.is_valid_int():
 		OS.alert("Ist keine richtieger port.", "Server Meldung")
@@ -188,7 +188,7 @@ func _on_connect_pressed():
 	
 func change_level(scene: PackedScene):
 	# Remove old level if any.
-	var level = get_parent().get_parent().get_node("Level")
+	var level = get_parent().get_parent().get_parent().get_node("Level")
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
