@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2gfhlsojwpgw"]
+[gd_scene load_steps=11 format=3 uid="uid://d2gfhlsojwpgw"]
 
 [ext_resource type="Script" path="res://scripts/server_display.gd" id="2_gdsdh"]
 [ext_resource type="SystemFont" uid="uid://n36bo5xuq7jm" path="res://resources/fonts/ui_font.res" id="2_jihb5"]
@@ -15,11 +15,26 @@ texture_margin_bottom = 25.0
 modulate_color = Color(0.360784, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_bse12"]
-Label/colors/font_color = Color(0, 0.513147, 0.513147, 1)
+Label/colors/font_color = Color(0.91474, 0.717148, 7.70092e-07, 1)
 Label/constants/outline_size = 15
 Label/font_sizes/font_size = 45
 Label/fonts/font = SubResource("SystemFont_a5grr")
 Label/styles/normal = SubResource("StyleBoxTexture_1n6yb")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iigv4"]
+bg_color = Color(0, 0.719491, 0.343082, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5ck"]
 
@@ -61,7 +76,7 @@ Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
+Button/font_sizes/font_size = 35
 Button/fonts/font = ExtResource("2_jihb5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_kngc3")
@@ -74,6 +89,7 @@ offset_right = 1232.0
 offset_bottom = 104.0
 theme = SubResource("Theme_bse12")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_iigv4")
 text = "N/A"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -82,12 +98,18 @@ script = ExtResource("2_gdsdh")
 
 [node name="Join" type="Button" parent="."]
 process_mode = 3
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 0
-offset_left = 1056.0
-offset_top = 7.0
-offset_right = 1206.0
-offset_bottom = 87.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = -36.0
+offset_right = -3.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_r21rg")
 text = "Join"
