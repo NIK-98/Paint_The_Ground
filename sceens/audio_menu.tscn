@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=3 uid="uid://dfqq0gn33scbo"]
 
 [ext_resource type="Script" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
+[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="2_2548e"]
 [ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="2_bnt2n"]
-[ext_resource type="SystemFont" uid="uid://n36bo5xuq7jm" path="res://resources/fonts/ui_font.res" id="2_qx3c5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4hv"]
 content_margin_left = 4.0
@@ -107,6 +107,7 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_ragmk"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -115,7 +116,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -123,7 +123,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/fonts/font = ExtResource("2_qx3c5")
 Label/styles/normal = SubResource("StyleBoxFlat_udp7r")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oggd1"]
@@ -142,6 +141,7 @@ shadow_size = 5
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_oggd1")
 
 [sub_resource type="Theme" id="Theme_6upcp"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -150,7 +150,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -158,7 +157,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/fonts/font = ExtResource("2_qx3c5")
 Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t62ub"]
@@ -180,6 +178,7 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_bhj18"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -188,7 +187,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -196,7 +194,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/fonts/font = ExtResource("2_qx3c5")
 Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qx3v"]
@@ -218,6 +215,7 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_yrrdl"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -226,7 +224,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -234,7 +231,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/fonts/font = ExtResource("2_qx3c5")
 Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hnxs"]
@@ -256,6 +252,7 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_w4qkv"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(1, 1, 0, 1)
 Button/colors/font_focus_color = Color(0.645372, 0.645372, 0, 1)
 Button/colors/font_hover_color = Color(0.647059, 0.647059, 0, 1)
@@ -264,7 +261,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.647059, 0.647059, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -322,6 +318,7 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_brld1"]
+default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(1, 0, 0, 1)
 Button/colors/font_focus_color = Color(0.572549, 0, 0, 1)
 Button/colors/font_hover_color = Color(0.572549, 0, 0, 1)
@@ -330,7 +327,6 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.572549, 0, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/fonts/font = ExtResource("2_qx3c5")
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
