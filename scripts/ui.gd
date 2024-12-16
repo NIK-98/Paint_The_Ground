@@ -194,18 +194,6 @@ func change_level(scene: PackedScene):
 		c.queue_free()
 	# Add new level.
 	level.add_child(scene.instantiate())
-				
-
-func _on_host_connect_toggled(toggled_on: bool) -> void:
-	Global.ui_sound = true
-	if toggled_on:
-		$Panel/CenterContainer/Net/Options/Option1.hide()
-		$Panel/CenterContainer/Net/Options/Option2.show()
-		get_parent().get_node("Server_Browser").show()
-	else:
-		$Panel/CenterContainer/Net/Options/Option2.hide()
-		get_parent().get_node("Server_Browser").hide()
-		$Panel/CenterContainer/Net/Options/Option1.show()
 
 
 func _on_host_connect_mouse_entered():
@@ -240,3 +228,15 @@ func _on_vs_toggled(toggled_on: bool):
 		vs_mode = true
 	else:
 		vs_mode = false
+
+
+func _on_host_connect_pressed() -> void:
+	Global.ui_sound = true
+	if not get_parent().get_node("Server_Browser").visible:
+		$Panel/CenterContainer/Net/Options/Option1.hide()
+		$Panel/CenterContainer/Net/Options/Option2.show()
+		get_parent().get_node("Server_Browser").show()
+	else:
+		$Panel/CenterContainer/Net/Options/Option2.hide()
+		get_parent().get_node("Server_Browser").hide()
+		$Panel/CenterContainer/Net/Options/Option1.show()
