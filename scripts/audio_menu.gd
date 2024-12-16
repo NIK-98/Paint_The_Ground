@@ -1,9 +1,9 @@
 extends Control
 
-@onready var master = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master"
-@onready var effects = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects"
-@onready var music = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music"
-@onready var ui = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI
+@onready var master = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text/master"
+@onready var effects = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text/effects"
+@onready var music = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music"
+@onready var ui = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI
 @onready var main = $"/root/main/"
 
 var master_bus = AudioServer.get_bus_index("Master")

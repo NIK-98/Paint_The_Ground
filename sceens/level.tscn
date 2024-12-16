@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=53 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -11,14 +11,12 @@
 [ext_resource type="Texture2D" uid="uid://xwbas18gvier" path="res://assets/controll/right.png" id="6_w4ify"]
 [ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="7_hdc0h"]
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="9_7agv8"]
-[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="13_iuuq2"]
-[ext_resource type="Texture2D" uid="uid://d1p8oe23i3ffp" path="res://assets/buttons/uiedit.png" id="13_kybc6"]
+[ext_resource type="SystemFont" uid="uid://ph4mg6ucxxm2" path="res://resources/fonts/meldung_font.tres" id="9_8ph0y"]
+[ext_resource type="SystemFont" uid="uid://docffkg88nvio" path="res://resources/fonts/time_font.res" id="10_c8m16"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" path="res://scripts/Enter.gd" id="15_unqr3"]
-
-[sub_resource type="SystemFont" id="SystemFont_1kkt5"]
-font_names = PackedStringArray("AniMe Matrix - MB_EN")
+[ext_resource type="SystemFont" uid="uid://n36bo5xuq7jm" path="res://resources/fonts/ui_font.res" id="17_45ax7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 content_margin_left = 15.0
@@ -37,116 +35,306 @@ corner_radius_bottom_left = 25
 [sub_resource type="Theme" id="Theme_farg5"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_cmhvs")
 
-[sub_resource type="SystemFont" id="SystemFont_tr6om"]
-font_names = PackedStringArray("Gill Sans")
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_fe0qs"]
-font_names = PackedStringArray("Jokerman")
-subpixel_positioning = 0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbck"]
 bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
 
 [sub_resource type="Theme" id="Theme_n2nq7"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
 
-[sub_resource type="SystemFont" id="SystemFont_2a4bu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uolv"]
+bg_color = Color(0.829633, 0.520475, 0.0884233, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 15
+
+[sub_resource type="SystemFont" id="SystemFont_xl51c"]
 font_names = PackedStringArray("Cascadia Mono")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1dpt"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5xyp"]
-texture = ExtResource("13_kybc6")
-texture_margin_left = 15.0
-texture_margin_top = 15.0
-texture_margin_right = 15.0
-texture_margin_bottom = 15.0
-expand_margin_left = 20.0
-expand_margin_top = 15.0
-expand_margin_right = 15.0
-expand_margin_bottom = 15.0
-
-[sub_resource type="Theme" id="Theme_lny4d"]
-LineEdit/colors/font_color = Color(0, 0, 0, 1)
-LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
-LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 1)
-LineEdit/font_sizes/font_size = 45
-LineEdit/fonts/font = SubResource("SystemFont_2a4bu")
-LineEdit/styles/focus = SubResource("StyleBoxEmpty_n1dpt")
-LineEdit/styles/normal = SubResource("StyleBoxTexture_n5xyp")
-
-[sub_resource type="SystemFont" id="SystemFont_8s71y"]
-font_names = PackedStringArray("Cooper")
 subpixel_positioning = 0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_do8p0"]
+[sub_resource type="Theme" id="Theme_ohkoe"]
+default_font = SubResource("SystemFont_xl51c")
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/fonts/font = ExtResource("17_45ax7")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_5uolv")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_5uolv")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e27jt"]
-texture = ExtResource("13_iuuq2")
-expand_margin_left = 25.0
-expand_margin_top = 25.0
-expand_margin_right = 25.0
-expand_margin_bottom = 25.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5ck"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6t8r"]
-texture = ExtResource("13_iuuq2")
-expand_margin_left = 20.0
-expand_margin_top = 20.0
-expand_margin_right = 20.0
-expand_margin_bottom = 20.0
-
-[sub_resource type="Theme" id="Theme_4qfo0"]
-Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxEmpty_do8p0")
-Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
-Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c01q6"]
-
-[sub_resource type="Theme" id="Theme_ywke1"]
-Button/colors/font_color = Color(1.92523e-07, 0.402723, 0.454316, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxEmpty_c01q6")
-Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
-Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rko0x"]
-
-[sub_resource type="Theme" id="Theme_cpsan"]
-Button/colors/font_color = Color(0.544802, 0.00126815, 0.705635, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/disabled = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/focus = SubResource("StyleBoxEmpty_rko0x")
-Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
-Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_42m5l"]
-
-[sub_resource type="Theme" id="Theme_b4eyt"]
-Button/colors/font_color = Color(0, 0, 0.87451, 1)
-Button/font_sizes/font_size = 45
-Button/fonts/font = SubResource("SystemFont_8s71y")
-Button/styles/focus = SubResource("StyleBoxEmpty_42m5l")
-Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
-Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajtjc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kngc3"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
-border_width_top = 60
+border_width_top = 15
 border_width_right = 15
-border_width_bottom = 35
-border_color = Color(0.4, 0.368627, 1, 1)
-corner_radius_top_left = 130
-corner_radius_bottom_right = 130
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqje5"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_5fqms"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_kngc3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaaxy"]
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6x13"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_w85tt"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/disabled = SubResource("StyleBoxFlat_xaaxy")
+Button/styles/focus = SubResource("StyleBoxFlat_m6x13")
+Button/styles/hover = SubResource("StyleBoxFlat_kngc3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upy4k"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_mpmer"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/disabled = SubResource("StyleBoxFlat_xaaxy")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_upy4k")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4wmt"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_4phi6"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/disabled = SubResource("StyleBoxFlat_xaaxy")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_b4wmt")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qg23r"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_meekn"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/disabled = SubResource("StyleBoxFlat_xaaxy")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_qg23r")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehkgg"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_x68ue"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_ehkgg")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfala"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_pxkww"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_wfala")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="Theme" id="Theme_gf1a3"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_kngc3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n6q3"]
+bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0.282, 0.196, 0.286)
+border_blend = true
+corner_radius_top_left = 150
+corner_radius_bottom_right = 150
+shadow_color = Color(0, 0.282, 0.196, 0.757)
+shadow_size = 25
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dox0w"]
 expand_margin_top = 15.0
@@ -167,15 +355,35 @@ font_color = Color(0.909804, 0.505882, 0, 1)
 outline_size = 10
 outline_color = Color(0.164706, 0.164706, 0.164706, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gw143"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xf5e1"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
 
-[sub_resource type="Theme" id="Theme_64oux"]
-default_font = SubResource("SystemFont_jwpju")
-Button/font_sizes/font_size = 90
-Button/styles/focus = SubResource("StyleBoxEmpty_gw143")
-Button/styles/hover = SubResource("StyleBoxTexture_e27jt")
-Button/styles/normal = SubResource("StyleBoxTexture_j6t8r")
-Button/styles/pressed = SubResource("StyleBoxTexture_j6t8r")
+[sub_resource type="Theme" id="Theme_gixap"]
+Button/colors/font_color = Color(1, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.592157, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.592157, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.592157, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.592448, 2.20198e-06, 4.33177e-07, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("17_45ax7")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_xf5e1")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 
 [sub_resource type="LabelSettings" id="LabelSettings_35yls"]
 font_size = 50
@@ -320,7 +528,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.681535, 0.372164, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 50
-theme_override_fonts/font = SubResource("SystemFont_1kkt5")
+theme_override_fonts/font = ExtResource("9_8ph0y")
 theme_override_font_sizes/font_size = 106
 text = "!!!Gib Alles!!!"
 
@@ -397,7 +605,7 @@ offset_bottom = 768.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = SubResource("SystemFont_tr6om")
+theme_override_fonts/font = ExtResource("10_c8m16")
 theme_override_font_sizes/font_size = 42
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -409,7 +617,7 @@ offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = SubResource("SystemFont_fe0qs")
+theme_override_fonts/font = ExtResource("10_c8m16")
 theme_override_font_sizes/font_size = 42
 
 [node name="start_in" type="Label" parent="CanvasLayer" groups=["time"]]
@@ -421,7 +629,7 @@ offset_bottom = 464.0
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = SubResource("SystemFont_1kkt5")
+theme_override_fonts/font = ExtResource("9_8ph0y")
 theme_override_font_sizes/font_size = 106
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -481,7 +689,6 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
-visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
@@ -502,11 +709,12 @@ theme_override_constants/separation = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 35
+theme_override_constants/separation = 15
 
 [node name="name_input" type="LineEdit" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_lny4d")
+theme = SubResource("Theme_ohkoe")
+theme_override_font_sizes/font_size = 46
 placeholder_text = "Name?"
 alignment = 1
 max_length = 8
@@ -514,42 +722,37 @@ expand_to_text_length = true
 
 [node name="Random" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_4qfo0")
+theme = SubResource("Theme_5fqms")
 text = "Zufalls Name"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 35
+theme_override_constants/separation = 40
 
 [node name="npcs" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ywke1")
+theme = SubResource("Theme_w85tt")
 text = "Solo NPCs: 1"
 
 [node name="Speed" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ywke1")
+theme = SubResource("Theme_mpmer")
 text = "Einfach"
 
 [node name="settime" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_cpsan")
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme = SubResource("Theme_4phi6")
 theme_override_constants/outline_size = 30
 text = "120 sec."
 
 [node name="Map" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_cpsan")
-theme_override_colors/font_color = Color(0.388235, 0.392157, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 30
+theme = SubResource("Theme_meekn")
 text = "Kleine  Map"
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_b4eyt")
+theme = SubResource("Theme_x68ue")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
@@ -578,12 +781,14 @@ vertical_alignment = 1
 process_mode = 3
 visible = false
 layout_mode = 2
-theme = SubResource("Theme_b4eyt")
+theme = SubResource("Theme_pxkww")
 text = "start"
 
 [node name="team" type="Button" parent="loby/CenterContainer/HBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(0, 760)
 layout_mode = 2
+theme = SubResource("Theme_gf1a3")
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
@@ -591,10 +796,10 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_ajtjc")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ajtjc")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ajtjc")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ajtjc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4n6q3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4n6q3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4n6q3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4n6q3")
 toggle_mode = true
 text = "Team
 Farbe
@@ -605,9 +810,9 @@ drücken!
 
 [node name="red" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 95.0
+offset_left = 111.0
 offset_top = 3.0
-offset_right = 136.0
+offset_right = 152.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -617,9 +822,9 @@ text = "1"
 
 [node name="vs" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 143.0
+offset_left = 159.0
 offset_top = 3.0
-offset_right = 225.0
+offset_right = 241.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0.470588, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -629,9 +834,9 @@ text = "VS"
 
 [node name="blue" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 242.0
+offset_left = 258.0
 offset_top = 3.0
-offset_right = 283.0
+offset_right = 299.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(0, 0.749, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -703,8 +908,7 @@ theme_override_constants/separation = 30
 [node name="restart" type="Button" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 process_mode = 3
 layout_mode = 2
-theme = SubResource("Theme_64oux")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme = SubResource("Theme_gixap")
 theme_override_font_sizes/font_size = 50
 text = "Neues Spiel"
 

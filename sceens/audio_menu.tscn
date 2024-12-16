@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dfqq0gn33scbo"]
+[gd_scene load_steps=30 format=3 uid="uid://dfqq0gn33scbo"]
 
 [ext_resource type="Script" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
 [ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="2_bnt2n"]
-[ext_resource type="Texture2D" uid="uid://dhwxbxv7mla3p" path="res://assets/buttons/uibutton.png" id="3_f1425"]
+[ext_resource type="SystemFont" uid="uid://n36bo5xuq7jm" path="res://resources/fonts/ui_font.res" id="2_qx3c5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4hv"]
 content_margin_left = 4.0
@@ -32,18 +32,99 @@ Button/styles/hover = SubResource("StyleBoxFlat_lg4hv")
 Button/styles/normal = SubResource("StyleBoxFlat_lg4hv")
 Button/styles/pressed = SubResource("StyleBoxFlat_lg4hv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k7ia"]
-bg_color = Color(0, 0, 0.803922, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsaar"]
+bg_color = Color(0.136623, 0.372036, 0.999999, 1)
 corner_radius_top_left = 35
 corner_radius_top_right = 35
 corner_radius_bottom_right = 35
 corner_radius_bottom_left = 35
-expand_margin_left = 50.0
-expand_margin_top = 40.0
-expand_margin_right = 50.0
-expand_margin_bottom = 40.0
-shadow_color = Color(0, 0, 0.933333, 0.6)
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0.0375193, 0.275378, 1, 0.6)
 shadow_size = 90
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5ck"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n6q3"]
+bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0.282, 0.196, 0.286)
+border_blend = true
+corner_radius_top_left = 150
+corner_radius_bottom_right = 150
+shadow_color = Color(0, 0.282, 0.196, 0.757)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kngc3"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqje5"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udp7r"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+expand_margin_bottom = 20.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_ragmk"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 20
+Label/fonts/font = ExtResource("2_qx3c5")
+Label/styles/normal = SubResource("StyleBoxFlat_udp7r")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oggd1"]
 bg_color = Color(7.33994e-07, 0.31624, 0.142891, 1)
@@ -60,52 +141,251 @@ shadow_size = 5
 [sub_resource type="Theme" id="Theme_fm43a"]
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_oggd1")
 
-[sub_resource type="SystemFont" id="SystemFont_t22yn"]
-font_names = PackedStringArray("Cooper")
-subpixel_positioning = 0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2vstp"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qbhqg"]
-texture = ExtResource("3_f1425")
-expand_margin_left = 25.0
-expand_margin_top = 25.0
-expand_margin_right = 25.0
-expand_margin_bottom = 25.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7r3qy"]
-texture = ExtResource("3_f1425")
-expand_margin_left = 20.0
-expand_margin_top = 20.0
-expand_margin_right = 20.0
-expand_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wbugv"]
-texture = ExtResource("3_f1425")
-expand_margin_left = 20.0
-expand_margin_top = 20.0
-expand_margin_right = 20.0
-expand_margin_bottom = 20.0
-
-[sub_resource type="Theme" id="Theme_y4ci3"]
-Button/colors/font_outline_color = Color(1, 1, 1, 1)
+[sub_resource type="Theme" id="Theme_6upcp"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_t22yn")
-Button/styles/focus = SubResource("StyleBoxEmpty_2vstp")
-Button/styles/hover = SubResource("StyleBoxTexture_qbhqg")
-Button/styles/normal = SubResource("StyleBoxTexture_7r3qy")
-Button/styles/pressed = SubResource("StyleBoxTexture_wbugv")
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 20
+Label/fonts/font = ExtResource("2_qx3c5")
+Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
 
-[sub_resource type="Theme" id="Theme_yt4ax"]
-Button/colors/font_outline_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t62ub"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+expand_margin_bottom = 20.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_bhj18"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 100
-Button/fonts/font = SubResource("SystemFont_t22yn")
-Button/styles/focus = SubResource("StyleBoxEmpty_2vstp")
-Button/styles/hover = SubResource("StyleBoxTexture_qbhqg")
-Button/styles/normal = SubResource("StyleBoxTexture_7r3qy")
-Button/styles/pressed = SubResource("StyleBoxTexture_wbugv")
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 20
+Label/fonts/font = ExtResource("2_qx3c5")
+Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qx3v"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+expand_margin_bottom = 20.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_yrrdl"]
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 20
+Label/fonts/font = ExtResource("2_qx3c5")
+Label/styles/normal = SubResource("StyleBoxFlat_kngc3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hnxs"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+expand_margin_bottom = 20.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_w4qkv"]
+Button/colors/font_color = Color(1, 1, 0, 1)
+Button/colors/font_focus_color = Color(0.645372, 0.645372, 0, 1)
+Button/colors/font_hover_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.647059, 0.647059, 0, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7m7v"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ra01"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6jfn"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_brld1"]
+Button/colors/font_color = Color(1, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.572549, 0, 0, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("2_qx3c5")
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ax26h"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48wia"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjc3r"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
 
 [node name="Audio_menu" type="Control" groups=["saveaudiosettings"]]
 process_mode = 3
@@ -122,21 +402,15 @@ script = ExtResource("1_wxnn5")
 layer = 7
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -196.5
-offset_top = -237.5
-offset_right = 196.5
-offset_bottom = 237.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1k7ia")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qsaar")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -151,17 +425,23 @@ theme_override_constants/separation = 45
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="master_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme = SubResource("Theme_ragmk")
 theme_override_font_sizes/font_size = 35
 text = "Gesamt Lautstärke"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="master" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="master" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer2/Back")
-focus_neighbor_bottom = NodePath("../effects")
+offset_top = 54.0
+offset_right = 368.0
+offset_bottom = 84.0
+focus_neighbor_top = NodePath("../../../VBoxContainer2/Back")
+focus_neighbor_bottom = NodePath("../../Effecte_text/effects")
 theme = SubResource("Theme_fm43a")
 theme_override_icons/grabber = ExtResource("2_bnt2n")
 theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
@@ -172,14 +452,20 @@ max_value = 0.0
 
 [node name="Effecte_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme = SubResource("Theme_6upcp")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_t62ub")
 text = "Effekt Lautstärke"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="effects" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="effects" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../master")
-focus_neighbor_bottom = NodePath("../music")
+offset_top = 56.0
+offset_right = 368.0
+offset_bottom = 86.0
+focus_neighbor_top = NodePath("../../master_text/master")
+focus_neighbor_bottom = NodePath("../../music_text/music")
 theme = SubResource("Theme_fm43a")
 theme_override_icons/grabber = ExtResource("2_bnt2n")
 theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
@@ -190,14 +476,20 @@ max_value = 0.0
 
 [node name="UI_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme = SubResource("Theme_bhj18")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_0qx3v")
 text = "UI Lautstärke"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="UI" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="UI" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../master")
-focus_neighbor_bottom = NodePath("../music")
+offset_top = 54.0
+offset_right = 368.0
+offset_bottom = 84.0
+focus_neighbor_top = NodePath("../../master_text/master")
+focus_neighbor_bottom = NodePath("../../music_text/music")
 theme = SubResource("Theme_fm43a")
 theme_override_icons/grabber = ExtResource("2_bnt2n")
 theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
@@ -208,14 +500,20 @@ max_value = 0.0
 
 [node name="music_text" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme = SubResource("Theme_yrrdl")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_3hnxs")
 text = "Musik Lautstärke"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="music" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="music" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../effects")
-focus_neighbor_bottom = NodePath("../../VBoxContainer2/Reset")
+offset_top = 54.0
+offset_right = 368.0
+offset_bottom = 84.0
+focus_neighbor_top = NodePath("../../Effecte_text/effects")
+focus_neighbor_bottom = NodePath("../../../VBoxContainer2/Reset")
 theme = SubResource("Theme_fm43a")
 theme_override_icons/grabber = ExtResource("2_bnt2n")
 theme_override_icons/grabber_highlight = ExtResource("2_bnt2n")
@@ -226,42 +524,46 @@ max_value = 0.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 10
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer/music")
+focus_neighbor_top = NodePath("../../VBoxContainer/music_text/music")
 focus_neighbor_bottom = NodePath("../Back")
-theme = SubResource("Theme_y4ci3")
+theme = SubResource("Theme_w4qkv")
 theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_e7m7v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4ra01")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6jfn")
 text = "Reset"
 
 [node name="Back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Reset")
-focus_neighbor_bottom = NodePath("../../VBoxContainer/master")
-theme = SubResource("Theme_yt4ax")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/master_text/master")
+theme = SubResource("Theme_brld1")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_ax26h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_48wia")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mjc3r")
 text = "Zurück"
 
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_mouse_entered"]
-[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master" to="." method="_on_master_value_changed"]
-[connection signal="focus_exited" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_focus_exited"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_mouse_entered"]
-[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/effects" to="." method="_on_effects_value_changed"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_mouse_entered"]
-[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI" to="." method="_on_ui_value_changed"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_mouse_entered"]
-[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music" to="." method="_on_music_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text/master" to="." method="_on_master_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text/master" to="." method="_on_master_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text/master" to="." method="_on_master_value_changed"]
+[connection signal="focus_exited" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text/effects" to="." method="_on_effects_focus_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text/effects" to="." method="_on_effects_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text/effects" to="." method="_on_effects_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI" to="." method="_on_ui_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI" to="." method="_on_ui_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI" to="." method="_on_ui_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music" to="." method="_on_music_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music" to="." method="_on_music_mouse_entered"]
+[connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music" to="." method="_on_music_value_changed"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
