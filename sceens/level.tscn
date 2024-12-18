@@ -30,7 +30,7 @@ border_width_left = 10
 border_width_top = 5
 border_width_right = 10
 border_width_bottom = 5
-border_color = Color(1, 1, 1, 0.762)
+border_color = Color(0.568973, 0.568973, 0.568973, 0.762)
 border_blend = true
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -57,6 +57,7 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 expand_margin_left = 15.0
 expand_margin_right = 15.0
+expand_margin_bottom = 15.0
 shadow_color = Color(0, 0, 0, 0.897)
 shadow_size = 5
 
@@ -615,6 +616,7 @@ spawn_path = NodePath("../PanelContainer/Wertung/name")
 layer = 2
 
 [node name="coin_display" parent="CanvasLayer" instance=ExtResource("10_gxtom")]
+offset_right = 272.0
 
 [node name="fps" type="Label" parent="CanvasLayer"]
 offset_left = 96.0
@@ -686,7 +688,6 @@ visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
 layer = 6
-visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -717,6 +718,7 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
+visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
