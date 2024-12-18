@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=54 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="7_hdc0h"]
 [ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="9_5ce5b"]
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="9_7agv8"]
+[ext_resource type="PackedScene" uid="uid://cplkk5xrb2ltq" path="res://sceens/coin_display.tscn" id="10_gxtom"]
 [ext_resource type="FontFile" uid="uid://duruk2ikhrr3f" path="res://resources/fonts/JOKERMAN.ttf" id="10_m88af"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
@@ -24,14 +25,18 @@ content_margin_left = 15.0
 content_margin_top = 15.0
 content_margin_right = 15.0
 content_margin_bottom = 15.0
-bg_color = Color(0, 0, 0, 0.584314)
+bg_color = Color(1, 1, 1, 0.46)
 border_width_left = 10
+border_width_top = 5
 border_width_right = 10
-border_color = Color(0.768627, 0.776471, 1, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 0.762)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
 
 [sub_resource type="Theme" id="Theme_farg5"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_cmhvs")
@@ -39,7 +44,21 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_cmhvs")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_me242"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbck"]
-bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
+bg_color = Color(0.550115, 0.671243, 0.874219, 0.843)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.467, 0.604, 0.835, 0.654)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+shadow_color = Color(0, 0, 0, 0.897)
+shadow_size = 5
 
 [sub_resource type="Theme" id="Theme_n2nq7"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ewbck")
@@ -595,6 +614,8 @@ spawn_path = NodePath("../PanelContainer/Wertung/name")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="coin_display" parent="CanvasLayer" instance=ExtResource("10_gxtom")]
+
 [node name="fps" type="Label" parent="CanvasLayer"]
 offset_left = 96.0
 offset_right = 136.0
@@ -684,7 +705,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Tap/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0.815686, 0.960784, 1)
+theme_override_colors/font_outline_color = Color(1.54018e-06, 0.812671, 0.957266, 1)
 theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 42

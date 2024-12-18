@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cplkk5xrb2ltq"]
+
+[ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="1_2enk4"]
+[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="2_b4crp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wylrv"]
+bg_color = Color(0.664829, 0.613634, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.881, 0.817, 0, 0.497)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_color = Color(0.583174, 0.475098, 1.92523e-07, 0.751)
+shadow_size = 20
+
+[sub_resource type="Theme" id="Theme_3qags"]
+default_font = ExtResource("2_b4crp")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 50
+
+[node name="coin_display" type="PanelContainer"]
+offset_left = 24.0
+offset_top = 112.0
+offset_right = 274.0
+offset_bottom = 192.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wylrv")
+
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(39, 40)
+texture = ExtResource("1_2enk4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_3qags")
+text = "0"
+horizontal_alignment = 2
