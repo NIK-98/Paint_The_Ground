@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=53 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -35,6 +35,8 @@ corner_radius_bottom_left = 25
 
 [sub_resource type="Theme" id="Theme_farg5"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_cmhvs")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_me242"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbck"]
 bg_color = Color(0.466667, 0.603922, 0.835294, 0.67451)
@@ -526,19 +528,29 @@ theme_override_font_sizes/font_size = 80
 text = "!!!Gib Alles!!!"
 
 [node name="PanelContainer" type="PanelContainer" parent="Werten"]
-offset_left = 895.0
-offset_top = 99.0
-offset_right = 1098.0
-offset_bottom = 161.0
+offset_left = 832.0
+offset_top = 96.0
+offset_right = 1093.0
+offset_bottom = 158.0
 theme = SubResource("Theme_farg5")
 
 [node name="Wertung" type="HBoxContainer" parent="Werten/PanelContainer"]
 layout_mode = 2
 
+[node name="VSeparator" type="VSeparator" parent="Werten/PanelContainer/Wertung"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_me242")
+
 [node name="name" type="VBoxContainer" parent="Werten/PanelContainer/Wertung"]
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
 theme_override_constants/separation = -5
+
+[node name="VSeparator2" type="VSeparator" parent="Werten/PanelContainer/Wertung"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_me242")
 
 [node name="powerlist" type="VBoxContainer" parent="Werten/PanelContainer/Wertung"]
 layout_mode = 2
