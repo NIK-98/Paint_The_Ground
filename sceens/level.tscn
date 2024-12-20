@@ -378,7 +378,7 @@ font = ExtResource("18_pn6tv")
 font_size = 60
 font_color = Color(0.824396, 0, 0.152995, 1)
 outline_size = 10
-outline_color = Color(1, 0.713726, 0, 1)
+outline_color = Color(0.87451, 0.87451, 0.0313726, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_p5trk"]
 properties/0/path = NodePath("CanvasLayer/Time:text")
@@ -653,6 +653,7 @@ visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
 layer = 6
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -683,7 +684,6 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
-visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
@@ -921,7 +921,7 @@ vertical_alignment = 1
 
 [node name="score" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.875741, 0.875922, 0.0329965, 1)
 theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 41
@@ -948,22 +948,22 @@ label_settings = SubResource("LabelSettings_k53ee")
 
 [node name="name0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.0156863, 0.0784314, 1, 1)
+theme_override_colors/font_outline_color = Color(0.87451, 0.87451, 0.0313726, 1)
 theme_override_constants/line_spacing = 3
-theme_override_constants/outline_size = 25
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 60
 
 [node name="Score0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0, 0.152941, 1)
-theme_override_colors/font_outline_color = Color(1, 0.713726, 0, 1)
+theme_override_colors/font_outline_color = Color(0.87451, 0.87451, 0.0313726, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 60
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 5.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0
