@@ -353,10 +353,11 @@ func _on_start_pressed():
 	if $CenterContainer/HBoxContainer/team.visible:
 		set_visiblity.rpc("loby/CenterContainer/HBoxContainer/team", false)
 	
-
+	
 func vor_start_trigger():
 	$CenterContainer/HBoxContainer/VBoxContainer/warte_map.visible = true
 	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
+		
 	
 	
 func start_trigger():

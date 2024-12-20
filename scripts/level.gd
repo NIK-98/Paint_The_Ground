@@ -32,6 +32,7 @@ var start_gedrückt = 0
 @export var start_time = 0.0
 
 @export var playerlist = []
+var list_player_id_and_pos = []
 
 func _ready():
 	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
@@ -244,12 +245,22 @@ func add_text_tap(id: int, text: String):
 		new_name.name = str(id)
 		new_name.text = text
 		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
-		var list_name = new_name.duplicate()
-		list_name.set("theme_override_font_size", 5)
+		list_player_id_and_pos.append([id, playerlist.find(id)])
+		var child = new_name.duplicate()
+		child.set("theme_override_font_size", 5)
 		get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").add_child(new_name, true)
-		get_node("Werten/PanelContainer/Wertung/name").add_child(list_name, true)
+		get_node("Werten/PanelContainer/Wertung/name").add_child(child, true)
+		if list_player_id_and_pos.size() == playerlist.size():
+			for p in list_player_id_and_pos:
+				name_list_order.rpc(p[0],p[1])
+
+
+@rpc("any_peer","call_local")
+func name_list_order(id: int, pos: int):
+	get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").move_child(get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)), pos+1)
+	get_node("Werten/PanelContainer/Wertung/name").move_child(get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)), pos)
 		
-		
+			
 func del_text_tap(id: int):
 	if not get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").has_node(str(id)):
 		return
