@@ -86,9 +86,6 @@ position_smoothing_speed = 64.0
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_wpgsi")
 
-[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_ktm87")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
 
@@ -155,6 +152,9 @@ warte auf wertung!"
 wait_time = 0.2
 
 [node name="powertimers" type="Node" parent="."]
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ktm87")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="TimerresetSPEED" to="." method="_on_timerreset_speed_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=28 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
+[ext_resource type="PackedScene" uid="uid://cplkk5xrb2ltq" path="res://sceens/coin_display.tscn" id="8_y3nry"]
 [ext_resource type="PackedScene" uid="uid://dfqq0gn33scbo" path="res://sceens/audio_menu.tscn" id="9_gg8o3"]
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
@@ -317,6 +318,11 @@ text = "Beenden"
 layout_mode = 2
 theme = SubResource("Theme_2bw1u")
 text = "Zurück"
+
+[node name="money" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="coin_display" parent="money" instance=ExtResource("8_y3nry")]
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 6

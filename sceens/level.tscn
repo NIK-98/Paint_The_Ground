@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=53 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://bct2wlof30lbq" path="res://sceens/player.tscn" id="2_yu47c"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bhkeqdlgelvn1" path="res://assets/controll/left.png" id="7_hdc0h"]
 [ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="9_5ce5b"]
 [ext_resource type="Script" path="res://scripts/scoreboard.gd" id="9_7agv8"]
-[ext_resource type="PackedScene" uid="uid://cplkk5xrb2ltq" path="res://sceens/coin_display.tscn" id="10_gxtom"]
 [ext_resource type="FontFile" uid="uid://duruk2ikhrr3f" path="res://resources/fonts/JOKERMAN.ttf" id="10_m88af"]
 [ext_resource type="Script" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
@@ -615,9 +614,6 @@ spawn_path = NodePath("../PanelContainer/Wertung/name")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="coin_display" parent="CanvasLayer" instance=ExtResource("10_gxtom")]
-offset_right = 272.0
-
 [node name="fps" type="Label" parent="CanvasLayer"]
 offset_left = 96.0
 offset_right = 136.0
@@ -998,7 +994,7 @@ theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 60
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 10.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0

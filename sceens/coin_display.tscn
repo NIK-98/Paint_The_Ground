@@ -25,6 +25,7 @@ Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 50
 
 [node name="coin_display" type="PanelContainer"]
+process_mode = 3
 offset_left = 24.0
 offset_top = 112.0
 offset_right = 274.0

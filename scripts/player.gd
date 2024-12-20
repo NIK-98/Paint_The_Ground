@@ -17,6 +17,7 @@ var tile_size_multipl = 1.5
 var loaded = false
 var Gametriggerstart = false
 @export var score = 0
+var d_score = 0 # Durchschnitz score einer runde
 var move = Vector2i.ZERO
 var player_spawn_grenze = 200
 var ende = false
@@ -90,7 +91,13 @@ func _physics_process(_delta):
 					return
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon.rpc(powerups)
 			sync_show_win_los_meldung.rpc(name.to_int())
-		
+			if get_node("CanvasLayer/Winner").visible:
+				d_score = 0
+				for d in get_parent().get_children():
+					d_score += d.score
+				d_score /= len(level.playerlist)
+				main.get_node("money/coin_display").set_money(d_score)
+
 	
 func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
