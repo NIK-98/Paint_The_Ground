@@ -95,7 +95,7 @@ func _physics_process(_delta):
 				d_score = 0
 				for d in get_parent().get_children():
 					d_score += d.score
-				d_score /= len(level.playerlist)
+				d_score /= len(get_parent().get_children())
 				main.get_node("money/coin_display").set_money(d_score)
 
 	

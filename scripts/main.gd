@@ -1,6 +1,7 @@
 extends Node
 
 var save_path = "user://savetemp.save"
+var playersave_path = "user://playersave.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
@@ -18,6 +19,7 @@ func _ready():
 	$CanvasLayer2/Control.add_child(new_browser)
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
+		load_game("playersave", playersave_path)
 		load_game("saveaudiosettings", save_audio_setting_path)
 		load_game("savegrafik", save_grafik_path)
 		load_game("saveinputsettings", save_input_setting_path)
@@ -256,4 +258,17 @@ func _on_eingabe_focus_entered():
 
 
 func _on_eingabe_mouse_entered():
+	Global.ui_hover_sound = true
+
+
+func _on_deleteuser_pressed() -> void:
+	$money/coin_display.saveplayer(true)
+
+
+func _on_deleteuser_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_deleteuser_mouse_entered() -> void:
 	Global.ui_hover_sound = true

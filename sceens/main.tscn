@@ -309,6 +309,13 @@ theme = SubResource("Theme_w0b7n")
 text = "Eingabe
 "
 
+[node name="deleteuser" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_w0b7n")
+theme_override_colors/font_color = Color(0.471219, 0.0135178, 0.00749694, 1)
+text = "!Coins Löschen!
+"
+
 [node name="Beenden" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_hq385")
@@ -320,7 +327,7 @@ theme = SubResource("Theme_2bw1u")
 text = "Zurück"
 
 [node name="money" type="CanvasLayer" parent="."]
-layer = 6
+layer = 8
 
 [node name="coin_display" parent="money" instance=ExtResource("8_y3nry")]
 
@@ -360,6 +367,9 @@ offset_bottom = -40.0
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
