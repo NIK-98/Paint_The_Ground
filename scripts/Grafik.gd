@@ -47,7 +47,8 @@ func _process(_delta):
 			Add_Resolutions()
 			full_screen.set_pressed_no_signal(fullscreen_mode)
 			_on_full_screen_toggled(fullscreen_mode)
-			_on_option_button_item_selected(save_id)
+			if not fullscreen_mode:
+				_on_option_button_item_selected(save_id)
 			Set_Resulutuns_text()
 		if OS.get_name() == "Android" or OS.get_name() == "IOS":
 			option_button.visible = false
