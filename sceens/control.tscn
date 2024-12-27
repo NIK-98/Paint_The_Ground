@@ -6,12 +6,19 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txcqd"]
 bg_color = Color(0.136623, 0.372036, 0.999999, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.0470588, 0.282353, 1, 1)
 corner_radius_top_left = 35
 corner_radius_top_right = 35
 corner_radius_bottom_right = 35
 corner_radius_bottom_left = 35
 expand_margin_left = 30.0
+expand_margin_top = 30.0
 expand_margin_right = 30.0
+expand_margin_bottom = 30.0
 shadow_color = Color(0.0375193, 0.275378, 1, 0.6)
 shadow_size = 90
 

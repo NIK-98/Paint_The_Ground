@@ -6,6 +6,7 @@ var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
 var server_browser_new = preload("res://sceens/server_browser.tscn")
+@onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
 
 var controll_switcher = false
 		
@@ -139,7 +140,13 @@ func _on_tap_released():
 			
 			
 func _on_beenden_pressed():
-	Global.ui_sound = true
+	if Global.akzept.is_empty():
+		Global.ui_sound = true
+		Global.akzept = "Beenden"
+		$CanvasLayer/Menu.visible = false
+		$CanvasLayer/akzeptieren.visible = true
+		$CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja.grab_focus()
+		return
 	await get_tree().create_timer(0.1).timeout
 	if $CanvasLayer2/Control/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/Control/UI.esc_is_pressing = false
@@ -152,6 +159,7 @@ func _on_beenden_pressed():
 		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		
 	$CanvasLayer/Menu.visible = false
+	Global.akzept = ""
 	
 
 func _on_zurück_pressed():
@@ -262,7 +270,15 @@ func _on_eingabe_mouse_entered():
 
 
 func _on_deleteuser_pressed() -> void:
+	if Global.akzept.is_empty():
+		Global.ui_sound = true
+		Global.akzept = "Coins Löschen"
+		$CanvasLayer/Menu.visible = false
+		$CanvasLayer/akzeptieren.visible = true
+		$CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja.grab_focus()
+		return
 	$money/coin_display.saveplayer(true)
+	Global.akzept = ""
 
 
 func _on_deleteuser_focus_entered() -> void:

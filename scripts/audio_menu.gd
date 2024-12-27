@@ -121,7 +121,13 @@ func _on_back_pressed():
 
 
 func _on_reset_pressed():
-	Global.ui_sound = true
+	if Global.akzept.is_empty():
+		Global.ui_sound = true
+		Global.akzept = "Standard Audio"
+		$CanvasLayer.visible = false
+		main.get_node("CanvasLayer/akzeptieren").visible = true
+		main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+		return
 	if FileAccess.file_exists(save_audio_setting_path):
 		DirAccess.remove_absolute(save_audio_setting_path)
 		
@@ -138,6 +144,7 @@ func _on_reset_pressed():
 	AudioServer.set_bus_volume_db(ui_bus, ui.value)
 	music.value = music_volume
 	AudioServer.set_bus_volume_db(music_bus, music.value)
+	Global.akzept = ""
 
 
 func _on_reset_mouse_entered():

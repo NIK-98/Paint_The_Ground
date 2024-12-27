@@ -6,6 +6,7 @@ extends Control
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back
 @onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
 @onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
+@onready var main = get_parent()
 
 var save_grafik_path = "user://savegrafiksettings.save"
 	
@@ -136,7 +137,13 @@ func _on_full_screen_toggled(toggled_on):
 
 
 func _on_reset_pressed():
-	Global.ui_sound = true
+	if Global.akzept.is_empty():
+		Global.ui_sound = true
+		Global.akzept = "Standard Grafik"
+		$CanvasLayer.visible = false
+		main.get_node("CanvasLayer/akzeptieren").visible = true
+		main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+		return
 	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		option_button.visible = false
 		full_screen.set_pressed_no_signal(true)
@@ -148,6 +155,7 @@ func _on_reset_pressed():
 	v_sync.set_pressed_no_signal(false)
 	_on_v_sync_toggled(false)
 	reset = true
+	Global.akzept = ""
 
 
 func _on_v_sync_toggled(toggled_on: bool) -> void:

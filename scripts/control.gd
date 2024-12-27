@@ -31,11 +31,18 @@ func _physics_process(_delta):
 		
 
 func _on_reset_pressed() -> void:
-	Global.ui_sound = true
+	if Global.akzept.is_empty():
+		Global.ui_sound = true
+		Global.akzept = "Standard Eingabe"
+		$CanvasLayer.visible = false
+		main.get_node("CanvasLayer/akzeptieren").visible = true
+		main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+		return
 	reseted = true
 	for i in v_box_button_container.get_children():
 		if i.is_in_group("bind"):
-			i.set_process(true)			
+			i.set_process(true)	
+	Global.akzept = ""		
 
 
 func _on_back_pressed() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=29 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
+[ext_resource type="PackedScene" uid="uid://cm0bg75ggl3jp" path="res://sceens/akzeptieren.tscn" id="8_177q6"]
 [ext_resource type="PackedScene" uid="uid://cplkk5xrb2ltq" path="res://sceens/coin_display.tscn" id="8_y3nry"]
 [ext_resource type="PackedScene" uid="uid://dfqq0gn33scbo" path="res://sceens/audio_menu.tscn" id="9_gg8o3"]
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
@@ -15,7 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v44mi"]
-bg_color = Color(0.136623, 0.372036, 0.999999, 1)
+bg_color = Color(0.137, 0.372, 63.243, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.0461662, 0.283828, 0.999996, 1)
+border_blend = true
 corner_radius_top_left = 35
 corner_radius_top_right = 35
 corner_radius_bottom_right = 35
@@ -325,6 +332,9 @@ text = "Beenden"
 layout_mode = 2
 theme = SubResource("Theme_2bw1u")
 text = "Zurück"
+
+[node name="akzeptieren" parent="CanvasLayer" instance=ExtResource("8_177q6")]
+visible = false
 
 [node name="money" type="CanvasLayer" parent="."]
 layer = 8

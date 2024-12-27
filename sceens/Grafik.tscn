@@ -9,6 +9,12 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cxsb"]
 bg_color = Color(0.136623, 0.372036, 0.999999, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.0470588, 0.282353, 1, 1)
+border_blend = true
 corner_radius_top_left = 35
 corner_radius_top_right = 35
 corner_radius_bottom_right = 35
@@ -438,7 +444,7 @@ theme_override_constants/separation = 55
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = -5
+theme_override_constants/separation = 10
 
 [node name="FullScreen" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
