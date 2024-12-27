@@ -7,6 +7,7 @@ var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
 var server_browser_new = preload("res://sceens/server_browser.tscn")
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
+const passw = "ffw49w3rwhfrw8"
 
 var controll_switcher = false
 		
@@ -54,7 +55,7 @@ func _notification(what):
 func save_game(group: String, path: String):
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
-	var save_file = FileAccess.open(path, FileAccess.WRITE)
+	var save_file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, passw)
 	var save_nodes = get_tree().get_nodes_in_group(group)
 	for node in save_nodes:
 		# Check the node is an instanced scene so it can be instanced again during load.
@@ -92,7 +93,7 @@ func load_game(group: String, path: String):
 
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
-	var save_file = FileAccess.open(path, FileAccess.READ)
+	var save_file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, passw)
 	while save_file.get_position() < save_file.get_length():
 		var json_string = save_file.get_line()
 

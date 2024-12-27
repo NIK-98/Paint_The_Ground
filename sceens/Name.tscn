@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj1swxdws84yf"]
+[gd_scene load_steps=4 format=3 uid="uid://cj1swxdws84yf"]
 
 [ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="1_7sd7y"]
+[ext_resource type="Script" path="res://scripts/name.gd" id="2_kw8go"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d4c1o"]
 properties/0/path = NodePath(".:text")
@@ -14,6 +15,7 @@ properties/1/replication_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -733.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -23,6 +25,7 @@ theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("2_kw8go")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_d4c1o")

@@ -244,6 +244,7 @@ func add_text_tap(id: int, text: String):
 		var new_name = name_label.instantiate()
 		new_name.name = str(id)
 		new_name.text = text
+		new_name.namen = text
 		new_name.set("theme_override_colors/font_color",$Players.get_node(str(id)).get_node("Color").color)
 		list_player_id_and_pos.append([id, playerlist.find(id)])
 		var child = new_name.duplicate()

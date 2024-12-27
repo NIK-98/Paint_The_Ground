@@ -653,7 +653,6 @@ visibility_mode = 1
 
 [node name="Tap" type="CanvasLayer" parent="."]
 layer = 6
-visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Tap"]
 anchors_preset = 15
@@ -677,6 +676,8 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 42
 text = "!!!!Spieler!!!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Tap/CenterContainer/PanelContainer"]
 _spawnable_scenes = PackedStringArray("res://sceens/Name.tscn")

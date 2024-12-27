@@ -19,6 +19,7 @@ var Resolutions = {"1920x1080 FullHD":Vector2i(1920,1080),
 
 
 var id = 0
+var save_id = 0
 var v_sync_mode = false
 var fullscreen_mode = true
 var max_frams = 200
@@ -46,7 +47,7 @@ func _process(_delta):
 			Add_Resolutions()
 			full_screen.set_pressed_no_signal(fullscreen_mode)
 			_on_full_screen_toggled(fullscreen_mode)
-			_on_option_button_item_selected(id)
+			_on_option_button_item_selected(save_id)
 			Set_Resulutuns_text()
 		if OS.get_name() == "Android" or OS.get_name() == "IOS":
 			option_button.visible = false
@@ -73,7 +74,7 @@ func save():
 		"parent" : get_parent().get_path(),
 		"pos_x" : position.x, # Vector2 is not supported by JSON
 		"pos_y" : position.y,
-		"id" : id,
+		"save_id" : save_id,
 		"v_sync_mode" : v_sync_mode,
 		"fullscreen_mode" : fullscreen_mode,
 		"max_frams" : max_frams
@@ -172,8 +173,10 @@ func _on_v_sync_toggled(toggled_on: bool) -> void:
 func _on_back_pressed():
 	Global.ui_sound = true
 	if not FileAccess.file_exists(save_grafik_path):
+		save_id = id
 		get_parent().save_game("savegrafik", save_grafik_path)
 	else:
+		save_id = id
 		DirAccess.remove_absolute(save_grafik_path)
 		get_parent().save_game("savegrafik", save_grafik_path)
 		

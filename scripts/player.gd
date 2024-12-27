@@ -60,6 +60,7 @@ func _physics_process(_delta):
 			Gametriggerstart = true
 			main.get_node("CanvasLayer/change").visible = true
 			position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
+			
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
@@ -97,7 +98,6 @@ func _physics_process(_delta):
 					d_score += d.score
 				d_score /= len(get_parent().get_children())
 				main.get_node("money/coin_display").set_money(d_score)
-
 	
 func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
@@ -232,7 +232,7 @@ func score_counter():
 		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
 			return
 		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), score)
-	
+		
 
 func paint():
 	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
