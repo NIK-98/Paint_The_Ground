@@ -1,9 +1,10 @@
 extends Control
 
-@onready var option_button = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton
-@onready var full_screen = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen
-@onready var v_sync = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync
-@onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back
+@onready var option_button = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/OptionButton
+@onready var full_screen = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FullScreen
+@onready var v_sync = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync
+@onready var fps_anzeige = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_Anzeige
+@onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back
 @onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
 @onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
 @onready var main = get_parent()
@@ -21,6 +22,7 @@ var Resolutions = {"1920x1080 FullHD":Vector2i(1920,1080),
 var id = 0
 var save_id = 0
 var v_sync_mode = false
+var fps_display_mode = false
 var fullscreen_mode = true
 var max_frams = 200
 
@@ -55,6 +57,7 @@ func _process(_delta):
 			full_screen.visible = false
 		_on_fps_value_changed(max_frams)
 		v_sync.set_pressed_no_signal(v_sync_mode)
+		fps_anzeige.set_pressed_no_signal(fps_display_mode)
 		_on_v_sync_toggled(v_sync_mode)
 		set_process(false)
 	
@@ -64,8 +67,7 @@ func _physics_process(_delta):
 	if Global.trigger_grafik_menu:
 		back.grab_focus()
 		Global.trigger_grafik_menu = false
-		$CanvasLayer.visible = true	
-		
+		$CanvasLayer.visible = true
 				
 				
 func save():
@@ -78,7 +80,8 @@ func save():
 		"save_id" : save_id,
 		"v_sync_mode" : v_sync_mode,
 		"fullscreen_mode" : fullscreen_mode,
-		"max_frams" : max_frams
+		"max_frams" : max_frams,
+		"fps_display_mode" : fps_display_mode
 	}
 	return save_dict
 		
@@ -213,3 +216,16 @@ func _on_fps_value_changed(value):
 		fps_max.text = "Unbegrenzt FPS"
 		fps.value = value
 		max_frams = fps.max_value
+
+
+func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
+	Global.ui_sound = true
+	reset = false
+	if toggled_on:
+		fps_display_mode = true
+		if main.has_node("Level/level/CanvasLayer/fps"):
+			main.get_node("Level/level/CanvasLayer/fps").visible = fps_display_mode
+	else:
+		fps_display_mode = false
+		if main.has_node("Level/level/CanvasLayer/fps"):
+			main.get_node("Level/level/CanvasLayer/fps").visible = fps_display_mode

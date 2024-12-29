@@ -592,9 +592,11 @@ spawn_path = NodePath("../PanelContainer/Wertung/name")
 layer = 2
 
 [node name="fps" type="Label" parent="CanvasLayer"]
-offset_left = 96.0
-offset_right = 136.0
-offset_bottom = 58.0
+visible = false
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 64.0
+offset_bottom = 154.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 

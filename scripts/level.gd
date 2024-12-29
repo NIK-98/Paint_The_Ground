@@ -49,6 +49,7 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
+	$CanvasLayer/fps.visible = main.get_node("Grafik").fps_display_mode
 	main.get_node("CanvasLayer/Back").visible = false
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)

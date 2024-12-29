@@ -9,10 +9,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cxsb"]
 bg_color = Color(0.136623, 0.372036, 0.999999, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
 border_color = Color(0.0470588, 0.282353, 1, 1)
 border_blend = true
 corner_radius_top_left = 35
@@ -69,6 +65,97 @@ corner_radius_bottom_left = 1024
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i321f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xay5f"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_0i7db"]
+default_font = ExtResource("4_7bxsw")
+Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
+Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
+Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
+Button/constants/h_separation = 10
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 35
+Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
+Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
+Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
+CheckBox/icons/checked = ExtResource("3_e5k8t")
+CheckBox/icons/unchecked = ExtResource("4_5a07j")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_i321f")
+CheckBox/styles/hover = SubResource("StyleBoxFlat_4n6q3")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_xay5f")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_4n6q3")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_4n6q3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxu7j"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwb7j"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pugay"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hqab2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5vv8"]
@@ -96,7 +183,7 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/h_separation = 10
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
+Button/font_sizes/font_size = 35
 Button/icons/icon = null
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
@@ -109,23 +196,6 @@ CheckBox/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_f5vv8")
 CheckBox/styles/normal = SubResource("StyleBoxFlat_4n6q3")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_4n6q3")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxu7j"]
-bg_color = Color(0, 0.647733, 0.903827, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.646257, 0.819201, 1, 1)
-border_blend = true
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
-expand_margin_left = 35.0
-expand_margin_right = 35.0
-shadow_color = Color(0.099, 0.67, 1, 0.854)
-shadow_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wno52"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
@@ -162,80 +232,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jfqw"]
-bg_color = Color(0, 0.647733, 0.903827, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.646257, 0.819201, 1, 1)
-border_blend = true
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
-expand_margin_left = 35.0
-expand_margin_right = 35.0
-shadow_color = Color(0.099, 0.67, 1, 0.854)
-shadow_size = 25
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i321f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xay5f"]
-bg_color = Color(0, 0.647733, 0.903827, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.646257, 0.819201, 1, 1)
-border_blend = true
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
-shadow_color = Color(0.099, 0.67, 1, 0.854)
-shadow_size = 25
-
-[sub_resource type="Theme" id="Theme_0i7db"]
-default_font = ExtResource("4_7bxsw")
-Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
-Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
-Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
-Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
-Button/constants/h_separation = 10
-Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
-Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
-Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
-Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
-Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
-CheckBox/icons/checked = ExtResource("3_e5k8t")
-CheckBox/icons/unchecked = ExtResource("4_5a07j")
-CheckBox/styles/focus = SubResource("StyleBoxEmpty_i321f")
-CheckBox/styles/hover = SubResource("StyleBoxFlat_4n6q3")
-CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_xay5f")
-CheckBox/styles/normal = SubResource("StyleBoxFlat_4n6q3")
-CheckBox/styles/pressed = SubResource("StyleBoxFlat_4n6q3")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwb7j"]
-bg_color = Color(0, 0.647733, 0.903827, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.646257, 0.819201, 1, 1)
-border_blend = true
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
-expand_margin_left = 35.0
-expand_margin_right = 35.0
-shadow_color = Color(0.099, 0.67, 1, 0.854)
-shadow_size = 25
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pugay"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -334,7 +330,7 @@ Button/colors/font_hover_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
+Button/font_sizes/font_size = 35
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -386,7 +382,7 @@ Button/colors/font_hover_pressed_color = Color(1, 1, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 1, 0, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
+Button/font_sizes/font_size = 35
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -401,7 +397,7 @@ Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 0, 0, 1)
 Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
+Button/font_sizes/font_size = 35
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
 Button/styles/hover = SubResource("StyleBoxFlat_4n6q3")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
@@ -424,6 +420,8 @@ layer = 7
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -16.0
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -433,35 +431,25 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0cxsb")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 45
-theme_override_constants/margin_top = 45
-theme_override_constants/margin_right = 45
-theme_override_constants/margin_bottom = 45
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 55
+theme_override_constants/separation = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 110
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="FullScreen" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="V_Sync" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer2/back")
-focus_neighbor_bottom = NodePath("../V_Sync")
-theme = SubResource("Theme_2ghrr")
-theme_override_constants/outline_size = 30
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
-theme_override_styles/hover = SubResource("StyleBoxFlat_wno52")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_um8il")
-theme_override_styles/normal = SubResource("StyleBoxFlat_7jfqw")
-text = "Vollbild"
-
-[node name="V_Sync" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-focus_neighbor_top = NodePath("../FullScreen")
-focus_neighbor_bottom = NodePath("../OptionButton")
 theme = SubResource("Theme_0i7db")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
@@ -470,15 +458,43 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_rwb7j")
 theme_override_styles/normal = SubResource("StyleBoxFlat_pugay")
 text = "V-Sync"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="FPS_Anzeige" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../V_Sync")
-focus_neighbor_bottom = NodePath("../VBoxContainer/Fps")
+theme = SubResource("Theme_0i7db")
+theme_override_constants/outline_size = 30
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cxu7j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rwb7j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pugay")
+text = "FPS Anzeige"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="FullScreen" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../VBoxContainer/VBoxContainer2/back")
+theme = SubResource("Theme_2ghrr")
+theme_override_constants/outline_size = 30
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wno52")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_um8il")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7jfqw")
+text = "Vollbild"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../VBoxContainer/Fps")
 theme = SubResource("Theme_ffbtd")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_vddqa")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ojarn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fgfog")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -495,8 +511,8 @@ vertical_alignment = 1
 
 [node name="Fps" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../OptionButton")
-focus_neighbor_bottom = NodePath("../../../VBoxContainer2/Reset")
+focus_neighbor_top = NodePath("../../../HBoxContainer/VBoxContainer2/OptionButton")
+focus_neighbor_bottom = NodePath("../../VBoxContainer2/Reset")
 theme = SubResource("Theme_7f03j")
 theme_override_icons/grabber = ExtResource("6_pwbip")
 theme_override_icons/grabber_highlight = ExtResource("6_pwbip")
@@ -507,13 +523,12 @@ max_value = 200.0
 step = 40.0
 value = 80.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 10
 
-[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer/VBoxContainer/Fps")
 focus_neighbor_bottom = NodePath("../back")
 theme = SubResource("Theme_mco8h")
 theme_override_constants/outline_size = 30
@@ -522,10 +537,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ojarn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ojarn")
 text = "Reset"
 
-[node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Reset")
-focus_neighbor_bottom = NodePath("../../VBoxContainer/FullScreen")
 theme = SubResource("Theme_l6jqb")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_ojarn")
@@ -533,21 +547,24 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ojarn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ojarn")
 text = "Zurück"
 
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_mouse_entered"]
-[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FullScreen" to="." method="_on_full_screen_toggled"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_mouse_entered"]
-[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/V_Sync" to="." method="_on_v_sync_toggled"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_focus_entered"]
-[connection signal="item_selected" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton" to="." method="_on_mouse_entered"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync" to="." method="_on_v_sync_toggled"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_Anzeige" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_Anzeige" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_Anzeige" to="." method="_on_fps_anzeige_toggled"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FullScreen" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FullScreen" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FullScreen" to="." method="_on_full_screen_toggled"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/OptionButton" to="." method="_on_focus_entered"]
+[connection signal="item_selected" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/OptionButton" to="." method="_on_mouse_entered"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_mouse_entered"]
 [connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_fps_value_changed"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_back_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back" to="." method="_on_back_pressed"]

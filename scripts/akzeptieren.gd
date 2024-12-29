@@ -29,7 +29,7 @@ func _on_ja_pressed() -> void:
 		label.text = ""
 	if Global.akzept == "Standard Grafik":
 		main.get_node("Grafik")._on_reset_pressed()
-		main.get_node("Grafik/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset").grab_focus()
+		main.get_node("Grafik/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset").grab_focus()
 		main.get_node("Grafik/CanvasLayer").visible = true
 		visible = false
 		label.text = ""
@@ -64,7 +64,7 @@ func _on_nein_pressed() -> void:
 		Global.akzept = ""
 		label.text = ""
 	if Global.akzept == "Standard Grafik":
-		main.get_node("Grafik/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset").grab_focus()
+		main.get_node("Grafik/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset").grab_focus()
 		main.get_node("Grafik/CanvasLayer").visible = true
 		visible = false
 		Global.akzept = ""
