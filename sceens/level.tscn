@@ -638,15 +638,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="zoomin" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(392, 128)
+position = Vector2(444, 128)
 rotation = 3.14159
 scale = Vector2(0.6, 0.6)
 texture_normal = ExtResource("6_w4ify")
 visibility_mode = 1
 
 [node name="Labelzoom" type="Label" parent="CanvasLayer"]
-offset_left = 346.0
-offset_right = 445.0
+offset_left = 398.0
+offset_right = 497.0
 offset_bottom = 50.0
 theme_override_colors/font_color = Color(0.4, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -655,7 +655,7 @@ theme_override_font_sizes/font_size = 36
 text = "Zoom"
 
 [node name="zoomout" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(472, 128)
+position = Vector2(524, 128)
 rotation = 3.14159
 scale = Vector2(0.6, 0.6)
 texture_normal = ExtResource("7_hdc0h")
