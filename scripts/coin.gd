@@ -20,15 +20,11 @@ func _process(_delta):
 		if not $Area2D/CollisionShape2D.disabled:
 			$Area2D/CollisionShape2D.disabled = true
 		if scale > Vector2.ZERO and not is_npc:
-			scale.x -= 0.01
-			scale.y -= 0.01
+			scale.x -= 0.005
+			scale.y -= 0.005
 		elif multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			queue_free()
 			return
-		
-
-func add_coin(player_id: int):
-	level.main.get_node("money/coin_display").set_money(coin_set_value)
 	
 	
 func _on_area_2d_area_entered(area):
