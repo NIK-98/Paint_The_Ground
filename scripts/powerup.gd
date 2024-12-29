@@ -7,6 +7,7 @@ extends Node2D
 
 var explode_pos = null
 var id = 0
+var is_npc = false
 @export var powerupid = 0
 
 				
@@ -18,12 +19,17 @@ func _ready():
 		$Sprite2D.texture = load("res://assets/powerups/bigrad.png")
 	if powerupid == 2: # unübermalbares färben
 		$Sprite2D.texture = load("res://assets/powerups/protect.png")
-	set_physics_process(false)
+	set_process(false)
 		
 
-func _physics_process(_delta):
+func _process(_delta):
 	if explode_pos != null:
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		if not $Area2D/CollisionShape2D.disabled:
+			$Area2D/CollisionShape2D.disabled = true
+		if scale > Vector2.ZERO and not is_npc:
+			scale.x -= 0.01
+			scale.y -= 0.01
+		elif multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			aktivate_powerup.rpc(id)
 			queue_free()
 			return
@@ -73,4 +79,8 @@ func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		explode_pos = area.get_parent().position
 		id = area.get_parent().name.to_int()
-		set_physics_process(true)
+		if not area.get_parent().is_in_group("npc"):
+			Global.powerup_sound = true
+		else:
+			is_npc = true
+		set_process(true)

@@ -120,7 +120,6 @@ func _process(_delta):
 						new_timer_power_up.wait_time = power_time[2]
 					level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
 					new_timer_power_up.start()
-					Global.powerup_sound = true
 					if not $TimerresetSPEED.is_stopped():
 						$TimerresetSPEED.stop()
 					$slow_color.visible = false

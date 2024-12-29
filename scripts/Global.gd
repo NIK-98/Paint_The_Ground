@@ -24,6 +24,7 @@ var powerup_sound = false
 var bombe_sound = false
 var ui_sound = false
 var ui_hover_sound = false
+var coin_sound = false
 
 var esc_is_pressing_in_game = false
 var akzept = ""
