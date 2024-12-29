@@ -85,12 +85,12 @@ shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_bfs8x"]
 default_font = ExtResource("3_mxtyy")
-Button/colors/font_color = Color(1, 1, 0, 1)
-Button/colors/font_focus_color = Color(0.647059, 0.647059, 0, 1)
-Button/colors/font_hover_color = Color(0.647059, 0.647059, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_focus_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
@@ -115,12 +115,12 @@ shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_rx656"]
 default_font = ExtResource("3_mxtyy")
-Button/colors/font_color = Color(1, 0, 0, 1)
-Button/colors/font_focus_color = Color(0.572669, 1.1792e-06, 3.36915e-07, 1)
-Button/colors/font_hover_color = Color(0.572549, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
@@ -179,6 +179,7 @@ layout_mode = 2
 theme_override_constants/separation = 115
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+process_mode = 3
 custom_minimum_size = Vector2(798.415, 351.045)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5lotk")
@@ -336,8 +337,6 @@ theme_override_constants/separation = 40
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_bfs8x")
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
 text = "Reset"
@@ -345,8 +344,6 @@ text = "Reset"
 [node name="Back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_rx656")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
 text = "Zurück"

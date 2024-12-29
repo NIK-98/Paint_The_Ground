@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://caksg6votg50o"]
+
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1_0n783"]
+[ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="1_5gwc3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dd0nf"]
+radius = 40.7922
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oh601"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Coin" type="Node2D" groups=["coin"]]
+script = ExtResource("1_0n783")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5gwc3")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dd0nf")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_oh601")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -4,7 +4,10 @@ extends Node2D
 const bomb_spawn_grenzen = 250
 const spawn_distance_bombe = 250
 const spawn_distance_power_up = 500
-var power_up_spawn_time = Global.standart_powerup_spawn_time
+const spawn_distance_coins = 300
+var standart_powerup_spawn_time = 10
+var standart_bomben_spawn_time = 5
+var standart_coin_spawn_time = 5
 var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
 
@@ -15,6 +18,8 @@ var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 @export var score_visual: PackedScene
 @export var name_label: PackedScene
 @export var powerup: PackedScene
+@export var coin: PackedScene
+@onready var coins = $Coins
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var npc = preload("res://sceens/npc.tscn")
@@ -52,10 +57,12 @@ func _ready():
 		$Timerbomb.queue_free()
 		$Timerrestart.queue_free()
 		$Timerpower.queue_free()
+		$TimerCoin.queue_free()
 		return
 		
-	$Timerpower.wait_time = power_up_spawn_time
-	$Timerbomb.wait_time = Global.standart_bomben_spawn_time
+	$Timerpower.wait_time = standart_powerup_spawn_time
+	$Timerbomb.wait_time = standart_bomben_spawn_time
+	$TimerCoin.wait_time = standart_coin_spawn_time
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)	
 		
@@ -159,6 +166,7 @@ func _process(_delta):
 		$Timerende.connect("timeout", _on_timerende_timeout)
 		$Timerbomb.connect("timeout", _on_timerbomb_timeout)
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
+		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
 		set_process(false)
 	
@@ -178,6 +186,8 @@ func game_update():
 		if not $Timer.is_stopped() and time <= 30 and not last_runde:
 			last_runde = true
 			$Timerbomb.wait_time = 3
+			$Timerpower.wait_time = 5
+			$TimerCoin.wait_time = 2
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
 		
@@ -194,7 +204,6 @@ func update_lastrund():
 	$Werten/CenterContainer/Letzen_sec.visible = true
 	$CanvasLayer/Time.set("theme_override_colors/font_color",Color.CRIMSON)
 	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
-	power_up_spawn_time = 5
 	await get_tree().create_timer(2).timeout
 	$Werten/CenterContainer/Letzen_sec.visible = false
 		
@@ -282,7 +291,7 @@ func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
 		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
 		for child in Bomben.get_children():
-			if child.position.distance_to(pos) < spawn_distance_bombe:
+			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
@@ -301,13 +310,31 @@ func spawn_new_powerup():
 		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
 		var new_auswahl = powerup_auswahl.pick_random()
 		for child in power_up.get_children():
-			if child.position.distance_to(pos) < spawn_distance_bombe:
+			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
 		var new_power_up = powerup.instantiate()
 		new_power_up.name = "powerup"
 		new_power_up.position = pos
 		new_power_up.powerupid = new_auswahl
 		power_up.add_child(new_power_up, true)
+		
+		
+func reset_coins():
+	for c in range(coins.get_child_count()):
+		if coins.get_child(c).is_in_group("coin"):
+			coins.get_child(c).queue_free()
+
+
+func spawn_new_coins():
+	for i in range(Global.Spawn_coins_limit):
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
+		for child in coins.get_children():
+			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
+				return
+		var new_coin = coin.instantiate()
+		new_coin.name = "coin"
+		new_coin.position = pos
+		coins.add_child(new_coin, true)
 		
 		
 func spawn_npc():
@@ -434,6 +461,7 @@ func _on_timer_timeout():
 	$Timer.stop()
 	$Timerbomb.stop()
 	$Timerpower.stop()
+	$TimerCoin.stop()
 	$Timerende.start()
 	reset_vars_level.rpc_id(1)
 
@@ -443,6 +471,7 @@ func reset_vars_level():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		reset_powerup()
 		reset_bomben()
+		reset_coins()
 	
 	
 	
@@ -460,9 +489,10 @@ func stoped_game():
 	$CanvasLayer/Time.set("theme_override_colors/font_color",Color.BLACK)
 	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.BLACK)
 	last_runde = false
-	power_up_spawn_time = Global.standart_powerup_spawn_time
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		$Timerbomb.wait_time = Global.standart_bomben_spawn_time
+		$Timerbomb.wait_time = standart_bomben_spawn_time
+		$Timerpower.wait_time = standart_powerup_spawn_time
+		$TimerCoin.wait_time = standart_coin_spawn_time
 	
 
 func _on_timerbomb_timeout():
@@ -471,8 +501,12 @@ func _on_timerbomb_timeout():
 
 func _on_timerpower_timeout():
 	spawn_new_powerup()
-		
-
+	
+	
+func _on_timercoin_timeout():
+	spawn_new_coins()
+	
+	
 func _on_timerende_timeout():
 	$Timerende.stop()
 	stoped_game.rpc()
@@ -514,6 +548,7 @@ func _on_timerrestart_timeout():
 	$Timer.start()
 	$Timerbomb.start()
 	$Timerpower.start()
+	$TimerCoin.start()
 	$CanvasLayer/Time.visible = true
 	$CanvasLayer/Bomb_time.visible = true
 	$CanvasLayer/start_in.visible = false
