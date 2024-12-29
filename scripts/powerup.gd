@@ -7,10 +7,8 @@ extends Node2D
 
 var explode_pos = null
 var id = 0
-var is_npc = false
 @export var powerupid = 0
 
-				
 
 func _ready():
 	if powerupid == 0: # doppelter grundspeed
@@ -24,17 +22,11 @@ func _ready():
 
 func _process(_delta):
 	if explode_pos != null:
-		if not $Area2D/CollisionShape2D.disabled:
-			$Area2D/CollisionShape2D.disabled = true
-		if scale > Vector2.ZERO and not is_npc:
-			scale.x -= 0.01
-			scale.y -= 0.01
-		elif multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			aktivate_powerup.rpc(id)
 			queue_free()
 			return
-		
-
+	
 @rpc("any_peer","call_local")
 func aktivate_powerup(player_id: int):
 	if powerupid == 0: # doppelter grundspeed
@@ -81,6 +73,4 @@ func _on_area_2d_area_entered(area):
 		id = area.get_parent().name.to_int()
 		if not area.get_parent().is_in_group("npc"):
 			Global.powerup_sound = true
-		else:
-			is_npc = true
 		set_process(true)
