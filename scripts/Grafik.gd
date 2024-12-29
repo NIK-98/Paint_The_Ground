@@ -7,6 +7,7 @@ extends Control
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back
 @onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
 @onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
+@onready var screen_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 @onready var main = get_parent()
 
 var save_grafik_path = "user://savegrafiksettings.save"
@@ -53,8 +54,7 @@ func _process(_delta):
 				_on_option_button_item_selected(save_id)
 			Set_Resulutuns_text()
 		if OS.get_name() == "Android" or OS.get_name() == "IOS":
-			option_button.visible = false
-			full_screen.visible = false
+			screen_option.visible = false
 		_on_fps_value_changed(max_frams)
 		v_sync.set_pressed_no_signal(v_sync_mode)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
