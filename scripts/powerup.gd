@@ -29,7 +29,7 @@ func _process(_delta):
 	
 @rpc("any_peer","call_local")
 func aktivate_powerup(player_id: int):
-	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 3:
+	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 2:
 		return
 	if powerupid == 0: # doppelter grundspeed
 		var ist_da_index = 0
