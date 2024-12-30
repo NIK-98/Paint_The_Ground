@@ -466,6 +466,9 @@ properties/26/replication_mode = 1
 properties/27/path = NodePath(".:block_cells")
 properties/27/spawn = true
 properties/27/replication_mode = 1
+properties/28/path = NodePath("loby:coin_mode")
+properties/28/spawn = true
+properties/28/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -695,6 +698,7 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
+visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
@@ -996,6 +1000,7 @@ replication_config = SubResource("SceneReplicationConfig_p5trk")
 
 [connection signal="pressed" from="CanvasLayer/zoomin" to="." method="_on_zoomin_pressed"]
 [connection signal="pressed" from="CanvasLayer/zoomout" to="." method="_on_zoomout_pressed"]
+[connection signal="visibility_changed" from="loby" to="loby" method="_on_visibility_changed"]
 [connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]

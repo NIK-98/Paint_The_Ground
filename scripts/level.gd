@@ -50,6 +50,7 @@ func _ready():
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
 	$CanvasLayer/fps.visible = main.get_node("Grafik").fps_display_mode
+	$loby.visible = true
 	main.get_node("CanvasLayer/Back").visible = false
 	if not multiplayer.is_server():
 		multiplayer.server_disconnected.connect(verbindung_verloren)
@@ -66,7 +67,6 @@ func _ready():
 	$TimerCoin.wait_time = standart_coin_spawn_time
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)	
-		
 		
 	for id in multiplayer.get_peers():
 		add_player(id)
@@ -113,6 +113,10 @@ func _ready():
 	
 func set_vs_mode(mode):
 	$loby.vs_mode = mode
+	
+	
+func set_coin_mode(mode):	
+	$loby.coin_mode = main.get_node("CanvasLayer2/Control/UI").coin_mode
 	
 	
 func update_player_list(id: int, join: bool):
@@ -246,7 +250,17 @@ func add_player(id: int):
 		$loby.check_team()
 	add_power_icons(id, false)
 	set_npc_settings.rpc()
+	
+	if $loby.coin_mode:
+		remove_exiting_coins.rpc_id(id)
 				
+	
+@rpc("call_local")
+func remove_exiting_coins():
+	Global.akzept = "!!Coins Löschen!!"
+	main.get_node("CanvasLayer/akzeptieren").visible = true
+	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+	
 	
 @rpc("any_peer","call_local")
 func add_text_tap(id: int, text: String):

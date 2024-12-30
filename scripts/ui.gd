@@ -7,6 +7,7 @@ var Max_clients = 6
 @onready var connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
+@onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 
 var save_path = "user://savetemp.save"
@@ -20,7 +21,7 @@ var auto_conect_ips = []
 var server_port_to_connect_to = ""
 var game_started = false
 var vs_mode = false
-
+var coin_mode = false
 
 
 func save():
@@ -33,7 +34,8 @@ func save():
 		"connectport" : connectport,
 		"port" : port,
 		"Max_clients" : Max_clients,
-		"vs_mode" : vs_mode
+		"vs_mode" : vs_mode,
+		"coin_mode" : coin_mode
 	}
 	return save_dict
 	
@@ -58,6 +60,10 @@ func _process(_delta):
 			vs.set_pressed(true)
 		else:
 			vs.set_pressed(false)
+		if coin_mode:
+			Coins_Loeschen.set_pressed(true)
+		else:
+			Coins_Loeschen.set_pressed(false)
 			
 	
 	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer"):
@@ -240,3 +246,19 @@ func _on_host_connect_pressed() -> void:
 		$Panel/CenterContainer/Net/Options/Option2.hide()
 		get_parent().get_node("Server_Browser").hide()
 		$Panel/CenterContainer/Net/Options/Option1.show()
+
+
+func _on_focus_entered() -> void:
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_mouse_entered() -> void:
+	Global.ui_hover_sound = true
+
+
+func _on_coins_loeschen_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		coin_mode = true
+	else:
+		coin_mode = false

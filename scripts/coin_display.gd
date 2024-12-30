@@ -55,10 +55,11 @@ func set_money(value: int):# ab value 100 ist add_money >= die eingegebene value
 		
 
 func remove_money(value: int):# ab value 60 ist die live_money >= die eingegebene value
-	if coins > value:
+	if coins >= value:
 		coins -= value
 	else:
 		coins = 0
+	label.text = str(coins)
 	saveplayer(false)
 		
 

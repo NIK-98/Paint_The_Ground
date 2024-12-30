@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var player_wait_count = 0
 @export var is_running = false
 @export var vs_mode = false
+@export var coin_mode = false
 @onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
@@ -76,6 +77,7 @@ func namen_text_update(id, text):
 @rpc("any_peer","call_local")
 func update_player_count(positiv: bool):
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		get_parent().set_coin_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 	if positiv:
 		player_conect_count += 1
@@ -527,3 +529,10 @@ func join_blue(id):
 func change_names_colors_vs(id):
 	get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
 	get_parent().get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		get_parent().get_parent().get_parent().get_node("money").visible = false
+	else:
+		get_parent().get_parent().get_parent().get_node("money").visible = true

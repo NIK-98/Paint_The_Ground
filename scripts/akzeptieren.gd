@@ -47,6 +47,11 @@ func _on_ja_pressed() -> void:
 		visible = false
 		Global.akzept = ""
 		label.text = ""
+	if Global.akzept == "!!Coins Löschen!!":
+		main.get_node("money/coin_display").remove_money(main.get_node("money/coin_display").coins)
+		visible = false
+		Global.akzept = ""
+		label.text = ""
 
 
 func _on_nein_pressed() -> void:
@@ -78,6 +83,11 @@ func _on_nein_pressed() -> void:
 	if Global.akzept == "Standard Eingabe":
 		main.get_node("Control/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset").grab_focus()
 		main.get_node("Control/CanvasLayer").visible = true
+		visible = false
+		Global.akzept = ""
+		label.text = ""
+	if Global.akzept == "!!Coins Löschen!!":
+		main.get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		visible = false
 		Global.akzept = ""
 		label.text = ""
