@@ -1,0 +1,191 @@
+[gd_scene load_steps=16 format=3 uid="uid://f6j1ndwi7ix8"]
+
+[ext_resource type="Script" path="res://scripts/shop.gd" id="1_0aqeh"]
+[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="1_duihy"]
+[ext_resource type="PackedScene" uid="uid://dqxkyvgtpdc7s" path="res://sceens/shop_pruduct.tscn" id="2_vy1mv"]
+[ext_resource type="Texture2D" uid="uid://b71uim36grhsr" path="res://assets/powerups/speedup.png" id="2_xcmo4"]
+[ext_resource type="Texture2D" uid="uid://cn60bgc8ksru2" path="res://assets/powerups/bigrad.png" id="4_3kh01"]
+[ext_resource type="Texture2D" uid="uid://bu14wspdtyseb" path="res://assets/powerups/protect.png" id="5_xah4k"]
+[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_alpq7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7th"]
+bg_color = Color(0.136623, 0.372036, 0.999999, 1)
+border_width_left = 25
+border_width_top = 25
+border_width_right = 25
+border_width_bottom = 25
+border_color = Color(0.0483259, 0.283656, 1, 1)
+border_blend = true
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+shadow_color = Color(0.0375193, 0.275378, 1, 0.6)
+shadow_size = 90
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq7oc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qk70"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m752r"]
+bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0.282, 0.196, 0.286)
+border_blend = true
+corner_radius_top_left = 150
+corner_radius_bottom_right = 150
+shadow_color = Color(0, 0.282, 0.196, 0.757)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lqpe"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1q4ux"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_llhdh"]
+default_font = ExtResource("7_alpq7")
+Button/colors/font_color = Color(0.572549, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0, 0, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 35
+Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
+Button/styles/hover = SubResource("StyleBoxFlat_m752r")
+Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
+Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ab7fg"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[node name="shop" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0aqeh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 7
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cq7th")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(384, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.718737, 0.638787, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("1_duihy")
+theme_override_font_sizes/font_size = 80
+text = "Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 115
+
+[node name="shop_pruduct" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
+layout_mode = 2
+powerup_icon = ExtResource("2_xcmo4")
+
+[node name="shop_pruduct2" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
+layout_mode = 2
+powerup_icon = ExtResource("4_3kh01")
+shop_text = "+3 Sec. --> 600"
+aktuel = 8
+shop_id = 1
+
+[node name="shop_pruduct3" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
+layout_mode = 2
+powerup_icon = ExtResource("5_xah4k")
+shop_text = "+4 Sec. --> 1000"
+aktuel = 5
+shop_id = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_iq7oc")
+
+[node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_llhdh")
+theme_override_constants/outline_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_ab7fg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ab7fg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ab7fg")
+text = "Zurück"
+
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/back" to="." method="_on_back_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/back" to="." method="_on_back_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/back" to="." method="_on_back_pressed"]

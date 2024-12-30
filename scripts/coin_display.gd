@@ -37,7 +37,7 @@ func kehrwert(value: int):
 	return value/-1
 
 
-func set_money(value: int):# ab value 100 ist add_money >= die eingegebene value
+func set_money(value: int):# ab value 100 ist set_money >= die eingegebene value
 	coins += value * factor
 	coins = int(coins)
 	if coins%1 > 0:
@@ -54,13 +54,14 @@ func set_money(value: int):# ab value 100 ist add_money >= die eingegebene value
 	return coins
 		
 
-func remove_money(value: int):# ab value 60 ist die live_money >= die eingegebene value
+func remove_money(value: int):
+	var removed = false
 	if coins >= value:
 		coins -= value
-	else:
-		coins = 0
+		removed = true
 	label.text = str(coins)
 	saveplayer(false)
+	return removed
 		
 
 func saveplayer(reset: bool):

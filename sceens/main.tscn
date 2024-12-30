@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=30 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dfqq0gn33scbo" path="res://sceens/audio_menu.tscn" id="9_gg8o3"]
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
+[ext_resource type="PackedScene" uid="uid://f6j1ndwi7ix8" path="res://sceens/shop.tscn" id="10_3akkr"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 
@@ -298,7 +299,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v44mi")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
 
 [node name="Audio" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -314,6 +314,13 @@ text = "Grafik"
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
 text = "Eingabe
+"
+
+[node name="Shop" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_w0b7n")
+theme_override_colors/font_color = Color(0.729721, 0.63378, 5.77569e-07, 1)
+text = "Shop
 "
 
 [node name="deleteuser" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
@@ -336,6 +343,7 @@ text = "Zurück"
 visible = false
 
 [node name="money" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 8
 
 [node name="coin_display" parent="money" instance=ExtResource("8_y3nry")]
@@ -366,6 +374,9 @@ offset_bottom = -40.0
 
 [node name="Control" parent="." instance=ExtResource("12_v5gxd")]
 
+[node name="shop" parent="." instance=ExtResource("10_3akkr")]
+visible = false
+
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
@@ -380,6 +391,9 @@ offset_bottom = -40.0
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_pressed"]

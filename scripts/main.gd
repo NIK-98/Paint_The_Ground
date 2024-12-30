@@ -289,3 +289,18 @@ func _on_deleteuser_focus_entered() -> void:
 
 func _on_deleteuser_mouse_entered() -> void:
 	Global.ui_hover_sound = true
+
+
+func _on_shop_pressed() -> void:
+	Global.ui_sound = true
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_shop_menu = true
+
+
+func _on_shop_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_shop_mouse_entered() -> void:
+	Global.ui_hover_sound = true

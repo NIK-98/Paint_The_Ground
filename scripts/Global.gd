@@ -17,6 +17,7 @@ var trigger_audio_menu = false
 var trigger_host_focus = false
 var trigger_grafik_menu = false
 var trigger_input_menu = false
+var trigger_shop_menu = false
 
 var music1_sound = false
 var hit_sound = false
