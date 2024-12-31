@@ -30,7 +30,7 @@ border_width_right = 15
 border_width_bottom = 15
 border_color = Color(0.646257, 0.819201, 1, 1)
 border_blend = true
-corner_radius_top_left = 859
+corner_radius_top_left = 1024
 corner_radius_top_right = 1024
 corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
@@ -173,7 +173,7 @@ layout_mode = 2
 layout_mode = 2
 theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 75
-text = "Host/Connect Wechsel"
+text = "Host/Join Umschalten"
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 layout_mode = 2
@@ -189,14 +189,16 @@ theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
-text = "Hosten:"
+text = "Host:"
 horizontal_alignment = 1
 
 [node name="Host" type="Button" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_8c3yx")
-theme_override_font_sizes/font_size = 85
-text = "Host"
+theme_override_font_sizes/font_size = 95
+text = "Neues
+Spiel"
 script = ExtResource("1_i02t5")
 
 [node name="o1_port" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
@@ -269,14 +271,14 @@ theme_override_colors/font_color = Color(0, 0.788235, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
-text = "Joinen:"
+text = "Join:"
 horizontal_alignment = 1
 
 [node name="Connect" type="Button" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
 layout_mode = 2
 theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 85
-text = "Connect"
+text = "Beitreten"
 
 [node name="o3" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
 layout_mode = 2
