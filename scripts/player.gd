@@ -54,7 +54,6 @@ func _physics_process(_delta):
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
 		score_counter()
-	
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
