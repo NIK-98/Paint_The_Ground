@@ -317,6 +317,7 @@ text = "Eingabe
 "
 
 [node name="Shop" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
 theme_override_colors/font_color = Color(0.729721, 0.63378, 5.77569e-07, 1)
@@ -375,7 +376,6 @@ offset_bottom = -40.0
 [node name="Control" parent="." instance=ExtResource("12_v5gxd")]
 
 [node name="shop" parent="." instance=ExtResource("10_3akkr")]
-visible = false
 
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]

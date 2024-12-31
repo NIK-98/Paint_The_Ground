@@ -5,7 +5,7 @@ extends CanvasLayer
 @export var is_running = false
 @export var vs_mode = false
 @export var coin_mode = false
-@onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed
+@onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
 var count_map_size = 1
@@ -45,17 +45,17 @@ var namen = ["Levi","Emil","Liam","Anton","Theo",
 	
 func _ready():
 	visible = true
-	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 	
 	difficulty.text = "Normal"
 	difficulty_id = 1
 	Global.speed_npcs = Global.npc_normal
 	
 	if multiplayer.is_server():
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.visible = true
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.connect("pressed",_on_settime_pressed)
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.connect("pressed",_on_map_pressed)
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.connect("pressed",_on_settime_pressed)
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.connect("pressed",_on_map_pressed)
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.visible = true
 	
 	
 @rpc("any_peer","call_local")
@@ -93,12 +93,12 @@ func no_players():
 		visible = true
 		get_tree().paused = true
 	get_parent().is_server_run_game.rpc()
-	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible = false
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/Enter.visible = false
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/settime.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/Map.visible = false
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.visible = false
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.visible = false
 	$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
 	if get_parent().get_node("Scoreboard/CanvasLayer").visible:
@@ -141,7 +141,7 @@ func exit(msg: String, show_msg: bool):
 
 func update_player_counters(connected: bool):
 	if not connected:
-		if $CenterContainer/HBoxContainer/VBoxContainer/Enter.visible or get_parent().get_node("Scoreboard/CanvasLayer").visible:
+		if $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible or get_parent().get_node("Scoreboard/CanvasLayer").visible:
 			update_player_count.rpc(false)
 		else:
 			update_player_count.rpc(false)
@@ -219,14 +219,14 @@ func _on_enter_pressed():
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
 		get_parent().main.get_node("CanvasLayer2/Control/Server_Browser").queue_free()
-		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
-		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = true
+		difficulty.disabled = true
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
-		$CenterContainer/HBoxContainer/VBoxContainer/Enter.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = false
 		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = false
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.visible = false
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.visible = false
-		$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
 		Global.trigger_host_focus = true
 		$CenterContainer/HBoxContainer/VBoxContainer/start.grab_focus()
 		Global.trigger_host_focus = false
@@ -253,7 +253,7 @@ func _on_npcs_pressed():
 	Global.count_npcs += 1
 	if Global.count_npcs > Global.npcs_anzahl:
 		Global.count_npcs = 1
-	$CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 
 
 
@@ -277,13 +277,13 @@ func _on_settime_pressed():
 	Global.ui_sound = true
 	count_settime += 1
 	if count_settime == 1:
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(180," sec.")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.text = str(180," sec.")
 		get_parent().get_node("Timer").wait_time = 180
 	if count_settime == 2:
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(60," sec.")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.text = str(60," sec.")
 		get_parent().get_node("Timer").wait_time = 60
 	if count_settime == 3:
-		$CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(120," sec.")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.text = str(120," sec.")
 		get_parent().get_node("Timer").wait_time = 120
 		count_settime = 0
 
@@ -406,13 +406,13 @@ func _on_map_pressed():
 	Global.ui_sound = true
 	count_map_size += 1
 	if count_map_size == 1:
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Kleine  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine  Map")
 		map_faktor = 2
 	if count_map_size == 2:
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Normale  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Normale  Map")
 		map_faktor = 3
 	if count_map_size == 3:
-		$CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Große  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große  Map")
 		map_faktor = 5
 		count_map_size = 0
 		
@@ -529,10 +529,3 @@ func join_blue(id):
 func change_names_colors_vs(id):
 	get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
 	get_parent().get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)).set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(id)).get_node("Color").color)
-
-
-func _on_visibility_changed() -> void:
-	if visible:
-		get_parent().get_parent().get_parent().get_node("money").visible = false
-	else:
-		get_parent().get_parent().get_parent().get_node("money").visible = true

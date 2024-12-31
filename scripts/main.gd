@@ -7,6 +7,8 @@ var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
 var server_browser_new = preload("res://sceens/server_browser.tscn")
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
+@onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop
+
 const passw = "ffw49w3rwhfrw8"
 
 var controll_switcher = false
@@ -174,9 +176,9 @@ func _on_zurück_pressed():
 		Global.trigger_host_focus = true
 		get_node("Level/level/Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").grab_focus()
 		Global.trigger_host_focus = false
-	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/Enter").visible:
+	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter").visible:
 		Global.trigger_host_focus = true
-		get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/Enter").grab_focus()
+		get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter").grab_focus()
 		Global.trigger_host_focus = false
 	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/start").visible:	
 		Global.trigger_host_focus = true
@@ -230,7 +232,11 @@ func _on_zurück_focus_entered():
 		
 
 func _physics_process(_delta):
-	if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible and not $Control/CanvasLayer.visible:
+	if has_node("Level/level") and not shop.visible:
+		shop.visible = true
+	elif not has_node("Level/level") and shop.visible:
+		shop.visible = false
+	if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible and not $Control/CanvasLayer.visible and not $shop/CanvasLayer.visible:
 		await get_tree().create_timer(0.1).timeout
 		Global.esc_is_pressing_in_game = true
 		get_node("CanvasLayer/Menu").visible = true

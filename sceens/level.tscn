@@ -698,7 +698,6 @@ spawn_path = NodePath("../VBoxContainer")
 
 [node name="loby" type="CanvasLayer" parent="."]
 layer = 3
-visible = false
 script = ExtResource("14_vxhbj")
 
 [node name="hintergrund" type="TextureRect" parent="loby"]
@@ -735,32 +734,38 @@ layout_mode = 2
 theme = SubResource("Theme_5fqms")
 text = "Zufalls Name"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
 
-[node name="npcs" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 91
+
+[node name="npcs" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_mpmer")
 text = "Solo NPCs: 1"
 
-[node name="Speed" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Speed" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_mpmer")
 text = "Einfach"
 
-[node name="settime" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="settime" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_4phi6")
 theme_override_constants/outline_size = 30
 text = "120 sec."
 
-[node name="Map" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="Map" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_meekn")
 text = "Kleine  Map"
 
-[node name="Enter" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="Enter" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_x68ue")
 text = "Bestätiegen"
@@ -772,7 +777,7 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("18_c4hof")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "Kein Spieler Bereit!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -798,7 +803,7 @@ text = "start"
 
 [node name="team" type="Button" parent="loby/CenterContainer/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(0, 760)
+custom_minimum_size = Vector2(0, 510)
 layout_mode = 2
 theme = SubResource("Theme_gf1a3")
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
@@ -807,7 +812,7 @@ theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 60
 theme_override_styles/focus = SubResource("StyleBoxFlat_4n6q3")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4n6q3")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4n6q3")
@@ -822,9 +827,9 @@ drücken!
 
 [node name="red" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 98.0
+offset_left = 73.0
 offset_top = 3.0
-offset_right = 140.0
+offset_right = 115.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -835,9 +840,9 @@ text = "1"
 
 [node name="vs" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 159.0
+offset_left = 134.0
 offset_top = 3.0
-offset_right = 241.0
+offset_right = 234.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0.470588, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -848,9 +853,9 @@ text = "VS"
 
 [node name="blue" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0
-offset_left = 280.0
+offset_left = 255.0
 offset_top = 3.0
-offset_right = 322.0
+offset_right = 297.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(0, 0.749, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -1000,23 +1005,22 @@ replication_config = SubResource("SceneReplicationConfig_p5trk")
 
 [connection signal="pressed" from="CanvasLayer/zoomin" to="." method="_on_zoomin_pressed"]
 [connection signal="pressed" from="CanvasLayer/zoomout" to="." method="_on_zoomout_pressed"]
-[connection signal="visibility_changed" from="loby" to="loby" method="_on_visibility_changed"]
 [connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]
-[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_focus_entered"]
-[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_mouse_entered"]
-[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
-[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_focus_entered"]
-[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_mouse_entered"]
-[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_pressed"]
-[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/settime" to="loby" method="_on_settime_focus_entered"]
-[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/settime" to="loby" method="_on_settime_mouse_entered"]
-[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Map" to="loby" method="_on_map_focus_entered"]
-[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Map" to="loby" method="_on_map_mouse_entered"]
-[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Enter" to="loby" method="_on_enter_focus_entered"]
-[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Enter" to="loby" method="_on_enter_mouse_entered"]
-[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Enter" to="loby" method="_on_enter_pressed"]
+[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_mouse_entered"]
+[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs" to="loby" method="_on_npcs_pressed"]
+[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_mouse_entered"]
+[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed" to="loby" method="_on_speed_pressed"]
+[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime" to="loby" method="_on_settime_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime" to="loby" method="_on_settime_mouse_entered"]
+[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map" to="loby" method="_on_map_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map" to="loby" method="_on_map_mouse_entered"]
+[connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter" to="loby" method="_on_enter_focus_entered"]
+[connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter" to="loby" method="_on_enter_mouse_entered"]
+[connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter" to="loby" method="_on_enter_pressed"]
 [connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/start" to="loby" method="_on_start_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/start" to="loby" method="_on_start_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/start" to="loby" method="_on_start_pressed"]

@@ -43,7 +43,7 @@ func _ready():
 	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 		$CanvasLayer/Labelzoom.visible = false
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
-	$loby/CenterContainer/HBoxContainer/VBoxContainer/Enter.visible = true
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
 	$Werten.visible = false
 	$CanvasLayer/Time.visible = false
@@ -90,24 +90,24 @@ func _ready():
 	if OS.has_feature("dedicated_server") and args.has("-t"):
 		var argument_wert = args[args.find("-t") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "180" or argument_wert == "120" or argument_wert == "60":
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(argument_wert.to_int()," sec.")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.text = str(argument_wert.to_int()," sec.")
 			$Timer.wait_time = argument_wert.to_int()
 		else:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.text = str(120," sec.")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.text = str(120," sec.")
 			$Timer.wait_time = 120
 	if OS.has_feature("dedicated_server") and args.has("-map"):
 		var argument_wert = args[args.find("-map") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "2":
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Kleine Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
 			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "3":
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Normale Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Normale Map")
 			$loby.map_faktor = argument_wert.to_int()
 		elif argument_wert == "5":
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Große Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große Map")
 			$loby.map_faktor = argument_wert.to_int()
 		else:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.text = str("Kleine Map")
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
 			$loby.map_faktor = 2
 			
 	
@@ -133,22 +133,22 @@ func update_player_list(id: int, join: bool):
 @rpc("any_peer","call_local")
 func set_npc_settings():
 	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = false
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = false
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = false
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = false
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.text = str("Solo NPCs: ",Global.count_npcs)
 			$loby._on_speed_pressed()
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
 		if $loby.vs_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
 	else:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.disabled = true
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.disabled = true
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = true
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = true
 		if not multiplayer.is_server() and not OS.has_feature("dedicated_server"):
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/npcs.visible = false
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer/Speed.visible = false
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/settime.disabled = true
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Map.disabled = true
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.visible = false
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.visible = false
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.disabled = true
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.disabled = true
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
 		if $loby.vs_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "VS-Mode!"
