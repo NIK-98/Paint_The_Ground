@@ -19,7 +19,7 @@ func _process(_delta):
 	if explode_pos != null:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			change_size.rpc()
-			if scale <= Vector2.ZERO:
+			if not $pickup.is_playing():
 				queue_free()
 			return
 	
@@ -28,9 +28,7 @@ func _process(_delta):
 func change_size():
 	if not $Area2D/CollisionShape2D.disabled:
 		$Area2D/CollisionShape2D.disabled = true
-	if scale > Vector2.ZERO:
-		scale.x -= 0.02
-		scale.y -= 0.02
+		$pickup.play("pickup")
 		
 	
 func _on_area_2d_area_entered(area):

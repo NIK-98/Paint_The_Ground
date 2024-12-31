@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://caksg6votg50o"]
+[gd_scene load_steps=8 format=3 uid="uid://caksg6votg50o"]
 
 [ext_resource type="Script" path="res://scripts/coin.gd" id="1_0n783"]
 [ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="1_5gwc3"]
@@ -10,6 +10,42 @@ radius = 40.7922
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_70xgv"]
+resource_name = "pickup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(0.8, 0.8), Vector2(0.7, 0.7), Vector2(0.6, 0.6), Vector2(0.5, 0.5), Vector2(0.4, 0.4), Vector2(0.3, 0.3), Vector2(0.1, 0.1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lh0de"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0gurx"]
+_data = {
+"RESET": SubResource("Animation_lh0de"),
+"pickup": SubResource("Animation_70xgv")
+}
 
 [node name="Coin" type="Node2D" groups=["coin"]]
 script = ExtResource("1_0n783")
@@ -24,5 +60,11 @@ shape = SubResource("CircleShape2D_dd0nf")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_oh601")
+
+[node name="pickup" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0gurx")
+}
+speed_scale = 6.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
