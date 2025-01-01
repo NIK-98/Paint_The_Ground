@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://b11rxl4ut885l"]
+
+[ext_resource type="Script" path="res://scripts/trailer.gd" id="1_anicl"]
+[ext_resource type="VideoStream" path="res://assets/trailer/PTGTrailer.ogv" id="2_s5btk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb8yi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxsq1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7kcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_grsv2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5otiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_stca8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp7wr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wy2fu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuell"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rcqd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g78l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76mx3"]
+bg_color = Color(0.535579, 0.535149, 1, 1)
+corner_radius_top_left = 39
+corner_radius_top_right = 39
+corner_radius_bottom_right = 39
+corner_radius_bottom_left = 39
+shadow_color = Color(0, 0, 0, 0.664)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_6tksy"]
+Label/colors/font_color = Color(0.792791, 0.453331, 3.85046e-07, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 20
+Label/font_sizes/font_size = 35
+Label/styles/normal = SubResource("StyleBoxFlat_76mx3")
+
+[node name="trailer" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_anicl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 400)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_top = 40.0
+offset_right = 1280.0
+offset_bottom = 760.0
+audio_track = 1
+stream = ExtResource("2_s5btk")
+autoplay = true
+buffering_msec = 10
+
+[node name="Button" type="Button" parent="."]
+offset_right = 1280.0
+offset_bottom = 800.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lb8yi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_nxsq1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_p7kcg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_grsv2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5otiu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_stca8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sp7wr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wy2fu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fuell")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_6rcqd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4g78l")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 898.0
+offset_top = 632.0
+offset_right = 1252.0
+offset_bottom = 734.0
+theme = SubResource("Theme_6tksy")
+text = "Zum Überspringen
+Tippen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
