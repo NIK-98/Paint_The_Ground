@@ -26,7 +26,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g78l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76mx3"]
-bg_color = Color(0.535579, 0.535149, 1, 1)
+bg_color = Color(0.536, 0.535, 1, 0.595)
 corner_radius_top_left = 39
 corner_radius_top_right = 39
 corner_radius_bottom_right = 39
@@ -35,10 +35,10 @@ shadow_color = Color(0, 0, 0, 0.664)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_6tksy"]
-Label/colors/font_color = Color(0.792791, 0.453331, 3.85046e-07, 1)
+Label/colors/font_color = Color(0.793, 0.453, 0, 0.567)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/font_sizes/font_size = 35
+Label/font_sizes/font_size = 30
 Label/styles/normal = SubResource("StyleBoxFlat_76mx3")
 
 [node name="trailer" type="Node2D"]
@@ -78,13 +78,12 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_6rcqd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4g78l")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 898.0
-offset_top = 632.0
-offset_right = 1252.0
-offset_bottom = 734.0
+offset_left = 840.0
+offset_top = 692.0
+offset_right = 1248.0
+offset_bottom = 746.0
 theme = SubResource("Theme_6tksy")
-text = "Zum Überspringen
-Tippen"
+text = "Zum Überspringen Tippen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
