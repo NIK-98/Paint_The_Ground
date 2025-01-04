@@ -8,6 +8,9 @@ extends Control
 @onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
 @onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
 @onready var screen_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2
+@onready var einleitung = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung
+var trailer = preload("res://sceens/trailer.tscn")
+
 @onready var main = get_parent()
 
 var save_grafik_path = "user://savegrafiksettings.save"
@@ -24,6 +27,7 @@ var id = 0
 var save_id = 0
 var v_sync_mode = false
 var fps_display_mode = false
+var einleitugs_display_mode = true
 var fullscreen_mode = true
 var max_frams = 200
 
@@ -58,7 +62,13 @@ func _process(_delta):
 		_on_fps_value_changed(max_frams)
 		v_sync.set_pressed_no_signal(v_sync_mode)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
+		einleitung.set_pressed_no_signal(einleitugs_display_mode)
 		_on_v_sync_toggled(v_sync_mode)
+		_on_fps_anzeige_toggled(fps_display_mode)
+		_on_einleitung_toggled(einleitugs_display_mode)
+		if main.get_node("CanvasLayer2/Control/UI").trailer_on:
+			var new_trailer = trailer.instantiate()
+			main.get_node("CanvasLayer3").add_child(new_trailer)
 		set_process(false)
 	
 	
@@ -81,7 +91,8 @@ func save():
 		"v_sync_mode" : v_sync_mode,
 		"fullscreen_mode" : fullscreen_mode,
 		"max_frams" : max_frams,
-		"fps_display_mode" : fps_display_mode
+		"fps_display_mode" : fps_display_mode,
+		"einleitugs_display_mode" : einleitugs_display_mode
 	}
 	return save_dict
 		
@@ -157,6 +168,8 @@ func _on_reset_pressed():
 	fps_max.text = "Unbegrenzt FPS"
 	fps.value = fps.max_value
 	max_frams = fps.max_value
+	fps_anzeige.set_pressed_no_signal(false)
+	einleitung.set_pressed_no_signal(true)
 	v_sync.set_pressed_no_signal(false)
 	_on_v_sync_toggled(false)
 	reset = true
@@ -229,3 +242,13 @@ func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
 		fps_display_mode = false
 		if main.has_node("Level/level/CanvasLayer/fps"):
 			main.get_node("Level/level/CanvasLayer/fps").visible = fps_display_mode
+
+
+func _on_einleitung_toggled(toggled_on: bool) -> void:
+	Global.ui_sound = true
+	reset = false
+	if toggled_on:
+		einleitugs_display_mode = true
+	else:
+		einleitugs_display_mode = false
+		main.get_node("CanvasLayer2/Control/UI").trailer_on = false

@@ -9,7 +9,6 @@ var Max_clients = 6
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
 @onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
-var trailer = preload("res://sceens/trailer.tscn")
 
 var save_path = "user://savetemp.save"
 
@@ -52,9 +51,6 @@ func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "UI"
-		if trailer_on:
-			var new_trailer = trailer.instantiate()
-			get_parent().get_parent().get_parent().get_node("CanvasLayer3").add_child(new_trailer)
 		for n in get_parent().get_children():
 			if n.is_in_group("SB"):
 				get_parent().move_child(n,get_parent().get_child_count())

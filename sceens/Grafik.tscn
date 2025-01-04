@@ -539,7 +539,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_fgfog")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 70
+theme_override_constants/separation = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -571,6 +571,17 @@ value = 80.0
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
+
+[node name="Einleitung" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../back")
+theme = SubResource("Theme_2ghrr")
+theme_override_constants/outline_size = 30
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wno52")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_um8il")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7jfqw")
+text = "Einleitungs Video beim Starten"
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -607,6 +618,9 @@ text = "Zurück"
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_mouse_entered"]
 [connection signal="value_changed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps" to="." method="_on_fps_value_changed"]
+[connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_einleitung_toggled"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
