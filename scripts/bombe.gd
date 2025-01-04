@@ -22,12 +22,14 @@ func _process(_delta):
 @rpc("any_peer","call_local")
 func aktivate_bombe(cell: int, pos: Vector2):
 	var tile_position = map.local_to_map(pos)
+	var bomb_array = []
 	for x in range(-bomb_radius, bomb_radius):
 		for y in range(-bomb_radius, bomb_radius):
 			var new_pos = Vector2i(x, y) + tile_position
 			var distance = new_pos.distance_to(tile_position)
 			if map.get_cell_source_id(new_pos) != -1 and map.get_cell_source_id(new_pos) not in level.block_cells and distance < bomb_radius:
-				map.set_cell(new_pos,cell,Vector2i(0, 0),0)
+				bomb_array.append(new_pos)
+	map.set_cells_terrain_connect(bomb_array,0,cell)
 	
 	
 func _on_area_2d_area_entered(area):
