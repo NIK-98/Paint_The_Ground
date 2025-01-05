@@ -82,8 +82,8 @@ func _process(_delta):
 			alleine_spielen.set_pressed(false)
 			
 	
-	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer"):
-		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible:
+	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
+		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("shop/CanvasLayer").visible:
 			await get_tree().create_timer(0.1).timeout
 			esc_is_pressing = true
 			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true

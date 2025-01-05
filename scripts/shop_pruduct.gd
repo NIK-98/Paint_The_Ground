@@ -6,12 +6,13 @@ extends Control
 @onready var main = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 @onready var shop: Control = $"../../../../../../.."
 
-@export var powerup_icon: Resource = load("res://assets/powerups/speedup.png")
+var powerup_icon: Resource = load("res://assets/powerups/speedup.png")
 @export var shop_text: String = "+2 Sec. --> 400"
 @export var aktuel: int = 10
 var aktuel_text: String = str(aktuel," Sec.")
 
 @export var shop_id: int = 0
+
 
 var save_shop_path = "user://saveshop.save"
 var loaded = false
@@ -25,7 +26,8 @@ func save():
 		"pos_x" : position.x, # Vector2 is not supported by JSON
 		"pos_y" : position.y,
 		"aktuel" : aktuel,
-		"shop_id" : shop_id
+		"shop_id" : shop_id,
+		"powerup.texture" : powerup.texture,
 	}
 	return save_dict
 
@@ -34,11 +36,21 @@ func save():
 func _ready() -> void:
 	if FileAccess.file_exists(save_shop_path):
 		return
-	powerup.texture = powerup_icon
+	set_icon()
 	buy.text = shop_text
 	aktuel_text = str(aktuel," Sec.")
 	label.text = aktuel_text
 	
+
+func set_icon():
+	match shop_id:
+		0:
+			powerup.texture = load("res://assets/powerups/speedup.png")
+		1:
+			powerup.texture = load("res://assets/powerups/bigrad.png")
+		2:
+			powerup.texture = load("res://assets/powerups/protect.png")
+
 
 func _process(_delta):
 	if not loaded:
@@ -89,7 +101,7 @@ func _restore_shop() -> void:
 	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel
 	aktuel_text = str(aktuel," Sec.")
 	buy.text = shop_text
-	powerup.texture = powerup_icon
+	set_icon()
 	label.text = aktuel_text
 	loaded = true
 	set_process(false)
@@ -100,7 +112,7 @@ func _reset():
 		return
 	if not main.get_node("Level/level/Players").has_node(str(multiplayer.get_unique_id())):
 		return
-	powerup.texture = powerup_icon
+	set_icon()
 	buy.text = shop_text
 	aktuel = main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).standard_power_time[shop_id]
 	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel

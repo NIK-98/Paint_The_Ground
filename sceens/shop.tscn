@@ -1,11 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://f6j1ndwi7ix8"]
+[gd_scene load_steps=18 format=3 uid="uid://f6j1ndwi7ix8"]
 
 [ext_resource type="Script" path="res://scripts/shop.gd" id="1_0aqeh"]
 [ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="1_duihy"]
 [ext_resource type="PackedScene" uid="uid://dqxkyvgtpdc7s" path="res://sceens/shop_pruduct.tscn" id="2_vy1mv"]
-[ext_resource type="Texture2D" uid="uid://b71uim36grhsr" path="res://assets/powerups/speedup.png" id="2_xcmo4"]
-[ext_resource type="Texture2D" uid="uid://cn60bgc8ksru2" path="res://assets/powerups/bigrad.png" id="4_3kh01"]
-[ext_resource type="Texture2D" uid="uid://bu14wspdtyseb" path="res://assets/powerups/protect.png" id="5_xah4k"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_alpq7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7th"]
@@ -224,18 +221,15 @@ theme_override_constants/separation = 115
 
 [node name="shop_pruduct" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-powerup_icon = ExtResource("2_xcmo4")
 
 [node name="shop_pruduct2" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-powerup_icon = ExtResource("4_3kh01")
 shop_text = "+3 Sec. --> 600"
 aktuel = 8
 shop_id = 1
 
 [node name="shop_pruduct3" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-powerup_icon = ExtResource("5_xah4k")
 shop_text = "+4 Sec. --> 1000"
 aktuel = 5
 shop_id = 2
