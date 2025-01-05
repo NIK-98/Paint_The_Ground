@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfmrdi2wbhcxg"]
+[gd_scene load_steps=20 format=3 uid="uid://bfmrdi2wbhcxg"]
 
 [ext_resource type="Script" path="res://scripts/control.gd" id="1_7db0h"]
 [ext_resource type="PackedScene" uid="uid://c64bvuv6igryb" path="res://sceens/button_bind.tscn" id="2_wi46l"]
@@ -36,9 +36,71 @@ Label/font_sizes/font_size = 100
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvf05"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygoct"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4bpt"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54k0g"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 859
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpecs"]
+bg_color = Color(0, 0.647733, 0.903827, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.646257, 0.819201, 1, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.099, 0.67, 1, 0.854)
+shadow_size = 25
+
+[sub_resource type="Theme" id="Theme_bfs8x"]
+default_font = ExtResource("3_mxtyy")
+Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
+Button/colors/font_focus_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 0, 1)
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 45
+Button/styles/focus = SubResource("StyleBoxEmpty_ygoct")
+Button/styles/hover = SubResource("StyleBoxFlat_f4bpt")
+Button/styles/normal = SubResource("StyleBoxFlat_54k0g")
+Button/styles/pressed = SubResource("StyleBoxFlat_qpecs")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5ck"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwisj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7mnq"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -77,36 +139,6 @@ border_width_bottom = 15
 border_color = Color(0.646257, 0.819201, 1, 1)
 border_blend = true
 corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
-shadow_color = Color(0.099, 0.67, 1, 0.854)
-shadow_size = 25
-
-[sub_resource type="Theme" id="Theme_bfs8x"]
-default_font = ExtResource("3_mxtyy")
-Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
-Button/colors/font_focus_color = Color(1, 1, 0, 1)
-Button/colors/font_hover_color = Color(1, 1, 0, 1)
-Button/colors/font_hover_pressed_color = Color(1, 1, 0, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(1, 1, 0, 1)
-Button/constants/outline_size = 20
-Button/font_sizes/font_size = 45
-Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
-Button/styles/hover = SubResource("StyleBoxFlat_gwisj")
-Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
-Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7mnq"]
-bg_color = Color(0, 0.647733, 0.903827, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.646257, 0.819201, 1, 1)
-border_blend = true
-corner_radius_top_left = 859
 corner_radius_top_right = 1024
 corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024

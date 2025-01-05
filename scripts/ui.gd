@@ -9,6 +9,7 @@ var Max_clients = 6
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
 @onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
+@onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 
 var save_path = "user://savetemp.save"
 
@@ -22,6 +23,7 @@ var server_port_to_connect_to = ""
 var game_started = false
 var vs_mode = false
 var coin_mode = false
+var shop_mode = false
 var trailer_on = true
 
 
@@ -37,6 +39,7 @@ func save():
 		"Max_clients" : Max_clients,
 		"vs_mode" : vs_mode,
 		"coin_mode" : coin_mode,
+		"shop_mode" : shop_mode,
 		"trailer_on" : trailer_on
 	}
 	return save_dict
@@ -66,6 +69,10 @@ func _process(_delta):
 			Coins_Loeschen.set_pressed(true)
 		else:
 			Coins_Loeschen.set_pressed(false)
+		if shop_mode:
+			shop_reset.set_pressed(true)
+		else:
+			shop_reset.set_pressed(false)
 			
 	
 	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer"):
@@ -264,3 +271,10 @@ func _on_coins_loeschen_toggled(toggled_on: bool) -> void:
 		coin_mode = true
 	else:
 		coin_mode = false
+
+
+func _on_shop_reset_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		shop_mode = true
+	else:
+		shop_mode = false

@@ -27,6 +27,7 @@ var input_mode = 0 # 0=pc 1=controller
 @export var team = "Red"
 
 @export var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
+const standard_power_time = [10,8,5]
 var power_time = [10,8,5]
 
 # Zoom-Grenzen festlegen

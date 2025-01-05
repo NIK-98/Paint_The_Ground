@@ -5,6 +5,7 @@ extends CanvasLayer
 @export var is_running = false
 @export var vs_mode = false
 @export var coin_mode = false
+@export var shop_mode = false
 @onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
@@ -78,6 +79,7 @@ func namen_text_update(id, text):
 func update_player_count(positiv: bool):
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		get_parent().set_coin_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen").button_pressed)
+		get_parent().set_shop_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 	if positiv:
 		player_conect_count += 1
@@ -92,18 +94,29 @@ func no_players():
 	if not visible:
 		visible = true
 		get_tree().paused = true
-	get_parent().is_server_run_game.rpc()
-	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.visible = false
-	$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
-	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
 	if get_parent().get_node("Scoreboard/CanvasLayer").visible:
 		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
-	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+		return
+	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
+	if vs_mode:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
+	
+	if not $CenterContainer/HBoxContainer/VBoxContainer/start.visible:
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = false
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
+	else:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+		
 	
 	
 func _notification(what):
@@ -343,12 +356,13 @@ func _on_start_pressed():
 			vaild_team = false
 			OS.alert("Nur ein Team erkannt!", "Server Meldung")
 			return
-	if player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
-		exit("Kein Mitspieler auf dem Server Gefunden!", true)
-		return
-	if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
-		exit("Kein Mitspieler auf dem Server Gefunden!", true)
-		return
+	if not $CenterContainer/HBoxContainer/VBoxContainer/Warten.text.begins_with("Solo"):
+		if player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
+			exit("Kein Mitspieler auf dem Server Gefunden!", true)
+			return
+		if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
+			exit("Kein Mitspieler auf dem Server Gefunden!", true)
+			return
 	vor_start_trigger()
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()

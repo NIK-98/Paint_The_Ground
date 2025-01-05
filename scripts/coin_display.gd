@@ -3,7 +3,7 @@ extends PanelContainer
 
 const max_coins = 9999999
 const factor = 0.5
-var coins = 0
+var coins = 999
 
 var playersave_path = "user://playersave.save"
 @onready var main = get_parent().get_parent()

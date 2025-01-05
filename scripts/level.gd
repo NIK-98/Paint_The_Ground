@@ -118,6 +118,10 @@ func set_vs_mode(mode):
 func set_coin_mode(mode):	
 	$loby.coin_mode = main.get_node("CanvasLayer2/Control/UI").coin_mode
 	
+
+func set_shop_mode(mode):	
+	$loby.shop_mode = main.get_node("CanvasLayer2/Control/UI").shop_mode
+	
 	
 func update_player_list(id: int, join: bool):
 	if join:
@@ -251,13 +255,33 @@ func add_player(id: int):
 	add_power_icons(id, false)
 	set_npc_settings.rpc()
 	
-	if $loby.coin_mode:
+	if $loby.coin_mode and not $loby.shop_mode:
 		remove_exiting_coins.rpc_id(id)
-				
+	
+	elif $loby.shop_mode and not $loby.coin_mode:
+		reset_shop.rpc_id(id)
+		
+	elif $loby.coin_mode and $loby.shop_mode:
+		reset_shop_and_coins.rpc_id(id)
+		
 	
 @rpc("call_local")
 func remove_exiting_coins():
 	Global.akzept = "!!Coins Löschen!!"
+	main.get_node("CanvasLayer/akzeptieren").visible = true
+	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+	
+
+@rpc("call_local")
+func reset_shop():
+	Global.akzept = "!!Shop Zurücksetzen!!"
+	main.get_node("CanvasLayer/akzeptieren").visible = true
+	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
+	
+	
+@rpc("call_local")
+func reset_shop_and_coins():
+	Global.akzept = "!!Shop und Coins Zurücksetzen!!"
 	main.get_node("CanvasLayer/akzeptieren").visible = true
 	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
 	

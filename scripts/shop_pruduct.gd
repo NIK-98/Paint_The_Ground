@@ -1,10 +1,10 @@
-class_name shop
 extends Control
 
 @onready var powerup: TextureRect = $powerup
 @onready var label: Label = $Label
 @onready var buy: Button = $buy
 @onready var main = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+@onready var shop: Control = $"../../../../../../.."
 
 @export var powerup_icon: Resource = load("res://assets/powerups/speedup.png")
 @export var shop_text: String = "+2 Sec. --> 400"
@@ -13,14 +13,39 @@ var aktuel_text: String = str(aktuel," Sec.")
 
 @export var shop_id: int = 0
 
+var save_shop_path = "user://saveshop.save"
+var loaded = false
+
+
+func save():
+	var save_dict = {
+		"parent_name" : name,
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x, # Vector2 is not supported by JSON
+		"pos_y" : position.y,
+		"aktuel" : aktuel,
+		"shop_id" : shop_id
+	}
+	return save_dict
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if FileAccess.file_exists(save_shop_path):
+		return
 	powerup.texture = powerup_icon
 	buy.text = shop_text
 	aktuel_text = str(aktuel," Sec.")
 	label.text = aktuel_text
+	
 
+func _process(_delta):
+	if not loaded:
+		_restore_shop()
+	
+	if shop.reseted:
+		_reset()
 
 func _on_focus_entered() -> void:
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -33,8 +58,6 @@ func _on_mouse_entered() -> void:
 
 func _on_buy_pressed() -> void:
 	if not main.has_node("Level/level"):
-		return
-	if main.get_node("Level/level/loby").visible:
 		return
 	Global.ui_sound = true
 	if shop_id == 0: #Speed shop
@@ -55,3 +78,32 @@ func _on_buy_pressed() -> void:
 			aktuel += 4
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
+			
+
+func _restore_shop() -> void:
+	if not main.has_node("Level/level"):
+		return
+	if not main.get_node("Level/level/Players").has_node(str(multiplayer.get_unique_id())):
+		return
+	name = "shop_pruduct"
+	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel
+	aktuel_text = str(aktuel," Sec.")
+	buy.text = shop_text
+	powerup.texture = powerup_icon
+	label.text = aktuel_text
+	loaded = true
+	set_process(false)
+
+
+func _reset():
+	if not main.has_node("Level/level"):
+		return
+	if not main.get_node("Level/level/Players").has_node(str(multiplayer.get_unique_id())):
+		return
+	powerup.texture = powerup_icon
+	buy.text = shop_text
+	aktuel = main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).standard_power_time[shop_id]
+	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel
+	aktuel_text = str(aktuel," Sec.")
+	label.text = aktuel_text
+	set_process(false)

@@ -300,23 +300,38 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v44mi")
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer"]
 layout_mode = 2
 
-[node name="Audio" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Audio" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_wlmbe")
 text = "Audio"
 
-[node name="Grafik" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+[node name="Grafik" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_sfvyx")
 text = "Grafik"
 
-[node name="Eingabe" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+[node name="Eingabe" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
 text = "Eingabe
 "
 
-[node name="Shop" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="deleteuser" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_hq385")
+text = "!Coins Löschen!
+"
+
+[node name="Shop" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 visible = false
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
@@ -329,21 +344,15 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Shop
 "
 
-[node name="deleteuser" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
+[node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_hq385")
-text = "!Coins Löschen!
-"
+theme = SubResource("Theme_2bw1u")
+text = "Zurück"
 
 [node name="Beenden" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_hq385")
 text = "Beenden"
-
-[node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_2bw1u")
-text = "Zurück"
 
 [node name="akzeptieren" parent="CanvasLayer" instance=ExtResource("8_177q6")]
 visible = false
@@ -390,24 +399,24 @@ layer = 9
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
 [connection signal="pressed" from="CanvasLayer/change" to="." method="_on_change_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Audio" to="." method="_on_audio_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Audio" to="." method="_on_audio_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Audio" to="." method="_on_audio_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Grafik" to="." method="_on_grafik_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop" to="." method="_on_shop_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/deleteuser" to="." method="_on_deleteuser_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Audio" to="." method="_on_audio_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Audio" to="." method="_on_audio_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Audio" to="." method="_on_audio_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Grafik" to="." method="_on_grafik_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Grafik" to="." method="_on_grafik_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Grafik" to="." method="_on_grafik_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Eingabe" to="." method="_on_eingabe_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/deleteuser" to="." method="_on_deleteuser_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/deleteuser" to="." method="_on_deleteuser_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/deleteuser" to="." method="_on_deleteuser_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]

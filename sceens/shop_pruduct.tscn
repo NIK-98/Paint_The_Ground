@@ -16,7 +16,7 @@ bg_color = Color(0.654605, 0.616148, 0, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 
-[node name="shop_pruduct" type="Control"]
+[node name="shop_pruduct" type="Control" groups=["saveshop"]]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0

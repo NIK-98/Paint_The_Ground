@@ -5,9 +5,10 @@ var playersave_path = "user://playersave.save"
 var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
+var save_shop_path = "user://saveshop.save"
 var server_browser_new = preload("res://sceens/server_browser.tscn")
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
-@onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/Shop
+@onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop
 
 const passw = "ffw49w3rwhfrw8"
 
@@ -27,6 +28,7 @@ func _ready():
 		load_game("saveaudiosettings", save_audio_setting_path)
 		load_game("savegrafik", save_grafik_path)
 		load_game("saveinputsettings", save_input_setting_path)
+		load_game("saveshop", save_shop_path)
 		await get_tree().process_frame
 		if FileAccess.file_exists(save_path):
 			DirAccess.remove_absolute(save_path)
