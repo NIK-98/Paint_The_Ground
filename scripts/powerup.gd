@@ -73,6 +73,6 @@ func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		explode_pos = area.get_parent().position
 		id = area.get_parent().name.to_int()
-		if not area.get_parent().is_in_group("npc"):
+		if not area.get_parent().is_in_group("npc") and id == multiplayer.get_unique_id():
 			Global.powerup_sound = true
 		set_process(true)
