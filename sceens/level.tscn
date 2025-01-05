@@ -460,6 +460,9 @@ properties/24/replication_mode = 1
 properties/25/path = NodePath("loby:shop_mode")
 properties/25/spawn = true
 properties/25/replication_mode = 1
+properties/26/path = NodePath("loby:solo_mode")
+properties/26/spawn = true
+properties/26/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")

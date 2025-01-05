@@ -6,6 +6,7 @@ extends CanvasLayer
 @export var vs_mode = false
 @export var coin_mode = false
 @export var shop_mode = false
+@export var solo_mode = false
 @onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
@@ -80,7 +81,10 @@ func update_player_count(positiv: bool):
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 		get_parent().set_coin_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen").button_pressed)
 		get_parent().set_shop_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset").button_pressed)
+		get_parent().set_solo_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
+	if solo_mode:
+		get_parent().is_server_run_game.rpc()
 	if positiv:
 		player_conect_count += 1
 	if not positiv and player_conect_count > 0:

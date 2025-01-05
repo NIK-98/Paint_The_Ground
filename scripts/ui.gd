@@ -10,6 +10,7 @@ var Max_clients = 6
 @onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
+@onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
 
 var save_path = "user://savetemp.save"
 
@@ -24,6 +25,7 @@ var game_started = false
 var vs_mode = false
 var coin_mode = false
 var shop_mode = false
+var solo_mode = false
 var trailer_on = true
 
 
@@ -40,6 +42,7 @@ func save():
 		"vs_mode" : vs_mode,
 		"coin_mode" : coin_mode,
 		"shop_mode" : shop_mode,
+		"solo_mode" : solo_mode,
 		"trailer_on" : trailer_on
 	}
 	return save_dict
@@ -73,6 +76,10 @@ func _process(_delta):
 			shop_reset.set_pressed(true)
 		else:
 			shop_reset.set_pressed(false)
+		if solo_mode:
+			alleine_spielen.set_pressed(true)
+		else:
+			alleine_spielen.set_pressed(false)
 			
 	
 	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer"):
@@ -145,8 +152,9 @@ func _on_host_pressed():
 	get_parent().visible = false
 	
 	change_level(load("res://sceens/level.tscn"))
-	var server_send = preload("res://sceens/server_sender.tscn").instantiate()
-	get_parent().get_node("Server_Browser").add_child(server_send)
+	if not solo_mode:
+		var server_send = preload("res://sceens/server_sender.tscn").instantiate()
+		get_parent().get_node("Server_Browser").add_child(server_send)
 	
 
 		
@@ -278,3 +286,10 @@ func _on_shop_reset_toggled(toggled_on: bool) -> void:
 		shop_mode = true
 	else:
 		shop_mode = false
+
+
+func _on_alleine_spielen_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		solo_mode = true
+	else:
+		solo_mode = false

@@ -114,13 +114,17 @@ func _ready():
 func set_vs_mode(mode):
 	$loby.vs_mode = mode
 	
+
+func set_solo_mode(mode):
+	$loby.solo_mode = mode
+	
 	
 func set_coin_mode(mode):	
-	$loby.coin_mode = main.get_node("CanvasLayer2/Control/UI").coin_mode
+	$loby.coin_mode = mode
 	
 
 func set_shop_mode(mode):	
-	$loby.shop_mode = main.get_node("CanvasLayer2/Control/UI").shop_mode
+	$loby.shop_mode = mode
 	
 	
 func update_player_list(id: int, join: bool):
@@ -230,16 +234,19 @@ func wechsel_sceene_wenn_server_disconected():
 		
 		
 @rpc("call_local")
-func voll():
-	OS.alert("Server Voll!", "Server Meldung")
+func voll(msg: String):
+	OS.alert(msg, "Server Meldung")
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://sceens/main.tscn")
 	
 
 func add_player(id: int):
+	if $loby.solo_mode:
+		voll.rpc_id(id, "Zutritt verweigert!")
+		return
 	if len(multiplayer.get_peers()) >= Max_clients:
-		voll.rpc_id(id)
+		voll.rpc_id(id, "Server Voll!")
 		return
 	$loby.is_running = true
 	update_player_list(id, true)
