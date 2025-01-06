@@ -18,17 +18,13 @@ func _ready():
 func _process(_delta):
 	if explode_pos != null:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			change_size.rpc()
+			if not $Area2D/CollisionShape2D.disabled:
+				$Area2D/CollisionShape2D.disabled = true
+				$pickup.play("pickup")
 			if not $pickup.is_playing():
+				$pickup.play()
 				queue_free()
-			return
-	
-	
-@rpc("any_peer","call_local")
-func change_size():
-	if not $Area2D/CollisionShape2D.disabled:
-		$Area2D/CollisionShape2D.disabled = true
-		$pickup.play("pickup")
+				return
 		
 	
 func _on_area_2d_area_entered(area):

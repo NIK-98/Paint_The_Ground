@@ -9,6 +9,7 @@ var playersave_path = "user://playersave.save"
 @onready var main = get_parent().get_parent()
 
 var loaded = false
+var saved = false
 
 func save():
 	var save_dict = {
@@ -31,6 +32,17 @@ func _process(_delta: float) -> void:
 		loaded = true
 		name = "coin_display"
 		label.text = str(coins)
+		set_process(false)
+		
+
+func  _physics_process(delta: float) -> void:
+	if not main.has_node("Level/level"):
+		return
+	if main.get_node("Level/level/Scoreboard/CanvasLayer").visible and not saved:
+		saved = true
+		saveplayer(false)
+	elif not main.get_node("Level/level/Scoreboard/CanvasLayer").visible and saved:
+		saved = false
 
 
 func kehrwert(value: int):
@@ -50,7 +62,6 @@ func set_money(value: int):# ab value 100 ist set_money >= die eingegebene value
 	else:
 		coins = max_coins
 		label.text = str(coins)
-	saveplayer(false)
 	return coins
 		
 
@@ -60,7 +71,6 @@ func remove_money(value: int):
 		coins -= value
 		removed = true
 	label.text = str(coins)
-	saveplayer(false)
 	return removed
 		
 

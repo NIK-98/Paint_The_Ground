@@ -29,44 +29,27 @@ func _process(_delta):
 	
 @rpc("any_peer","call_local")
 func aktivate_powerup(player_id: int):
-	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 2:
+	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 3:
 		return
-	if powerupid == 0: # doppelter grundspeed
-		var ist_da_index = 0
-		var ist_da = false
-		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
-			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
-				ist_da_index = aktive
-				ist_da = true
-		if not ist_da:
-			Players.get_node(str(player_id)).SPEED = Players.get_node(str(player_id)).first_speed
-			Players.get_node(str(player_id)).SPEED *= 1.5
-			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
-			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
-	if powerupid == 1: # größerer färbradius
-		var ist_da_index = 1
-		var ist_da = false
-		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
-			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
-				ist_da_index = aktive
-				ist_da = true
-		if not ist_da:
-			Players.get_node(str(player_id)).paint_radius = Global.painting_rad
-			Players.get_node(str(player_id)).paint_radius = 4
-			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
-			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
-	if powerupid == 2: # unübermalbares färben
-		var ist_da_index = 2
-		var ist_da = false
-		for aktive in range(len(Players.get_node(str(player_id)).powerups)):
-			if Players.get_node(str(player_id)).powerups[aktive][0] == powerupid:
-				ist_da_index = aktive
-				ist_da = true
-		if not ist_da:
-			if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-				level.cell_blocker.rpc(true, Players.get_node(str(player_id)).color_cell)
-			Players.get_node(str(player_id)).powerups[ist_da_index][0] = powerupid
-			Players.get_node(str(player_id)).powerups[ist_da_index][1] = true
+	if player_id == multiplayer.get_unique_id():
+		if powerupid == 0: # doppelter grundspeed
+			if not Players.get_node(str(player_id)).powerups[powerupid][0] == powerupid:
+				Players.get_node(str(player_id)).SPEED = Players.get_node(str(player_id)).first_speed
+				Players.get_node(str(player_id)).SPEED *= 1.5
+				Players.get_node(str(player_id)).powerups[powerupid][0] = powerupid
+				Players.get_node(str(player_id)).powerups[powerupid][1] = true
+		if powerupid == 1: # größerer färbradius
+			if not Players.get_node(str(player_id)).powerups[powerupid][0] == powerupid:
+				Players.get_node(str(player_id)).paint_radius = Global.painting_rad
+				Players.get_node(str(player_id)).paint_radius = 4
+				Players.get_node(str(player_id)).powerups[powerupid][0] = powerupid
+				Players.get_node(str(player_id)).powerups[powerupid][1] = true
+		if powerupid == 2: # unübermalbares färben
+			if not Players.get_node(str(player_id)).powerups[powerupid][0] == powerupid:
+				if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+					level.cell_blocker.rpc(true, Players.get_node(str(player_id)).color_cell)
+				Players.get_node(str(player_id)).powerups[powerupid][0] = powerupid
+				Players.get_node(str(player_id)).powerups[powerupid][1] = true
 	
 	
 func _on_area_2d_area_entered(area):

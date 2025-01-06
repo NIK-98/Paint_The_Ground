@@ -34,8 +34,8 @@ func aktivate_bombe(cell: int, pos: Vector2):
 	
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
-		set_process(true)
 		explode_pos = area.get_parent().position
 		celle = area.get_parent().color_cell
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
+		set_process(true)
