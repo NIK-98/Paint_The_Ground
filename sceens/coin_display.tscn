@@ -40,3 +40,24 @@ layout_mode = 2
 theme = SubResource("Theme_3qags")
 text = "0"
 horizontal_alignment = 2
+
+[node name="save" type="Label" parent="Label"]
+visible = false
+layout_mode = 2
+offset_left = -18.0
+offset_top = 75.0
+offset_right = 249.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(0.65149, 0.350493, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("2_b4crp")
+theme_override_font_sizes/font_size = 40
+text = "!!!Coins Gesichert!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

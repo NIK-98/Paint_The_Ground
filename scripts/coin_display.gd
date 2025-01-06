@@ -43,6 +43,8 @@ func  _physics_process(delta: float) -> void:
 		saveplayer(false)
 	elif not main.get_node("Level/level/Scoreboard/CanvasLayer").visible and saved:
 		saved = false
+		$Label/save.visible = false
+		$Timer.stop()
 
 
 func kehrwert(value: int):
@@ -87,3 +89,10 @@ func saveplayer(reset: bool):
 	else:
 		DirAccess.remove_absolute(playersave_path)
 		main.save_game("playersave", playersave_path)
+	$Label/save.visible = true
+	$Timer.start()
+
+
+func _on_timer_timeout() -> void:
+	$Label/save.visible = false
+	$Timer.stop()
