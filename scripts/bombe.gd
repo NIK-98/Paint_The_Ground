@@ -25,12 +25,12 @@ func aktivate_bombe(cell: int, pos: Vector2):
 	var bomb_array = []
 	for x in range(-bomb_radius, bomb_radius):
 		for y in range(-bomb_radius, bomb_radius):
-			var new_pos = Vector2i(x, y) + tile_position
-			var distance = new_pos.distance_to(tile_position)
-			if map.get_cell_source_id(new_pos) != -1 and map.get_cell_source_id(new_pos) not in level.block_cells and distance < bomb_radius:
-				bomb_array.append(new_pos)
+			if map.get_cell_source_id((Vector2i(x,y)+tile_position)) != -1 and map.get_cell_source_id((Vector2i(x,y)+tile_position)) not in level.block_cells and (Vector2i(x,y)+tile_position).distance_to(tile_position) < bomb_radius:
+				if map.get_cell_source_id((Vector2i(x,y)+tile_position)) == cell:
+					continue
+				bomb_array.push_back((Vector2i(x,y)+tile_position))
+	print(bomb_array.size())
 	map.set_cells_terrain_connect(bomb_array,0,cell)
-	
 	
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):

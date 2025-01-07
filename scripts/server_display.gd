@@ -15,6 +15,8 @@ func _on_mouse_entered() -> void:
 
 
 func _on_join_pressed() -> void:
+	if get_parent().get_parent().get_parent().get_parent().get_parent().get_node("UI").block_host:
+		return
 	get_parent().get_parent().get_parent().get_parent().get_parent().get_node("UI").ip = ip_addr
 	get_parent().get_parent().get_parent().get_parent().get_parent().get_node("UI/Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote").text = str(ip_addr)
 	get_parent().get_parent().get_parent().get_parent().get_parent().get_node("UI").connectport = str(port)

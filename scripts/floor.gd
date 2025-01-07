@@ -11,7 +11,7 @@ func reset_floor():
 	var tile_position = local_to_map(Global.Spielfeld_Size)
 	for x in range(tile_position.x):
 		for y in range(tile_position.y):
-			floor_array.append(Vector2i(x,y))
+			floor_array.push_back(Vector2i(x,y))
 	set_cells_terrain_connect(floor_array,0,0)
 	level_bereit_check.rpc_id(1)
 			

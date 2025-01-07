@@ -98,9 +98,10 @@ func no_players():
 	if not visible:
 		visible = true
 		get_tree().paused = true
-	if get_parent().get_node("Scoreboard/CanvasLayer").visible:
+	if get_parent().get_node("Scoreboard/CanvasLayer").visible or get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_child_count() > 1:
 		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		return
 	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
