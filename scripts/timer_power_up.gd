@@ -18,18 +18,21 @@ func _exit_tree():
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
+		return
 	if Player.powerups[name.to_int()][0] == 1:
 		Player.paint_radius = Global.painting_rad
 		Player.powerups[name.to_int()][1] = false
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
+		return
 	if Player.powerups[name.to_int()][0] == 2:
 		level.cell_blocker.rpc(false, Player.color_cell)
 		Player.powerups[name.to_int()][1] = false
 		Player.powerups[name.to_int()][0] = -1
 		Player.powerups[name.to_int()][2] = false
 		queue_free()
+		return
 	level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).update_icon.rpc(Player.powerups)
 	if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 		if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(Player.name)):

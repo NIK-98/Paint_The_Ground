@@ -2,16 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv7mqyfpuetkk"
-path="res://.godot/imported/groundset.png-35a4537e81ab5c58c73ce80b0ae0f846.ctex"
+uid="uid://cheop6l3022pn"
+path="res://.godot/imported/tile_bit_tools_16.svg-d3d960897b553a49b1b4c28f73a2a661.ctex"
 metadata={
+"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ground/groundset.png"
-dest_files=["res://.godot/imported/groundset.png-35a4537e81ab5c58c73ce80b0ae0f846.ctex"]
+source_file="res://addons/tile_bit_tools/controls/icons/tile_bit_tools_16.svg"
+dest_files=["res://.godot/imported/tile_bit_tools_16.svg-d3d960897b553a49b1b4c28f73a2a661.ctex"]
 
 [params]
 
@@ -32,3 +33,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=true
+editor/convert_colors_with_editor_theme=true

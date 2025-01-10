@@ -35,6 +35,8 @@ var min_zoom = 0.8
 var max_zoom = 2.0
 
 @onready var camera = $Camera2D
+
+var paint_thread: Thread
 	
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -48,6 +50,7 @@ func _ready():
 	$CanvasLayer/Los.visible = false
 	if not level.get_node("loby").vs_mode:
 		color_change()
+	paint_thread = Thread.new()
 
 
 func _physics_process(_delta):
@@ -242,7 +245,11 @@ func paint():
 			var distance = pos.distance_to(tile_position)
 			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
 				paint_array.append(pos)
-	map.set_cells_terrain_connect(paint_array,0,color_cell)
+	paint_thread.start(paint_thread_func.bind(paint_array,color_cell))
+	paint_thread.wait_to_finish()
+
+func paint_thread_func(p_array: Array,cell:int):
+	map.call_deferred("set_cells_terrain_connect",p_array,cell,0)
 		
 		
 func color_change():
@@ -315,3 +322,8 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
+
+
+func _exit_tree() -> void:
+	if paint_thread.is_alive():
+		paint_thread.wait_to_finish()

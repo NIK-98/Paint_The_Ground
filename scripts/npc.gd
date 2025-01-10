@@ -28,6 +28,8 @@ var team = "Blue"
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 const standard_power_time = [10,8,5]
 var power_time = [10,8,5]
+
+var paint_thread: Thread
 	
 	
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +40,7 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
+	paint_thread = Thread.new()
 	
 	
 func _physics_process(delta):
@@ -140,9 +143,14 @@ func paint():
 			var distance = pos.distance_to(tile_position)
 			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
 				paint_array.append(pos)
-	map.set_cells_terrain_connect(paint_array,0,color_cell)
+	paint_thread.start(paint_thread_func.bind(paint_array,color_cell))
+	paint_thread.wait_to_finish()
 			
 
+func paint_thread_func(p_array: Array,cell:int):
+	map.call_deferred("set_cells_terrain_connect",p_array,cell,0)
+	
+	
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	
@@ -240,3 +248,8 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
+		
+
+func _exit_tree() -> void:
+	if paint_thread.is_alive():
+		paint_thread.wait_to_finish()

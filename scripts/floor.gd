@@ -27,3 +27,5 @@ func level_bereit_check():
 func get_felder_summe(total_size: Vector2, tile_size: Vector2):
 	return (total_size.x/tile_size.y)*(total_size.y/tile_size.y)
 	
+	
+	
