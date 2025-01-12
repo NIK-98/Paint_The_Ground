@@ -11,8 +11,7 @@ var SPEED = first_speed
 var spawn = position
 var last_position = position
 var is_moving = true
-var tile_size = 64
-var tile_size_multipl = 1.5
+var map_enden = Vector2.ZERO
 @export var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
@@ -36,7 +35,6 @@ var max_zoom = 2.0
 
 @onready var camera = $Camera2D
 
-var paint_thread: Thread
 	
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -50,7 +48,6 @@ func _ready():
 	$CanvasLayer/Los.visible = false
 	if not level.get_node("loby").vs_mode:
 		color_change()
-	paint_thread = Thread.new()
 
 
 func _physics_process(_delta):
@@ -61,8 +58,9 @@ func _physics_process(_delta):
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
+			map_enden = map.map_to_local(Global.Spielfeld_Size)
 			main.get_node("CanvasLayer/change").visible = true
-			position = Vector2(randi_range(player_spawn_grenze,Global.Spielfeld_Size.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,Global.Spielfeld_Size.y-player_spawn_grenze-$Color.size.y))
+			position = Vector2(randi_range(player_spawn_grenze,map_enden.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,map_enden.y-player_spawn_grenze-$Color.size.y))
 			
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
@@ -70,13 +68,13 @@ func _physics_process(_delta):
 				if position.x < get_node("Color").size.x:
 					Input.action_release("left")
 					
-				if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-$Color.size.x:
+				if position.x+get_node("Color").size.x > map_enden.x-$Color.size.x:
 					Input.action_release("right")
 					
 				if position.y < get_node("Color").size.y:
 					Input.action_release("up")
 					
-				if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-$Color.size.y:
+				if position.y+get_node("Color").size.y > map_enden.y-$Color.size.y:
 					Input.action_release("down")
 				moving()
 					
@@ -157,26 +155,26 @@ func moving():
 	if OS.has_feature("dedicated_server"):
 		return
 	if OS.get_name() == "Android" or OS.get_name() == "IOS":
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < map_enden.x-$Color.size.x:
 			move.x = 1
 		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
 			move.x = -1
 		else:
 			move.x = 0
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < map_enden.y-$Color.size.y:
 			move.y = 1
 		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
 			move.y = -1
 		else:
 			move.y = 0
 	else:
-		if (Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < Global.Spielfeld_Size.x-$Color.size.x:
+		if (Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < map_enden.x-$Color.size.x:
 			move.x = 1
 		elif (Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
 			move.x = -1
 		else:
 			move.x = 0
-		if (Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < Global.Spielfeld_Size.y-$Color.size.y:
+		if (Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < map_enden.y-$Color.size.y:
 			move.y = 1
 		elif (Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
 			move.y = -1
@@ -244,12 +242,11 @@ func paint():
 			var pos = Vector2i(x,y) + tile_position
 			var distance = pos.distance_to(tile_position)
 			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
+				if BetterTerrain.get_cell(map,pos) == color_cell:
+					continue
 				paint_array.append(pos)
-	paint_thread.start(paint_thread_func.bind(paint_array,color_cell))
-	paint_thread.wait_to_finish()
-
-func paint_thread_func(p_array: Array,cell:int):
-	map.call_deferred("set_cells_terrain_connect",p_array,cell,0)
+	BetterTerrain.set_cells(map,paint_array,color_cell)
+	BetterTerrain.update_terrain_cells(map, paint_array)
 		
 		
 func color_change():
@@ -322,8 +319,3 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
-
-
-func _exit_tree() -> void:
-	if paint_thread.is_alive():
-		paint_thread.wait_to_finish()

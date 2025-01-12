@@ -49,7 +49,7 @@ func _ready():
 		print("Startet Dedicated Server.")
 		$CanvasLayer2/Control/UI._on_host_pressed.call_deferred()
 		
-
+	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
 		if FileAccess.file_exists(save_path):

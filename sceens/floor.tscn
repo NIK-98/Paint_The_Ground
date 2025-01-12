@@ -5,9 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="3_u4tep"]
 
 [node name="floor" type="TileMapLayer"]
-use_parent_material = true
+texture_filter = 1
+texture_repeat = 2
 tile_set = ExtResource("1_hsdqa")
-use_kinematic_bodies = true
+collision_enabled = false
+navigation_enabled = false
 script = ExtResource("1_6wjps")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

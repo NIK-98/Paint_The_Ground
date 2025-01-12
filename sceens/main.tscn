@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=31 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
+[ext_resource type="Script" path="res://scripts/fps.gd" id="3_mf30v"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
@@ -231,6 +232,20 @@ process_mode = 3
 layer = 8
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
+
+[node name="fps" type="Label" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+offset_left = 11.4286
+offset_top = 160.0
+offset_right = 51.4286
+offset_bottom = 218.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.382202, 0.750876, 0.945563, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_buwn4")
+theme_override_font_sizes/font_size = 42
+script = ExtResource("3_mf30v")
 
 [node name="Leave" type="TextureButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.415686)

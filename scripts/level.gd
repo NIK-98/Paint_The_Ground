@@ -25,6 +25,7 @@ var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 @onready var npc = preload("res://sceens/npc.tscn")
 @onready var power_up = $PowerUP
 @onready var Bomben = get_node("Bomben")
+@export var map_enden = Vector2.ZERO
 var Max_clients = 6
 var loaded_seson = false
 var loaded = false
@@ -49,7 +50,6 @@ func _ready():
 	$CanvasLayer/Time.visible = false
 	$CanvasLayer/Bomb_time.visible = false
 	$Tap.visible = false
-	$CanvasLayer/fps.visible = main.get_node("Grafik").fps_display_mode
 	$loby.visible = true
 	main.get_node("CanvasLayer/Back").visible = false
 	if not multiplayer.is_server():
@@ -186,8 +186,6 @@ func _process(_delta):
 	
 func _physics_process(_delta):
 	$loby.reset_loby()
-	var fps = Engine.get_frames_per_second()
-	$"CanvasLayer/fps".text = str("FPS: ", fps)
 	game_update()
 	
 	
@@ -335,7 +333,7 @@ func reset_bomben():
 
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
@@ -353,7 +351,7 @@ func reset_powerup():
 
 func spawn_new_powerup():
 	for i in range(Global.Spawn_powerup_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
 		var new_auswahl = powerup_auswahl.pick_random()
 		for child in power_up.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
@@ -373,7 +371,7 @@ func reset_coins():
 
 func spawn_new_coins():
 	for i in range(Global.Spawn_coins_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,Global.Spielfeld_Size.y-bomb_spawn_grenzen))
+		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
 		for child in coins.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return

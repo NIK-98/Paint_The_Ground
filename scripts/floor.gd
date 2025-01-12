@@ -7,12 +7,12 @@ var bereit_count = 0
 
 @rpc("any_peer","call_local")
 func reset_floor():
-	var floor_array = []
-	var tile_position = local_to_map(Global.Spielfeld_Size)
-	for x in range(tile_position.x):
-		for y in range(tile_position.y):
-			floor_array.push_back(Vector2i(x,y))
-	set_cells_terrain_connect(floor_array,0,0)
+	var array_floor = []
+	for x in range(Global.Spielfeld_Size.x):
+		for y in range(Global.Spielfeld_Size.y):
+			array_floor.append(Vector2i(x,y))
+	BetterTerrain.set_cells(self,array_floor,0)
+	BetterTerrain.update_terrain_cells(self, array_floor)
 	level_bereit_check.rpc_id(1)
 			
 

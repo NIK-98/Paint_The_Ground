@@ -1,6 +1,6 @@
 extends Node
 
-var Standard_Spielfeld_Size = Vector2(1280,800)
+var Standard_Spielfeld_Size = Vector2i(20,12)
 var Spielfeld_Size = Standard_Spielfeld_Size
 const Spawn_bomben_limit = 6
 const Spawn_powerup_limit = 4

@@ -21,6 +21,7 @@ boot_splash/minimum_display_time=3000
 [autoload]
 
 Global="*res://scripts/Global.gd"
+BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 
 [debug]
 
@@ -38,6 +39,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/handheld/orientation=4
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 
 [file_customization]
 

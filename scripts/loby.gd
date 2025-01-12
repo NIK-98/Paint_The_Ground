@@ -258,6 +258,7 @@ func _on_enter_pressed():
 		update_player_counters(true)
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			map_set.rpc(map_faktor)
+			get_parent().map_enden = get_parent().get_node("floor").map_to_local(Global.Spielfeld_Size)
 		
 
 func _on_random_pressed():

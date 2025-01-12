@@ -11,6 +11,7 @@ var loaded = false
 var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
+var map_enden = Vector2.ZERO
 var time_last_change = 0
 var direction_change_interval = 1  # Intervall in Sekunden
 var curent_direction = Vector2() # für warloses folgen
@@ -28,8 +29,6 @@ var team = "Blue"
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 const standard_power_time = [10,8,5]
 var power_time = [10,8,5]
-
-var paint_thread: Thread
 	
 	
 # Called when the node enters the scene tree for the first time.
@@ -40,7 +39,6 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
-	paint_thread = Thread.new()
 	
 	
 func _physics_process(delta):
@@ -52,7 +50,8 @@ func _physics_process(delta):
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			position = Vector2(randi_range(npc_spawn_grenze,Global.Spielfeld_Size.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,Global.Spielfeld_Size.y-npc_spawn_grenze-$Color.size.y))
+			map_enden = map.map_to_local(Global.Spielfeld_Size)
+			position = Vector2(randi_range(npc_spawn_grenze,map_enden.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,map_enden.y-npc_spawn_grenze-$Color.size.y))
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			time_last_change += delta
@@ -68,13 +67,13 @@ func _physics_process(delta):
 			if position.x < get_node("Color").size.x:
 				curent_direction.x = 1
 					
-			if position.x+get_node("Color").size.x > Global.Spielfeld_Size.x-get_node("Color").size.x:
+			if position.x+get_node("Color").size.x > map_enden.x-get_node("Color").size.x:
 				curent_direction.x = -1
 					
 			if position.y < get_node("Color").size.y:
 				curent_direction.y = 1
 					
-			if position.y+get_node("Color").size.y > Global.Spielfeld_Size.y-get_node("Color").size.y:
+			if position.y+get_node("Color").size.y > map_enden.y-get_node("Color").size.y:
 				curent_direction.y = -1
 				
 			move_and_slide()
@@ -142,13 +141,11 @@ func paint():
 			var pos = Vector2i(x,y) + tile_position
 			var distance = pos.distance_to(tile_position)
 			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
+				if BetterTerrain.get_cell(map,pos) == color_cell:
+					continue
 				paint_array.append(pos)
-	paint_thread.start(paint_thread_func.bind(paint_array,color_cell))
-	paint_thread.wait_to_finish()
-			
-
-func paint_thread_func(p_array: Array,cell:int):
-	map.call_deferred("set_cells_terrain_connect",p_array,cell,0)
+	BetterTerrain.set_cells(map,paint_array,color_cell)
+	BetterTerrain.update_terrain_cells(map, paint_array)
 	
 	
 func score_counter():
@@ -248,8 +245,3 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
-		
-
-func _exit_tree() -> void:
-	if paint_thread.is_alive():
-		paint_thread.wait_to_finish()

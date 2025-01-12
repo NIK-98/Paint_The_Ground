@@ -172,6 +172,8 @@ func _on_reset_pressed():
 	einleitung.set_pressed_no_signal(true)
 	v_sync.set_pressed_no_signal(false)
 	_on_v_sync_toggled(false)
+	_on_einleitung_toggled(true)
+	_on_fps_anzeige_toggled(false)
 	reset = true
 	Global.akzept = ""
 
@@ -236,12 +238,10 @@ func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
 	reset = false
 	if toggled_on:
 		fps_display_mode = true
-		if main.has_node("Level/level/CanvasLayer/fps"):
-			main.get_node("Level/level/CanvasLayer/fps").visible = fps_display_mode
+		main.get_node("CanvasLayer/fps").visible = fps_display_mode
 	else:
 		fps_display_mode = false
-		if main.has_node("Level/level/CanvasLayer/fps"):
-			main.get_node("Level/level/CanvasLayer/fps").visible = fps_display_mode
+		main.get_node("CanvasLayer/fps").visible = fps_display_mode
 
 
 func _on_einleitung_toggled(toggled_on: bool) -> void:
