@@ -28,6 +28,8 @@ BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 gdscript/warnings/enable=false
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_signal=0
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=2
 gdscript/warnings/integer_division=0
 
 [display]
@@ -211,8 +213,13 @@ zoomout_con={
 ]
 }
 
+[physics]
+
+2d/solver/solver_iterations=8
+
 [rendering]
 
+rendering_device/vsync/swapchain_image_count=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

@@ -12,13 +12,13 @@ var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
 
 @onready var main = get_parent().get_parent()
-@export var player_sceen: PackedScene
-@export var score_label: PackedScene
-@export var powericons: PackedScene
-@export var score_visual: PackedScene
-@export var name_label: PackedScene
-@export var powerup: PackedScene
-@export var coin: PackedScene
+var player_sceen: PackedScene = preload("res://sceens/player.tscn")
+var score_label: PackedScene = preload("res://sceens/score_label.tscn")
+var powericons: PackedScene = preload("res://sceens/powerupicon.tscn")
+var score_visual: PackedScene = preload("res://sceens/wertung_visuel.tscn")
+var name_label: PackedScene = preload("res://sceens/Name.tscn")
+var powerup: PackedScene = preload("res://sceens/powerup.tscn")
+var coin: PackedScene = preload("res://sceens/coin.tscn")
 @onready var coins = $Coins
 @onready var map = get_node("floor")
 @onready var bombe = preload("res://sceens/bombe.tscn")
@@ -26,7 +26,7 @@ var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 @onready var power_up = $PowerUP
 @onready var Bomben = get_node("Bomben")
 @export var map_enden = Vector2.ZERO
-var Max_clients = 6
+var Max_clients = 4
 var loaded_seson = false
 var loaded = false
 @export var block_cells = []

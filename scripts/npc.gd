@@ -16,9 +16,8 @@ var time_last_change = 0
 var direction_change_interval = 1  # Intervall in Sekunden
 var curent_direction = Vector2() # für warloses folgen
 var random = 1
-var first_speed = Global.speed_npcs
+var first_speed  = Global.speed_npcs
 var SPEED = first_speed
-var current_direktion = 0
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
@@ -28,13 +27,13 @@ var team = "Blue"
 
 var powerups = [[-1,false,false],[-1,false,false],[-1,false,false]] #[0] = id,[1] = aktive,[2] = timer created
 const standard_power_time = [10,8,5]
-var power_time = [10,8,5]
+var power_time: = [10,8,5]
 	
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	color_change()
-	var npc_count = 1
+	var npc_count: int = 1
 	for i in get_parent().get_children():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
@@ -75,8 +74,10 @@ func _physics_process(delta):
 					
 			if position.y+get_node("Color").size.y > map_enden.y-get_node("Color").size.y:
 				curent_direction.y = -1
-				
+			
+			velocity = move_npc()*SPEED		
 			move_and_slide()
+				
 					
 		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
 			ende = true
@@ -95,52 +96,55 @@ func _process(_delta):
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
-			velocity = move_npc()*SPEED
-			
-			for p in range(len(powerups)):
-				if not powerups[p][2] and powerups[p][0] != -1:
-					powerups[p][2] = true
-					var new_timer_power_up = timer_power_up.instantiate()
-					new_timer_power_up.create_id = powerups[p][0]
-					$powertimers.add_child(new_timer_power_up)
-					new_timer_power_up.name = str(powerups[p][0])
-					if powerups[p][0] == 0:
-						new_timer_power_up.wait_time = power_time[0]
-					if powerups[p][0] == 1:
-						new_timer_power_up.wait_time = power_time[1]
-					if powerups[p][0] == 2:
-						new_timer_power_up.wait_time = power_time[2]
-					level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
-					new_timer_power_up.start()
-					if not $TimerresetSPEED.is_stopped():
-						$TimerresetSPEED.stop()
-					$slow_color.visible = false			
+			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
+				powerups[0][2] = true
+				aktivate_power(0)
+			if not powerups[1][2] and powerups[1][0] != -1:#zweites powerup
+				powerups[1][2] = true
+				aktivate_power(1)
+			if not powerups[2][2] and powerups[2][0] != -1:#drites powerup
+				powerups[2][2] = true
+				aktivate_power(2)
+				
+	
+
+func aktivate_power(index: int):
+	var new_timer_power_up = timer_power_up.instantiate()
+	new_timer_power_up.create_id = powerups[index][0]
+	$powertimers.add_child(new_timer_power_up)
+	new_timer_power_up.name = str(powerups[index][0])
+	new_timer_power_up.wait_time = power_time[index]
+	level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
+	new_timer_power_up.start()
+	if not $TimerresetSPEED.is_stopped():
+		$TimerresetSPEED.stop()
+	$slow_color.visible = false
 					
 
 func color_change():
 	for i in range(len(get_parent().get_children())):
 		if get_parent().get_node(str(name)) != null and i == 1:
-			color_cell = 7
-			get_node("Color").set_color(Color.SADDLE_BROWN)
-			get_node("Name").set("theme_override_colors/font_color",Color.SADDLE_BROWN)
+			color_cell = 2
+			get_node("Color").set_color(Color.DARK_RED)
+			get_node("Name").set("theme_override_colors/font_color",Color.DARK_RED)
 		if get_parent().get_node(str(name)) != null and i == 2:
-			color_cell = 8
-			get_node("Color").set_color(Color.ORANGE)
-			get_node("Name").set("theme_override_colors/font_color",Color.ORANGE)
+			color_cell = 3
+			get_node("Color").set_color(Color.DARK_BLUE)
+			get_node("Name").set("theme_override_colors/font_color",Color.DARK_BLUE)
 		if get_parent().get_node(str(name)) != null and i == 3:
-			color_cell = 9
-			get_node("Color").set_color(Color.HOT_PINK)
-			get_node("Name").set("theme_override_colors/font_color",Color.HOT_PINK)	
+			color_cell = 4
+			get_node("Color").set_color(Color.DEEP_SKY_BLUE)
+			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)	
 	
 
 func paint():
-	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
-	var paint_array = []
+	var tile_position: Vector2i = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
+	var paint_array: Array = []
 	for x in range(-paint_radius,paint_radius):
 		for y in range(-paint_radius,paint_radius):
-			var pos = Vector2i(x,y) + tile_position
-			var distance = pos.distance_to(tile_position)
-			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
+			var pos: Vector2i = Vector2i(x,y) + tile_position
+			var distance: float = pos.distance_to(tile_position)
+			if BetterTerrain.get_cell(map,pos) != -1 and BetterTerrain.get_cell(map,pos) != color_cell and BetterTerrain.get_cell(map,pos) not in level.block_cells and distance < paint_radius:
 				if BetterTerrain.get_cell(map,pos) == color_cell:
 					continue
 				paint_array.append(pos)
@@ -171,7 +175,7 @@ func score_counter():
 	
 	
 func move_npc():
-	var dir = Vector2()
+	var dir: Vector2
 	if curent_tarrget == null:
 		random = 1
 		

@@ -9,7 +9,6 @@ extends CharacterBody2D
 var first_speed = Global.speed_player
 var SPEED = first_speed
 var spawn = position
-var last_position = position
 var is_moving = true
 var map_enden = Vector2.ZERO
 @export var color_cell = 0
@@ -33,7 +32,7 @@ var power_time = [10,8,5]
 var min_zoom = 0.8
 var max_zoom = 2.0
 
-@onready var camera = $Camera2D
+@onready var camera: Camera2D = $Camera2D
 
 	
 func _enter_tree():
@@ -100,35 +99,41 @@ func _physics_process(_delta):
 				d_score /= len(get_parent().get_children())
 				main.get_node("money/coin_display").set_money(d_score)
 	
+	
 func _process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
-			for p in range(len(powerups)):
-				if not powerups[p][2] and powerups[p][0] != -1:
-					powerups[p][2] = true
-					var new_timer_power_up = timer_power_up.instantiate()
-					new_timer_power_up.create_id = powerups[p][0]
-					$powertimers.add_child(new_timer_power_up)
-					new_timer_power_up.name = str(powerups[p][0])
-					if powerups[p][0] == 0:
-						new_timer_power_up.wait_time = power_time[0]
-					if powerups[p][0] == 1:
-						new_timer_power_up.wait_time = power_time[1]
-					if powerups[p][0] == 2:
-						new_timer_power_up.wait_time = power_time[2]
-					level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
-					new_timer_power_up.start()
-					if not $TimerresetSPEED.is_stopped():
-						$TimerresetSPEED.stop()
-					$slow_color.visible = false
+			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
+				powerups[0][2] = true
+				aktivate_power(0)
+			if not powerups[1][2] and powerups[1][0] != -1:#zweites powerup
+				powerups[1][2] = true
+				aktivate_power(1)
+			if not powerups[2][2] and powerups[2][0] != -1:#drites powerup
+				powerups[2][2] = true
+				aktivate_power(2)
+				
 	
 
+func aktivate_power(index: int):
+	var new_timer_power_up = timer_power_up.instantiate()
+	new_timer_power_up.create_id = powerups[index][0]
+	$powertimers.add_child(new_timer_power_up)
+	new_timer_power_up.name = str(powerups[index][0])
+	new_timer_power_up.wait_time = power_time[index]
+	level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).update_icon.rpc(powerups)
+	new_timer_power_up.start()
+	if not $TimerresetSPEED.is_stopped():
+		$TimerresetSPEED.stop()
+	$slow_color.visible = false
+	
+	
 @rpc("any_peer","call_local")
 func sync_show_win_los_meldung(id):
-	var obj_id = id
+	var obj_id: int = id
 	if obj_id == multiplayer.get_unique_id():
 		for i in level.get_node("Werten/PanelContainer/Wertung/werte").get_children():
 			if not level.get_node("loby").vs_mode:
@@ -145,7 +150,7 @@ func sync_show_win_los_meldung(id):
 
 @rpc("any_peer","call_local")
 func sync_hide_win_los_meldung(id):
-	var obj_id = id
+	var obj_id: int = id
 	if obj_id == multiplayer.get_unique_id():
 		get_node("CanvasLayer/Winner").visible = false
 		get_node("CanvasLayer/Los").visible = false
@@ -235,13 +240,13 @@ func score_counter():
 		
 
 func paint():
-	var tile_position = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
-	var paint_array = []
+	var tile_position: Vector2i = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
+	var paint_array: Array = []
 	for x in range(-paint_radius,paint_radius):
 		for y in range(-paint_radius,paint_radius):
-			var pos = Vector2i(x,y) + tile_position
-			var distance = pos.distance_to(tile_position)
-			if map.get_cell_source_id(pos) != -1 and map.get_cell_source_id(pos) != color_cell and map.get_cell_source_id(pos) not in level.block_cells and distance < paint_radius:
+			var pos: Vector2i = Vector2i(x,y) + tile_position
+			var distance: float = pos.distance_to(tile_position)
+			if BetterTerrain.get_cell(map,pos) != -1 and BetterTerrain.get_cell(map,pos) != color_cell and BetterTerrain.get_cell(map,pos) not in level.block_cells and distance < paint_radius:
 				if BetterTerrain.get_cell(map,pos) == color_cell:
 					continue
 				paint_array.append(pos)
@@ -275,18 +280,6 @@ func color_change():
 			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)
 			get_node("CanvasLayer/Winner").set_color(Color.DEEP_SKY_BLUE)
 			get_node("CanvasLayer/Los").set_color(Color.DEEP_SKY_BLUE)
-		if get_parent().get_node(str(name)) != null and i == 4:
-			color_cell = 5
-			get_node("Color").set_color(Color.VIOLET)
-			get_node("Name").set("theme_override_colors/font_color",Color.VIOLET)
-			get_node("CanvasLayer/Winner").set_color(Color.VIOLET)
-			get_node("CanvasLayer/Los").set_color(Color.VIOLET)
-		if get_parent().get_node(str(name)) != null and i == 5:
-			color_cell = 6
-			get_node("Color").set_color(Color.YELLOW)
-			get_node("Name").set("theme_override_colors/font_color",Color.YELLOW)
-			get_node("CanvasLayer/Winner").set_color(Color.YELLOW)
-			get_node("CanvasLayer/Los").set_color(Color.YELLOW)
 	
 
 

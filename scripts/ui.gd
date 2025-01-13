@@ -2,7 +2,7 @@ extends Control
 
 
 var block_host = false
-var Max_clients = 6
+var Max_clients = 4
 @onready var port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 @onready var connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text

@@ -6,7 +6,7 @@ var save_audio_setting_path = "user://saveaudiosettings.save"
 var save_grafik_path = "user://savegrafiksettings.save"
 var save_input_setting_path = "user://saveinputsettings.save"
 var save_shop_path = "user://saveshop.save"
-var server_browser_new = preload("res://sceens/server_browser.tscn")
+const server_browser_new: PackedScene = preload("res://sceens/server_browser.tscn")
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
 @onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop
 
