@@ -151,8 +151,8 @@ func paint():
 						continue
 					paint_array.append(new_pos)
 
-	await BetterTerrain.set_cells(map, paint_array, color_cell)
-	await BetterTerrain.update_terrain_cells(map, paint_array)
+	BetterTerrain.set_cells(map, paint_array, color_cell)
+	BetterTerrain.update_terrain_cells(map, paint_array)
 	
 	
 func score_counter():
