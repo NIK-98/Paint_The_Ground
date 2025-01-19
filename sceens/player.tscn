@@ -43,6 +43,7 @@ properties/9/spawn = true
 properties/9/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_d8fpb")
 timer_power_up = ExtResource("2_5wijq")
 
@@ -74,7 +75,6 @@ color = Color(0, 0, 0, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_ti31n")
-disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)

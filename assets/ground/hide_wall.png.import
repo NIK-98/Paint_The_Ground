@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2ymwestttjmb"
-path="res://.godot/imported/ground_npc2.png-faed2d128a7e2f7eedd2c627a371f47e.ctex"
+uid="uid://bhf8rssf0duwi"
+path="res://.godot/imported/hide_wall.png-46325fd9bcec9500d66bc9de2e4c709e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ground/ground_npc2.png"
-dest_files=["res://.godot/imported/ground_npc2.png-faed2d128a7e2f7eedd2c627a371f47e.ctex"]
+source_file="res://assets/ground/hide_wall.png"
+dest_files=["res://.godot/imported/hide_wall.png-46325fd9bcec9500d66bc9de2e4c709e.ctex"]
 
 [params]
 

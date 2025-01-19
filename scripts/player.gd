@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
+@onready var wall = get_parent().get_parent().get_node("wall")
 @onready var main = get_parent().get_parent().get_parent().get_parent()
 @onready var level = get_parent().get_parent()
 @export var timer_power_up: PackedScene
@@ -64,17 +65,6 @@ func _physics_process(_delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
-				if position.x < get_node("Color").size.x:
-					Input.action_release("left")
-					
-				if position.x+get_node("Color").size.x > map_enden.x-$Color.size.x:
-					Input.action_release("right")
-					
-				if position.y < get_node("Color").size.y:
-					Input.action_release("up")
-					
-				if position.y+get_node("Color").size.y > map_enden.y-$Color.size.y:
-					Input.action_release("down")
 				moving()
 					
 				velocity = move*SPEED
@@ -160,28 +150,28 @@ func moving():
 	if OS.has_feature("dedicated_server"):
 		return
 	if OS.get_name() == "Android" or OS.get_name() == "IOS":
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < map_enden.x-$Color.size.x:
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().x > 0.45 or Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")):
 			move.x = 1
-		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
+		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().x < -0.45 or Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")):
 			move.x = -1
 		else:
 			move.x = 0
-		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < map_enden.y-$Color.size.y:
+		if (main.get_node("CanvasLayer/joy").get_joystick_dir().y > 0.45 or Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")):
 			move.y = 1
-		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
+		elif (main.get_node("CanvasLayer/joy").get_joystick_dir().y < -0.45 or Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")):
 			move.y = -1
 		else:
 			move.y = 0
 	else:
-		if (Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")) and position.x+get_node("Color").size.x < map_enden.x-$Color.size.x:
+		if (Input.is_action_pressed("pad_right") or Input.is_action_pressed("right")):
 			move.x = 1
-		elif (Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")) and position.x > get_node("Color").size.x:
+		elif (Input.is_action_pressed("pad_left") or Input.is_action_pressed("left")):
 			move.x = -1
 		else:
 			move.x = 0
-		if (Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")) and position.y+get_node("Color").size.y < map_enden.y-$Color.size.y:
+		if (Input.is_action_pressed("pad_down") or Input.is_action_pressed("down")):
 			move.y = 1
-		elif (Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")) and position.y > get_node("Color").size.y:
+		elif (Input.is_action_pressed("pad_up") or Input.is_action_pressed("up")):
 			move.y = -1
 		else:
 			move.y = 0
@@ -240,19 +230,35 @@ func score_counter():
 		
 
 func paint():
-	var tile_position: Vector2i = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
+	var tile_position: Vector2i = map.local_to_map(Vector2(position.x + ($Color.size.x / 2), position.y + ($Color.size.y / 2)))
 	var paint_array: Array = []
-	for x in range(-paint_radius,paint_radius):
-		for y in range(-paint_radius,paint_radius):
-			var pos: Vector2i = Vector2i(x,y) + tile_position
-			var distance: float = pos.distance_to(tile_position)
-			if BetterTerrain.get_cell(map,pos) != -1 and BetterTerrain.get_cell(map,pos) != color_cell and BetterTerrain.get_cell(map,pos) not in level.block_cells and distance < paint_radius:
-				if BetterTerrain.get_cell(map,pos) == color_cell:
-					continue
-				paint_array.append(pos)
-	BetterTerrain.set_cells(map,paint_array,color_cell)
-	BetterTerrain.update_terrain_cells(map, paint_array)
-		
+	var paint_radius_sqr: float = paint_radius * paint_radius
+	var block_cells = level.block_cells
+	var new_pos: Vector2i
+	var offset_x: int
+	var offset_y: int
+	var distance_sqr: float
+
+	for x in range(-paint_radius, paint_radius):
+		offset_x = x + tile_position.x
+		for y in range(-paint_radius, paint_radius):
+			offset_y = y + tile_position.y
+			distance_sqr = x * x + y * y
+			
+			if distance_sqr < paint_radius_sqr:
+				new_pos = Vector2i(offset_x, offset_y)
+				var cell_id = BetterTerrain.get_cell(map, new_pos)
+				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
+				if cell_id != -1 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
+					if cell_id == color_cell:
+						continue
+					if cell_id == -1 and wall_cell_id == -1:
+						continue
+					paint_array.append(new_pos)
+
+	await BetterTerrain.set_cells(map, paint_array, color_cell)
+	await BetterTerrain.update_terrain_cells(map, paint_array)
+
 		
 func color_change():
 	for i in range(len(get_parent().get_children())):

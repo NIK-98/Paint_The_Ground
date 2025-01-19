@@ -8,7 +8,7 @@
 texture_filter = 1
 texture_repeat = 2
 tile_set = ExtResource("1_hsdqa")
-collision_enabled = false
+use_kinematic_bodies = true
 navigation_enabled = false
 script = ExtResource("1_6wjps")
 

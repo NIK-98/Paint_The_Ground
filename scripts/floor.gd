@@ -1,13 +1,12 @@
 extends TileMapLayer
 
-@onready var main = get_parent().get_parent().get_parent()
-
 var bereit_count = 0
 
 
 @rpc("any_peer","call_local")
 func reset_floor():
 	var array_floor = []
+	var rand = Vector2i.ZERO
 	for x in range(Global.Spielfeld_Size.x):
 		for y in range(Global.Spielfeld_Size.y):
 			array_floor.append(Vector2i(x,y))

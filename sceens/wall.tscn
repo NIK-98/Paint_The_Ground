@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://qup2aib2321s"]
+
+[ext_resource type="TileSet" uid="uid://b1pc8l1iqvpjx" path="res://resources/tilesets/wall.tres" id="1_tlclp"]
+[ext_resource type="Script" path="res://scripts/wall.gd" id="2_35lfn"]
+
+[node name="wall" type="TileMapLayer"]
+tile_set = ExtResource("1_tlclp")
+use_kinematic_bodies = true
+script = ExtResource("2_35lfn")

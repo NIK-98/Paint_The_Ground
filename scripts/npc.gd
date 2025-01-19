@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
+@onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
 @export var timer_power_up: PackedScene
 
@@ -60,20 +61,6 @@ func _physics_process(delta):
 					set_random_direction()
 			if time_last_change == 0 and curent_tarrget:
 				random = 2
-				
-			velocity = move_npc()*SPEED
-				
-			if position.x < get_node("Color").size.x:
-				curent_direction.x = 1
-					
-			if position.x+get_node("Color").size.x > map_enden.x-get_node("Color").size.x:
-				curent_direction.x = -1
-					
-			if position.y < get_node("Color").size.y:
-				curent_direction.y = 1
-					
-			if position.y+get_node("Color").size.y > map_enden.y-get_node("Color").size.y:
-				curent_direction.y = -1
 			
 			velocity = move_npc()*SPEED		
 			move_and_slide()
@@ -138,18 +125,34 @@ func color_change():
 	
 
 func paint():
-	var tile_position: Vector2i = map.local_to_map(Vector2(position.x+($Color.size.x/2),position.y+($Color.size.y/2)))
+	var tile_position: Vector2i = map.local_to_map(Vector2(position.x + ($Color.size.x / 2), position.y + ($Color.size.y / 2)))
 	var paint_array: Array = []
-	for x in range(-paint_radius,paint_radius):
-		for y in range(-paint_radius,paint_radius):
-			var pos: Vector2i = Vector2i(x,y) + tile_position
-			var distance: float = pos.distance_to(tile_position)
-			if BetterTerrain.get_cell(map,pos) != -1 and BetterTerrain.get_cell(map,pos) != color_cell and BetterTerrain.get_cell(map,pos) not in level.block_cells and distance < paint_radius:
-				if BetterTerrain.get_cell(map,pos) == color_cell:
-					continue
-				paint_array.append(pos)
-	BetterTerrain.set_cells(map,paint_array,color_cell)
-	BetterTerrain.update_terrain_cells(map, paint_array)
+	var paint_radius_sqr: float = paint_radius * paint_radius
+	var block_cells = level.block_cells
+	var new_pos: Vector2i
+	var offset_x: int
+	var offset_y: int
+	var distance_sqr: float
+
+	for x in range(-paint_radius, paint_radius):
+		offset_x = x + tile_position.x
+		for y in range(-paint_radius, paint_radius):
+			offset_y = y + tile_position.y
+			distance_sqr = x * x + y * y
+			
+			if distance_sqr < paint_radius_sqr:
+				new_pos = Vector2i(offset_x, offset_y)
+				var cell_id = BetterTerrain.get_cell(map, new_pos)
+				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
+				if cell_id != -1 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
+					if cell_id == color_cell:
+						continue
+					if cell_id == -1 and wall_cell_id == -1:
+						continue
+					paint_array.append(new_pos)
+
+	await BetterTerrain.set_cells(map, paint_array, color_cell)
+	await BetterTerrain.update_terrain_cells(map, paint_array)
 	
 	
 func score_counter():

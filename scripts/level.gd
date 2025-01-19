@@ -21,6 +21,7 @@ var powerup: PackedScene = preload("res://sceens/powerup.tscn")
 var coin: PackedScene = preload("res://sceens/coin.tscn")
 @onready var coins = $Coins
 @onready var map = get_node("floor")
+@onready var wall = get_node("wall")
 @onready var bombe = preload("res://sceens/bombe.tscn")
 @onready var npc = preload("res://sceens/npc.tscn")
 @onready var power_up = $PowerUP

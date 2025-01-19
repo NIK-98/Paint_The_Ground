@@ -1,13 +1,21 @@
 extends Node2D
 
 @onready var map = get_parent().get_parent().get_node("floor")
+@onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
 
-const bomb_radius: int = 8
-var explode_pos: Vector2
+const bomb_radius: int = 6
+var explode_pos = null
 var celle: int = 0
 
-var thread1 = Thread.new()
+@export var bereit_count = 0
+
+var bomb_array = []
+var bomb_radius_sqr = bomb_radius * bomb_radius
+var new_pos: Vector2i
+var offset_x: int
+var offset_y: int
+var distance_sqr: int
 
 
 func _ready():
@@ -17,30 +25,59 @@ func _ready():
 func _process(_delta):
 	if explode_pos != null:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			aktivate_bombe.rpc(celle, explode_pos)
+			# Führe die Bombe-Aktivierung in einem separaten Thread aus
+			aktivate_bombe.rpc(celle,explode_pos)
 			queue_free()
-			return
 			
 
-@rpc("any_peer","call_local")
-func aktivate_bombe(cell: int, pos: Vector2):
+func _activate_bomb(cell: int, pos: Vector2):
 	var tile_position: Vector2i = map.local_to_map(pos)
-	var bomb_array1 = []
-	var bomb_array2 = []
-	thread1.start(t1.bind(bomb_array1,cell,tile_position))
-	thread1.wait_to_finish()
-		
-		
-func t1(cellen: Array, cell: int, pos: Vector2i):
-	for x in range(-bomb_radius, bomb_radius):
+	var block_cells = level.block_cells
+	for x in range(-bomb_radius, 0):
+		offset_x = x + tile_position.x
 		for y in range(-bomb_radius, bomb_radius):
-			var new_pos: Vector2i = Vector2i(x,y)+pos
-			if BetterTerrain.get_cell(map,new_pos) != -1 and BetterTerrain.get_cell(map,new_pos) not in level.block_cells and new_pos.distance_to(pos) < bomb_radius:
-				if BetterTerrain.get_cell(map,new_pos) == cell:
-					continue
-				cellen.append(new_pos)
-	BetterTerrain.call_deferred("set_cells",map,cellen,cell)
-	BetterTerrain.call_deferred("update_terrain_cells",map,cellen,cell)
+			offset_y = y + tile_position.y
+			distance_sqr = x*x+y*y
+			if distance_sqr < bomb_radius_sqr:
+				new_pos = Vector2i(offset_x, offset_y)
+				var cell_source_id = map.get_cell_source_id(new_pos)
+				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
+				if cell_source_id != -1 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
+					if cell_source_id == -1 and wall_cell_source_id == -1:
+						continue
+					bomb_array.push_back(new_pos)
+	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
+	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
+	explode_pos = null
+	
+	
+func _activate_bomb1(cell: int, pos: Vector2):
+	var tile_position: Vector2i = map.local_to_map(pos)
+	var block_cells = level.block_cells
+	for x in range(0, bomb_radius):
+		offset_x = x + tile_position.x
+		for y in range(-bomb_radius, bomb_radius):
+			offset_y = y + tile_position.y
+			distance_sqr = x*x+y*y
+			if distance_sqr < bomb_radius_sqr:
+				new_pos = Vector2i(offset_x, offset_y)
+				var cell_source_id = map.get_cell_source_id(new_pos)
+				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
+				if cell_source_id != -1 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
+					if cell_source_id == -1 and wall_cell_source_id == -1:
+						continue
+					bomb_array.push_back(new_pos)
+	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
+	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
+	explode_pos = null
+	
+
+@rpc("any_peer", "call_local")
+func aktivate_bombe(cell: int, pos: Vector2):
+	_activate_bomb(cell,pos)
+	var thread = Thread.new()
+	thread.start(_activate_bomb1.bind(cell, pos))
+	thread.wait_to_finish()
 		
 		
 func _on_area_2d_area_entered(area):
@@ -50,8 +87,3 @@ func _on_area_2d_area_entered(area):
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
 		set_process(true)
-
-
-func _exit_tree() -> void:
-	if thread1.is_alive():
-		thread1.wait_to_finish()

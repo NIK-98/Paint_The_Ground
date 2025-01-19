@@ -11,6 +11,7 @@ size = Vector2(64, 64)
 size = Vector2(65, 64)
 
 [node name="NPC" type="CharacterBody2D" groups=["npc", "player"]]
+collision_layer = 2
 script = ExtResource("1_85ml5")
 timer_power_up = ExtResource("2_od6ef")
 
@@ -43,7 +44,6 @@ color = Color(0, 0, 0, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_teehr")
-disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
