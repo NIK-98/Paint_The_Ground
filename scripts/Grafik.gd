@@ -57,13 +57,15 @@ func _process(_delta):
 			if not fullscreen_mode:
 				_on_option_button_item_selected(save_id)
 			Set_Resulutuns_text()
+			v_sync.set_pressed_no_signal(v_sync_mode)
+			_on_v_sync_toggled(v_sync_mode)
 		if OS.get_name() == "Android" or OS.get_name() == "IOS":
 			screen_option.visible = false
+			v_sync.visible = false
 		_on_fps_value_changed(max_frams)
-		v_sync.set_pressed_no_signal(v_sync_mode)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
 		einleitung.set_pressed_no_signal(einleitugs_display_mode)
-		_on_v_sync_toggled(v_sync_mode)
+		
 		_on_fps_anzeige_toggled(fps_display_mode)
 		_on_einleitung_toggled(einleitugs_display_mode)
 		if main.get_node("CanvasLayer2/Control/UI").trailer_on:
