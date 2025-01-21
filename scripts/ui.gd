@@ -11,6 +11,7 @@ var Max_clients = 4
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
+@onready var popup_edit = $popup_edit
 
 var save_path = "user://savetemp.save"
 
@@ -80,8 +81,8 @@ func _process(_delta):
 			alleine_spielen.set_pressed(true)
 		else:
 			alleine_spielen.set_pressed(false)
+		
 			
-	
 	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
 		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("shop/CanvasLayer").visible:
 			await get_tree().create_timer(0.1).timeout
@@ -293,3 +294,21 @@ func _on_alleine_spielen_toggled(toggled_on: bool) -> void:
 		solo_mode = true
 	else:
 		solo_mode = false
+
+
+func _on_input_gui_input(event: InputEvent) -> void:
+	if event.is_pressed():
+		if $Panel/CenterContainer/Net/Options/Option2/o4/port.has_focus():
+			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
+			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
+		if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.has_focus():
+			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
+			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
+		if $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.has_focus():
+			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
+			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
+		if $Panel/CenterContainer/Net/Options/Option1/o1_port/port.has_focus():
+			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
+			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
+		popup_edit.selected = true
+			

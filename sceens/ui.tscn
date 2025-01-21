@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=24 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="3_5a5vt"]
 [ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="6_f5c87"]
 [ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="7_t52r0"]
+[ext_resource type="PackedScene" uid="uid://brwrd0pnw7dqo" path="res://sceens/popup_edit.tscn" id="7_ybl2p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3j30k"]
 texture = ExtResource("2_plmyg")
@@ -154,8 +155,6 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_3j30k")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Net" type="VBoxContainer" parent="Panel/CenterContainer"]
 layout_mode = 2
@@ -215,6 +214,7 @@ text = "Port"
 horizontal_alignment = 1
 
 [node name="port" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+process_mode = 3
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
@@ -234,6 +234,7 @@ text = "Server Name"
 horizontal_alignment = 1
 
 [node name="namen" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
+process_mode = 3
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
@@ -308,6 +309,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Remote" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
+process_mode = 3
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 theme = SubResource("Theme_4377g")
@@ -339,6 +341,7 @@ text = "Port"
 horizontal_alignment = 1
 
 [node name="port" type="LineEdit" parent="Panel/CenterContainer/Net/Options/Option2/o4"]
+process_mode = 3
 layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
@@ -347,12 +350,19 @@ max_length = 5
 expand_to_text_length = true
 select_all_on_focus = true
 
+[node name="popup_edit" parent="." instance=ExtResource("7_ybl2p")]
+layout_mode = 0
+offset_left = 0.0
+offset_right = 896.0
+
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Host_Connect" to="." method="_on_host_connect_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Host_Connect" to="." method="_on_host_connect_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Host_Connect" to="." method="_on_host_connect_pressed"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/o1/Host" to="." method="_on_host_pressed"]
+[connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option1/o1_port/port" to="." method="_on_input_gui_input"]
+[connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option1/o1_port/namen" to="." method="_on_input_gui_input"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_vs_toggled"]
@@ -368,3 +378,5 @@ select_all_on_focus = true
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]
+[connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote" to="." method="_on_input_gui_input"]
+[connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option2/o4/port" to="." method="_on_input_gui_input"]

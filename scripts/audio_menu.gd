@@ -50,7 +50,6 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(ui_bus, ui.value)
 		music.value = music_volume
 		AudioServer.set_bus_volume_db(music_bus, music.value)
-		Global.music1_sound = true
 		set_process(false)
 	
 func _physics_process(_delta):
