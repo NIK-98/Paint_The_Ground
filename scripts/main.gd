@@ -192,11 +192,11 @@ func _on_zurück_pressed():
 func _on_change_pressed():
 	if controll_switcher:
 		controll_switcher = false
-		$CanvasLayer/joy.joy_start_position = Vector2(137.143,617.143)
+		$CanvasLayer/joy.joy_start_position = Vector2(274.286,617.143)
 		$CanvasLayer/Back.global_position = Vector2(1635.717,558.571)
 	else:
 		controll_switcher = true
-		$CanvasLayer/joy.joy_start_position = Vector2(1692.783,617.143)
+		$CanvasLayer/joy.joy_start_position = Vector2(1555.64,617.143)
 		$CanvasLayer/Back.global_position = Vector2(80.162,560)
 
 
