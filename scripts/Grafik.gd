@@ -30,6 +30,7 @@ var fps_display_mode = false
 var einleitugs_display_mode = true
 var fullscreen_mode = true
 var max_frams = 200
+var framelimiter = 200
 
 
 var loaded = false
@@ -39,6 +40,10 @@ var reset = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	name = "Grafik"
+	if OS.get_name() == "Android" or OS.get_name() == "IOS":
+		max_frams = 120
+		framelimiter = max_frams
+		fps.max_value = max_frams
 	$CanvasLayer.visible = false
 
 	
@@ -223,7 +228,7 @@ func _on_focus_entered():
 
 func _on_fps_value_changed(value):
 	Global.ui_sound = true
-	if value < 200:
+	if value < framelimiter:
 		Engine.max_fps = value
 		fps_max.text = str(value, " Max FPS")
 		fps.value = value
