@@ -65,5 +65,6 @@ grow_vertical = 2
 theme = SubResource("Theme_bjjn4")
 text = "OK"
 
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="text_changed" from="." to="." method="_on_text_changed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
