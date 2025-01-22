@@ -30,7 +30,7 @@ const standard_power_time = [10,8,5]
 var power_time = [10,8,5]
 
 # Zoom-Grenzen festlegen
-var min_zoom = 0.8
+var min_zoom = 0.4
 var max_zoom = 2.0
 
 @onready var camera: Camera2D = $Camera2D
