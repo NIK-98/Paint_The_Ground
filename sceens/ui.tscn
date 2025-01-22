@@ -222,6 +222,7 @@ text = "11111"
 alignment = 1
 max_length = 5
 expand_to_text_length = true
+virtual_keyboard_enabled = false
 select_all_on_focus = true
 
 [node name="Label2" type="Label" parent="Panel/CenterContainer/Net/Options/Option1/o1_port"]
@@ -241,6 +242,7 @@ theme_override_font_sizes/font_size = 85
 text = "Server"
 alignment = 1
 max_length = 7
+virtual_keyboard_enabled = false
 select_all_on_focus = true
 
 [node name="o2" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
@@ -317,6 +319,7 @@ theme_override_font_sizes/font_size = 85
 text = "localhost"
 placeholder_text = "localhost"
 max_length = 22
+virtual_keyboard_enabled = false
 select_all_on_focus = true
 
 [node name="punkt" type="Label" parent="Panel/CenterContainer/Net/Options/Option2/o3/remote1"]
@@ -348,6 +351,7 @@ theme_override_font_sizes/font_size = 85
 text = "11111"
 max_length = 5
 expand_to_text_length = true
+virtual_keyboard_enabled = false
 select_all_on_focus = true
 
 [node name="popup_edit" parent="." instance=ExtResource("7_ybl2p")]

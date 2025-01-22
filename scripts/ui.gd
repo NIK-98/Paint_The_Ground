@@ -28,6 +28,7 @@ var coin_mode = false
 var shop_mode = false
 var solo_mode = false
 var trailer_on = true
+var host_mode = false
 
 
 func save():
@@ -44,7 +45,8 @@ func save():
 		"coin_mode" : coin_mode,
 		"shop_mode" : shop_mode,
 		"solo_mode" : solo_mode,
-		"trailer_on" : trailer_on
+		"trailer_on" : trailer_on,
+		"host_mode" : host_mode
 	}
 	return save_dict
 	
@@ -81,6 +83,15 @@ func _process(_delta):
 			alleine_spielen.set_pressed(true)
 		else:
 			alleine_spielen.set_pressed(false)
+		if host_mode:
+			$Panel/CenterContainer/Net/Options/Option1.hide()
+			$Panel/CenterContainer/Net/Options/Option2.show()
+			get_parent().get_node("Server_Browser").show()
+		else:
+			$Panel/CenterContainer/Net/Options/Option2.hide()
+			get_parent().get_node("Server_Browser").hide()
+			$Panel/CenterContainer/Net/Options/Option1.show()
+			
 		
 			
 	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
@@ -138,7 +149,7 @@ func _on_host_pressed():
 		port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 	port = str(port)
 	if not port.is_valid_int():
-		OS.alert("Ist keine richtieger port.", "Server Meldung")
+		OS.alert("Ist keine richtieger port!\nGieb eine Zahl ein.", "Server Meldung")
 		get_tree().paused = true
 		return
 	port = port.to_int()
@@ -180,7 +191,7 @@ func _on_connect_pressed():
 	if OS.get_cmdline_args().size() <= 1 and not FileAccess.file_exists(get_parent().get_parent().get_parent().save_path):
 		connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	if not connectport.is_valid_int():
-		OS.alert("Ist keine richtieger port.", "Server Meldung")
+		OS.alert("Ist keine richtieger port!\nGieb eine Zahl ein.", "Server Meldung")
 		block_host = false
 		get_tree().paused = true
 		return
@@ -260,10 +271,12 @@ func _on_host_connect_pressed() -> void:
 		$Panel/CenterContainer/Net/Options/Option1.hide()
 		$Panel/CenterContainer/Net/Options/Option2.show()
 		get_parent().get_node("Server_Browser").show()
+		host_mode = true
 	else:
 		$Panel/CenterContainer/Net/Options/Option2.hide()
 		get_parent().get_node("Server_Browser").hide()
 		$Panel/CenterContainer/Net/Options/Option1.show()
+		host_mode = false
 
 
 func _on_focus_entered() -> void:
@@ -301,14 +314,18 @@ func _on_input_gui_input(event: InputEvent) -> void:
 		if $Panel/CenterContainer/Net/Options/Option2/o4/port.has_focus():
 			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
 			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
+			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 		if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.has_focus():
 			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
 			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
+			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 		if $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.has_focus():
 			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
+			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
 		if $Panel/CenterContainer/Net/Options/Option1/o1_port/port.has_focus():
 			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
 			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
+			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 		popup_edit.selected = true
 			
