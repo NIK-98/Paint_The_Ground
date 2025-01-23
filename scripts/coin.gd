@@ -22,7 +22,6 @@ func _process(_delta):
 				$Area2D/CollisionShape2D.disabled = true
 				$pickup.play("pickup")
 			if not $pickup.is_playing():
-				$pickup.play()
 				queue_free()
 				return
 		

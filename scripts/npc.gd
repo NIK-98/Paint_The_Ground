@@ -62,6 +62,8 @@ func _physics_process(delta):
 			if time_last_change == 0 and curent_tarrget:
 				random = 2
 			
+			if is_on_wall() or is_on_ceiling() or is_on_floor():
+				time_last_change = direction_change_interval
 			velocity = move_npc()*SPEED		
 			move_and_slide()
 				
@@ -193,12 +195,16 @@ func move_npc():
 		
 		
 func set_random_direction():
+	var vaild_bomb_list = []
+	for v in level.get_node("Bomben").get_children():
+		if v.clean:
+			vaild_bomb_list.append(v)
 	# Zufällige Richtung generieren
-	if level.get_node("Bomben").get_child_count() > 0:
-		curent_bomb = level.get_node("Bomben").get_children().pick_random()
+	if len(vaild_bomb_list) > 0:
+		curent_bomb = vaild_bomb_list.pick_random()
 	if level.get_node("PowerUP").get_child_count() > 0:
 		curent_powerup = level.get_node("PowerUP").get_children().pick_random()
-	if level.get_node("Bomben").get_child_count() > 0 and level.get_node("PowerUP").get_child_count() > 0:
+	if len(vaild_bomb_list) > 0 and level.get_node("PowerUP").get_child_count() > 0:
 		curent_tarrget = [curent_bomb,curent_powerup].pick_random()
 		random = randi_range(1,2)
 		if random == 1:
@@ -212,7 +218,7 @@ func set_random_direction():
 			curent_tarrget = null
 			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		return
-	elif level.get_node("Bomben").get_child_count() > 0:
+	elif len(vaild_bomb_list) > 0:
 		curent_tarrget = curent_bomb
 		random = randi_range(1,2)
 		if random == 1:

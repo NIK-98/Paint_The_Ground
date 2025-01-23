@@ -8,14 +8,13 @@ const bomb_radius: int = 6
 var explode_pos = null
 var celle: int = 0
 
-@export var bereit_count = 0
-
 var bomb_array = []
 var bomb_radius_sqr = bomb_radius * bomb_radius
 var new_pos: Vector2i
 var offset_x: int
 var offset_y: int
 var distance_sqr: int
+var clean = false
 
 
 func _ready():
@@ -25,9 +24,13 @@ func _ready():
 func _process(_delta):
 	if explode_pos != null:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			# Führe die Bombe-Aktivierung in einem separaten Thread aus
-			aktivate_bombe.rpc(celle,explode_pos)
-			queue_free()
+			if not $Area2D/CollisionShape2D.disabled:
+				$Area2D/CollisionShape2D.disabled = true
+				$bum.play("bum")
+			if not $bum.is_playing():
+				aktivate_bombe.rpc(celle,explode_pos)
+				queue_free()
+				return
 			
 
 func _activate_bomb(cell: int, pos: Vector2):
@@ -84,6 +87,7 @@ func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		explode_pos = area.get_parent().position
 		celle = area.get_parent().color_cell
+		clean = true
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
 		set_process(true)

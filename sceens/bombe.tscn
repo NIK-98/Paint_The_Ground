@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctvl7k2hphpvs"]
+[gd_scene load_steps=9 format=3 uid="uid://ctvl7k2hphpvs"]
 
 [ext_resource type="Texture2D" uid="uid://cofso2pqd70dj" path="res://assets/Boomb/boomb.png" id="1_3bc5a"]
 [ext_resource type="Script" path="res://scripts/bombe.gd" id="1_d6tas"]
@@ -10,9 +10,100 @@ radius = 36.8917
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:bereit_count")
+properties/1/path = NodePath("bum:current_animation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("Area2D/CollisionShape2D:disabled")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_syhg4"]
+resource_name = "clear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.751691, 0, 0.0770172, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5335f"]
+resource_name = "bum"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667, 0.533333, 0.6, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.4, 1.4), Vector2(1.6, 1.6), Vector2(1.8, 1.8), Vector2(2, 2), Vector2(2.2, 2.2), Vector2(2.4, 2.4), Vector2(2.6, 2.6), Vector2(2.8, 2.8), Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667, 0.2, 0.266667, 0.366667, 0.466667, 0.566667, 0.633333, 0.7, 0.766667, 0.866667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.660614, 0.620709, 1), Color(0.999921, 0.423103, 0.380006, 1), Color(0.980445, 0.00105363, 0.114702, 1), Color(0.799437, 0.000103265, 0.0848486, 1), Color(0.577914, 0, 0.0485645, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i7s23"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ltbqm"]
+_data = {
+"RESET": SubResource("Animation_i7s23"),
+"bum": SubResource("Animation_5335f"),
+"clear": SubResource("Animation_syhg4")
+}
 
 [node name="Bombe" type="Node2D" groups=["boom"]]
 script = ExtResource("1_d6tas")
@@ -28,5 +119,11 @@ shape = SubResource("CircleShape2D_hce8j")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rgxeq")
+
+[node name="bum" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ltbqm")
+}
+speed_scale = 5.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
