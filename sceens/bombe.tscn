@@ -17,31 +17,31 @@ properties/2/path = NodePath("Area2D/CollisionShape2D:disabled")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="Animation" id="Animation_syhg4"]
-resource_name = "clear"
+[sub_resource type="Animation" id="Animation_i7s23"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 3)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath(".:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0666667),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.751691, 0, 0.0770172, 1)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_5335f"]
@@ -71,31 +71,31 @@ tracks/1/keys = {
 "values": [Color(1, 0.660614, 0.620709, 1), Color(0.999921, 0.423103, 0.380006, 1), Color(0.980445, 0.00105363, 0.114702, 1), Color(0.799437, 0.000103265, 0.0848486, 1), Color(0.577914, 0, 0.0485645, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1), Color(0.460767, 1.10099e-06, 0.03013, 1), Color(0.751691, 0, 0.0770172, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_i7s23"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_syhg4"]
+resource_name = "clear"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(3, 3)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.0666667),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(0.751691, 0, 0.0770172, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ltbqm"]

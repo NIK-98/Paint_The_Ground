@@ -76,6 +76,8 @@ func _process(_delta):
 		if main.get_node("CanvasLayer2/Control/UI").trailer_on:
 			var new_trailer = trailer.instantiate()
 			main.get_node("CanvasLayer3").add_child(new_trailer)
+		else:
+			Global.music1_sound = true
 		set_process(false)
 	
 	
