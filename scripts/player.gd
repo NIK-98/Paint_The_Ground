@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var wall = get_parent().get_parent().get_node("wall")
 @onready var main = get_parent().get_parent().get_parent().get_parent()
 @onready var level = get_parent().get_parent()
+@onready var coins = get_parent().get_parent().get_node("Coins")
 @export var timer_power_up: PackedScene
 
 
@@ -22,6 +23,8 @@ var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
 @export var paint_radius = Global.painting_rad
+
+@export var magnet = true
 
 @export var team = "Red"
 
@@ -69,6 +72,9 @@ func _physics_process(_delta):
 					
 				velocity = move*SPEED
 				move_and_slide()
+				
+				if magnet:
+					magnet_trigger.rpc_id(1, name.to_int())
 					
 					
 		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
@@ -88,6 +94,14 @@ func _physics_process(_delta):
 					d_score += d.score
 				d_score /= len(get_parent().get_children())
 				main.get_node("money/coin_display").set_money(d_score)
+	
+	
+@rpc("any_peer","call_local")
+func magnet_trigger(id: int):
+	for c in coins.get_children():
+		var coin_dist = position.distance_to(c.position)
+		if coin_dist < c.magnet_craft and c.magnet_id == 0:
+			c.magnet_id = id
 	
 	
 func _process(_delta):

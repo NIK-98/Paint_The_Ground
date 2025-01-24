@@ -12,7 +12,7 @@ func _on_timeout():
 
 func _exit_tree():
 	name = str(create_id)
-	if Player.name.to_int() == multiplayer.get_unique_id():
+	if multiplayer.multiplayer_peer != null and Player.name.to_int() == multiplayer.get_unique_id():
 		if Player.powerups[name.to_int()][0] == 0:
 			Player.SPEED = Player.first_speed
 			Player.powerups[name.to_int()][1] = false

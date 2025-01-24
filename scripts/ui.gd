@@ -87,10 +87,12 @@ func _process(_delta):
 			$Panel/CenterContainer/Net/Options/Option1.hide()
 			$Panel/CenterContainer/Net/Options/Option2.show()
 			get_parent().get_node("Server_Browser").show()
+			$Versions_Info.hide()
 		else:
 			$Panel/CenterContainer/Net/Options/Option2.hide()
 			get_parent().get_node("Server_Browser").hide()
 			$Panel/CenterContainer/Net/Options/Option1.show()
+			$Versions_Info.show()
 			
 		
 			
@@ -271,11 +273,13 @@ func _on_host_connect_pressed() -> void:
 		$Panel/CenterContainer/Net/Options/Option1.hide()
 		$Panel/CenterContainer/Net/Options/Option2.show()
 		get_parent().get_node("Server_Browser").show()
+		$Versions_Info.hide()
 		host_mode = true
 	else:
 		$Panel/CenterContainer/Net/Options/Option2.hide()
 		get_parent().get_node("Server_Browser").hide()
 		$Panel/CenterContainer/Net/Options/Option1.show()
+		$Versions_Info.show()
 		host_mode = false
 
 

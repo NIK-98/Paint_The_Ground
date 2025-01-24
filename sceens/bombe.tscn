@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctvl7k2hphpvs"]
+[gd_scene load_steps=10 format=3 uid="uid://ctvl7k2hphpvs"]
 
 [ext_resource type="Texture2D" uid="uid://cofso2pqd70dj" path="res://assets/Boomb/boomb.png" id="1_3bc5a"]
 [ext_resource type="Script" path="res://scripts/bombe.gd" id="1_d6tas"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lyve2"]
+radius = 24.7386
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hce8j"]
 radius = 36.8917
@@ -105,11 +108,15 @@ _data = {
 "clear": SubResource("Animation_syhg4")
 }
 
-[node name="Bombe" type="Node2D" groups=["boom"]]
+[node name="Bombe" type="CharacterBody2D" groups=["boom"]]
 script = ExtResource("1_d6tas")
 
 [node name="Boomb" type="Sprite2D" parent="."]
 texture = ExtResource("1_3bc5a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lyve2")
+disabled = true
 
 [node name="Area2D" type="Area2D" parent="." groups=["boom"]]
 

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
+@onready var coins = get_parent().get_parent().get_node("Coins")
 @export var timer_power_up: PackedScene
 
 
@@ -23,6 +24,8 @@ var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
 @export var paint_radius = Global.painting_rad
+
+var magnet = true
 
 var team = "Blue"
 
@@ -66,6 +69,12 @@ func _physics_process(delta):
 				time_last_change = direction_change_interval
 			velocity = move_npc()*SPEED		
 			move_and_slide()
+			
+			if magnet:
+				for c in coins.get_children():
+					var coin_dist = position.distance_to(c.position)
+					if coin_dist < c.magnet_craft and c.magnet_id == 0:
+						c.magnet_id = name.to_int()
 				
 					
 		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
