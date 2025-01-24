@@ -42,10 +42,12 @@ Button/styles/pressed = SubResource("StyleBoxFlat_ccwga")
 
 [node name="popup_edit" type="LineEdit"]
 process_mode = 3
-visible = false
-offset_left = 192.0
-offset_right = 1088.0
-offset_bottom = 88.0
+anchors_preset = -1
+anchor_left = -0.006
+anchor_right = 0.7
+anchor_bottom = 0.11
+offset_left = 7.68
+offset_right = -6.10352e-05
 theme = SubResource("Theme_1kt7d")
 max_length = 35
 select_all_on_focus = true

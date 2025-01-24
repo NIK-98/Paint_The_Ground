@@ -357,8 +357,13 @@ select_all_on_focus = true
 
 [node name="popup_edit" parent="." instance=ExtResource("7_ybl2p")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 0.0
 offset_right = 896.0
+offset_bottom = 31.0
 
 [node name="Versions_Info" type="Label" parent="."]
 layout_mode = 0

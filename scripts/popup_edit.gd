@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 			grab_focus()
 			max_length = parent_fild_length
 			position.y = DisplayServer.get_display_safe_area().size.y/2-20
-			position.x = (ui.size.x-size.x)/2
+			position.x = ui.size.x/8
 	if visible and Input.is_action_just_pressed("ui_accept"):
 		_on_button_pressed()
 	if ui.get_parent().get_parent().get_parent().has_node("Level/level/loby") and not ui.get_parent().get_parent().get_parent().get_node("Level/level/loby").visible:
