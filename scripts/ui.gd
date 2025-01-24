@@ -160,6 +160,8 @@ func _on_host_pressed():
 		OS.alert("Server kann nicht erstellt werden!", "Server Meldung")
 		if port < 1024:
 			OS.alert("Versuchen sie einen port über 1024!", "Server Meldung")
+		if port > 65535:
+			OS.alert("Versuchen sie einen port unter 65536!", "Server Meldung")
 		get_tree().paused = true
 		return
 	multiplayer.multiplayer_peer = peer
