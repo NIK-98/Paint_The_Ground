@@ -28,6 +28,7 @@ func save():
 		"aktuel" : aktuel,
 		"shop_id" : shop_id,
 		"powerup.texture" : powerup.texture,
+		"shop_text" : shop_text
 	}
 	return save_dict
 
