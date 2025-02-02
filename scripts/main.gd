@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var save_path = "user://savetemp.save"
 var playersave_path = "user://playersave.save"
@@ -22,6 +22,7 @@ func _ready():
 	new_browser.offset_right = 1246.0
 	new_browser.offset_bottom = 883.0
 	$CanvasLayer2/Control.add_child(new_browser)
+	shop.visible = false
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
 		load_game("playersave", playersave_path)
@@ -123,11 +124,6 @@ func load_game(group: String, path: String):
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
-			
-			
-func _on_leave_pressed():
-	Input.action_press("exit")
-	Input.action_release("exit")
 
 
 func _on_back_pressed():
@@ -159,8 +155,7 @@ func _on_beenden_pressed():
 			DirAccess.remove_absolute(save_path)
 		get_tree().quit()
 		return
-	if multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and Global.esc_is_pressing_in_game:
-		Global.esc_is_pressing_in_game = false
+	if get_node("Level").get_child_count() > 0:
 		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		
 	$CanvasLayer/Menu.visible = false
@@ -231,21 +226,6 @@ func _on_zurück_mouse_entered():
 func _on_zurück_focus_entered():
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Global.ui_hover_sound = true
-		
-
-func _physics_process(_delta):
-	if has_node("Level/level") and not shop.visible:
-		shop.visible = true
-	elif not has_node("Level/level") and shop.visible:
-		shop.visible = false
-	if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not $Audio_menu/CanvasLayer.visible and not $Grafik/CanvasLayer.visible and not $Control/CanvasLayer.visible and not $shop/CanvasLayer.visible:
-		await get_tree().create_timer(0.1).timeout
-		Global.esc_is_pressing_in_game = true
-		get_node("CanvasLayer/Menu").visible = true
-		Global.trigger_host_focus = true
-		get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-		Global.trigger_host_focus = false
-		return
 
 
 func _on_grafik_pressed():

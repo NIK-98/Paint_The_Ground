@@ -213,11 +213,6 @@ zoomout_con={
 ]
 }
 
-[layer_names]
-
-2d_physics/layer_1="wall"
-2d_physics/layer_2="player"
-
 [physics]
 
 2d/solver/solver_iterations=8

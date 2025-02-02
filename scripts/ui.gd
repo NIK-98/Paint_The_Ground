@@ -95,15 +95,6 @@ func _process(_delta):
 			$Versions_Info.show()
 			
 		
-			
-	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
-		if visible and (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("shop/CanvasLayer").visible:
-			await get_tree().create_timer(0.1).timeout
-			esc_is_pressing = true
-			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-			Global.trigger_host_focus = true
-			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-			Global.trigger_host_focus = false
 	
 	if (Input.is_action_just_pressed("modus") or Input.is_action_just_pressed("modus_con")):
 		get_parent().get_parent().get_parent()._on_change_pressed()
@@ -114,6 +105,18 @@ func _process(_delta):
 	if get_parent().get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_parent().get_node("Level/level/loby").visible:
 		set_process(false)
 
+
+func _physics_process(_delta: float) -> void:
+	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
+		if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("shop/CanvasLayer").visible:
+			await get_tree().create_timer(0.1).timeout
+			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
+			Global.trigger_host_focus = true
+			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+			Global.trigger_host_focus = false
+			if visible:
+				esc_is_pressing = true
+			
 	
 func check_address_bereich(curent_ip: String, ip_block: String, anfang: int, ende: int):
 	for i in range(anfang,ende+1):
@@ -171,6 +174,7 @@ func _on_host_pressed():
 	if not solo_mode:
 		var server_send = preload("res://sceens/server_sender.tscn").instantiate()
 		get_parent().get_node("Server_Browser").add_child(server_send)
+	get_parent().get_parent().get_parent().shop.visible = true
 	
 
 		
@@ -223,6 +227,7 @@ func _on_connect_pressed():
 		get_tree().paused = true
 		return
 	get_parent().visible = false
+	get_parent().get_parent().get_parent().shop.visible = true
 	
 	
 func change_level(scene: PackedScene):

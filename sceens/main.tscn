@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=32 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
 [ext_resource type="Script" path="res://scripts/fps.gd" id="3_mf30v"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
+[ext_resource type="Script" path="res://scripts/leave.gd" id="5_k4bn5"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="7_dpqrl"]
@@ -218,7 +219,8 @@ Button/styles/hover = SubResource("StyleBoxFlat_qmeak")
 Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
 Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 
-[node name="main" type="Node"]
+[node name="main" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_jo5ss")
 
 [node name="Level" type="Node" parent="."]
@@ -248,19 +250,13 @@ theme_override_font_sizes/font_size = 42
 script = ExtResource("3_mf30v")
 
 [node name="Leave" type="TextureButton" parent="CanvasLayer"]
+process_mode = 3
 modulate = Color(1, 1, 1, 0.415686)
-anchors_preset = -1
-anchor_left = 0.056
-anchor_top = 0.086
-anchor_right = 0.056
-anchor_bottom = 0.086
-offset_left = -51.68
-offset_top = -48.8018
-offset_right = 68.3203
-offset_bottom = 71.1979
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 137.0
+offset_bottom = 137.0
 texture_normal = ExtResource("7_dpqrl")
+ignore_texture_size = true
+script = ExtResource("5_k4bn5")
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
@@ -409,9 +405,10 @@ offset_bottom = 0.0
 [node name="shop" parent="." instance=ExtResource("10_3akkr")]
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 9
 
-[connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="CanvasLayer/Leave" to="CanvasLayer/Leave" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]
