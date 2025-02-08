@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/powerup.gd" id="1_exbtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dplh5"]
-size = Vector2(32, 32)
+size = Vector2(40, 40)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lihb0"]
 properties/0/path = NodePath(".:position")
