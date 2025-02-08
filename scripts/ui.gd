@@ -13,6 +13,7 @@ var Max_clients = 4
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
 @onready var popup_edit = $popup_edit
 @onready var versions_info = $Versions_Info
+var trailer = preload("res://sceens/trailer.tscn")
 
 var save_path = "user://savetemp.save"
 
@@ -335,3 +336,19 @@ func _on_input_gui_input(event: InputEvent) -> void:
 			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 		popup_edit.selected = true
 			
+
+
+func _on_anleitung_pressed() -> void:
+	Global.ui_sound = true
+	Global.stop_main_theama = true
+	var new_trailer = trailer.instantiate()
+	get_parent().get_parent().get_parent().get_node("CanvasLayer3").add_child(new_trailer)
+
+
+func _on_anleitung_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_anleitung_mouse_entered() -> void:
+	Global.ui_hover_sound = true

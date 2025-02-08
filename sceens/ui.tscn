@@ -146,9 +146,9 @@ script = ExtResource("1_jid7m")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 1829.0
-offset_bottom = 1143.0
-scale = Vector2(0.7, 0.7)
+offset_right = 2133.0
+offset_bottom = 1333.0
+scale = Vector2(0.6, 0.6)
 focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_3j30k")
 
@@ -267,6 +267,13 @@ text = "Shop_Reset"
 layout_mode = 2
 theme = SubResource("Theme_rsc3b")
 text = "Alleine_Spielen"
+
+[node name="anleitung" type="Button" parent="Panel/CenterContainer/Net/Options/Option1"]
+layout_mode = 2
+theme = SubResource("Theme_8c3yx")
+theme_override_font_sizes/font_size = 66
+text = "Anlei-
+tung"
 
 [node name="Option2" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 visible = false
@@ -395,6 +402,9 @@ theme_override_font_sizes/font_size = 30
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_alleine_spielen_toggled"]
+[connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_focus_entered"]
+[connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_mouse_entered"]
+[connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_pressed"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]

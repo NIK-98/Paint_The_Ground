@@ -9,6 +9,10 @@ func _physics_process(_delta):
 			$Music1.stop()
 		$Music1.play()
 		Global.music1_sound = false
+	if Global.stop_main_theama:
+		Global.stop_main_theama = false
+		if $Music1.playing:
+			$Music1.stop()
 	
 
 func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool, ui_sound: bool, ui_hover_sound: bool, coin_sound: bool):

@@ -20,6 +20,7 @@ var trigger_input_menu = false
 var trigger_shop_menu = false
 
 var music1_sound = false
+var stop_main_theama = false
 var hit_sound = false
 var powerup_sound = false
 var bombe_sound = false
