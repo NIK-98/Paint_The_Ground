@@ -31,7 +31,7 @@ func _process(_delta):
 func aktivate_powerup(player_id: int):
 	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 3:
 		return
-	if Players.get_node(str(player_id)).name.to_int() == multiplayer.get_unique_id():
+	if Players.get_node(str(player_id)).name.to_int() == multiplayer.get_unique_id() or Players.get_node(str(player_id)).name.to_int() == 2 or Players.get_node(str(player_id)).name.to_int() == 3 or Players.get_node(str(player_id)).name.to_int() == 4:
 		if powerupid == 0: # doppelter grundspeed
 			if not Players.get_node(str(player_id)).powerups[powerupid][0] == powerupid:
 				Players.get_node(str(player_id)).SPEED = Players.get_node(str(player_id)).first_speed
