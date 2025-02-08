@@ -12,6 +12,7 @@ var Max_clients = 4
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
 @onready var popup_edit = $popup_edit
+@onready var versions_info = $Versions_Info
 
 var save_path = "user://savetemp.save"
 
@@ -53,6 +54,12 @@ func save():
 	
 func _ready():
 	name = "UI"
+	var export_config: ConfigFile = ConfigFile.new()
+	var err = export_config.load("res://export_presets.cfg")
+	if err == OK:
+		versions_info.text = str("Entwickler: Nik-Dev\nVersion: ", export_config.get_value("preset.4.options", 'version/name'))
+	else:
+		print('[engine_root] Error open export_presets.cfgs')
 	get_tree().paused = true
 	
 	
