@@ -195,10 +195,10 @@ func game_update():
 		time = $Timer.time_left
 		bomb_time = $Timerbomb.time_left
 		start_time = $Timerrestart.time_left
-		if not $Timer.is_stopped() and time <= 30 and not last_runde:
+		if not $Timer.is_stopped() and time <= 20 and not last_runde:
 			last_runde = true
 			$Timerbomb.wait_time = 3
-			$Timerpower.wait_time = 5
+			$Timerpower.wait_time = 4
 			$TimerCoin.wait_time = 2
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
