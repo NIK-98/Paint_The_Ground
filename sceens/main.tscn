@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
 [ext_resource type="Script" path="res://scripts/fps.gd" id="3_mf30v"]
+[ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="4_nuuj8"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
@@ -13,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
 [ext_resource type="PackedScene" uid="uid://f6j1ndwi7ix8" path="res://sceens/shop.tscn" id="10_3akkr"]
-[ext_resource type="PackedScene" uid="uid://tybhu8j8kmx3" path="res://sceens/menu_exit.tscn" id="11_4bjlq"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 
@@ -248,21 +248,10 @@ theme_override_fonts/font = ExtResource("7_buwn4")
 theme_override_font_sizes/font_size = 42
 script = ExtResource("3_mf30v")
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1154.0
-offset_bottom = -674.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="menu_button" parent="CanvasLayer/Control" instance=ExtResource("11_4bjlq")]
-offset_left = 22.8571
-offset_top = 22.8571
-offset_right = 142.857
-offset_bottom = 142.857
+[node name="Leave" type="TouchScreenButton" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.407843)
+position = Vector2(22.8571, 22.8571)
+texture_normal = ExtResource("4_nuuj8")
 
 [node name="Back" type="TouchScreenButton" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.407843)
@@ -412,6 +401,7 @@ layout_mode = 1
 process_mode = 3
 layer = 9
 
+[connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]

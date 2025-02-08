@@ -213,6 +213,10 @@ zoomout_con={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [physics]
 
 2d/solver/solver_iterations=8

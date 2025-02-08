@@ -127,11 +127,13 @@ func load_game(group: String, path: String):
 
 
 func _on_back_pressed():
+	Global.ui_sound = true
 	Input.action_press("cancel")
 	Input.action_release("cancel")
 
 
 func _on_tap_pressed():
+	Global.ui_sound = true
 	Input.action_press("Info")
 	
 
@@ -185,6 +187,7 @@ func _on_zurück_pressed():
 
 
 func _on_change_pressed():
+	Global.ui_sound = true
 	if controll_switcher:
 		controll_switcher = false
 		$CanvasLayer/joy.joy_start_position = Vector2(274.286,617.143)
@@ -292,3 +295,9 @@ func _on_shop_focus_entered() -> void:
 
 func _on_shop_mouse_entered() -> void:
 	Global.ui_hover_sound = true
+
+
+func _on_leave_pressed() -> void:
+	Global.ui_sound = true
+	Input.action_press("exit")
+	Input.action_release("exit")
