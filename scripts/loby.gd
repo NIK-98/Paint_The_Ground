@@ -372,6 +372,7 @@ func _on_start_pressed():
 			exit("Kein Mitspieler auf dem Server Gefunden!", true)
 			return
 	vor_start_trigger()
+	get_parent().main.get_node("Grafik").zoom_option.visible = true
 	get_parent().map.reset_floor.rpc()
 	get_parent().wall.add_wall.rpc()
 	reset_wait_count.rpc()

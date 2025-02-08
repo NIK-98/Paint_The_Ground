@@ -22,6 +22,7 @@ var move = Vector2i.ZERO
 var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
+var zoom_old = 1
 @export var paint_radius = Global.painting_rad
 
 @export var magnet = true
@@ -33,7 +34,7 @@ const standard_power_time = [10,8,5]
 var power_time = [10,8,5]
 
 # Zoom-Grenzen festlegen
-var min_zoom = 0.4
+var min_zoom = 0.3
 var max_zoom = 2.0
 
 @onready var camera: Camera2D = $Camera2D
@@ -205,14 +206,10 @@ func _input(event):
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-	
-	if (Input.is_action_pressed("zoomin") or Input.is_action_pressed("zoomin_con")) and not level.get_node("Scoreboard/CanvasLayer").visible:
-		camera.zoom *= 0.9  # Zoom in
-		# Zoom-Grenzen anwenden
-		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
-		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-	if (Input.is_action_pressed("zoomout") or Input.is_action_pressed("zoomout_con")) and not level.get_node("Scoreboard/CanvasLayer").visible:
-		camera.zoom *= 1.1  # Zoom out
+	if zoom_old != main.get_node("Grafik").zoom.value and not level.get_node("Scoreboard/CanvasLayer").visible:
+		zoom_old = main.get_node("Grafik").zoom.value
+		camera.zoom.x = main.get_node("Grafik").zoom.value  # Zoom
+		camera.zoom.y = main.get_node("Grafik").zoom.value  # Zoom
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)

@@ -5,10 +5,14 @@ extends Control
 @onready var v_sync = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync
 @onready var fps_anzeige = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_Anzeige
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/back
-@onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/FPS_MAX
-@onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Fps
+@onready var fps_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/FPS_MAX
+@onready var fps = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Fps
 @onready var screen_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 @onready var einleitung = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung
+@onready var zoom_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2
+@onready var zoom_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ZOOM_MAX
+@onready var zoom = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Zoom
+
 var trailer = preload("res://sceens/trailer.tscn")
 
 @onready var main = get_parent()
@@ -30,6 +34,8 @@ var fps_display_mode = false
 var einleitugs_display_mode = true
 var fullscreen_mode = true
 var max_frams = 200
+var max_zoom = 0.6
+var limit_zoom = 2
 var framelimiter = 200
 
 
@@ -44,6 +50,7 @@ func _ready():
 		max_frams = 120
 		framelimiter = max_frams
 		fps.max_value = max_frams
+	zoom_option.visible = false
 	$CanvasLayer.visible = false
 
 	
@@ -68,6 +75,7 @@ func _process(_delta):
 			screen_option.visible = false
 			v_sync.visible = false
 		_on_fps_value_changed(max_frams)
+		_on_zoom_value_changed(max_zoom)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
 		einleitung.set_pressed_no_signal(einleitugs_display_mode)
 		
@@ -93,7 +101,8 @@ func save():
 		"fullscreen_mode" : fullscreen_mode,
 		"max_frams" : max_frams,
 		"fps_display_mode" : fps_display_mode,
-		"einleitugs_display_mode" : einleitugs_display_mode
+		"einleitugs_display_mode" : einleitugs_display_mode,
+		"max_zoom" : max_zoom
 	}
 	return save_dict
 		
@@ -253,3 +262,15 @@ func _on_einleitung_toggled(toggled_on: bool) -> void:
 	else:
 		einleitugs_display_mode = false
 		main.get_node("CanvasLayer2/Control/UI").trailer_on = false
+
+
+func _on_zoom_value_changed(value: float) -> void:
+	Global.ui_sound = true
+	if value < limit_zoom:
+		zoom_max.text = str("Zoom von ",value)
+		zoom.value = value
+		max_zoom = value
+	else:
+		zoom_max.text = "Max Zoom"
+		zoom.value = value
+		max_zoom = zoom.max_value

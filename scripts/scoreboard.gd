@@ -132,11 +132,11 @@ func set_visiblety(nodepath: String, mode: bool):
 
 
 func _input(_event):
-	if Input.is_action_just_pressed("zoomout") and $CanvasLayer.visible and not get_parent().main.get_node("Control/CanvasLayer").visible:
+	if $CanvasLayer.visible and not get_parent().main.get_node("Control/CanvasLayer").visible:
 		if $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical < max(0, $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.size.y - $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.size.y):
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical += 100
 			return
-	if Input.is_action_just_pressed("zoomin") and $CanvasLayer.visible and not get_parent().main.get_node("Control/CanvasLayer").visible:
+	if $CanvasLayer.visible and not get_parent().main.get_node("Control/CanvasLayer").visible:
 		if $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical >= min(0, $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.size.y - $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.size.y):
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer.scroll_vertical -= 100
 			return

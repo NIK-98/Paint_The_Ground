@@ -42,8 +42,6 @@ var start_gedrückt = 0
 var list_player_id_and_pos = []
 
 func _ready():
-	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
-		$CanvasLayer/Labelzoom.visible = false
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
@@ -458,7 +456,7 @@ func del_score_visuel(id):
 	get_node("Werten/PanelContainer2/visual").get_node(str(id)).queue_free()
 
 
-func _input(_event):
+func _input(event):
 	if Input.is_action_pressed("Info") or Input.is_action_pressed("Info_con"):
 		$Tap.visible = true
 	if Input.is_action_just_released("Info") or Input.is_action_just_released("Info_con"):
@@ -598,19 +596,3 @@ func _on_timerrestart_timeout():
 	$CanvasLayer/Bomb_time.visible = true
 	$CanvasLayer/start_in.visible = false
 	game_update()
-
-
-func _on_zoomin_pressed() -> void:
-	if not main.get_node("Control/CanvasLayer").visible:
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom *= 0.9  # Zoom in
-		# Zoom-Grenzen anwenden
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
-
-
-func _on_zoomout_pressed() -> void:
-	if not main.get_node("Control/CanvasLayer").visible:
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom *= 1.1 # Zoom out
-		# Zoom-Grenzen anwenden
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.x, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)
-		$Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y = clamp($Players.get_node(str(multiplayer.get_unique_id())).get_node("Camera2D").zoom.y, $Players.get_node(str(multiplayer.get_unique_id())).min_zoom, $Players.get_node(str(multiplayer.get_unique_id())).max_zoom)

@@ -34,8 +34,8 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0.762), Color(1, 1, 1, 0.611), Color(1, 1, 1, 0.362), Color(1, 1, 1, 0.589), Color(1, 1, 1, 0.794), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_5wsko"]
-resource_name = "rest3"
+[sub_resource type="Animation" id="Animation_duwvl"]
+resource_name = "rest2"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -50,8 +50,8 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0.762), Color(1, 1, 1, 0.611), Color(1, 1, 1, 0.362), Color(1, 1, 1, 0.589), Color(1, 1, 1, 0.794), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_duwvl"]
-resource_name = "rest2"
+[sub_resource type="Animation" id="Animation_5wsko"]
+resource_name = "rest3"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
