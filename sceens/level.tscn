@@ -723,11 +723,13 @@ layout_mode = 2
 theme_override_constants/separation = 91
 
 [node name="npcs" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_mpmer")
 text = "Solo NPCs: 1"
 
 [node name="Speed" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_mpmer")
 text = "Einfach"
@@ -737,17 +739,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="settime" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_4phi6")
 theme_override_constants/outline_size = 30
 text = "120 sec."
 
 [node name="Map" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_meekn")
 text = "Kleine  Map"
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_x68ue")
 text = "Bestätiegen"
