@@ -21,13 +21,6 @@ func _process(_delta):
 		loaded = true
 		name = "Control"
 		set_process(false)
-	
-	
-func _physics_process(_delta):
-	if Global.trigger_input_menu:
-		back.grab_focus()
-		Global.trigger_input_menu = false
-		$CanvasLayer.visible = true
 		
 
 func _on_reset_pressed() -> void:

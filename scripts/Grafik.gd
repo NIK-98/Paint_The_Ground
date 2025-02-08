@@ -79,14 +79,6 @@ func _process(_delta):
 		else:
 			Global.music1_sound = true
 		set_process(false)
-	
-	
-
-func _physics_process(_delta):
-	if Global.trigger_grafik_menu:
-		back.grab_focus()
-		Global.trigger_grafik_menu = false
-		$CanvasLayer.visible = true
 				
 				
 func save():

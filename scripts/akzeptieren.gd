@@ -22,6 +22,7 @@ func _on_ja_pressed() -> void:
 		visible = false
 		Global.akzept = ""
 		label.text = ""
+		Global.menu = false
 	if Global.akzept == "Coins Löschen":
 		main._on_deleteuser_pressed()
 		get_parent().get_node("Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()

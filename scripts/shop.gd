@@ -7,12 +7,6 @@ extends Control
 var save_shop_path = "user://saveshop.save"
 var reseted = false
 
-func _physics_process(_delta):
-	if Global.trigger_shop_menu:
-		back.grab_focus()
-		Global.trigger_shop_menu = false
-		$CanvasLayer.visible = true
-
 
 func _on_back_pressed() -> void:
 	Global.ui_sound = true

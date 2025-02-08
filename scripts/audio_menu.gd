@@ -5,6 +5,7 @@ extends Control
 @onready var music = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music"
 @onready var ui = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI
 @onready var main = $"/root/main/"
+@onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back
 
 var master_bus = AudioServer.get_bus_index("Master")
 var effects_bus = AudioServer.get_bus_index("Effects")
@@ -51,12 +52,7 @@ func _process(_delta):
 		music.value = music_volume
 		AudioServer.set_bus_volume_db(music_bus, music.value)
 		set_process(false)
-	
-func _physics_process(_delta):
-	if Global.trigger_audio_menu:
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back.grab_focus()
-		Global.trigger_audio_menu = false
-		$CanvasLayer.visible = true	
+
 		
 func _on_master_value_changed(value):
 	master_volume = master.value

@@ -50,6 +50,19 @@ func _ready():
 		print("Startet Dedicated Server.")
 		$CanvasLayer2/Control/UI._on_host_pressed.call_deferred()
 		
+
+func _input(event: InputEvent) -> void:
+	if not Global.menu:
+		if (Input.is_action_pressed("exit") or Input.is_action_pressed("exit_con")):
+			await get_tree().create_timer(0.1).timeout
+			Global.menu = true
+			get_node("CanvasLayer/Menu").visible = true
+			Global.trigger_host_focus = true
+			get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
+			Global.trigger_host_focus = false
+			if $CanvasLayer2/Control/UI.visible:
+				$CanvasLayer2/Control/UI.esc_is_pressing = true
+				
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
@@ -183,6 +196,7 @@ func _on_zurück_pressed():
 		Global.trigger_host_focus = true
 		get_node("Level/level/loby/CenterContainer/HBoxContainer/VBoxContainer/start").grab_focus()
 		Global.trigger_host_focus = false
+	Global.menu = false
 		
 
 
@@ -200,8 +214,11 @@ func _on_change_pressed():
 
 func _on_audio_pressed():
 	Global.ui_sound = true
-	$CanvasLayer/Menu.visible = false
 	Global.trigger_audio_menu = true
+	$Audio_menu.back.grab_focus()
+	$Audio_menu/CanvasLayer.visible = true	
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_audio_menu = false
 
 
 func _on_audio_mouse_entered():
@@ -233,8 +250,11 @@ func _on_zurück_focus_entered():
 
 func _on_grafik_pressed():
 	Global.ui_sound = true
-	$CanvasLayer/Menu.visible = false
 	Global.trigger_grafik_menu = true
+	$Grafik.back.grab_focus()
+	$Grafik/CanvasLayer.visible = true	
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_grafik_menu = false
 
 
 func _on_grafik_focus_entered():
@@ -248,8 +268,11 @@ func _on_grafik_mouse_entered():
 
 func _on_eingabe_pressed() :
 	Global.ui_sound = true
-	$CanvasLayer/Menu.visible = false
 	Global.trigger_input_menu = true
+	$Control.back.grab_focus()
+	$Control/CanvasLayer.visible = true	
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_input_menu = false
 
 
 func _on_eingabe_focus_entered():
@@ -284,8 +307,11 @@ func _on_deleteuser_mouse_entered() -> void:
 
 func _on_shop_pressed() -> void:
 	Global.ui_sound = true
-	$CanvasLayer/Menu.visible = false
 	Global.trigger_shop_menu = true
+	$shop.back.grab_focus()
+	$shop/CanvasLayer.visible = true	
+	$CanvasLayer/Menu.visible = false
+	Global.trigger_shop_menu = false
 
 
 func _on_shop_focus_entered() -> void:
@@ -300,4 +326,7 @@ func _on_shop_mouse_entered() -> void:
 func _on_leave_pressed() -> void:
 	Global.ui_sound = true
 	Input.action_press("exit")
+
+
+func _on_leave_released() -> void:
 	Input.action_release("exit")

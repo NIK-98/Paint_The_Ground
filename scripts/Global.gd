@@ -27,4 +27,5 @@ var ui_sound = false
 var ui_hover_sound = false
 var coin_sound = false
 
+var menu = false
 var akzept = ""

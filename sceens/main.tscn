@@ -402,6 +402,7 @@ process_mode = 3
 layer = 9
 
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
+[connection signal="released" from="CanvasLayer/Leave" to="." method="_on_leave_released"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Tap" to="." method="_on_tap_pressed"]
 [connection signal="released" from="CanvasLayer/Tap" to="." method="_on_tap_released"]

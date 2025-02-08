@@ -111,18 +111,6 @@ func _process(_delta):
 	
 	if get_parent().get_parent().get_parent().has_node("Level/level/loby") and not get_parent().get_parent().get_parent().get_node("Level/level/loby").visible:
 		set_process(false)
-
-
-func _physics_process(_delta: float) -> void:
-	if get_parent().get_parent().get_parent().has_node("Audio_menu/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Grafik/CanvasLayer") and get_parent().get_parent().get_parent().has_node("Control/CanvasLayer") and get_parent().get_parent().get_parent().has_node("shop/CanvasLayer"):
-		if (Input.is_action_just_pressed("exit") or Input.is_action_just_pressed("exit_con")) and not get_parent().get_parent().get_parent().get_node("Audio_menu/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Grafik/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("Control/CanvasLayer").visible and not get_parent().get_parent().get_parent().get_node("shop/CanvasLayer").visible:
-			await get_tree().create_timer(0.1).timeout
-			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu").visible = true
-			Global.trigger_host_focus = true
-			get_parent().get_parent().get_parent().get_node("CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
-			Global.trigger_host_focus = false
-			if visible:
-				esc_is_pressing = true
 			
 	
 func check_address_bereich(curent_ip: String, ip_block: String, anfang: int, ende: int):
