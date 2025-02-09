@@ -5,6 +5,7 @@ extends Control
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back
 @onready var reset = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset
 @onready var v_box_button_container = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer
+@onready var scroll_container = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer
 
 var save_input_setting_path = "user://saveinputsettings.save"
 
@@ -21,6 +22,17 @@ func _process(_delta):
 		loaded = true
 		name = "Control"
 		set_process(false)
+		
+
+func _input(_event):
+	if (Input.is_action_just_pressed("scrolldown") or Input.is_action_just_pressed("scrolldown_con")) and $CanvasLayer.visible:
+		if scroll_container.scroll_vertical < max(0, v_box_button_container.size.y - scroll_container.size.y):
+			scroll_container.scroll_vertical += 100
+			return
+	if (Input.is_action_just_pressed("scrollup") or Input.is_action_just_pressed("scrollup_con")) and $CanvasLayer.visible:
+		if scroll_container.scroll_vertical >= min(0, v_box_button_container.size.y - scroll_container.size.y):
+			scroll_container.scroll_vertical -= 100
+			return
 		
 
 func _on_reset_pressed() -> void:

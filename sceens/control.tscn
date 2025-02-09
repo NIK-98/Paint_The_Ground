@@ -339,6 +339,18 @@ aktion_pc_name = "modus"
 aktion_controler_name = "modus_con"
 android_name = "Neben Spieler Liste"
 
+[node name="Button_bind9" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+layout_mode = 2
+aktion_pc_name = "scrollup"
+aktion_controler_name = "scrollup_con"
+android_name = "Touch"
+
+[node name="Button_bind10" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
+layout_mode = 2
+aktion_pc_name = "scrolldown"
+aktion_controler_name = "scrolldown_con"
+android_name = "Touch"
+
 [node name="Button_bind11" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_wi46l")]
 layout_mode = 2
 aktion_pc_name = "ui_accept"

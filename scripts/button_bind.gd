@@ -70,10 +70,10 @@ func set_aktion_name():
 			label.text = "Hoch"
 		"down":
 			label.text = "Runter"
-		"zoomin":
-			label.text = "Zoom Rein"
-		"zoomout":
-			label.text = "Zoom Raus"
+		"scrollup":
+			label.text = "Scroll hoch"
+		"scrolldown":
+			label.text = "Scroll runter"
 		"exit":
 			label.text = "Menü"
 		"cancel":
@@ -95,10 +95,10 @@ func set_aktion_name():
 			label.text = "Hoch"
 		"pad_down":
 			label.text = "Runter"
-		"zoomin_con":
-			label.text = "Zoom Rein"
-		"zoomout_con":
-			label.text = "Zoom Raus"
+		"scrollup_con":
+			label.text = "Scroll hoch"
+		"scrolldown_con":
+			label.text = "Scroll runter"
 		"exit_con":
 			label.text = "Menü"
 		"cancel_con":
