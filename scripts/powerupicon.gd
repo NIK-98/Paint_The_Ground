@@ -8,9 +8,9 @@ func animate_rest_time(powerup):
 	if powerup == 0:
 		$TextureRect/AnimationPlayer.play("rest")
 	if powerup == 1:
-		$TextureRect2/AnimationPlayer.play("rest2")
+		$TextureRect2/AnimationPlayer2.play("rest2")
 	if powerup == 2:
-		$TextureRect3/AnimationPlayer.play("rest3")
+		$TextureRect3/AnimationPlayer3.play("rest3")
 		
 		
 
@@ -21,10 +21,10 @@ func update_icon(powerups):
 		$TextureRect/AnimationPlayer.stop()
 	if powerups[1][1] == true and powerups[1][0] == 1:
 		$TextureRect2.texture = load("res://assets/powerups/bigrad.png")
-		$TextureRect2/AnimationPlayer.stop()
+		$TextureRect2/AnimationPlayer2.stop()
 	if powerups[2][1] == true and powerups[2][0] == 2:
 		$TextureRect3.texture = load("res://assets/powerups/protect.png")
-		$TextureRect3/AnimationPlayer.stop()
+		$TextureRect3/AnimationPlayer3.stop()
 
 
 
@@ -35,10 +35,10 @@ func clear_icon(powerups):
 		$TextureRect/AnimationPlayer.stop()
 	if powerups[1][1] == false and powerups[1][0] == -1:
 		$TextureRect2.texture = load("res://assets/powerups/empty.png")
-		$TextureRect2/AnimationPlayer.stop()
+		$TextureRect2/AnimationPlayer2.stop()
 	if powerups[2][1] == false and powerups[2][0] == -1:
 		$TextureRect3.texture = load("res://assets/powerups/empty.png")
-		$TextureRect3/AnimationPlayer.stop()
+		$TextureRect3/AnimationPlayer3.stop()
 				
 
 func clear_icon_npc(powerups):
@@ -47,7 +47,7 @@ func clear_icon_npc(powerups):
 		$TextureRect/AnimationPlayer.stop()
 	if powerups[1][1] == false and powerups[1][0] == -1:
 		$TextureRect2.texture = load("res://assets/powerups/empty.png")
-		$TextureRect2/AnimationPlayer.stop()
+		$TextureRect2/AnimationPlayer2.stop()
 	if powerups[2][1] == false and powerups[2][0] == -1:
 		$TextureRect3.texture = load("res://assets/powerups/empty.png")
-		$TextureRect3/AnimationPlayer.stop()
+		$TextureRect3/AnimationPlayer3.stop()

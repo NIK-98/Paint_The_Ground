@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4gotilqrea0s"]
+[gd_scene load_steps=9 format=3 uid="uid://d4gotilqrea0s"]
 
 [ext_resource type="Script" path="res://scripts/powerupicon.gd" id="1_lcyim"]
 [ext_resource type="Texture2D" uid="uid://uemi3wmyrvo7" path="res://assets/powerups/empty.png" id="2_4pgxy"]
@@ -74,6 +74,17 @@ _data = {
 "rest3": SubResource("Animation_5wsko")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ruyqv"]
+properties/0/path = NodePath("TextureRect/AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("TextureRect2/AnimationPlayer2:current_animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("TextureRect3/AnimationPlayer3:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="powerupicon" type="HBoxContainer"]
 theme_override_constants/separation = 4
 script = ExtResource("1_lcyim")
@@ -93,7 +104,7 @@ layout_mode = 2
 texture = ExtResource("2_4pgxy")
 stretch_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect2"]
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="TextureRect2"]
 libraries = {
 "": SubResource("AnimationLibrary_qlnwl")
 }
@@ -103,7 +114,10 @@ layout_mode = 2
 texture = ExtResource("2_4pgxy")
 stretch_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect3"]
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="TextureRect3"]
 libraries = {
 "": SubResource("AnimationLibrary_qlnwl")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ruyqv")

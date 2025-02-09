@@ -459,6 +459,18 @@ properties/26/replication_mode = 1
 properties/27/path = NodePath(".:map_enden")
 properties/27/spawn = true
 properties/27/replication_mode = 1
+properties/28/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map:text")
+properties/28/spawn = true
+properties/28/replication_mode = 1
+properties/29/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map:visible")
+properties/29/spawn = true
+properties/29/replication_mode = 1
+properties/30/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:text")
+properties/30/spawn = true
+properties/30/replication_mode = 1
+properties/31/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:visible")
+properties/31/spawn = true
+properties/31/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -670,12 +682,14 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="loby/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(704, 0)
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
 [node name="name_input" type="LineEdit" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_ohkoe")
 theme_override_font_sizes/font_size = 46
 placeholder_text = "Name?"
@@ -685,6 +699,7 @@ expand_to_text_length = true
 
 [node name="Random" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_5fqms")
 text = "Zufalls Name"
 
@@ -699,12 +714,14 @@ theme_override_constants/separation = 91
 [node name="npcs" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_mpmer")
 text = "Solo NPCs: 1"
 
 [node name="Speed" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_mpmer")
 text = "Einfach"
 
@@ -715,6 +732,7 @@ size_flags_horizontal = 3
 [node name="settime" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_4phi6")
 theme_override_constants/outline_size = 30
 text = "120 sec."
@@ -722,18 +740,22 @@ text = "120 sec."
 [node name="Map" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_meekn")
 text = "Kleine  Map"
 
 [node name="Enter" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x68ue")
 text = "Bestätiegen"
 script = ExtResource("15_unqr3")
 
 [node name="Warten" type="Label" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(704, 0)
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -745,7 +767,9 @@ vertical_alignment = 1
 
 [node name="warte_map" type="Label" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(254, 0)
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
@@ -758,14 +782,17 @@ vertical_alignment = 1
 [node name="start" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 process_mode = 3
 visible = false
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_pxkww")
 text = "start"
 
 [node name="team" type="Button" parent="loby/CenterContainer/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(0, 510)
+custom_minimum_size = Vector2(307, 510)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = SubResource("Theme_gf1a3")
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
