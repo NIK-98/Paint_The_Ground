@@ -35,6 +35,7 @@ var einleitugs_display_mode = true
 var fullscreen_mode = true
 var max_frams = 200
 var max_zoom = 0.6
+var standard_zoom = 0.6
 var limit_zoom = 2
 var framelimiter = 200
 
@@ -178,6 +179,9 @@ func _on_reset_pressed():
 	fps_max.text = "Unbegrenzt FPS"
 	fps.value = fps.max_value
 	max_frams = fps.max_value
+	zoom_max.text = str("Zoom von ",standard_zoom)
+	zoom.value = standard_zoom
+	max_zoom = zoom.max_value
 	fps_anzeige.set_pressed_no_signal(false)
 	einleitung.set_pressed_no_signal(true)
 	v_sync.set_pressed_no_signal(false)
