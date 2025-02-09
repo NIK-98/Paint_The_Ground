@@ -221,16 +221,17 @@ theme_override_constants/separation = 115
 
 [node name="shop_pruduct" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
+shop_text = "+2 Sec. --> 200"
 
 [node name="shop_pruduct2" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-shop_text = "+3 Sec. --> 600"
+shop_text = "+3 Sec. --> 300"
 aktuel = 8
 shop_id = 1
 
 [node name="shop_pruduct3" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-shop_text = "+4 Sec. --> 1000"
+shop_text = "+2 Sec. --> 500"
 aktuel = 5
 shop_id = 2
 
