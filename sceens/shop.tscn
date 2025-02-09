@@ -221,7 +221,6 @@ theme_override_constants/separation = 115
 
 [node name="shop_pruduct" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2
-shop_text = "+2 Sec. --> 200"
 
 [node name="shop_pruduct2" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vy1mv")]
 layout_mode = 2

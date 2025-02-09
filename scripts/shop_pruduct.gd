@@ -7,7 +7,7 @@ extends Control
 @onready var shop: Control = $"../../../../../../.."
 
 var powerup_icon: Resource = load("res://assets/powerups/speedup.png")
-@export var shop_text: String = "+2 Sec. --> 400"
+@export var shop_text: String = "+2 Sec. --> 200"
 @export var aktuel: int = 10
 var aktuel_text: String = str(aktuel," Sec.")
 
@@ -74,21 +74,21 @@ func _on_buy_pressed() -> void:
 		return
 	Global.ui_sound = true
 	if shop_id == 0: #Speed shop
-		if main.get_node("money/coin_display").remove_money(400):
+		if main.get_node("money/coin_display").remove_money(200):
 			main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] += 2
 			aktuel += 2
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
 	elif shop_id == 1: #Big Radius shop
-		if main.get_node("money/coin_display").remove_money(600):
+		if main.get_node("money/coin_display").remove_money(300):
 			main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] += 3
 			aktuel += 3
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
 	elif shop_id == 2: #Unbesiegbarkeits Shop
-		if main.get_node("money/coin_display").remove_money(1000):
+		if main.get_node("money/coin_display").remove_money(500):
 			main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] += 4
-			aktuel += 4
+			aktuel += 2
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
 			

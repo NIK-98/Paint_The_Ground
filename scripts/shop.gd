@@ -11,6 +11,7 @@ var reseted = false
 func _on_back_pressed() -> void:
 	Global.ui_sound = true
 	$CanvasLayer.visible = false
+	get_parent().get_node("money/coin_display").saveplayer(false)
 	if not FileAccess.file_exists(save_shop_path):
 		get_parent().save_game("saveshop", save_shop_path)
 	else:
