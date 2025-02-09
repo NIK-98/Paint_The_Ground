@@ -197,11 +197,6 @@ func _input(event):
 		input_mode = 0
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		input_mode = 1
-	if event is InputEventMouseButton and not main.get_node("Control/CanvasLayer").visible:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			camera.zoom *= 0.9  # Zoom in
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			camera.zoom *= 1.1  # Zoom out
 
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
