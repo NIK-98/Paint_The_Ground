@@ -55,12 +55,7 @@ func save():
 	
 func _ready():
 	name = "UI"
-	var export_config: ConfigFile = ConfigFile.new()
-	var err = export_config.load("res://export_presets.cfg")
-	if err == OK:
-		versions_info.text = str("Entwickler: Nik-Dev\nVersion: ", export_config.get_value("preset.4.options", 'version/name'))
-	else:
-		print('[engine_root] Error open export_presets.cfgs')
+	versions_info.text = str("Entwickler: Nik-Dev\nVersion: ", ProjectSettings.get("application/config/version"))
 	get_tree().paused = true
 	
 	
