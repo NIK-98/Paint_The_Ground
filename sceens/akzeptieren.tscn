@@ -170,12 +170,12 @@ shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_hq385"]
 default_font = ExtResource("1_v7suu")
-Button/colors/font_color = Color(1, 0, 0, 1)
-Button/colors/font_focus_color = Color(0.513753, 1.11904e-06, 1.92523e-07, 1)
-Button/colors/font_hover_color = Color(0.513726, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.513726, 0, 0, 1)
+Button/colors/font_color = Color(0.513726, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_color = Color(1, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.513726, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 90
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
@@ -200,12 +200,12 @@ shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_2bw1u"]
 default_font = ExtResource("1_v7suu")
-Button/colors/font_color = Color(1, 0.529412, 0, 1)
-Button/colors/font_focus_color = Color(0.480708, 0.241753, 9.62615e-08, 1)
-Button/colors/font_hover_color = Color(0.482353, 0.243137, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.482353, 0.243137, 0, 1)
+Button/colors/font_color = Color(0.678463, 0.351298, 5.77569e-07, 1)
+Button/colors/font_focus_color = Color(1, 0.529412, 0, 1)
+Button/colors/font_hover_color = Color(1, 0.529412, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0.529412, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.482353, 0.243137, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0.529412, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 90
 Button/styles/focus = SubResource("StyleBoxEmpty_bf5ck")
