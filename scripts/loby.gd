@@ -103,6 +103,9 @@ func no_players():
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
+		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = false
 		return
 	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
 	if vs_mode:
