@@ -38,7 +38,7 @@ func _ready() -> void:
 	if FileAccess.file_exists(save_shop_path):
 		return
 	set_icon()
-	buy.text = shop_text
+	buy.text = str("\n",shop_text)
 	aktuel_text = str(aktuel," Sec.")
 	label.text = aktuel_text
 	
@@ -101,7 +101,7 @@ func _restore_shop() -> void:
 	name = "shop_pruduct"
 	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel
 	aktuel_text = str(aktuel," Sec.")
-	buy.text = shop_text
+	buy.text = str("\n",shop_text)
 	set_icon()
 	label.text = aktuel_text
 	loaded = true
@@ -114,7 +114,7 @@ func _reset():
 	if not main.get_node("Level/level/Players").has_node(str(multiplayer.get_unique_id())):
 		return
 	set_icon()
-	buy.text = shop_text
+	buy.text = str("\n",shop_text)
 	aktuel = main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).standard_power_time[shop_id]
 	main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] = aktuel
 	aktuel_text = str(aktuel," Sec.")
