@@ -1,9 +1,9 @@
 [gd_scene load_steps=25 format=3 uid="uid://bm6tjn54utlnw"]
 
-[ext_resource type="Script" path="res://scripts/Host.gd" id="1_i02t5"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
 [ext_resource type="Texture2D" uid="uid://d1jwkv1peoon6" path="res://assets/background/Main.png" id="2_plmyg"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="3_5a5vt"]
+[ext_resource type="Script" path="res://scripts/host_connect.gd" id="4_34vsx"]
 [ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="6_f5c87"]
 [ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="7_t52r0"]
 [ext_resource type="PackedScene" uid="uid://brwrd0pnw7dqo" path="res://sceens/popup_edit.tscn" id="7_ybl2p"]
@@ -172,6 +172,7 @@ layout_mode = 2
 theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 75
 text = "Host/Join Umschalten"
+script = ExtResource("4_34vsx")
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
 layout_mode = 2
@@ -197,7 +198,6 @@ theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 95
 text = "Neues
 Spiel"
-script = ExtResource("1_i02t5")
 
 [node name="o1_port" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2

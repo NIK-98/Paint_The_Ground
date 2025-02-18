@@ -180,9 +180,9 @@ func _on_beenden_pressed():
 func _on_zurück_pressed():
 	Global.ui_sound = true
 	$CanvasLayer/Menu.visible = false
-	if $CanvasLayer2.visible:
+	if get_node("Level").get_child_count() <= 0 and $CanvasLayer2.visible:
 		Global.trigger_host_focus = true
-		$CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o1/Host.grab_focus()
+		$CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Host_Connect.grab_focus()
 		Global.trigger_host_focus = false
 	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/Scoreboard/CanvasLayer").visible:
 		Global.trigger_host_focus = true
