@@ -519,7 +519,6 @@ theme_override_constants/separation = 8
 
 [node name="FullScreen" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../VBoxContainer/VBoxContainer2/back")
 theme = SubResource("Theme_2ghrr")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
@@ -530,7 +529,6 @@ text = "Vollbild"
 
 [node name="OptionButton" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../VBoxContainer/Fps")
 theme = SubResource("Theme_ffbtd")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_vddqa")
@@ -561,8 +559,6 @@ vertical_alignment = 1
 
 [node name="Fps" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../../HBoxContainer/VBoxContainer2/OptionButton")
-focus_neighbor_bottom = NodePath("../../../VBoxContainer2/Reset")
 theme = SubResource("Theme_7f03j")
 theme_override_icons/grabber = ExtResource("6_pwbip")
 theme_override_icons/grabber_highlight = ExtResource("6_pwbip")
@@ -589,8 +585,6 @@ vertical_alignment = 1
 
 [node name="Zoom" type="HSlider" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../../HBoxContainer/VBoxContainer2/OptionButton")
-focus_neighbor_bottom = NodePath("../../../VBoxContainer2/Reset")
 theme = SubResource("Theme_7f03j")
 theme_override_icons/grabber = ExtResource("6_pwbip")
 theme_override_icons/grabber_highlight = ExtResource("6_pwbip")
@@ -607,7 +601,6 @@ theme_override_constants/separation = 10
 
 [node name="Einleitung" type="CheckBox" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../back")
 theme = SubResource("Theme_2ghrr")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_cxu7j")
@@ -618,7 +611,6 @@ text = "Einleitungs Video beim Starten"
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../back")
 theme = SubResource("Theme_mco8h")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_ojarn")
@@ -628,7 +620,6 @@ text = "Reset"
 
 [node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../Reset")
 theme = SubResource("Theme_l6jqb")
 theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_ojarn")
