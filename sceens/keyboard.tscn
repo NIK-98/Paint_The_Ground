@@ -79,13 +79,69 @@ script = ExtResource("2_l0vlm")
 custom_minimum_size = Vector2(106.815, 48.03)
 layout_mode = 2
 offset_right = 1048.0
-offset_bottom = 236.0
+offset_bottom = 315.0
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Z" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="0" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "0"
+
+[node name="1" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "1"
+
+[node name="2" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "2"
+
+[node name="3" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "3"
+
+[node name="4" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "4"
+
+[node name="5" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "5"
+
+[node name="6" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "6"
+
+[node name="7" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "7"
+
+[node name="8" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "8"
+
+[node name="9" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+text = "9"
 
 [node name="1" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -261,6 +317,16 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.415686, 0.670588, 0, 1)
 text = "OK"
 
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/0" to="." method="_on_0_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/1" to="." method="_on_1_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/2" to="." method="_on_2_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/3" to="." method="_on_3_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/4" to="." method="_on_4_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/5" to="." method="_on_5_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/6" to="." method="_on_6_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/7" to="." method="_on_7_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/8" to="." method="_on_8_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/9" to="." method="_on_9_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/A" to="." method="_on_a_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/B" to="." method="_on_b_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/C" to="." method="_on_c_pressed"]
