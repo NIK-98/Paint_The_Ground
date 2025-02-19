@@ -1,0 +1,293 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqyj7kymieubh"]
+
+[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="1_qk78u"]
+[ext_resource type="Script" path="res://scripts/keyboard.gd" id="2_l0vlm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hokai"]
+bg_color = Color(0, 0.920716, 0.81856, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.564706, 0.498039, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.431373, 0.431373, 0.431373, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_satot"]
+bg_color = Color(0, 0.695719, 0.617647, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1.05888e-06, 0.564768, 0.499879, 1)
+border_blend = true
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+shadow_color = Color(0.43134, 0.43134, 0.43134, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fk2q8"]
+bg_color = Color(0.485924, 0.553362, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.385757, 0.431661, 0.999988, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_size = 40
+
+[sub_resource type="Theme" id="Theme_8a4ba"]
+default_font = ExtResource("1_qk78u")
+default_font_size = 25
+Button/colors/font_color = Color(0.174614, 7.41214e-06, 0.745617, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 5
+Button/styles/focus = SubResource("StyleBoxFlat_hokai")
+Button/styles/hover = SubResource("StyleBoxFlat_hokai")
+Button/styles/normal = SubResource("StyleBoxFlat_satot")
+Button/styles/pressed = SubResource("StyleBoxFlat_satot")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_fk2q8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s7y5g"]
+
+[node name="keyboard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 37.0
+offset_right = -155.0
+offset_bottom = -507.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8a4ba")
+script = ExtResource("2_l0vlm")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(106.815, 48.03)
+layout_mode = 2
+offset_right = 1048.0
+offset_bottom = 236.0
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="1" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="A" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "A"
+
+[node name="B" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "B"
+
+[node name="C" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "C"
+
+[node name="D" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "D"
+
+[node name="E" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "E"
+
+[node name="F" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "F"
+
+[node name="G" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "G"
+
+[node name="H" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "H"
+
+[node name="2" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="I" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "I"
+
+[node name="J" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "J"
+
+[node name="K" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "K"
+
+[node name="L" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "L"
+
+[node name="M" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "M"
+
+[node name="N" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "N"
+
+[node name="O" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "O"
+
+[node name="P" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "P"
+
+[node name="3" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Q" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "Q"
+
+[node name="R" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "R"
+
+[node name="S" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "S"
+
+[node name="T" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "T"
+
+[node name="U" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "U"
+
+[node name="V" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "V"
+
+[node name="W" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "W"
+
+[node name="X" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "X"
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="4" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Umschalt" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.720467, 0.720468, 0.720467, 1)
+text = "↑↓"
+
+[node name="Y" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "Y"
+
+[node name="Z" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4" groups=["BUCHSTABEN"]]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "Z"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+layout_mode = 2
+theme_override_constants/separation = 179
+theme_override_styles/separator = SubResource("StyleBoxEmpty_s7y5g")
+
+[node name="Leer" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.823061, 0.716646, 0, 1)
+text = "Leertaste"
+
+[node name="Loeschen" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.0973668, 0.221923, 1)
+text = "Löschen"
+
+[node name="Ok" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.670588, 0, 1)
+text = "OK"
+
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/A" to="." method="_on_a_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/B" to="." method="_on_b_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/C" to="." method="_on_c_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/D" to="." method="_on_d_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/E" to="." method="_on_e_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/F" to="." method="_on_f_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/G" to="." method="_on_g_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/1/H" to="." method="_on_h_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/I" to="." method="_on_i_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/J" to="." method="_on_j_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/K" to="." method="_on_k_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/L" to="." method="_on_l_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/M" to="." method="_on_m_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/N" to="." method="_on_n_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/O" to="." method="_on_o_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/2/P" to="." method="_on_p_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/Q" to="." method="_on_q_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/R" to="." method="_on_r_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/S" to="." method="_on_s_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/T" to="." method="_on_t_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/U" to="." method="_on_u_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/V" to="." method="_on_v_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/W" to="." method="_on_w_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/3/X" to="." method="_on_x_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Umschalt" to="." method="_on_umschalt_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Y" to="." method="_on_y_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Z" to="." method="_on_z_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Leer" to="." method="_on_leer_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Loeschen" to="." method="_on_loeschen_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Ok" to="." method="_on_ok_pressed"]
