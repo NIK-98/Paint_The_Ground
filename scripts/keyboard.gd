@@ -8,6 +8,9 @@ extends Control
 var letter = "A"
 var big_letter = true
 
+func _ready() -> void:
+	get_window().set_ime_active(true)
+	
 
 func set_big_small_letter():
 	match letter:
@@ -148,162 +151,237 @@ func _on_umschalt_pressed() -> void:
 
 
 func _on_leer_pressed() -> void:
+	Global.temp_virtual_keyboard_text += " "
 	if big_letter:
 		_on_umschalt_pressed()
 
 
 func _on_loeschen_pressed() -> void:
+	Global.temp_virtual_keyboard_text = Global.temp_virtual_keyboard_text.erase(len(Global.temp_virtual_keyboard_text)-1)
 	if big_letter:
 		_on_umschalt_pressed()
 
 
 func _on_ok_pressed() -> void:
 	visible = false
-
+	
 
 func _on_a_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_b_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_c_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_d_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_e_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_f_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_g_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_h_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
+		
 
 func _on_i_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_j_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 func _on_k_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_l_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_m_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_n_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_o_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_p_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_q_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_r_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_s_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_t_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_u_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
+	
 
 func _on_v_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_w_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_x_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_y_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
+	
 
 func _on_z_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += letter
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_0_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "0"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_1_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "1"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_2_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += "2"
+	if big_letter:
+		_on_umschalt_pressed()
+	
 
 func _on_3_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "3"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_4_pressed() -> void:
-	pass # Replace with function body.
-
+	Global.temp_virtual_keyboard_text += "4"
+	if big_letter:
+		_on_umschalt_pressed()
+		
 
 func _on_5_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "5"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_6_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "6"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_7_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "7"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_8_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "8"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_9_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "9"
+	if big_letter:
+		_on_umschalt_pressed()
 
 
 func _on_punkt_pressed() -> void:
-	pass # Replace with function body.
+	Global.temp_virtual_keyboard_text += "."
+	if big_letter:
+		_on_umschalt_pressed()

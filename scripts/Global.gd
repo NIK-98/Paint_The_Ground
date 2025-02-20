@@ -30,3 +30,4 @@ var coin_sound = false
 
 var menu = false
 var akzept = ""
+var temp_virtual_keyboard_text = ""
