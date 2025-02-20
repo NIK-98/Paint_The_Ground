@@ -303,3 +303,7 @@ func _on_8_pressed() -> void:
 
 func _on_9_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_punkt_pressed() -> void:
+	pass # Replace with function body.

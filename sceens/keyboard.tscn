@@ -294,9 +294,14 @@ custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
 text = "Z"
 
+[node name="punkt" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
+custom_minimum_size = Vector2(125, 50)
+layout_mode = 2
+text = "."
+
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 layout_mode = 2
-theme_override_constants/separation = 179
+theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s7y5g")
 
 [node name="Leer" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
@@ -354,6 +359,7 @@ text = "OK"
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Umschalt" to="." method="_on_umschalt_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Y" to="." method="_on_y_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Z" to="." method="_on_z_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/punkt" to="." method="_on_punkt_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Leer" to="." method="_on_leer_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Loeschen" to="." method="_on_loeschen_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Ok" to="." method="_on_ok_pressed"]
