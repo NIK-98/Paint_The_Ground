@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=32 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://f6j1ndwi7ix8" path="res://sceens/shop.tscn" id="10_3akkr"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
+[ext_resource type="PackedScene" uid="uid://cqyj7kymieubh" path="res://sceens/keyboard.tscn" id="17_o8byl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v44mi"]
 bg_color = Color(0.137, 0.372, 63.243, 1)
@@ -288,6 +289,12 @@ offset_right = 137.326
 offset_bottom = 0.342896
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="keyboard" parent="CanvasLayer" instance=ExtResource("17_o8byl")]
+offset_left = 274.286
+offset_top = 491.429
+offset_right = 274.286
+offset_bottom = 491.429
 
 [node name="Menu" type="CenterContainer" parent="CanvasLayer"]
 visible = false

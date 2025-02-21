@@ -9,6 +9,7 @@ var save_shop_path = "user://saveshop.save"
 const server_browser_new: PackedScene = preload("res://sceens/server_browser.tscn")
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
 @onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop
+@onready var keyboard: Control = $CanvasLayer/keyboard
 
 const passw = "ffw49w3rwhfrw8"
 

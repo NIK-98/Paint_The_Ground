@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bm6tjn54utlnw"]
+[gd_scene load_steps=24 format=3 uid="uid://bm6tjn54utlnw"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_jid7m"]
 [ext_resource type="Texture2D" uid="uid://d1jwkv1peoon6" path="res://assets/background/Main.png" id="2_plmyg"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://scripts/host_connect.gd" id="4_34vsx"]
 [ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="6_f5c87"]
 [ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="7_t52r0"]
-[ext_resource type="PackedScene" uid="uid://brwrd0pnw7dqo" path="res://sceens/popup_edit.tscn" id="7_ybl2p"]
 [ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="8_b4sif"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3j30k"]
@@ -359,16 +358,6 @@ max_length = 5
 expand_to_text_length = true
 virtual_keyboard_enabled = false
 select_all_on_focus = true
-
-[node name="popup_edit" parent="." instance=ExtResource("7_ybl2p")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_right = 896.0
-offset_bottom = 31.0
 
 [node name="Versions_Info" type="Label" parent="."]
 layout_mode = 0

@@ -696,6 +696,7 @@ placeholder_text = "Name?"
 alignment = 1
 max_length = 8
 expand_to_text_length = true
+virtual_keyboard_enabled = false
 
 [node name="Random" type="Button" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -991,6 +992,7 @@ wait_time = 5.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_p5trk")
 
+[connection signal="gui_input" from="loby/CenterContainer/HBoxContainer/VBoxContainer/name_input" to="loby" method="_on_name_input_gui_input"]
 [connection signal="focus_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_focus_entered"]
 [connection signal="mouse_entered" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_mouse_entered"]
 [connection signal="pressed" from="loby/CenterContainer/HBoxContainer/VBoxContainer/Random" to="loby" method="_on_random_pressed"]

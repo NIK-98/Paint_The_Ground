@@ -11,7 +11,8 @@ var Max_clients = 4
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
-@onready var popup_edit = $popup_edit
+@onready var popup_edit = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard/PanelContainer/CenterContainer/VBoxContainer/popup_edit")
+@onready var keyboard = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard")
 @onready var versions_info = $Versions_Info
 var trailer = preload("res://sceens/trailer.tscn")
 
@@ -314,22 +315,26 @@ func _on_alleine_spielen_toggled(toggled_on: bool) -> void:
 func _on_input_gui_input(event: InputEvent) -> void:
 	if event.is_pressed():
 		if $Panel/CenterContainer/Net/Options/Option2/o4/port.has_focus():
-			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
-			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
+			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
+			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
 			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
+			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o4/port.get_path()
 		if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.has_focus():
-			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
-			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
+			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
+			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
 			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.get_path()
 		if $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.has_focus():
-			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
-			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
+			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
+			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
 			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
+			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.get_path()
 		if $Panel/CenterContainer/Net/Options/Option1/o1_port/port.has_focus():
-			popup_edit.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
-			popup_edit.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
+			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
+			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
 			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
-		popup_edit.selected = true
+			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.get_path()
+		keyboard.selected = true
 			
 
 
