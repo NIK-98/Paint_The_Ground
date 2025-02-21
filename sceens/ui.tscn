@@ -199,6 +199,7 @@ text = "Neues
 Spiel"
 
 [node name="o1_port" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option1"]
+custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 theme_override_constants/separation = 30
 
@@ -336,6 +337,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="o4" type="VBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2"]
+custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 theme_override_constants/separation = 30
 
@@ -354,6 +356,7 @@ layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "11111"
+alignment = 1
 max_length = 5
 expand_to_text_length = true
 virtual_keyboard_enabled = false
