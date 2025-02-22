@@ -128,22 +128,11 @@ layout_mode = 2
 [node name="popup_edit" type="LineEdit" parent="PanelContainer/CenterContainer/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../clear")
+focus_neighbor_right = NodePath("../../../../clear")
 theme = SubResource("Theme_1kt7d")
 max_length = 35
 virtual_keyboard_enabled = false
-
-[node name="clear" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/popup_edit"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.916
-anchor_right = 0.998
-anchor_bottom = 1.025
-offset_left = 0.351929
-offset_top = -1.0
-offset_right = 0.0560303
-offset_bottom = -0.0250092
-icon = ExtResource("4_wyo3i")
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -159,6 +148,7 @@ layout_mode = 2
 [node name="0" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../9")
 text = "0"
 
 [node name="1" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
@@ -204,6 +194,7 @@ text = "8"
 [node name="9" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+focus_neighbor_right = NodePath("../0")
 text = "9"
 
 [node name="1" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
@@ -212,6 +203,8 @@ layout_mode = 2
 [node name="A" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../H")
+focus_neighbor_top = NodePath("../../../../../clear")
 text = "A"
 
 [node name="B" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
@@ -247,6 +240,7 @@ text = "G"
 [node name="H" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/1" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_right = NodePath("../A")
 text = "H"
 
 [node name="2" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
@@ -255,6 +249,7 @@ layout_mode = 2
 [node name="I" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../P")
 text = "I"
 
 [node name="J" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
@@ -290,6 +285,7 @@ text = "O"
 [node name="P" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/2" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_right = NodePath("../I")
 text = "P"
 
 [node name="3" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
@@ -298,6 +294,7 @@ layout_mode = 2
 [node name="Q" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../X")
 text = "Q"
 
 [node name="R" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
@@ -333,6 +330,7 @@ text = "W"
 [node name="X" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/3" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_right = NodePath("../Q")
 text = "X"
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
@@ -344,22 +342,27 @@ layout_mode = 2
 [node name="Umschalt" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Ok")
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 theme_override_colors/font_color = Color(0.720467, 0.720468, 0.720467, 1)
 text = "↑↓"
 
 [node name="Y" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 text = "Y"
 
 [node name="Z" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4" groups=["BUCHSTABEN"]]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 text = "Z"
 
 [node name="punkt" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 custom_minimum_size = Vector2(125, 50)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 text = "."
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
@@ -370,22 +373,37 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_s7y5g")
 [node name="Leer" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 theme_override_colors/font_color = Color(0.823061, 0.716646, 0, 1)
 text = "Leertaste"
 
 [node name="Loeschen" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../popup_edit")
 theme_override_colors/font_color = Color(1, 0.0973668, 0.221923, 1)
 text = "Löschen"
 
 [node name="Ok" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_right = NodePath("../Umschalt")
+focus_neighbor_bottom = NodePath("../../../../../../clear")
 theme_override_colors/font_color = Color(0.415686, 0.670588, 0, 1)
 text = "OK"
 
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/popup_edit/clear" to="." method="_on_clear_pressed"]
+[node name="clear" type="Button" parent="."]
+clip_contents = true
+layout_mode = 2
+offset_left = 435.0
+offset_top = -193.0
+offset_right = 519.0
+offset_bottom = -109.0
+focus_neighbor_left = NodePath("../PanelContainer/CenterContainer/VBoxContainer/popup_edit")
+focus_neighbor_right = NodePath("../PanelContainer/CenterContainer/VBoxContainer/popup_edit")
+focus_neighbor_bottom = NodePath("../PanelContainer/CenterContainer/VBoxContainer/1/A")
+icon = ExtResource("4_wyo3i")
+
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/0" to="." method="_on_0_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/1" to="." method="_on_1_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2/Z/2" to="." method="_on_2_pressed"]
@@ -427,3 +445,4 @@ text = "OK"
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Leer" to="." method="_on_leer_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Loeschen" to="." method="_on_loeschen_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/CenterContainer/4/Ok" to="." method="_on_ok_pressed"]
+[connection signal="pressed" from="clear" to="." method="_on_clear_pressed"]

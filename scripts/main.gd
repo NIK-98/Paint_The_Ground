@@ -23,6 +23,8 @@ func _ready():
 	new_browser.offset_right = 1246.0
 	new_browser.offset_bottom = 883.0
 	$CanvasLayer2/Control.add_child(new_browser)
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		get_tree().set_auto_accept_quit(false)
 	shop.visible = false
 	if not OS.has_feature("dedicated_server"):
 		load_game("Persist", save_path)
@@ -53,7 +55,7 @@ func _ready():
 		
 
 func _input(event: InputEvent) -> void:
-	if not Global.menu:
+	if not Global.menu and not keyboard.selected:
 		if (Input.is_action_pressed("exit") or Input.is_action_pressed("exit_con")):
 			await get_tree().create_timer(0.1).timeout
 			Global.menu = true

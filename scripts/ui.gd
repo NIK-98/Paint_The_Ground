@@ -313,28 +313,37 @@ func _on_alleine_spielen_toggled(toggled_on: bool) -> void:
 
 
 func _on_input_gui_input(event: InputEvent) -> void:
-	if event.is_pressed():
-		if $Panel/CenterContainer/Net/Options/Option2/o4/port.has_focus():
-			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
-			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
-			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
-			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o4/port.get_path()
-		if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.has_focus():
-			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
-			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
-			popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
-			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.get_path()
-		if $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.has_focus():
-			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
-			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
-			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
-			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.get_path()
-		if $Panel/CenterContainer/Net/Options/Option1/o1_port/port.has_focus():
-			keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
-			keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
-			popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
-			keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.get_path()
-		keyboard.selected = true
+	if Global.menu or event.is_action_pressed("exit_con") or event.is_action_pressed("exit"):
+		return
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		if event.is_pressed() and Input.get_connected_joypads().size() <= 0 or event.is_action("ui_accept") and Input.get_connected_joypads().size() > 0:
+			edit_text_select()
+	elif event.is_pressed() and Input.get_connected_joypads().size() <= 1 or event.is_action("ui_accept") and Input.get_connected_joypads().size() > 1:
+		edit_text_select()
+	
+
+func edit_text_select():
+	if $Panel/CenterContainer/Net/Options/Option2/o4/port.has_focus():
+		keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o4/port
+		keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o4/port.max_length
+		popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
+		keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o4/port.get_path()
+	if $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.has_focus():
+		keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote
+		keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.max_length
+		popup_edit.text = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
+		keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.get_path()
+	if $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.has_focus():
+		keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
+		keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.max_length
+		popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
+		keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.get_path()
+	if $Panel/CenterContainer/Net/Options/Option1/o1_port/port.has_focus():
+		keyboard.selected_node = $Panel/CenterContainer/Net/Options/Option1/o1_port/port
+		keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
+		popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+		keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.get_path()
+	keyboard.selected = true
 			
 
 

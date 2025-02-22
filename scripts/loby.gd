@@ -559,10 +559,19 @@ func change_names_colors_vs(id):
 
 
 func _on_name_input_gui_input(event: InputEvent) -> void:
-	if event.is_pressed():
-		if $CenterContainer/HBoxContainer/VBoxContainer/name_input.has_focus():
-			get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected_node = $CenterContainer/HBoxContainer/VBoxContainer/name_input
-			get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.parent_fild_length = $CenterContainer/HBoxContainer/VBoxContainer/name_input.max_length
-			get_parent().main.get_node("CanvasLayer2/Control/UI").popup_edit.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text
-			get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.last_focus_path = $CenterContainer/HBoxContainer/VBoxContainer/name_input.get_path()
-		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected = true
+	if Global.menu or event.is_action_pressed("exit_con") or event.is_action_pressed("exit"):
+		return
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		if event.is_pressed() and Input.get_connected_joypads().size() <= 0 or event.is_action("ui_accept") and Input.get_connected_joypads().size() > 0:
+			edit_text_select()
+	elif event.is_pressed() and Input.get_connected_joypads().size() <= 1 or event.is_action("ui_accept") and Input.get_connected_joypads().size() > 1:
+		edit_text_select()
+		
+		
+func edit_text_select():
+	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.has_focus():
+		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected_node = $CenterContainer/HBoxContainer/VBoxContainer/name_input
+		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.parent_fild_length = $CenterContainer/HBoxContainer/VBoxContainer/name_input.max_length
+		get_parent().main.get_node("CanvasLayer2/Control/UI").popup_edit.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text
+		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.last_focus_path = $CenterContainer/HBoxContainer/VBoxContainer/name_input.get_path()
+	get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected = true
