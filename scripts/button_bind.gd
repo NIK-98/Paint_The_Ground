@@ -24,6 +24,8 @@ var save_aktion_controler_name = ""
 var save_con_code = 0
 var save_ev_con_name = ""
 
+var switch_left_stick_to_right = false
+
 
 var save_input_setting_path = "user://saveinputsettings.save"
 
@@ -52,10 +54,15 @@ var X_Box_button_names = {
 }
 
 var X_Box_axis_names = {
-	JOY_AXIS_LEFT_X: "LEFT STICK",
-	JOY_AXIS_LEFT_Y: "LEFT STICK",
-	JOY_AXIS_RIGHT_X: "RIGHT STICK",
-	JOY_AXIS_RIGHT_Y: "RIGHT STICK"
+	0: "L_STICK ↑",
+	1: "L_STICK ↓",
+	2: "L_STICK →",
+	3: "L_STICK ←",
+	
+	4: "R_STICK ↑",
+	5: "R_STICK ↓",
+	6: "R_STICK →",
+	7: "R_STICK ←"
 }
 	
 	
@@ -117,6 +124,7 @@ func _ready() -> void:
 		return
 	android.text = android_name
 	set_aktion_name()
+	stick_change()
 	set_text_key()
 	
 			
@@ -136,11 +144,12 @@ func save():
 		"save_con_code" : save_con_code,
 		"save_ev_con_name" : save_ev_con_name,
 		"save_aktion_pc_name" : save_aktion_pc_name,
-		"save_aktion_controler_name" : save_aktion_controler_name
+		"save_aktion_controler_name" : save_aktion_controler_name,
+		"switch_left_stick_to_right" : switch_left_stick_to_right
 	}
 	return save_dict
-			
-			
+					
+					
 func _process(_delta):
 	if not loaded:
 		loaded = true
@@ -150,9 +159,9 @@ func _process(_delta):
 			pc.text = save_pc_text
 		if save_con_text != "":
 			con.text = save_con_text
-		if aktion_pc_name != "":
+		if save_aktion_pc_name != "":
 			aktion_pc_name = save_aktion_pc_name
-		if aktion_controler_name != "":
+		if save_aktion_controler_name != "":
 			aktion_controler_name = save_aktion_controler_name
 		if save_pc_code != 0:
 			var ev_pc = InputEventKey.new()
@@ -176,25 +185,112 @@ func _process(_delta):
 	
 	if control.reseted:
 		_reset()
+		
+
+func stick_change():
+	if not switch_left_stick_to_right:
+		if aktion_controler_name == "pad_left":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_LEFT_X
+			event.axis_value = -1
+			con.text = "%s" % X_Box_axis_names.get(3)
+			save_con_text = "%s" % X_Box_axis_names.get(3)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_right":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_LEFT_X
+			event.axis_value = 1
+			con.text = "%s" % X_Box_axis_names.get(2)
+			save_con_text = "%s" % X_Box_axis_names.get(2)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_up":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_LEFT_Y
+			event.axis_value = -1
+			con.text = "%s" % X_Box_axis_names.get(0)
+			save_con_text = "%s" % X_Box_axis_names.get(0)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_down":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_LEFT_Y
+			event.axis_value = 1
+			con.text = "%s" % X_Box_axis_names.get(1)
+			save_con_text = "%s" % X_Box_axis_names.get(1)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+	else:
+		if aktion_controler_name == "pad_left":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_RIGHT_X
+			event.axis_value = -1
+			con.text = "%s" % X_Box_axis_names.get(7)
+			save_con_text = "%s" % X_Box_axis_names.get(7)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_right":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_RIGHT_X
+			event.axis_value = 1
+			con.text = "%s" % X_Box_axis_names.get(6)
+			save_con_text = "%s" % X_Box_axis_names.get(6)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_up":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_RIGHT_Y
+			event.axis_value = -1
+			con.text = "%s" % X_Box_axis_names.get(4)
+			save_con_text = "%s" % X_Box_axis_names.get(4)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+		elif aktion_controler_name == "pad_down":
+			var event = InputEventJoypadMotion.new()
+			event.axis = JOY_AXIS_RIGHT_Y
+			event.axis_value = 1
+			con.text = "%s" % X_Box_axis_names.get(5)
+			save_con_text = "%s" % X_Box_axis_names.get(5)
+			save_con_code = event.axis
+			save_ev_con_name = "axis"
+			rebind_con_button(event)
+	
+				
 
 func _physics_process(_delta):
 	if pc.text == "drücke eine taste":
 		pc.grab_focus()
 	if con.text == "drücke eine taste":
 		con.grab_focus()
+	if control.switsh_joy and not switch_left_stick_to_right:
+		switch_left_stick_to_right = true
+		stick_change()
+	elif not control.switsh_joy and switch_left_stick_to_right:
+		switch_left_stick_to_right = false
+		stick_change()
 		
 	
 func _reset():
 	set_process_unhandled_input(false)
+	set_process_input(false)
 	InputMap.load_from_project_settings()
 	set_aktion_name()
 	set_text_key()
-	set_process(false)
+	stick_change()
 
 
 func set_text_key():
 	var action_events = InputMap.action_get_events(aktion_pc_name)
 	var action_con_events = InputMap.action_get_events(aktion_controler_name)
+	
 	if not action_events.is_empty():
 		var action_event = action_events[0]
 		if action_event.is_class("InputEventKey"):
@@ -221,13 +317,6 @@ func set_text_key():
 			save_con_text = "%s" % X_Box_button_names.get(action_con_keycode)
 			save_con_code = action_con_keycode
 			save_ev_con_name = "button_index"
-		if action_con_event.is_class("InputEventJoypadMotion"):
-			var action_con_keycode = action_con_event.axis
-			con.text = "%s" % X_Box_axis_names.get(action_con_keycode)
-			save_con_text = "%s" % X_Box_axis_names.get(action_con_keycode)
-			save_con_code = action_con_keycode
-			save_ev_con_name = "axis"
-		save_aktion_controler_name = aktion_controler_name
 			
 			
 func _on_pc_toggled(toggled_on: bool) -> void:
@@ -236,7 +325,7 @@ func _on_pc_toggled(toggled_on: bool) -> void:
 		for i in get_tree().get_nodes_in_group("input_pc"):
 			if i.get_parent().get_parent().aktion_pc_name != aktion_pc_name:
 				i.get_parent().get_parent().pc.toggle_mode = false
-				i.get_parent().get_parent().set_process_unhandled_input(false)	
+				i.get_parent().get_parent().set_process_unhandled_input(false)
 		pc.text = "drücke eine taste"
 		set_process_unhandled_input(true)	
 	else:
@@ -255,7 +344,7 @@ func _on_con_toggled(toggled_on: bool) -> void:
 			for i in get_tree().get_nodes_in_group("input_con"):
 				if i.get_parent().get_parent().aktion_controler_name != aktion_controler_name:
 					i.get_parent().get_parent().con.toggle_mode = false
-					i.get_parent().get_parent().set_process_unhandled_input(false)	
+					i.get_parent().get_parent().set_process_unhandled_input(false)
 			con.text = "drücke eine taste"
 			set_process_unhandled_input(toggled_on)	
 		else:
@@ -273,14 +362,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		return  # Beende die Funktion, um die Eingabe zu ignorieren
 		
 	if not event is InputEventMouseButton:
-		if con.text == "drücke eine taste" and (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
+		if con.text == "drücke eine taste" and event is InputEventJoypadButton:
 			rebind_con_button(event)
 			con.button_pressed = false
 		elif pc.text == "drücke eine taste":
 			rebind_pc_button(event)
 			pc.button_pressed = false
-		
-	
+			
+				
+				
 func rebind_pc_button(event):
 	InputMap.action_erase_events(aktion_pc_name)
 	InputMap.action_add_event(aktion_pc_name, event)
@@ -305,3 +395,11 @@ func _on_focus_entered() -> void:
 
 func _on_mouse_entered() -> void:
 	Global.ui_hover_sound = true
+
+
+func _on_con_focus_exited() -> void:
+	get_viewport().set_input_as_handled()
+
+
+func _on_pc_focus_exited() -> void:
+	get_viewport().set_input_as_handled()

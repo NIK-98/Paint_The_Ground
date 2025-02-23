@@ -178,8 +178,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="focus_entered" from="HBoxContainer/pc" to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="HBoxContainer/pc" to="." method="_on_pc_focus_exited"]
 [connection signal="mouse_entered" from="HBoxContainer/pc" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="HBoxContainer/pc" to="." method="_on_pc_toggled"]
 [connection signal="focus_entered" from="HBoxContainer/con" to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="HBoxContainer/con" to="." method="_on_con_focus_exited"]
 [connection signal="mouse_entered" from="HBoxContainer/con" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="HBoxContainer/con" to="." method="_on_con_toggled"]

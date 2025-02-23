@@ -22,20 +22,6 @@ expand_margin_bottom = 30.0
 shadow_color = Color(0.0375193, 0.275378, 1, 0.6)
 shadow_size = 90
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5lotk"]
-content_margin_left = 20.0
-content_margin_top = 9.0
-content_margin_right = 14.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3odex"]
-
-[sub_resource type="Theme" id="Theme_fx6ag"]
-Label/font_sizes/font_size = 100
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8mvk"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvf05"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygoct"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4bpt"]
@@ -97,6 +83,20 @@ Button/styles/focus = SubResource("StyleBoxEmpty_ygoct")
 Button/styles/hover = SubResource("StyleBoxFlat_f4bpt")
 Button/styles/normal = SubResource("StyleBoxFlat_54k0g")
 Button/styles/pressed = SubResource("StyleBoxFlat_qpecs")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5lotk"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 14.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3odex"]
+
+[sub_resource type="Theme" id="Theme_fx6ag"]
+Label/font_sizes/font_size = 100
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8mvk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvf05"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5ck"]
 
@@ -204,7 +204,13 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 45
+theme_override_constants/separation = -5
+
+[node name="switch_move_joy" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_bfs8x")
+text = "Laufen auf Controller Sticks
+verschieben"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -380,6 +386,7 @@ theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 35
 text = "Zurück"
 
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/switch_move_joy" to="." method="_on_switch_move_joy_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
