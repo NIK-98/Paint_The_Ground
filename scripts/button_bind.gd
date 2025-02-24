@@ -24,8 +24,6 @@ var save_aktion_controler_name = ""
 var save_con_code = 0
 var save_ev_con_name = ""
 
-var switch_left_stick_to_right = false
-
 
 var save_input_setting_path = "user://saveinputsettings.save"
 
@@ -62,7 +60,10 @@ var X_Box_axis_names = {
 	4: "R_STICK ↑",
 	5: "R_STICK ↓",
 	6: "R_STICK →",
-	7: "R_STICK ←"
+	7: "R_STICK ←",
+	
+	8: "LT",
+	9: "RT"
 }
 	
 	
@@ -124,7 +125,6 @@ func _ready() -> void:
 		return
 	android.text = android_name
 	set_aktion_name()
-	stick_change()
 	set_text_key()
 	
 			
@@ -144,8 +144,7 @@ func save():
 		"save_con_code" : save_con_code,
 		"save_ev_con_name" : save_ev_con_name,
 		"save_aktion_pc_name" : save_aktion_pc_name,
-		"save_aktion_controler_name" : save_aktion_controler_name,
-		"switch_left_stick_to_right" : switch_left_stick_to_right
+		"save_aktion_controler_name" : save_aktion_controler_name
 	}
 	return save_dict
 					
@@ -185,106 +184,20 @@ func _process(_delta):
 	
 	if control.reseted:
 		_reset()
-		
 
-func stick_change():
-	if not switch_left_stick_to_right:
-		if aktion_controler_name == "pad_left":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_LEFT_X
-			event.axis_value = -1
-			con.text = "%s" % X_Box_axis_names.get(3)
-			save_con_text = "%s" % X_Box_axis_names.get(3)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_right":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_LEFT_X
-			event.axis_value = 1
-			con.text = "%s" % X_Box_axis_names.get(2)
-			save_con_text = "%s" % X_Box_axis_names.get(2)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_up":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_LEFT_Y
-			event.axis_value = -1
-			con.text = "%s" % X_Box_axis_names.get(0)
-			save_con_text = "%s" % X_Box_axis_names.get(0)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_down":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_LEFT_Y
-			event.axis_value = 1
-			con.text = "%s" % X_Box_axis_names.get(1)
-			save_con_text = "%s" % X_Box_axis_names.get(1)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-	else:
-		if aktion_controler_name == "pad_left":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_RIGHT_X
-			event.axis_value = -1
-			con.text = "%s" % X_Box_axis_names.get(7)
-			save_con_text = "%s" % X_Box_axis_names.get(7)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_right":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_RIGHT_X
-			event.axis_value = 1
-			con.text = "%s" % X_Box_axis_names.get(6)
-			save_con_text = "%s" % X_Box_axis_names.get(6)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_up":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_RIGHT_Y
-			event.axis_value = -1
-			con.text = "%s" % X_Box_axis_names.get(4)
-			save_con_text = "%s" % X_Box_axis_names.get(4)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-		elif aktion_controler_name == "pad_down":
-			var event = InputEventJoypadMotion.new()
-			event.axis = JOY_AXIS_RIGHT_Y
-			event.axis_value = 1
-			con.text = "%s" % X_Box_axis_names.get(5)
-			save_con_text = "%s" % X_Box_axis_names.get(5)
-			save_con_code = event.axis
-			save_ev_con_name = "axis"
-			rebind_con_button(event)
-	
-				
 
 func _physics_process(_delta):
 	if pc.text == "drücke eine taste":
 		pc.grab_focus()
 	if con.text == "drücke eine taste":
 		con.grab_focus()
-	if control.switsh_joy and not switch_left_stick_to_right:
-		switch_left_stick_to_right = true
-		stick_change()
-	elif not control.switsh_joy and switch_left_stick_to_right:
-		switch_left_stick_to_right = false
-		stick_change()
-		
 	
 func _reset():
 	set_process_unhandled_input(false)
-	set_process_input(false)
 	InputMap.load_from_project_settings()
 	set_aktion_name()
 	set_text_key()
-	stick_change()
+	set_process(false)
 
 
 func set_text_key():
@@ -317,6 +230,46 @@ func set_text_key():
 			save_con_text = "%s" % X_Box_button_names.get(action_con_keycode)
 			save_con_code = action_con_keycode
 			save_ev_con_name = "button_index"
+		if action_con_event.is_class("InputEventJoypadMotion"):
+			var action_con_keycode = action_con_event.axis
+			var action_con_value = action_con_event.axis_value
+			if action_con_keycode == 0 and action_con_value == 1:#r
+				con.text = "%s" % X_Box_axis_names.get(2)
+				save_con_text = "%s" % X_Box_axis_names.get(2)
+			if action_con_keycode == 0 and action_con_value == -1:#l
+				con.text = "%s" % X_Box_axis_names.get(3)
+				save_con_text = "%s" % X_Box_axis_names.get(3)
+			if action_con_keycode == 1 and action_con_value == -1:#u
+				con.text = "%s" % X_Box_axis_names.get(0)
+				save_con_text = "%s" % X_Box_axis_names.get(0)
+			if action_con_keycode == 1 and action_con_value == 1:#d
+				con.text = "%s" % X_Box_axis_names.get(1)
+				save_con_text = "%s" % X_Box_axis_names.get(1)
+				
+			if action_con_keycode == 2 and action_con_value == 1:#r
+				con.text = "%s" % X_Box_axis_names.get(6)
+				save_con_text = "%s" % X_Box_axis_names.get(6)
+			if action_con_keycode == 2 and action_con_value == -1:#l
+				con.text = "%s" % X_Box_axis_names.get(7)
+				save_con_text = "%s" % X_Box_axis_names.get(7)
+			if action_con_keycode == 3 and action_con_value == -1:#u
+				con.text = "%s" % X_Box_axis_names.get(4)
+				save_con_text = "%s" % X_Box_axis_names.get(4)
+			if action_con_keycode == 3 and action_con_value == 1:#d
+				con.text = "%s" % X_Box_axis_names.get(5)
+				save_con_text = "%s" % X_Box_axis_names.get(5)
+				
+			if action_con_keycode == 4:#trigger l
+				con.text = "%s" % X_Box_axis_names.get(8)
+				save_con_text = "%s" % X_Box_axis_names.get(8)
+			if action_con_keycode == 5:#trigger r
+				con.text = "%s" % X_Box_axis_names.get(9)
+				save_con_text = "%s" % X_Box_axis_names.get(9)
+				
+				
+			save_con_code = action_con_keycode
+			save_ev_con_name = "axis"
+		save_aktion_controler_name = aktion_controler_name
 			
 			
 func _on_pc_toggled(toggled_on: bool) -> void:
@@ -362,7 +315,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return  # Beende die Funktion, um die Eingabe zu ignorieren
 		
 	if not event is InputEventMouseButton:
-		if con.text == "drücke eine taste" and event is InputEventJoypadButton:
+		if con.text == "drücke eine taste" and (event is InputEventJoypadButton) or (event is InputEventJoypadMotion and (event.axis_value == 1.0 or event.axis_value == -1.0)):
 			rebind_con_button(event)
 			con.button_pressed = false
 		elif pc.text == "drücke eine taste":

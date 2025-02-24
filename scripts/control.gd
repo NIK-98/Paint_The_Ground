@@ -12,8 +12,6 @@ var save_input_setting_path = "user://saveinputsettings.save"
 var loaded = false
 var reseted = false
 
-var switsh_joy = false
-
 
 func _ready():
 	$CanvasLayer.visible = false
@@ -75,7 +73,3 @@ func _on_focus_entered():
 
 func _on_mouse_entered():
 	Global.ui_hover_sound = true
-
-
-func _on_switch_move_joy_pressed() -> void:
-	switsh_joy = not switsh_joy
