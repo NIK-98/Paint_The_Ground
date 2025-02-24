@@ -555,9 +555,10 @@ func _on_timerende_timeout():
 	stoped_game.rpc()
 	get_node("Scoreboard").update_scoreboard()
 	$Scoreboard.set_visiblety.rpc("CanvasLayer", true)
-	Global.trigger_host_focus = true
-	$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
-	Global.trigger_host_focus = false
+	if not main.get_node("CanvasLayer/Menu").visible:
+		Global.trigger_host_focus = true
+		$Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart.grab_focus()
+		Global.trigger_host_focus = false
 	
 
 @rpc("any_peer","call_local")
