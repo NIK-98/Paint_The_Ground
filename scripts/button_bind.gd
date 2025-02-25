@@ -318,9 +318,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if con.text == "drücke eine taste" and (event is InputEventJoypadButton) or (event is InputEventJoypadMotion and (event.axis_value == 1.0 or event.axis_value == -1.0)):
 			rebind_con_button(event)
 			con.button_pressed = false
-		elif pc.text == "drücke eine taste":
+		elif pc.text == "drücke eine taste" and event is not InputEventJoypadButton and event is not InputEventJoypadMotion:
 			rebind_pc_button(event)
 			pc.button_pressed = false
+		else:
+			return
 			
 				
 				
