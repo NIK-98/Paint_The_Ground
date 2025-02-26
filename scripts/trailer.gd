@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var video_stream_player: VideoStreamPlayer = $VideoStreamPlayer
 @onready var button: Button = $Button
@@ -7,6 +7,7 @@ extends Node2D
 func _ready() -> void:
 	name = "trailer"
 	button.grab_focus()
+	video_stream_player.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

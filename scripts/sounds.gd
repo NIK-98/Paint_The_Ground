@@ -1,6 +1,5 @@
 extends Control
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
 	sounds(Global.hit_sound, Global.powerup_sound, Global.bombe_sound, Global.ui_sound, Global.ui_hover_sound, Global.coin_sound)
@@ -16,6 +15,8 @@ func _physics_process(_delta):
 	
 
 func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool, ui_sound: bool, ui_hover_sound: bool, coin_sound: bool):
+	if get_parent().is_node_ready():
+		return
 	if hit_sound:
 		if $hit_sound.playing:
 			$hit_sound.stop()

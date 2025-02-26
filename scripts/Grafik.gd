@@ -259,7 +259,8 @@ func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
 
 
 func _on_einleitung_toggled(toggled_on: bool) -> void:
-	Global.ui_sound = true
+	if visible:
+		Global.ui_sound = true
 	reset = false
 	if toggled_on:
 		einleitugs_display_mode = true
