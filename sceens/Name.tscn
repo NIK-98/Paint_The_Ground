@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cj1swxdws84yf"]
 
 [ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="1_7sd7y"]
-[ext_resource type="Script" path="res://scripts/name.gd" id="2_kw8go"]
+[ext_resource type="Script" uid="uid://c6ddle4t2e1sw" path="res://scripts/name.gd" id="2_kw8go"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d4c1o"]
 properties/0/path = NodePath(".:text")

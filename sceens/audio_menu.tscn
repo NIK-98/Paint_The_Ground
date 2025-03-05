@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://dfqq0gn33scbo"]
 
-[ext_resource type="Script" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
+[ext_resource type="Script" uid="uid://vs2ij1x6rpk4" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="2_2548e"]
 [ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="2_bnt2n"]
 

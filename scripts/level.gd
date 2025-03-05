@@ -34,9 +34,9 @@ var loaded = false
 var last_runde = false
 var start_gedrückt = 0
 
-@export var time = 0.0
-@export var bomb_time = 0.0
-@export var start_time = 0.0
+@export var time = 0
+@export var bomb_time = 0
+@export var start_time = 0
 
 @export var playerlist = []
 var list_player_id_and_pos = []
@@ -190,9 +190,9 @@ func _physics_process(_delta):
 	
 func game_update():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		time = $Timer.time_left
-		bomb_time = $Timerbomb.time_left
-		start_time = $Timerrestart.time_left
+		time = int($Timer.time_left)
+		bomb_time = int($Timerbomb.time_left)
+		start_time = int($Timerrestart.time_left)
 		if not $Timer.is_stopped() and time <= 20 and not last_runde:
 			last_runde = true
 			$Timerbomb.wait_time = 3

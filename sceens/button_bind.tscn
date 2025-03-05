@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://c64bvuv6igryb"]
 
-[ext_resource type="Script" path="res://scripts/button_bind.gd" id="1_s8ryp"]
+[ext_resource type="Script" uid="uid://bppiitst1wmb3" path="res://scripts/button_bind.gd" id="1_s8ryp"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="2_mqv6f"]
 
 [sub_resource type="Theme" id="Theme_0ryx2"]

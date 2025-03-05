@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bi32ikn3hovn8"]
 
-[ext_resource type="Script" path="res://scripts/server_browser.gd" id="1_7wumd"]
+[ext_resource type="Script" uid="uid://d3t577wb83opm" path="res://scripts/server_browser.gd" id="1_7wumd"]
 [ext_resource type="PackedScene" uid="uid://d2toul7of8yi6" path="res://sceens/servers_lisener.tscn" id="2_yfoxl"]
 
 [node name="Server_Browser" type="VBoxContainer" groups=["SB"]]

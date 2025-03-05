@@ -24,14 +24,14 @@ func save():
 	
 
 func _ready() -> void:
-	label.text = str(coins)
+	label.text = str(int(coins))
 	
 
 func _process(_delta: float) -> void:
 	if not loaded:
 		loaded = true
 		name = "coin_display"
-		label.text = str(coins)
+		label.text = str(int(coins))
 		set_process(false)
 		
 
@@ -60,11 +60,11 @@ func set_money(value: int):# ab value 100 ist set_money >= die eingegebene value
 		coins = floor(coins)
 	if coins < max_coins:
 		coins = coins
-		label.text = str(coins)
+		label.text = str(int(coins))
 	else:
 		coins = max_coins
-		label.text = str(coins)
-	return coins
+		label.text = str(int(coins))
+	return int(coins)
 		
 
 func remove_money(value: int):
@@ -72,7 +72,7 @@ func remove_money(value: int):
 	if coins >= value:
 		coins -= value
 		removed = true
-	label.text = str(coins)
+	label.text = str(int(coins))
 	return removed
 		
 
@@ -82,7 +82,7 @@ func saveplayer(reset: bool):
 		if FileAccess.file_exists(playersave_path):
 			DirAccess.remove_absolute(playersave_path)
 		coins = 0
-		label.text = str(coins)
+		label.text = str(int(coins))
 		return
 	if not FileAccess.file_exists(playersave_path):
 		main.save_game("playersave", playersave_path)

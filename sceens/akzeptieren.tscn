@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cm0bg75ggl3jp"]
 
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="1_v7suu"]
-[ext_resource type="Script" path="res://scripts/akzeptieren.gd" id="1_ycop2"]
+[ext_resource type="Script" uid="uid://cuj3yrm85reda" path="res://scripts/akzeptieren.gd" id="1_ycop2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v44mi"]
 bg_color = Color(0.137, 0.372, 63.243, 1)

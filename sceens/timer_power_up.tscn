@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dm7ebs1e5eyht"]
 
-[ext_resource type="Script" path="res://scripts/timer_power_up.gd" id="1_vt44m"]
+[ext_resource type="Script" uid="uid://vpqqcuxfpwgj" path="res://scripts/timer_power_up.gd" id="1_vt44m"]
 
 [node name="TimerPowerUp" type="Timer"]
 script = ExtResource("1_vt44m")

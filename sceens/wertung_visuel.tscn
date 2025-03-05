@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://chp0vp0g2i1r8"]
 
-[ext_resource type="Script" path="res://scripts/wertung_visuel.gd" id="1_nglny"]
+[ext_resource type="Script" uid="uid://cjeft73urq00o" path="res://scripts/wertung_visuel.gd" id="1_nglny"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vx7r"]
 properties/0/path = NodePath(".:color")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqayoki230ek2"]
 
-[ext_resource type="Script" path="res://scripts/score_label.gd" id="1_b3urs"]
+[ext_resource type="Script" uid="uid://cpc6voyytiq2h" path="res://scripts/score_label.gd" id="1_b3urs"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_umceb"]
 properties/0/path = NodePath(".:theme_override_colors/font_color")

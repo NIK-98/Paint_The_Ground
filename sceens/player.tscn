@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bct2wlof30lbq"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_d8fpb"]
+[ext_resource type="Script" uid="uid://cu4bc5mtmvh3e" path="res://scripts/player.gd" id="1_d8fpb"]
 [ext_resource type="PackedScene" uid="uid://dm7ebs1e5eyht" path="res://sceens/timer_power_up.tscn" id="2_5wijq"]
 [ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="3_pajrd"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=3 uid="uid://df63gdj4k26fk"]
 
-[ext_resource type="Script" path="res://scripts/Grafik.gd" id="1_eivg8"]
+[ext_resource type="Script" uid="uid://bhecbnmcjo5ee" path="res://scripts/Grafik.gd" id="1_eivg8"]
 [ext_resource type="Texture2D" uid="uid://dmabhy628rlbb" path="res://assets/grafik/check.png" id="3_e5k8t"]
 [ext_resource type="Texture2D" uid="uid://6p8ew115ubrd" path="res://assets/grafik/uncheck.png" id="4_5a07j"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="4_7bxsw"]
@@ -575,6 +575,7 @@ layout_mode = 2
 theme_override_constants/separation = -2
 
 [node name="ZOOM_MAX" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = SubResource("Theme_f4ars")
 theme_override_font_sizes/font_size = 36

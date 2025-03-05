@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://caksg6votg50o"]
 
-[ext_resource type="Script" path="res://scripts/coin.gd" id="1_0n783"]
+[ext_resource type="Script" uid="uid://b5rtao8icvhg1" path="res://scripts/coin.gd" id="1_0n783"]
 [ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="1_5gwc3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ubfm4"]
@@ -67,9 +67,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0gurx"]
 _data = {
-"RESET": SubResource("Animation_lh0de"),
-"clear": SubResource("Animation_arbip"),
-"pickup": SubResource("Animation_70xgv")
+&"RESET": SubResource("Animation_lh0de"),
+&"clear": SubResource("Animation_arbip"),
+&"pickup": SubResource("Animation_70xgv")
 }
 
 [node name="Coin" type="CharacterBody2D" groups=["coin"]]
@@ -92,7 +92,7 @@ replication_config = SubResource("SceneReplicationConfig_oh601")
 
 [node name="pickup" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_0gurx")
+&"": SubResource("AnimationLibrary_0gurx")
 }
 speed_scale = 6.0
 

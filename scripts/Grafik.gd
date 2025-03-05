@@ -237,7 +237,7 @@ func _on_fps_value_changed(value):
 	Global.ui_sound = true
 	if value < framelimiter:
 		Engine.max_fps = value
-		fps_max.text = str(value, " Max FPS")
+		fps_max.text = str(int(value), " Max FPS")
 		fps.value = value
 		max_frams = value
 	else:

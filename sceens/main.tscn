@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=3 uid="uid://cny2f4chevd1r"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_jo5ss"]
+[ext_resource type="Script" uid="uid://cfh8aw7r685qm" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
-[ext_resource type="Script" path="res://scripts/fps.gd" id="3_mf30v"]
+[ext_resource type="Script" uid="uid://ixcbe178phyt" path="res://scripts/fps.gd" id="3_mf30v"]
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="4_nuuj8"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
@@ -226,7 +226,7 @@ script = ExtResource("1_jo5ss")
 [node name="Level" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://sceens/level.tscn")
+_spawnable_scenes = PackedStringArray("uid://cdp31movrikk0")
 spawn_path = NodePath("../Level")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -357,10 +357,10 @@ layout_mode = 2
 theme = SubResource("Theme_w0b7n")
 theme_override_colors/font_hover_pressed_color = Color(1, 0.890196, 0.282353, 1)
 theme_override_colors/font_hover_color = Color(1, 0.890196, 0.282353, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.890196, 0.282353, 1)
-theme_override_colors/font_focus_color = Color(1, 0.889502, 0.283117, 1)
-theme_override_colors/font_color = Color(0.729721, 0.63378, 5.77569e-07, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.729721, 0.63378, 5.77569e-07, 1)
+theme_override_colors/font_focus_color = Color(1, 0.889502, 0.283117, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.890196, 0.282353, 1)
 text = "Shop
 "
 

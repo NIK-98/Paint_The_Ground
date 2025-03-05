@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cnccknl6kw5j3"]
 
 [ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="1_2t7wr"]
-[ext_resource type="Script" path="res://scripts/sounds.gd" id="1_okjby"]
+[ext_resource type="Script" uid="uid://1qwcl5hyqtl8" path="res://scripts/sounds.gd" id="1_okjby"]
 [ext_resource type="AudioStream" uid="uid://bt1ompa8o70qe" path="res://assets/sounds/effects/hit.ogg" id="3_vcsxs"]
 [ext_resource type="AudioStream" uid="uid://b24q2ut8ket3l" path="res://assets/sounds/effects/powerup.ogg" id="4_pmq6h"]
 [ext_resource type="AudioStream" uid="uid://b1y2r7s2c31ju" path="res://assets/sounds/effects/bombe.ogg" id="5_iahqh"]

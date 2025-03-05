@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqxkyvgtpdc7s"]
 
 [ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="1_ui7fm"]
-[ext_resource type="Script" path="res://scripts/shop_pruduct.gd" id="2_injbc"]
+[ext_resource type="Script" uid="uid://db382hbnp88l0" path="res://scripts/shop_pruduct.gd" id="2_injbc"]
 [ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="3_alaki"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xgtx"]
@@ -34,10 +34,10 @@ offset_right = 384.0
 offset_bottom = 64.0
 theme_override_colors/font_hover_pressed_color = Color(1, 0.882353, 0.313726, 1)
 theme_override_colors/font_hover_color = Color(1, 0.881883, 0.311788, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.882353, 0.313726, 1)
-theme_override_colors/font_focus_color = Color(1, 0.882353, 0.313726, 1)
-theme_override_colors/font_color = Color(0.866667, 0.690196, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.866667, 0.690196, 0, 1)
+theme_override_colors/font_focus_color = Color(1, 0.882353, 0.313726, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.882353, 0.313726, 1)
 theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("1_ui7fm")
 theme_override_font_sizes/font_size = 35

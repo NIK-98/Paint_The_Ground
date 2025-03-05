@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ctvl7k2hphpvs"]
 
 [ext_resource type="Texture2D" uid="uid://cofso2pqd70dj" path="res://assets/Boomb/boomb.png" id="1_3bc5a"]
-[ext_resource type="Script" path="res://scripts/bombe.gd" id="1_d6tas"]
+[ext_resource type="Script" uid="uid://dfbbg2kmpoo1b" path="res://scripts/bombe.gd" id="1_d6tas"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lyve2"]
 radius = 24.7386
@@ -103,9 +103,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ltbqm"]
 _data = {
-"RESET": SubResource("Animation_i7s23"),
-"bum": SubResource("Animation_5335f"),
-"clear": SubResource("Animation_syhg4")
+&"RESET": SubResource("Animation_i7s23"),
+&"bum": SubResource("Animation_5335f"),
+&"clear": SubResource("Animation_syhg4")
 }
 
 [node name="Bombe" type="CharacterBody2D" groups=["boom"]]
@@ -129,7 +129,7 @@ replication_config = SubResource("SceneReplicationConfig_rgxeq")
 
 [node name="bum" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ltbqm")
+&"": SubResource("AnimationLibrary_ltbqm")
 }
 speed_scale = 5.0
 

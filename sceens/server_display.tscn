@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d2gfhlsojwpgw"]
 
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="1_s0u26"]
-[ext_resource type="Script" path="res://scripts/server_display.gd" id="2_gdsdh"]
+[ext_resource type="Script" uid="uid://d0ox47sijgaev" path="res://scripts/server_display.gd" id="2_gdsdh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1n6yb"]
 texture_margin_left = 25.0

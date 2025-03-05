@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d4gotilqrea0s"]
 
-[ext_resource type="Script" path="res://scripts/powerupicon.gd" id="1_lcyim"]
+[ext_resource type="Script" uid="uid://cy71bc1opqkgy" path="res://scripts/powerupicon.gd" id="1_lcyim"]
 [ext_resource type="Texture2D" uid="uid://uemi3wmyrvo7" path="res://assets/powerups/empty.png" id="2_4pgxy"]
 
 [sub_resource type="Animation" id="Animation_w6viv"]
@@ -68,10 +68,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlnwl"]
 _data = {
-"RESET": SubResource("Animation_w6viv"),
-"rest": SubResource("Animation_i1n7u"),
-"rest2": SubResource("Animation_duwvl"),
-"rest3": SubResource("Animation_5wsko")
+&"RESET": SubResource("Animation_w6viv"),
+&"rest": SubResource("Animation_i1n7u"),
+&"rest2": SubResource("Animation_duwvl"),
+&"rest3": SubResource("Animation_5wsko")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ruyqv"]
@@ -96,7 +96,7 @@ stretch_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
 libraries = {
-"": SubResource("AnimationLibrary_qlnwl")
+&"": SubResource("AnimationLibrary_qlnwl")
 }
 
 [node name="TextureRect2" type="TextureRect" parent="."]
@@ -106,7 +106,7 @@ stretch_mode = 2
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="TextureRect2"]
 libraries = {
-"": SubResource("AnimationLibrary_qlnwl")
+&"": SubResource("AnimationLibrary_qlnwl")
 }
 
 [node name="TextureRect3" type="TextureRect" parent="."]
@@ -116,7 +116,7 @@ stretch_mode = 2
 
 [node name="AnimationPlayer3" type="AnimationPlayer" parent="TextureRect3"]
 libraries = {
-"": SubResource("AnimationLibrary_qlnwl")
+&"": SubResource("AnimationLibrary_qlnwl")
 }
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

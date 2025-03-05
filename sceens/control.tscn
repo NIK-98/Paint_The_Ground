@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://bfmrdi2wbhcxg"]
 
-[ext_resource type="Script" path="res://scripts/control.gd" id="1_7db0h"]
+[ext_resource type="Script" uid="uid://bu4nmcexh88ng" path="res://scripts/control.gd" id="1_7db0h"]
 [ext_resource type="PackedScene" uid="uid://c64bvuv6igryb" path="res://sceens/button_bind.tscn" id="2_wi46l"]
 [ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="3_mxtyy"]
 
