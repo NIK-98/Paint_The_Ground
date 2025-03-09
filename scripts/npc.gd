@@ -23,6 +23,9 @@ var SPEED = first_speed
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
+const cooldown_time_tp = 2
+var tp_cool_down = cooldown_time_tp
+var tp_feld_aufsuchen = false
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -57,16 +60,17 @@ func _physics_process(delta):
 			position = Vector2(randi_range(npc_spawn_grenze,map_enden.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,map_enden.y-npc_spawn_grenze-$Color.size.y))
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			time_last_change += delta
-			if time_last_change >= direction_change_interval:
-				time_last_change = 0
-				if curent_tarrget == null:
-					set_random_direction()
-			if time_last_change == 0 and curent_tarrget:
-				random = 2
+			if not tp_feld_aufsuchen:
+				time_last_change += delta
+				if time_last_change >= direction_change_interval:
+					time_last_change = 0
+					if curent_tarrget == null:
+						set_random_direction()
+				if time_last_change == 0 and curent_tarrget:
+					random = 2
 			
-			if is_on_wall() or is_on_ceiling() or is_on_floor():
-				time_last_change = direction_change_interval
+				if is_on_wall() or is_on_ceiling() or is_on_floor():
+					time_last_change = direction_change_interval
 			velocity = move_npc()*SPEED		
 			move_and_slide()
 			
@@ -88,12 +92,26 @@ func _physics_process(delta):
 				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
 		
 
-func _process(_delta):
+func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
+			if map.tp_mode:
+				tp_cool_down -= delta
+				delta = 0
+				if round(tp_cool_down) <= 0:
+					if not tp_feld_aufsuchen:
+						curent_tarrget = null
+					tp_feld_aufsuchen = true
+				if tp_feld_aufsuchen:
+					if map.tp_to(position) != null:
+						tp_feld_aufsuchen = false
+						tp_cool_down = cooldown_time_tp
+						position = map.tp_to(position)
+					curent_tarrget = null
+					curent_direction *= -1
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -156,8 +174,6 @@ func paint():
 				var cell_id = BetterTerrain.get_cell(map, new_pos)
 				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
 				if cell_id != -1 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
-					if cell_id == color_cell:
-						continue
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
 					paint_array.append(new_pos)
@@ -191,6 +207,10 @@ func score_counter():
 func move_npc():
 	var dir: Vector2
 	if curent_tarrget == null:
+		if tp_feld_aufsuchen:
+			curent_direction = Vector2(-1,-1).normalized()
+			dir = curent_direction
+			return dir
 		random = 1
 		
 	if random == 1:

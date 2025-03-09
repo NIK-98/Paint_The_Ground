@@ -23,6 +23,8 @@ var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
 var zoom_old = 1
+const cooldown_time_tp = 2
+var tp_cool_down = cooldown_time_tp
 @export var paint_radius = Global.painting_rad
 
 @export var magnet = true
@@ -105,12 +107,17 @@ func magnet_trigger(id: int):
 			c.magnet_id = id
 	
 	
-func _process(_delta):
+func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
+			tp_cool_down -= delta
+			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
+				tp_cool_down = cooldown_time_tp
+				delta = 0
+				position = map.tp_to(position)
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
