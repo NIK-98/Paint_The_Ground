@@ -256,7 +256,7 @@ text = "VS-Mode"
 [node name="portal" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
 layout_mode = 2
 theme = SubResource("Theme_rsc3b")
-text = "Portal-Mode"
+text = "TP-Mode"
 
 [node name="Coins_Loeschen" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
 layout_mode = 2

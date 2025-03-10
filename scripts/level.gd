@@ -152,6 +152,10 @@ func set_npc_settings():
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
 		if $loby.vs_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
+		if $loby.tp_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP-Mode!"
+		if $loby.vs_mode and $loby.tp_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP/VS-Mode!"
 	else:
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = true
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = true
@@ -163,6 +167,10 @@ func set_npc_settings():
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
 		if $loby.vs_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "VS-Mode!"
+		if $loby.tp_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP-Mode!"
+		if $loby.vs_mode and $loby.tp_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP/VS-Mode!"
 		
 		
 

@@ -112,6 +112,10 @@ func no_players():
 	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
 	if vs_mode:
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
+	if tp_mode:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP-Mode!"
+	if vs_mode and tp_mode:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP/VS-Mode!"
 	
 	if not $CenterContainer/HBoxContainer/VBoxContainer/start.visible:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = true
