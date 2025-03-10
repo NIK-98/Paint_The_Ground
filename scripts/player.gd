@@ -69,6 +69,8 @@ func _physics_process(_delta):
 		for i in map.array_floor:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
+		if map.tp_mode and feld == 0:
+			feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
@@ -118,15 +120,13 @@ func _process(delta):
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
-				if map.tp_mode:
-					feld = map.get_tp_feld(position)[1]
 			score_counter()
 			tp_cool_down -= delta
 			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
 				tp_cool_down = cooldown_time_tp
 				delta = 0
-				feld = map.get_tp_feld(position)[1]
 				position = map.tp_to(position)[0]
+				feld = map.get_tp_feld(position)[1]
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)

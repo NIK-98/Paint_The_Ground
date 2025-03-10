@@ -2,7 +2,7 @@ extends TileMapLayer
 
 var bereit_count = 0
 var portal_path = []
-var tp_mode = false
+var tp_mode = true
 
 @onready var wall = get_node("../wall")
 
