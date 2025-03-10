@@ -28,6 +28,7 @@ var feld = 0
 var tp_cool_down = cooldown_time_tp
 var tp_feld_aufsuchen = false
 var pos_array = []
+var	set_pos = false
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -54,7 +55,11 @@ func _physics_process(delta):
 		loaded = true
 		set_random_direction()
 		score_counter()
-	
+	if not set_pos and not map.array_floor.is_empty():
+		set_pos = true
+		for i in map.array_floor:
+			pos_array.append(map.map_to_local(i))
+		position = pos_array.pick_random()
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
@@ -96,10 +101,6 @@ func _physics_process(delta):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if not map.array_floor.is_empty() and pos_array.is_empty():
-				for i in map.array_floor:
-					pos_array.append(map.map_to_local(i))
-				position = pos_array.pick_random()
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 				feld = map.get_tp_feld(position)[1]
@@ -274,6 +275,8 @@ func reset_player_vars():
 	paint_radius = Global.painting_rad
 	loaded = false
 	Gametriggerstart = false
+	pos_array = []
+	set_pos = false
 	
 
 func _on_area_2d_area_entered(area: Area2D):

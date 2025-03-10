@@ -89,7 +89,6 @@ func tp_floor(filds:= Vector2i(2,2)):
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
 
-
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
 	var feld_pos: int
