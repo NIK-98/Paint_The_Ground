@@ -462,18 +462,12 @@ properties/27/replication_mode = 1
 properties/28/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map:text")
 properties/28/spawn = true
 properties/28/replication_mode = 1
-properties/29/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map:visible")
+properties/29/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:text")
 properties/29/spawn = true
 properties/29/replication_mode = 1
-properties/30/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:text")
+properties/30/path = NodePath("loby:tp_mode")
 properties/30/spawn = true
 properties/30/replication_mode = 1
-properties/31/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:visible")
-properties/31/spawn = true
-properties/31/replication_mode = 1
-properties/32/path = NodePath("loby:tp_mode")
-properties/32/spawn = true
-properties/32/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
