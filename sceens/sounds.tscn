@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnccknl6kw5j3"]
+[gd_scene load_steps=9 format=3 uid="uid://cnccknl6kw5j3"]
 
 [ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="1_2t7wr"]
 [ext_resource type="Script" uid="uid://1qwcl5hyqtl8" path="res://scripts/sounds.gd" id="1_okjby"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b1y2r7s2c31ju" path="res://assets/sounds/effects/bombe.ogg" id="5_iahqh"]
 [ext_resource type="AudioStream" uid="uid://cvw8osh4j0qi6" path="res://assets/sounds/UI/UI.ogg" id="6_imvmc"]
 [ext_resource type="AudioStream" uid="uid://7sbghgnpl62a" path="res://assets/sounds/effects/coin.ogg" id="7_35lw8"]
+[ext_resource type="AudioStream" uid="uid://ct4b2e0ujyq5n" path="res://assets/sounds/effects/tp.ogg" id="8_nlsoh"]
 
 [node name="Sounds" type="Control"]
 process_mode = 3
@@ -50,4 +51,8 @@ bus = &"UI"
 stream = ExtResource("7_35lw8")
 volume_db = -10.0
 pitch_scale = 1.2
+bus = &"Effects"
+
+[node name="Tp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_nlsoh")
 bus = &"Effects"

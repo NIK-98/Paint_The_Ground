@@ -125,6 +125,7 @@ func _process(delta):
 			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
 				tp_cool_down = cooldown_time_tp
 				delta = 0
+				Global.tp_sound = true
 				position = map.tp_to(position)[0]
 				feld = map.get_tp_feld(position)[1]
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
