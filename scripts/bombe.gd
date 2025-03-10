@@ -32,60 +32,30 @@ func _process(_delta):
 				aktivate_bombe.rpc(celle,explode_pos,feld)
 				queue_free()
 				return
-			
-
-func _activate_bomb(cell: int, pos: Vector2, feld_id: int):
-	var tile_position: Vector2i = map.local_to_map(pos)
-	var block_cells = level.block_cells
-	for x in range(-bomb_radius, 0):
-		offset_x = x + tile_position.x
-		for y in range(-bomb_radius, bomb_radius):
-			offset_y = y + tile_position.y
-			distance_sqr = x*x+y*y
-			if distance_sqr < bomb_radius_sqr:
-				new_pos = Vector2i(offset_x, offset_y)
-				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
-				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
-				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
-					if cell_source_id == -1 and wall_cell_source_id == -1:
-						continue
-					if not map.is_portal_id_ok(new_pos, feld_id):
-						continue
-					bomb_array.push_back(new_pos)
-	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
-	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
-	explode_pos = null
-	
-	
-func _activate_bomb1(cell: int, pos: Vector2, feld_id: int):
-	var tile_position: Vector2i = map.local_to_map(pos)
-	var block_cells = level.block_cells
-	for x in range(0, bomb_radius):
-		offset_x = x + tile_position.x
-		for y in range(-bomb_radius, bomb_radius):
-			offset_y = y + tile_position.y
-			distance_sqr = x*x+y*y
-			if distance_sqr < bomb_radius_sqr:
-				new_pos = Vector2i(offset_x, offset_y)
-				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
-				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
-				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
-					if cell_source_id == -1 and wall_cell_source_id == -1:
-						continue
-					if not map.is_portal_id_ok(new_pos, feld_id):
-						continue
-					bomb_array.push_back(new_pos)
-	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
-	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
-	explode_pos = null
-	
+		
 
 @rpc("any_peer", "call_local")
 func aktivate_bombe(cell: int, pos: Vector2, feld_id: int):
-	_activate_bomb(cell,pos,feld_id)
-	var thread = Thread.new()
-	thread.start(_activate_bomb1.bind(cell, pos, feld_id))
-	thread.wait_to_finish()
+	var tile_position: Vector2i = map.local_to_map(pos)
+	var block_cells = level.block_cells
+	for x in range(-bomb_radius, bomb_radius):
+		offset_x = x + tile_position.x
+		for y in range(-bomb_radius, bomb_radius):
+			offset_y = y + tile_position.y
+			distance_sqr = x*x+y*y
+			if distance_sqr < bomb_radius_sqr:
+				new_pos = Vector2i(offset_x, offset_y)
+				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
+				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
+				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
+					if cell_source_id == -1 and wall_cell_source_id == -1:
+						continue
+					if not map.is_portal_id_ok(new_pos, feld_id):
+						continue
+					bomb_array.push_back(new_pos)
+	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
+	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
+	explode_pos = null
 		
 		
 func _on_area_2d_area_entered(area):

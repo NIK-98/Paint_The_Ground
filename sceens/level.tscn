@@ -471,6 +471,9 @@ properties/30/replication_mode = 1
 properties/31/path = NodePath("loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime:visible")
 properties/31/spawn = true
 properties/31/replication_mode = 1
+properties/32/path = NodePath("loby:tp_mode")
+properties/32/spawn = true
+properties/32/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")

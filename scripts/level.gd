@@ -114,6 +114,10 @@ func set_vs_mode(mode):
 	$loby.vs_mode = mode
 	
 
+func set_tp_mode(mode):
+	$loby.tp_mode = mode
+	
+
 func set_solo_mode(mode):
 	$loby.solo_mode = mode
 	

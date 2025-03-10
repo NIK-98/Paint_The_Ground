@@ -60,7 +60,7 @@ func _physics_process(delta):
 		for i in map.array_floor:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
-		if map.tp_mode and feld == 0:
+		if level.get_node("loby").tp_mode and feld == 0:
 			feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
@@ -106,7 +106,7 @@ func _process(delta):
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
-			if map.tp_mode:
+			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				delta = 0
 				if round(tp_cool_down) <= 0:
@@ -278,6 +278,7 @@ func reset_player_vars():
 	Gametriggerstart = false
 	pos_array = []
 	set_pos = false
+	feld = 0
 	
 
 func _on_area_2d_area_entered(area: Area2D):

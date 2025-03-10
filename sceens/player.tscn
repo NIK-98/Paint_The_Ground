@@ -47,6 +47,9 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath(".:process_physics_priority")
 properties/11/spawn = true
 properties/11/replication_mode = 1
+properties/12/path = NodePath(".:feld")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2

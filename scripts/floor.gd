@@ -2,7 +2,6 @@ extends TileMapLayer
 
 var bereit_count = 0
 var portal_path = []
-var tp_mode = true
 
 @onready var wall = get_node("../wall")
 
@@ -13,7 +12,7 @@ var max_portal_ids: int
 
 @rpc("any_peer","call_local")
 func reset_floor():
-	if tp_mode:
+	if get_node("../loby").tp_mode:
 		tp_floor()
 	else:
 		normal_floor()
@@ -112,8 +111,9 @@ func tp_to(pos: Vector2):
 		if ziel_portal[1] == portal[1]:
 			return [map_to_local(portal[0]),feld_pos]
 
+
 func is_portal_id_ok(map_pos: Vector2i,feld: int):
-	if not tp_mode:
+	if not get_parent().get_node("loby").tp_mode:
 		return true
 	if [map_pos,feld] in array_floor_with_portal_id:
 		return true

@@ -253,6 +253,11 @@ layout_mode = 2
 theme = SubResource("Theme_rsc3b")
 text = "VS-Mode"
 
+[node name="portal" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
+layout_mode = 2
+theme = SubResource("Theme_rsc3b")
+text = "Portal-Mode"
+
 [node name="Coins_Loeschen" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
 layout_mode = 2
 theme = SubResource("Theme_rsc3b")
@@ -385,6 +390,9 @@ theme_override_font_sizes/font_size = 30
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/vs" to="." method="_on_vs_toggled"]
+[connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/portal" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/portal" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/portal" to="." method="_on_portal_toggled"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen" to="." method="_on_coins_loeschen_toggled"]

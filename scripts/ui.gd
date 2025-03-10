@@ -7,6 +7,7 @@ var Max_clients = 4
 @onready var connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 @onready var ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
+@onready var portal = $Panel/CenterContainer/Net/Options/Option1/o2/portal
 @onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
@@ -27,6 +28,7 @@ var auto_conect_ips = []
 var server_port_to_connect_to = ""
 var game_started = false
 var vs_mode = false
+var tp_mode = false
 var coin_mode = false
 var shop_mode = false
 var solo_mode = false
@@ -45,6 +47,7 @@ func save():
 		"port" : port,
 		"Max_clients" : Max_clients,
 		"vs_mode" : vs_mode,
+		"tp_mode" : tp_mode,
 		"coin_mode" : coin_mode,
 		"shop_mode" : shop_mode,
 		"solo_mode" : solo_mode,
@@ -75,6 +78,10 @@ func _process(_delta):
 			vs.set_pressed(true)
 		else:
 			vs.set_pressed(false)
+		if tp_mode:
+			portal.set_pressed(true)
+		else:
+			portal.set_pressed(false)
 		if coin_mode:
 			Coins_Loeschen.set_pressed(true)
 		else:
@@ -361,3 +368,10 @@ func _on_anleitung_focus_entered() -> void:
 
 func _on_anleitung_mouse_entered() -> void:
 	Global.ui_hover_sound = true
+
+
+func _on_portal_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		tp_mode = true
+	else:
+		tp_mode = false

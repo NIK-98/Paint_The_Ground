@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var player_wait_count = 0
 @export var is_running = false
 @export var vs_mode = false
+@export var tp_mode = false
 @export var coin_mode = false
 @export var shop_mode = false
 @export var solo_mode = false
@@ -83,6 +84,7 @@ func update_player_count(positiv: bool):
 		get_parent().set_shop_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset").button_pressed)
 		get_parent().set_solo_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
+		get_parent().set_tp_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/portal").button_pressed)
 	if solo_mode:
 		get_parent().is_server_run_game.rpc()
 	if positiv:
