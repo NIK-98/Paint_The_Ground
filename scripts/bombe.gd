@@ -7,6 +7,7 @@ extends Node2D
 const bomb_radius: int = 6
 var explode_pos = null
 var celle: int = 0
+var feld: int = 0
 
 var bomb_array = []
 var bomb_radius_sqr = bomb_radius * bomb_radius
@@ -28,12 +29,12 @@ func _process(_delta):
 				$Area2D/CollisionShape2D.disabled = true
 				$bum.play("bum")
 			if not $bum.is_playing():
-				aktivate_bombe.rpc(celle,explode_pos)
+				aktivate_bombe.rpc(celle,explode_pos,feld)
 				queue_free()
 				return
 			
 
-func _activate_bomb(cell: int, pos: Vector2):
+func _activate_bomb(cell: int, pos: Vector2, feld_id: int):
 	var tile_position: Vector2i = map.local_to_map(pos)
 	var block_cells = level.block_cells
 	for x in range(-bomb_radius, 0):
@@ -43,10 +44,12 @@ func _activate_bomb(cell: int, pos: Vector2):
 			distance_sqr = x*x+y*y
 			if distance_sqr < bomb_radius_sqr:
 				new_pos = Vector2i(offset_x, offset_y)
-				var cell_source_id = map.get_cell_source_id(new_pos)
-				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
+				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
+				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
 				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
 					if cell_source_id == -1 and wall_cell_source_id == -1:
+						continue
+					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
@@ -54,7 +57,7 @@ func _activate_bomb(cell: int, pos: Vector2):
 	explode_pos = null
 	
 	
-func _activate_bomb1(cell: int, pos: Vector2):
+func _activate_bomb1(cell: int, pos: Vector2, feld_id: int):
 	var tile_position: Vector2i = map.local_to_map(pos)
 	var block_cells = level.block_cells
 	for x in range(0, bomb_radius):
@@ -64,10 +67,12 @@ func _activate_bomb1(cell: int, pos: Vector2):
 			distance_sqr = x*x+y*y
 			if distance_sqr < bomb_radius_sqr:
 				new_pos = Vector2i(offset_x, offset_y)
-				var cell_source_id = map.get_cell_source_id(new_pos)
-				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
+				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
+				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
 				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
 					if cell_source_id == -1 and wall_cell_source_id == -1:
+						continue
+					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
@@ -76,10 +81,10 @@ func _activate_bomb1(cell: int, pos: Vector2):
 	
 
 @rpc("any_peer", "call_local")
-func aktivate_bombe(cell: int, pos: Vector2):
-	_activate_bomb(cell,pos)
+func aktivate_bombe(cell: int, pos: Vector2, feld_id: int):
+	_activate_bomb(cell,pos,feld_id)
 	var thread = Thread.new()
-	thread.start(_activate_bomb1.bind(cell, pos))
+	thread.start(_activate_bomb1.bind(cell, pos, feld_id))
 	thread.wait_to_finish()
 		
 		
@@ -88,6 +93,7 @@ func _on_area_2d_area_entered(area):
 		explode_pos = area.get_parent().position
 		celle = area.get_parent().color_cell
 		clean = true
+		feld = area.get_parent().feld
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
 		set_process(true)

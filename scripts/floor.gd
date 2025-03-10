@@ -91,20 +91,40 @@ func tp_floor(filds:= Vector2i(2,2)):
 
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
+	var feld_pos: int
 	if BetterTerrain.get_cell(self,map_pos) != 5:
 		return null
 	var ziel_portal: Array
 	for portal in array_floor_with_portal_id:
 		if map_pos == portal[0]:
+			feld_pos = portal[1]
 			var end_portal = randi_range(1,max_portal_ids)
 			if [portal[1],end_portal] in portal_path:
 				ziel_portal = [portal[1],end_portal]
 				break
 	for portal in array_floor_with_portal_id:
 		if ziel_portal.is_empty():
-			return map_to_local(Vector2i(0,0))
+			return [map_to_local(Vector2i(0,0)),feld_pos]
 		if ziel_portal[1] == portal[1]:
-			return map_to_local(portal[0])
+			return [map_to_local(portal[0]),feld_pos]
+
+func is_portal_id_ok(map_pos: Vector2i,feld: int):
+	if not tp_mode:
+		return true
+	if [map_pos,feld] in array_floor_with_portal_id:
+		return true
+	else:
+		return false
+		
+
+func get_tp_feld(pos: Vector2):
+	var map_pos = local_to_map(pos)
+	var feld_pos: int
+	for portal in array_floor_with_portal_id:
+		if map_pos == portal[0]:
+			feld_pos = portal[1]
+			return [map_to_local(portal[0]),feld_pos]
+				
 			
 
 func get_felder_summe(total_size: Vector2, tile_size: Vector2):

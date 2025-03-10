@@ -25,6 +25,7 @@ var input_mode = 0 # 0=pc 1=controller
 var zoom_old = 1
 const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
+var feld = 0
 @export var paint_radius = Global.painting_rad
 
 @export var magnet = true
@@ -67,7 +68,6 @@ func _physics_process(_delta):
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
 			main.get_node("CanvasLayer/change").visible = true
 			position = Vector2(randi_range(player_spawn_grenze,map_enden.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,map_enden.y-player_spawn_grenze-$Color.size.y))
-			
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
@@ -112,12 +112,14 @@ func _process(delta):
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
+				feld = map.get_tp_feld(position)[1]
 			score_counter()
 			tp_cool_down -= delta
 			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
 				tp_cool_down = cooldown_time_tp
 				delta = 0
-				position = map.tp_to(position)
+				feld = map.get_tp_feld(position)[1]
+				position = map.tp_to(position)[0]
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -262,9 +264,7 @@ func paint():
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = BetterTerrain.get_cell(map, new_pos)
 				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
-				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
-					if cell_id == color_cell:
-						continue
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
 					paint_array.append(new_pos)

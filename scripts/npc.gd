@@ -23,7 +23,8 @@ var SPEED = first_speed
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
-const cooldown_time_tp = 1
+const cooldown_time_tp = 3
+var feld = 0
 var tp_cool_down = cooldown_time_tp
 var tp_feld_aufsuchen = false
 @export var paint_radius = Global.painting_rad
@@ -97,6 +98,7 @@ func _process(delta):
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
+				feld = map.get_tp_feld(position)[1]
 			score_counter()
 			if map.tp_mode:
 				tp_cool_down -= delta
@@ -109,7 +111,8 @@ func _process(delta):
 					if map.tp_to(position) != null:
 						tp_feld_aufsuchen = false
 						tp_cool_down = cooldown_time_tp
-						position = map.tp_to(position)
+						feld = map.get_tp_feld(position)[1]
+						position = map.tp_to(position)[0]
 					curent_tarrget = null
 					curent_direction *= -1
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
@@ -173,7 +176,7 @@ func paint():
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = BetterTerrain.get_cell(map, new_pos)
 				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
-				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
 					paint_array.append(new_pos)
