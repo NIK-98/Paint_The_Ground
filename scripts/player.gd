@@ -118,7 +118,8 @@ func _process(delta):
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
-				feld = map.get_tp_feld(position)[1]
+				if map.tp_mode:
+					feld = map.get_tp_feld(position)[1]
 			score_counter()
 			tp_cool_down -= delta
 			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
