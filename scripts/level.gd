@@ -332,9 +332,14 @@ func reset_bomben():
 
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
+		var pos_array = []
+		for p in map.array_floor:
+			pos_array.append(map.map_to_local(p))
+		var pos = pos_array.pick_random()
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
+				return
+			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
 				return
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
@@ -350,10 +355,15 @@ func reset_powerup():
 
 func spawn_new_powerup():
 	for i in range(Global.Spawn_powerup_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
+		var pos_array = []
+		for p in map.array_floor:
+			pos_array.append(map.map_to_local(p))
+		var pos = pos_array.pick_random()
 		var new_auswahl = powerup_auswahl.pick_random()
 		for child in power_up.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
+				return
+			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
 				return
 		var new_power_up = powerup.instantiate()
 		new_power_up.name = "powerup"
@@ -370,9 +380,14 @@ func reset_coins():
 
 func spawn_new_coins():
 	for i in range(Global.Spawn_coins_limit):
-		var pos = Vector2(randi_range(bomb_spawn_grenzen,map_enden.x-bomb_spawn_grenzen),randi_range(bomb_spawn_grenzen,map_enden.y-bomb_spawn_grenzen))
+		var pos_array = []
+		for p in map.array_floor:
+			pos_array.append(map.map_to_local(p))
+		var pos = pos_array.pick_random()
 		for child in coins.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
+				return
+			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
 				return
 		var new_coin = coin.instantiate()
 		new_coin.name = "coin"

@@ -6,6 +6,7 @@ var tp_mode = true
 
 @onready var wall = get_node("../wall")
 
+var array_floor = []
 var array_floor_with_portal_id = []
 var max_portal_ids: int
 
@@ -28,7 +29,7 @@ func level_bereit_check():
 		
 
 func normal_floor():
-	var array_floor = []
+	array_floor = []
 	for x in range(Global.Spielfeld_Size.x):
 		for y in range(Global.Spielfeld_Size.y):
 			array_floor.append(Vector2i(x,y))
@@ -38,7 +39,7 @@ func normal_floor():
 	
 	
 func tp_floor(filds:= Vector2i(2,2)):
-	var array_floor = []
+	array_floor = []
 	var teiler_x = 0
 	var teiler_y = 0
 	var portal_id_spalte = 1
@@ -98,7 +99,11 @@ func tp_to(pos: Vector2):
 	for portal in array_floor_with_portal_id:
 		if map_pos == portal[0]:
 			feld_pos = portal[1]
-			var end_portal = randi_range(1,max_portal_ids)
+			var vaild_fild: Array
+			for f in range(1,max_portal_ids+1):
+				if f != feld_pos:
+					vaild_fild.append(f)
+			var end_portal = vaild_fild.pick_random()
 			if [portal[1],end_portal] in portal_path:
 				ziel_portal = [portal[1],end_portal]
 				break

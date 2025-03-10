@@ -26,6 +26,7 @@ var zoom_old = 1
 const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
 var feld = 0
+var pos_array = []
 @export var paint_radius = Global.painting_rad
 
 @export var magnet = true
@@ -67,7 +68,6 @@ func _physics_process(_delta):
 			Gametriggerstart = true
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
 			main.get_node("CanvasLayer/change").visible = true
-			position = Vector2(randi_range(player_spawn_grenze,map_enden.x-player_spawn_grenze-$Color.size.x),randi_range(player_spawn_grenze,map_enden.y-player_spawn_grenze-$Color.size.y))
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if name.to_int() == multiplayer.get_unique_id():
@@ -110,6 +110,10 @@ func magnet_trigger(id: int):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
+			if not map.array_floor.is_empty() and pos_array.is_empty():
+				for i in map.array_floor:
+					pos_array.append(map.map_to_local(i))
+				position = pos_array.pick_random()
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 				feld = map.get_tp_feld(position)[1]

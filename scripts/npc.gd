@@ -27,6 +27,7 @@ const cooldown_time_tp = 3
 var feld = 0
 var tp_cool_down = cooldown_time_tp
 var tp_feld_aufsuchen = false
+var pos_array = []
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -58,7 +59,6 @@ func _physics_process(delta):
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
-			position = Vector2(randi_range(npc_spawn_grenze,map_enden.x-npc_spawn_grenze-$Color.size.x),randi_range(npc_spawn_grenze,map_enden.y-npc_spawn_grenze-$Color.size.y))
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if not tp_feld_aufsuchen:
@@ -96,6 +96,10 @@ func _physics_process(delta):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
+			if not map.array_floor.is_empty() and pos_array.is_empty():
+				for i in map.array_floor:
+					pos_array.append(map.map_to_local(i))
+				position = pos_array.pick_random()
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 				feld = map.get_tp_feld(position)[1]
