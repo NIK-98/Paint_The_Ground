@@ -23,7 +23,7 @@ var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
 var zoom_old = 1
-const cooldown_time_tp = 2
+const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
 @export var paint_radius = Global.painting_rad
 
@@ -262,7 +262,7 @@ func paint():
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = BetterTerrain.get_cell(map, new_pos)
 				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
-				if cell_id != -1 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
 					if cell_id == color_cell:
 						continue
 					if cell_id == -1 and wall_cell_id == -1:

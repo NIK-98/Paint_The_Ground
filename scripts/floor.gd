@@ -37,7 +37,7 @@ func normal_floor():
 	
 	
 	
-func tp_floor(filds:= Vector2i(4,3)):
+func tp_floor(filds:= Vector2i(2,2)):
 	var array_floor = []
 	var teiler_x = 0
 	var teiler_y = 0
@@ -66,7 +66,6 @@ func tp_floor(filds:= Vector2i(4,3)):
 			array_floor.append(Vector2i(x,y))
 	
 	BetterTerrain.set_cells(self,array_floor,0)
-	BetterTerrain.update_terrain_cells(self, array_floor)
 	
 	#portal pfade:
 	for port_in in range(1,max_portal_ids+1):
@@ -81,13 +80,18 @@ func tp_floor(filds:= Vector2i(4,3)):
 		for teile in array_floor_with_portal_id:
 			if teile[1] != ids:
 				continue
-			BetterTerrain.set_cell(self,teile[0],-1)#-1 durch portal zelle ersetzen
+			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+0),5)
+			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+0),5)
+			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+1),5)
+			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+1),5)
 			break
+	
+	BetterTerrain.update_terrain_cells(self, array_floor)
 
 
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
-	if BetterTerrain.get_cell(self,map_pos) != -1:
+	if BetterTerrain.get_cell(self,map_pos) != 5:
 		return null
 	var ziel_portal: Array
 	for portal in array_floor_with_portal_id:

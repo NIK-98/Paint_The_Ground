@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://cjt3ud8m2ug5l"]
+[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://cjt3ud8m2ug5l"]
 
 [ext_resource type="Texture2D" uid="uid://dbh8ny2d24njn" path="res://assets/ground/ground_clean.png" id="1_3m2qg"]
 [ext_resource type="Texture2D" uid="uid://dg2r7hn28jxmt" path="res://assets/ground/ground_green.png" id="2_62icc"]
+[ext_resource type="Texture2D" uid="uid://buxwm42cld0yf" path="res://assets/ground/portal.png" id="6_023gb"]
 [ext_resource type="Texture2D" uid="uid://btju3bebchq0u" path="res://assets/ground/ground_red.png" id="6_wluoa"]
 [ext_resource type="Texture2D" uid="uid://cequksmqsxf4e" path="res://assets/ground/ground_blue.png" id="7_obvd0"]
 [ext_resource type="Texture2D" uid="uid://d30lnynty3ch8" path="res://assets/ground/ground_light_blue.png" id="7_w8x8m"]
@@ -687,6 +688,14 @@ texture_region_size = Vector2i(64, 64)
 "type": 4
 }
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ed8lb"]
+texture = ExtResource("6_023gb")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/metadata/_better_terrain = {
+&"type": 5
+}
+
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
@@ -696,6 +705,7 @@ sources/3 = SubResource("TileSetAtlasSource_wcno6")
 sources/2 = SubResource("TileSetAtlasSource_l0kvp")
 sources/1 = SubResource("TileSetAtlasSource_owtyi")
 sources/0 = SubResource("TileSetAtlasSource_wfxpn")
+sources/5 = SubResource("TileSetAtlasSource_ed8lb")
 metadata/_better_terrain = {
 "decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
 "path": "res://addons/better-terrain/icons/Decoration.svg"
@@ -710,6 +720,8 @@ metadata/_better_terrain = {
 "path": ""
 }], ["lightblue", Color(0, 0.882812, 1, 1), 0, [], {
 "path": ""
+}], ["portal", Color(0.341176, 0, 0.792157, 1), 0, [], {
+&"path": ""
 }]],
 "version": "0.2"
 }

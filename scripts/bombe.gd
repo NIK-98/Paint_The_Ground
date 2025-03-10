@@ -45,7 +45,7 @@ func _activate_bomb(cell: int, pos: Vector2):
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_source_id = map.get_cell_source_id(new_pos)
 				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
-				if cell_source_id != -1 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
+				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
 					if cell_source_id == -1 and wall_cell_source_id == -1:
 						continue
 					bomb_array.push_back(new_pos)
@@ -66,7 +66,7 @@ func _activate_bomb1(cell: int, pos: Vector2):
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_source_id = map.get_cell_source_id(new_pos)
 				var wall_cell_source_id = wall.get_cell_source_id(new_pos)
-				if cell_source_id != -1 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
+				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
 					if cell_source_id == -1 and wall_cell_source_id == -1:
 						continue
 					bomb_array.push_back(new_pos)

@@ -23,7 +23,7 @@ var SPEED = first_speed
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
-const cooldown_time_tp = 2
+const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
 var tp_feld_aufsuchen = false
 @export var paint_radius = Global.painting_rad
@@ -173,7 +173,7 @@ func paint():
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = BetterTerrain.get_cell(map, new_pos)
 				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
-				if cell_id != -1 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells:
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
 					paint_array.append(new_pos)
