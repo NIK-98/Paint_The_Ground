@@ -23,12 +23,13 @@ var SPEED = first_speed
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
-const cooldown_time_tp = 3
+const cooldown_time_tp = 6
 var feld = 0
 var tp_cool_down = cooldown_time_tp
 var tp_feld_aufsuchen = false
 var pos_array = []
 var	set_pos = false
+var selected_field_on_map = null
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -74,11 +75,11 @@ func _physics_process(delta):
 					time_last_change = 0
 					if curent_tarrget == null:
 						set_random_direction()
-				if time_last_change == 0 and curent_tarrget:
-					random = 2
 			
 				if is_on_wall() or is_on_ceiling() or is_on_floor():
-					time_last_change = direction_change_interval
+					set_random_direction()
+				if selected_field_on_map == null:
+					set_random_direction()
 			velocity = move_npc()*SPEED		
 			move_and_slide()
 			
@@ -113,14 +114,13 @@ func _process(delta):
 					if not tp_feld_aufsuchen:
 						curent_tarrget = null
 					tp_feld_aufsuchen = true
-				if tp_feld_aufsuchen:
+				if level.get_node("loby").tp_mode and tp_feld_aufsuchen or (curent_tarrget == null and selected_field_on_map == null):
 					if map.tp_to(position) != null:
 						tp_feld_aufsuchen = false
 						tp_cool_down = cooldown_time_tp
 						position = map.tp_to(position)[0]
 						feld = map.get_tp_feld(position)[1]
-					curent_tarrget = null
-					curent_direction *= -1
+					set_random_direction()
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -233,39 +233,70 @@ func move_npc():
 		
 		
 func set_random_direction():
-	var vaild_bomb_list = []
-	for v in level.get_node("Bomben").get_children():
-		if v.clean:
-			vaild_bomb_list.append(v)
-	# Zufällige Richtung generieren
-	if len(vaild_bomb_list) > 0:
-		curent_bomb = vaild_bomb_list.pick_random()
-	if level.get_node("PowerUP").get_child_count() > 0:
-		curent_powerup = level.get_node("PowerUP").get_children().pick_random()
-	if len(vaild_bomb_list) > 0 and level.get_node("PowerUP").get_child_count() > 0:
-		curent_tarrget = [curent_bomb,curent_powerup].pick_random()
-		random = randi_range(1,2)
-		if random == 1:
-			curent_tarrget = null
-			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		return
-	elif level.get_node("PowerUP").get_child_count() > 0:
-		curent_tarrget = curent_powerup
-		random = randi_range(1,2)
-		if random == 1:
-			curent_tarrget = null
-			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		return
-	elif len(vaild_bomb_list) > 0:
-		curent_tarrget = curent_bomb
-		random = randi_range(1,2)
-		if random == 1:
-			curent_tarrget = null
-			curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		return
-		
-	random = 1
-	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	var new_feld_pos = Vector2.ZERO
+	var rand_modus = 1
+	if curent_tarrget:
+		if [map.local_to_map(curent_tarrget.position),feld] in map.array_floor_with_portal_id:
+			rand_modus = 2
+		else:
+			rand_modus = 1
+	if rand_modus == 1:
+		if not map.array_floor_with_portal_id.is_empty():
+			var vaild_fields = []
+			for free_feld in map.array_floor_with_portal_id:
+				if free_feld[1] == feld:
+					if BetterTerrain.get_cell(map,free_feld[0]) == color_cell or BetterTerrain.get_cell(map,free_feld[0]) == 5:
+						continue
+					vaild_fields.append(free_feld[0])
+			if not vaild_fields.is_empty():
+				var current_field = vaild_fields.pick_random()
+				new_feld_pos = map.map_to_local(current_field)
+				selected_field_on_map = current_field
+				random = 1
+				curent_direction = (new_feld_pos - position).normalized()
+				curent_tarrget = null
+				return
+			else:
+				selected_field_on_map = null
+				if level.get_node("loby").tp_mode:
+					random = 1
+					curent_direction = Vector2(-1,-1).normalized()
+					curent_tarrget = null
+					return
+	else:	
+		var vaild_bomb_list = []
+		for v in level.get_node("Bomben").get_children():
+			if v.clean:
+				vaild_bomb_list.append(v)
+		# Zufällige Richtung generieren
+		if len(vaild_bomb_list) > 0:
+			curent_bomb = vaild_bomb_list.pick_random()
+		if level.get_node("PowerUP").get_child_count() > 0:
+			curent_powerup = level.get_node("PowerUP").get_children().pick_random()
+		if len(vaild_bomb_list) > 0 and level.get_node("PowerUP").get_child_count() > 0:
+			curent_tarrget = [curent_bomb,curent_powerup].pick_random()
+			random = randi_range(1,2)
+			if random == 1:
+				curent_tarrget = null
+				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+			return
+		elif level.get_node("PowerUP").get_child_count() > 0:
+			curent_tarrget = curent_powerup
+			random = randi_range(1,2)
+			if random == 1:
+				curent_tarrget = null
+				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+			return
+		elif len(vaild_bomb_list) > 0:
+			curent_tarrget = curent_bomb
+			random = randi_range(1,2)
+			if random == 1:
+				curent_tarrget = null
+				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+			return
+			
+		random = 1
+		curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	
 		
 @rpc("any_peer","call_local")

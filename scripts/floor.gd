@@ -29,8 +29,10 @@ func level_bereit_check():
 
 func normal_floor():
 	array_floor = []
+	array_floor_with_portal_id = []
 	for x in range(Global.Spielfeld_Size.x):
 		for y in range(Global.Spielfeld_Size.y):
+			array_floor_with_portal_id.append([Vector2i(x,y),0])
 			array_floor.append(Vector2i(x,y))
 	BetterTerrain.set_cells(self,array_floor,0)
 	BetterTerrain.update_terrain_cells(self, array_floor)
@@ -131,5 +133,5 @@ func get_tp_feld(pos: Vector2):
 				
 			
 
-func get_felder_summe(total_size: Vector2, tile_size: Vector2):
-	return (total_size.x/tile_size.y)*(total_size.y/tile_size.y)
+func get_felder_summe():
+	return array_floor.size()
