@@ -233,8 +233,9 @@ shop_text = "+2 Sec. --> 500"
 aktuel = 5
 shop_id = 2
 
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 80
 theme_override_styles/separator = SubResource("StyleBoxEmpty_l64cd")
 
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
