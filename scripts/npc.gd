@@ -75,7 +75,7 @@ func _physics_process(delta):
 					time_last_change = 0
 					if curent_tarrget == null:
 						set_random_direction()
-			
+			#
 				if is_on_wall() or is_on_ceiling() or is_on_floor():
 					set_random_direction()
 				if selected_field_on_map == null:
@@ -180,8 +180,8 @@ func paint():
 			
 			if distance_sqr < paint_radius_sqr:
 				new_pos = Vector2i(offset_x, offset_y)
-				var cell_id = BetterTerrain.get_cell(map, new_pos)
-				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
+				var cell_id = map.get_cell_source_id(new_pos)
+				var wall_cell_id = wall.get_cell_source_id(new_pos)
 				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
@@ -245,7 +245,7 @@ func set_random_direction():
 			var vaild_fields = []
 			for free_feld in map.array_floor_with_portal_id:
 				if free_feld[1] == feld:
-					if BetterTerrain.get_cell(map,free_feld[0]) == color_cell or BetterTerrain.get_cell(map,free_feld[0]) == 5:
+					if map.get_cell_source_id(free_feld[0]) == color_cell and map.get_cell_source_id(free_feld[0]) == 5:
 						continue
 					vaild_fields.append(free_feld[0])
 			if not vaild_fields.is_empty():

@@ -316,7 +316,11 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-2d/solver/solver_iterations=8
+2d/run_on_separate_thread=true
+common/physics_ticks_per_second=30
+common/physics_jitter_fix=0.0
+2d/physics_engine="Rapier2D"
+common/physics_interpolation=true
 
 [rendering]
 

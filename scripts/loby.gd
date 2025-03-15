@@ -191,7 +191,6 @@ func update_rady_status():
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
 			get_parent().map.reset_floor.rpc()
-			get_parent().wall.add_wall.rpc()
 			reset_wait_count.rpc()
 	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
@@ -203,7 +202,6 @@ func update_rady_status():
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
 			get_parent().map.reset_floor.rpc()
-			get_parent().wall.add_wall.rpc()
 			reset_wait_count.rpc()
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
 		no_players()
@@ -383,7 +381,6 @@ func _on_start_pressed():
 	vor_start_trigger()
 	get_parent().main.get_node("Grafik").zoom_option.visible = true
 	get_parent().map.reset_floor.rpc()
-	get_parent().wall.add_wall.rpc()
 	reset_wait_count.rpc()
 	if $CenterContainer/HBoxContainer/team.visible:
 		set_visiblity.rpc("loby/CenterContainer/HBoxContainer/team", false)
@@ -474,6 +471,7 @@ func switch_team(id: int, switch_to_blue: bool):
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_focus_color", Color.RED)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_color", Color.RED)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_pressed_color", Color.RED)
+			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_pressed_color", Color.RED)
 	elif switch_to_blue:
 		join_blue(id)
 		if id == multiplayer.get_unique_id():
@@ -481,6 +479,7 @@ func switch_team(id: int, switch_to_blue: bool):
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_focus_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_color", Color.DEEP_SKY_BLUE)
 			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_pressed_color", Color.DEEP_SKY_BLUE)
+			$CenterContainer/HBoxContainer/team.set("theme_override_colors/font_hover_pressed_color", Color.DEEP_SKY_BLUE)
 		
 
 func check_team():

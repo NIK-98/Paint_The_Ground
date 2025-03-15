@@ -351,7 +351,7 @@ func spawn_new_bombe():
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
-			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
+			if wall.get_cell_source_id(wall.local_to_map(pos)) == 0:
 				return
 		var new_bombe = bombe.instantiate()
 		new_bombe.name = "bombe"
@@ -375,7 +375,7 @@ func spawn_new_powerup():
 		for child in power_up.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
-			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
+			if wall.get_cell_source_id(wall.local_to_map(pos)) == 0:
 				return
 		var new_power_up = powerup.instantiate()
 		new_power_up.name = "powerup"
@@ -399,7 +399,7 @@ func spawn_new_coins():
 		for child in coins.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
-			if BetterTerrain.get_cell(wall,wall.local_to_map(pos)) == 0:
+			if wall.get_cell_source_id(wall.local_to_map(pos)) == 0:
 				return
 		var new_coin = coin.instantiate()
 		new_coin.name = "coin"

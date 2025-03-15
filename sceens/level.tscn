@@ -792,6 +792,7 @@ custom_minimum_size = Vector2(307, 510)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_gf1a3")
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 0, 0, 1)

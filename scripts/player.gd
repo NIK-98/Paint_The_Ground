@@ -57,6 +57,7 @@ func _ready():
 	$CanvasLayer/Los.visible = false
 	if not level.get_node("loby").vs_mode:
 		color_change()
+	reset_physics_interpolation()
 
 
 func _physics_process(_delta):
@@ -121,13 +122,14 @@ func _process(delta):
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
-			tp_cool_down -= delta
-			if map.tp_to(position) != null and round(tp_cool_down) <= 0:
-				tp_cool_down = cooldown_time_tp
-				delta = 0
-				Global.tp_sound = true
-				position = map.tp_to(position)[0]
-				feld = map.get_tp_feld(position)[1]
+			if level.get_node("loby").tp_mode:
+				tp_cool_down -= delta
+				if map.tp_to(position) != null and round(tp_cool_down) <= 0:
+					tp_cool_down = cooldown_time_tp
+					delta = 0
+					Global.tp_sound = true
+					position = map.tp_to(position)[0]
+					feld = map.get_tp_feld(position)[1]
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -270,8 +272,8 @@ func paint():
 			
 			if distance_sqr < paint_radius_sqr:
 				new_pos = Vector2i(offset_x, offset_y)
-				var cell_id = BetterTerrain.get_cell(map, new_pos)
-				var wall_cell_id = BetterTerrain.get_cell(wall, new_pos)
+				var cell_id = map.get_cell_source_id(new_pos)
+				var wall_cell_id = wall.get_cell_source_id(new_pos)
 				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
 					if cell_id == -1 and wall_cell_id == -1:
 						continue

@@ -16,6 +16,7 @@ func reset_floor():
 		tp_floor()
 	else:
 		normal_floor()
+	wall.add_wall()
 	level_bereit_check.rpc_id(1)
 			
 
@@ -93,7 +94,7 @@ func tp_floor(filds:= Vector2i(2,2)):
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
 	var feld_pos: int
-	if BetterTerrain.get_cell(self,map_pos) != 5:
+	if get_cell_source_id(map_pos) != 5:
 		return null
 	var ziel_portal: Array
 	for portal in array_floor_with_portal_id:
