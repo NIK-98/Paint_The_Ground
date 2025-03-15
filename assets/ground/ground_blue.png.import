@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/ground_blue.png-356c461797e6e6e0b264f67dbe158
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
