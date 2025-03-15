@@ -316,10 +316,9 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-2d/run_on_separate_thread=true
 common/physics_ticks_per_second=30
 common/physics_jitter_fix=0.0
-2d/physics_engine="Rapier2D"
+2d/solver/solver_iterations=1
 common/physics_interpolation=true
 
 [rendering]
@@ -328,4 +327,5 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 global_illumination/gi/use_half_resolution=true
+environment/screen_space_reflection/roughness_quality=0
 global_illumination/sdfgi/frames_to_converge=4
