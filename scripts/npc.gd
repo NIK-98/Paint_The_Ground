@@ -114,13 +114,13 @@ func _process(delta):
 					if not tp_feld_aufsuchen:
 						curent_tarrget = null
 					tp_feld_aufsuchen = true
-				if level.get_node("loby").tp_mode and tp_feld_aufsuchen or (curent_tarrget == null and selected_field_on_map == null):
-					if map.tp_to(position) != null:
-						tp_feld_aufsuchen = false
-						tp_cool_down = cooldown_time_tp
-						position = map.tp_to(position)[0]
-						feld = map.get_tp_feld(position)[1]
-					set_random_direction()
+				if level.get_node("loby").tp_mode:
+					if tp_feld_aufsuchen or (curent_tarrget == null and selected_field_on_map == null):
+						if not map.tp_to_signal(self,position).is_empty():
+							tp_feld_aufsuchen = false
+							tp_cool_down = cooldown_time_tp
+							feld = map.get_tp_feld(position)[1]
+						set_random_direction()
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -230,75 +230,54 @@ func move_npc():
 		dir = (curent_tarrget.position - position).normalized()
 
 	return dir
-		
-		
+
+	
 func set_random_direction():
 	var new_feld_pos = Vector2.ZERO
 	var rand_modus = 1
-	if curent_tarrget:
-		if [map.local_to_map(curent_tarrget.position),feld] in map.array_floor_with_portal_id:
-			rand_modus = 2
-		else:
-			rand_modus = 1
-	if rand_modus == 1:
-		if not map.array_floor_with_portal_id.is_empty():
-			var vaild_fields = []
-			for free_feld in map.array_floor_with_portal_id:
-				if free_feld[1] == feld:
-					if map.get_cell_source_id(free_feld[0]) == color_cell and map.get_cell_source_id(free_feld[0]) == 5:
-						continue
-					vaild_fields.append(free_feld[0])
-			if not vaild_fields.is_empty():
-				var current_field = vaild_fields.pick_random()
-				new_feld_pos = map.map_to_local(current_field)
-				selected_field_on_map = current_field
-				random = 1
-				curent_direction = (new_feld_pos - position).normalized()
-				curent_tarrget = null
-				return
-			else:
-				selected_field_on_map = null
-				if level.get_node("loby").tp_mode:
-					random = 1
-					curent_direction = Vector2(-1,-1).normalized()
-					curent_tarrget = null
-					return
-	else:	
-		var vaild_bomb_list = []
-		for v in level.get_node("Bomben").get_children():
-			if v.clean:
-				vaild_bomb_list.append(v)
-		# Zufällige Richtung generieren
-		if len(vaild_bomb_list) > 0:
-			curent_bomb = vaild_bomb_list.pick_random()
-		if level.get_node("PowerUP").get_child_count() > 0:
-			curent_powerup = level.get_node("PowerUP").get_children().pick_random()
-		if len(vaild_bomb_list) > 0 and level.get_node("PowerUP").get_child_count() > 0:
-			curent_tarrget = [curent_bomb,curent_powerup].pick_random()
-			random = randi_range(1,2)
-			if random == 1:
-				curent_tarrget = null
-				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-			return
-		elif level.get_node("PowerUP").get_child_count() > 0:
-			curent_tarrget = curent_powerup
-			random = randi_range(1,2)
-			if random == 1:
-				curent_tarrget = null
-				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-			return
-		elif len(vaild_bomb_list) > 0:
-			curent_tarrget = curent_bomb
-			random = randi_range(1,2)
-			if random == 1:
-				curent_tarrget = null
-				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-			return
-			
-		random = 1
-		curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	if curent_tarrget and [map.local_to_map(curent_tarrget.position), feld] in map.array_floor_with_portal_id: 
+		rand_modus = 2
+	else: 
+		rand_modus = 1
 	
+	if rand_modus == 1 and not map.array_floor_with_portal_id.is_empty():
+		var valid_fields = []
+		for free_feld in map.array_floor_with_portal_id:
+			if map.get_cell_source_id(free_feld[0]) not in [color_cell, 5] and free_feld[1] == feld:
+				valid_fields.append(free_feld[0])
+				
+		if not valid_fields.is_empty():
+			selected_field_on_map = valid_fields.pick_random()
+			new_feld_pos = map.map_to_local(selected_field_on_map)
+			random = 1
+			curent_direction = (new_feld_pos - position).normalized()
+			curent_tarrget = null
+			return
+		elif level.get_node("loby").tp_mode:
+			selected_field_on_map = null
+			random = 1
+			curent_direction = Vector2(-1, -1).normalized()
+			curent_tarrget = null
+			tp_feld_aufsuchen = true
+			return
+
+	elif rand_modus == 2:
+		var valid_bomb_list = level.get_node("Bomben").get_children().filter(func(v): v.clean)
+		var power_ups = level.get_node("PowerUP").get_children()
+		var candidates = valid_bomb_list + power_ups
+
+		if not candidates.is_empty():
+			curent_tarrget = candidates.pick_random()
+			random = randi_range(1, 2)
+			if random == 1:
+				curent_tarrget = null
+				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+				return
 		
+	random = 1
+	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()		
+	
+	
 @rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false

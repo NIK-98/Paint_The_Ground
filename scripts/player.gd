@@ -122,14 +122,15 @@ func _process(delta):
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
+			
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
-				if map.tp_to(position) != null and round(tp_cool_down) <= 0:
-					tp_cool_down = cooldown_time_tp
-					delta = 0
-					Global.tp_sound = true
-					position = map.tp_to(position)[0]
-					feld = map.get_tp_feld(position)[1]
+				if round(tp_cool_down) <= 0:
+					if not map.tp_to_signal(self,position).is_empty():
+						tp_cool_down = cooldown_time_tp
+						Global.tp_sound = true
+						feld = map.get_tp_feld(position)[1]
+
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)

@@ -1,5 +1,7 @@
 extends TileMapLayer
 
+signal npc_teleported(npc, target_pos)
+
 var bereit_count = 0
 var portal_path = []
 
@@ -7,6 +9,7 @@ var portal_path = []
 
 var array_floor = []
 var array_floor_with_portal_id = []
+
 var max_portal_ids: int
 
 
@@ -65,6 +68,7 @@ func tp_floor(filds:= Vector2i(2,2)):
 					portal_id += 1
 					BetterTerrain.set_cell(wall,Vector2i(x,y),0)
 					continue
+					
 			array_floor_with_portal_id.append([Vector2i(x,y),portal_id])
 			array_floor.append(Vector2i(x,y))
 	
@@ -90,29 +94,40 @@ func tp_floor(filds:= Vector2i(2,2)):
 			break
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
-
+			
+			
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
-	var feld_pos: int
 	if get_cell_source_id(map_pos) != 5:
-		return null
-	var ziel_portal: Array
+		return []
+	var feld_pos = -1
+	var ziel_portal = null
 	for portal in array_floor_with_portal_id:
 		if map_pos == portal[0]:
 			feld_pos = portal[1]
-			var vaild_fild: Array
-			for f in range(1,max_portal_ids+1):
+			var valid_fields = []
+			for f in range(1, max_portal_ids + 1):
 				if f != feld_pos:
-					vaild_fild.append(f)
-			var end_portal = vaild_fild.pick_random()
-			if [portal[1],end_portal] in portal_path:
-				ziel_portal = [portal[1],end_portal]
+					valid_fields.append(f)	
+			var end_portal = valid_fields.pick_random()
+			if [feld_pos, end_portal] in portal_path:
+				ziel_portal = [feld_pos, end_portal]
 				break
+	if ziel_portal == null:
+		return [map_to_local(Vector2i(0, 0)), feld_pos]
 	for portal in array_floor_with_portal_id:
-		if ziel_portal.is_empty():
-			return [map_to_local(Vector2i(0,0)),feld_pos]
 		if ziel_portal[1] == portal[1]:
-			return [map_to_local(portal[0]),feld_pos]
+			return [map_to_local(portal[0]), feld_pos]
+	return []
+
+
+func tp_to_signal(npc: CharacterBody2D, pos: Vector2):
+	var result = tp_to(pos)
+	if not result.is_empty():
+		emit_signal("npc_teleported", npc, result[0])
+		return result
+	else:
+		return result
 
 
 func is_portal_id_ok(map_pos: Vector2i,feld: int):
@@ -136,3 +151,7 @@ func get_tp_feld(pos: Vector2):
 
 func get_felder_summe():
 	return array_floor.size()
+
+
+func _on_npc_teleported(npc: Variant, target_pos: Variant) -> void:
+	npc.global_position = target_pos
