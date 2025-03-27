@@ -94,7 +94,7 @@ func tp_floor(filds:= Vector2i(2,2)):
 			break
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
-			
+				
 			
 func tp_to(pos: Vector2):
 	var map_pos = local_to_map(pos)
@@ -119,7 +119,7 @@ func tp_to(pos: Vector2):
 		if ziel_portal[1] == portal[1]:
 			return [map_to_local(portal[0]), feld_pos]
 	return []
-
+	
 
 func tp_to_signal(npc: CharacterBody2D, pos: Vector2):
 	var result = tp_to(pos)

@@ -42,6 +42,10 @@ window/stretch/aspect="ignore"
 window/handheld/orientation=4
 window/vsync/vsync_mode=0
 
+[editor]
+
+movie_writer/disable_vsync=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
@@ -316,8 +320,7 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-common/physics_ticks_per_second=30
-common/physics_jitter_fix=0.0
+2d/run_on_separate_thread=true
 2d/solver/solver_iterations=1
 common/physics_interpolation=true
 

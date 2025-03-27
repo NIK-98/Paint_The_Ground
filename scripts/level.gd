@@ -344,10 +344,7 @@ func reset_bomben():
 
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
-		var pos_array = []
-		for p in map.array_floor:
-			pos_array.append(map.map_to_local(p))
-		var pos = pos_array.pick_random()
+		var pos = map.map_to_local(map.array_floor.pick_random())
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
@@ -367,10 +364,7 @@ func reset_powerup():
 
 func spawn_new_powerup():
 	for i in range(Global.Spawn_powerup_limit):
-		var pos_array = []
-		for p in map.array_floor:
-			pos_array.append(map.map_to_local(p))
-		var pos = pos_array.pick_random()
+		var pos = map.map_to_local(map.array_floor.pick_random())
 		var new_auswahl = powerup_auswahl.pick_random()
 		for child in power_up.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
@@ -392,10 +386,7 @@ func reset_coins():
 
 func spawn_new_coins():
 	for i in range(Global.Spawn_coins_limit):
-		var pos_array = []
-		for p in map.array_floor:
-			pos_array.append(map.map_to_local(p))
-		var pos = pos_array.pick_random()
+		var pos = map.map_to_local(map.array_floor.pick_random())
 		for child in coins.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return

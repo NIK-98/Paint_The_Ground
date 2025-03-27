@@ -73,12 +73,7 @@ func _physics_process(delta):
 				time_last_change += delta
 				if time_last_change >= direction_change_interval:
 					time_last_change = 0
-					if curent_tarrget == null:
-						set_random_direction()
-			#
-				if is_on_wall() or is_on_ceiling() or is_on_floor():
-					set_random_direction()
-				if selected_field_on_map == null:
+				if is_on_wall() or is_on_ceiling() or is_on_floor() or selected_field_on_map == null or (curent_tarrget == null and time_last_change == 0):
 					set_random_direction()
 			velocity = move_npc()*SPEED		
 			move_and_slide()
@@ -120,7 +115,6 @@ func _process(delta):
 							tp_feld_aufsuchen = false
 							tp_cool_down = cooldown_time_tp
 							feld = map.get_tp_feld(position)[1]
-						set_random_direction()
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -231,6 +225,14 @@ func move_npc():
 
 	return dir
 
+
+func get_valid_fields(current_feld, color_celle):
+	var valid_fields = []
+	for free_feld in map.array_floor_with_portal_id:
+		if current_feld == free_feld[1] and map.get_cell_source_id(free_feld[0]) not in [color_celle, 5]:
+			valid_fields.append(free_feld[0])
+	return valid_fields
+
 	
 func set_random_direction():
 	var new_feld_pos = Vector2.ZERO
@@ -241,10 +243,7 @@ func set_random_direction():
 		rand_modus = 1
 	
 	if rand_modus == 1 and not map.array_floor_with_portal_id.is_empty():
-		var valid_fields = []
-		for free_feld in map.array_floor_with_portal_id:
-			if map.get_cell_source_id(free_feld[0]) not in [color_cell, 5] and free_feld[1] == feld:
-				valid_fields.append(free_feld[0])
+		var valid_fields = get_valid_fields(feld, color_cell)
 				
 		if not valid_fields.is_empty():
 			selected_field_on_map = valid_fields.pick_random()
