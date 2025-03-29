@@ -71,7 +71,9 @@ func _physics_process(_delta):
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
 		if level.get_node("loby").tp_mode and feld == 0:
-			feld = map.get_tp_feld(position)[1]
+			feld = map.get_field_of_tile(map.local_to_map(position))
+	if not map.array_floor.is_empty() and not map.array_floor_with_portal_id.is_empty():
+		feld = map.get_field_of_tile(map.local_to_map(position))
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
@@ -129,7 +131,7 @@ func _process(delta):
 					if not map.tp_to_signal(self,position,feld).is_empty():
 						tp_cool_down = cooldown_time_tp
 						Global.tp_sound = true
-						feld = map.get_tp_feld(position)[1]
+						feld = map.get_field_of_tile(map.local_to_map(position))
 
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
@@ -275,7 +277,7 @@ func paint():
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = map.get_cell_source_id(new_pos)
 				var wall_cell_id = wall.get_cell_source_id(new_pos)
-				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.get_field_of_tile(new_pos) == feld:
 					if cell_id == -1 and wall_cell_id == -1:
 						continue
 					paint_array.append(new_pos)

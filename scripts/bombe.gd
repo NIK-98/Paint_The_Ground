@@ -50,7 +50,7 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int):
 				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and cell_source_id not in block_cells and cell_source_id != cell:
 					if cell_source_id == -1 and wall_cell_source_id == -1:
 						continue
-					if not map.is_portal_id_ok(new_pos, feld_id):
+					if map.get_field_of_tile(new_pos) != feld:
 						continue
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)

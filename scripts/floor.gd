@@ -7,25 +7,12 @@ var portal_path = []
 
 @onready var wall = get_node("../wall")
 
+var filds:= Vector2i(2,2)
+
+var anzahl_der_tiles_pro_feld_in_x_richtung = floor(Global.Spielfeld_Size.x/filds.x)
+var anzahl_der_tiles_pro_feld_in_y_richtung = floor(Global.Spielfeld_Size.y/filds.y)
 var array_floor = []
-var array_floor_with_portal_id = []
-var dict_floor_with_portal_id = {
-	"0": {
-		
-	},
-	"1": {
-		
-	},
-	"2": {
-		
-	},
-	"3": {
-		
-	},
-	"4": {
-		
-	}
-}
+
 
 var max_portal_ids: int
 
@@ -48,157 +35,93 @@ func level_bereit_check():
 		bereit_count = 0
 		
 
-func normal_floor(filds:= Vector2i(2,2)):
-	var teiler_x = 0
-	var teiler_y = 0
-	var portal_id_spalte = 1
-	var portal_id = portal_id_spalte
-	max_portal_ids = filds.x*filds.y
+func normal_floor():
 	array_floor = []
-	array_floor_with_portal_id = []
-	dict_floor_with_portal_id = {
-		"0": {
-			
-		},
-		"1": {
-			
-		},
-		"2": {
-			
-		},
-		"3": {
-			
-		},
-		"4": {
-			
-		}
-	}
 	for x in range(Global.Spielfeld_Size.x):
-		teiler_x += 1
-		if teiler_x > floor(Global.Spielfeld_Size.x/filds.x):
-			teiler_x = 0
-			portal_id_spalte = portal_id+1
-		portal_id = portal_id_spalte
 		for y in range(Global.Spielfeld_Size.y):
-			teiler_y += 1
-			if teiler_y == floor(Global.Spielfeld_Size.y/filds.y):
-				teiler_y = 0
-				if y < Global.Spielfeld_Size.y-1:
-					portal_id += 1
-			
-			if portal_id == 1:
-				dict_floor_with_portal_id["1"][Vector2i(x,y)] = portal_id
-			if portal_id == 2:
-				dict_floor_with_portal_id["2"][Vector2i(x,y)] = portal_id
-			if portal_id == 3:
-				dict_floor_with_portal_id["3"][Vector2i(x,y)] = portal_id
-			if portal_id == 4:
-				dict_floor_with_portal_id["4"][Vector2i(x,y)] = portal_id
-			array_floor_with_portal_id.append([Vector2i(x,y),portal_id])
 			array_floor.append(Vector2i(x,y))
 	BetterTerrain.set_cells(self, array_floor, 0)
 	BetterTerrain.update_terrain_cells(self, array_floor)
 	
+func get_field_of_tile(tile: Vector2i):
+	if not get_node("../loby").tp_mode:
+		return 0
+	var x_feld = floor(tile.x /anzahl_der_tiles_pro_feld_in_x_richtung)
+	var y_feld = floor(tile.y /anzahl_der_tiles_pro_feld_in_y_richtung)
 	
-func tp_floor(filds:= Vector2i(2,2)):
+	var feld = x_feld * filds.y + y_feld
+	return feld
+
+func get_tile_coordinates_ralative_to_field(tile: Vector2i):
+	if not get_node("../loby").tp_mode:
+		return tile
+	return Vector2i(tile.x % anzahl_der_tiles_pro_feld_in_x_richtung, tile.y % anzahl_der_tiles_pro_feld_in_y_richtung)
+	
+func get_number_of_fields():
+	if not get_node("../loby").tp_mode:
+		return 1
+	return filds.x*filds.y
+	
+func tp_floor():
 	array_floor = []
-	var teiler_x = 0
-	var teiler_y = 0
-	var portal_id_spalte = 1
-	var portal_id = portal_id_spalte
-	max_portal_ids = filds.x*filds.y
-	array_floor_with_portal_id = []
-	dict_floor_with_portal_id = {
-		"0": {
-			
-		},
-		"1": {
-			
-		},
-		"2": {
-			
-		},
-		"3": {
-			
-		},
-		"4": {
-			
-		}
-	}
+	max_portal_ids = get_number_of_fields()
+
 	for x in range(Global.Spielfeld_Size.x):
-		teiler_x += 1
-		if teiler_x > floor(Global.Spielfeld_Size.x/filds.x):
-			teiler_x = 0
-			portal_id_spalte = portal_id+1
-			for y in range(Global.Spielfeld_Size.y):	
-				BetterTerrain.set_cell(wall,Vector2i(x,y),0)
-			continue
-		portal_id = portal_id_spalte
 		for y in range(Global.Spielfeld_Size.y):
-			teiler_y += 1
-			if teiler_y == floor(Global.Spielfeld_Size.y/filds.y):
-				teiler_y = 0
-				if y < Global.Spielfeld_Size.y-1:
-					portal_id += 1
-					BetterTerrain.set_cell(wall,Vector2i(x,y),0)
-					continue
-					
-			if portal_id == 1:
-				dict_floor_with_portal_id["1"][Vector2i(x,y)] = portal_id
-			if portal_id == 2:
-				dict_floor_with_portal_id["2"][Vector2i(x,y)] = portal_id
-			if portal_id == 3:
-				dict_floor_with_portal_id["3"][Vector2i(x,y)] = portal_id
-			if portal_id == 4:
-				dict_floor_with_portal_id["4"][Vector2i(x,y)] = portal_id
-			array_floor_with_portal_id.append([Vector2i(x,y),portal_id])
-			array_floor.append(Vector2i(x,y))
-	
-	BetterTerrain.set_cells(self,array_floor,0)
+			var coords = Vector2i(x,y)
+			var portal_id = get_field_of_tile(coords)+1
+			var in_field_coords = get_tile_coordinates_ralative_to_field(coords)
+			if in_field_coords.x == 0 || in_field_coords.y == 0:
+				BetterTerrain.set_cell(wall,coords,0)
+			else: 
+				array_floor.append(coords)
+				if in_field_coords.x in [1,2] && in_field_coords.y in [1,2]:
+					BetterTerrain.set_cell(self,coords,5)
+				else:
+					BetterTerrain.set_cell(self,coords,0)
+
 	
 	#portal pfade:
-	for port_in in range(1,max_portal_ids+1):
-		for port_out in range(1,max_portal_ids+1):
+	for port_in in range(0,max_portal_ids):
+		for port_out in range(0,max_portal_ids):
 			if port_in == port_out:
 				continue
 			portal_path.append([port_in,port_out])
 			
 	
-	#create portall
-	for ids in range(1,max_portal_ids+1):
-		for teile in array_floor_with_portal_id:
-			if teile[1] != ids:
-				continue
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+0),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+0),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+1),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+1),5)
-			break
-	
 	BetterTerrain.update_terrain_cells(self, array_floor)
-				
-			
+
+
+# field is zero based
+func field_number_to_field_coord(field: int):
+	# var feld = x_feld * filds.y + y_feld
+	return Vector2i(field / filds.y, field % filds.y)
+
+# field is zero based
+func get_top_left_tile_of_field(field: int):
+	var field_coord = field_number_to_field_coord(field)
+	# plus one, because zero is the border
+	return Vector2i(field_coord.x * anzahl_der_tiles_pro_feld_in_x_richtung + 1, field_coord.y * anzahl_der_tiles_pro_feld_in_y_richtung + 1)
+	
+
+
 func tp_to(pos: Vector2, current_feld: int):
 	var map_pos = local_to_map(pos)
 	if get_cell_source_id(map_pos) != 5:
 		return []
-	var feld_pos = -1
 	var ziel_portal = null
-	for portal in dict_floor_with_portal_id[str(current_feld)]:
-		if map_pos == portal:
-			feld_pos = current_feld
-			var valid_fields = []
-			for f in range(1, max_portal_ids + 1):
-				if f != feld_pos:
-					valid_fields.append(f)	
-			var end_portal = valid_fields.pick_random()
-			if [feld_pos, end_portal] in portal_path:
-				ziel_portal = [feld_pos, end_portal]
-				break
+	if get_field_of_tile(map_pos) == current_feld:
+		var valid_fields = []
+		for f in range(0, max_portal_ids):
+			if f != current_feld:
+				valid_fields.append(f)
+		var end_portal = valid_fields.pick_random()
+		if [current_feld, end_portal] in portal_path:
+			ziel_portal = end_portal
 	if ziel_portal == null:
-		return [map_to_local(Vector2i(0, 0)), feld_pos]
-	for portal in dict_floor_with_portal_id[str(ziel_portal[1])]:
-		return [map_to_local(portal), feld_pos]
+		return [map_to_local(Vector2i(0, 0)), 0]
+		
+	return [map_to_local(get_top_left_tile_of_field(current_feld)), current_feld]
 	return []
 	
 
@@ -209,15 +132,6 @@ func tp_to_signal(npc: CharacterBody2D, pos: Vector2, current_feld: int):
 		return result
 	else:
 		return result
-
-
-func is_portal_id_ok(map_pos: Vector2i,feld: int):
-	if not get_parent().get_node("loby").tp_mode:
-		return true
-	if [map_pos,feld] in array_floor_with_portal_id:
-		return true
-	else:
-		return false
 		
 
 func get_tp_feld(pos: Vector2):
