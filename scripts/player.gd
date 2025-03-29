@@ -126,7 +126,7 @@ func _process(delta):
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
-					if not map.tp_to_signal(self,position).is_empty():
+					if not map.tp_to_signal(self,position,feld).is_empty():
 						tp_cool_down = cooldown_time_tp
 						Global.tp_sound = true
 						feld = map.get_tp_feld(position)[1]

@@ -61,8 +61,10 @@ func _physics_process(delta):
 		for i in map.array_floor:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
-		if level.get_node("loby").tp_mode and feld == 0:
+		if level.get_node("loby").tp_mode:
 			feld = map.get_tp_feld(position)[1]
+	if not map.array_floor.is_empty() and not map.array_floor_with_portal_id.is_empty():
+		feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
@@ -111,7 +113,7 @@ func _process(delta):
 					tp_feld_aufsuchen = true
 				if level.get_node("loby").tp_mode:
 					if tp_feld_aufsuchen or (curent_tarrget == null and selected_field_on_map == null):
-						if not map.tp_to_signal(self,position).is_empty():
+						if not map.tp_to_signal(self,position,feld).is_empty():
 							tp_feld_aufsuchen = false
 							tp_cool_down = cooldown_time_tp
 							feld = map.get_tp_feld(position)[1]
@@ -224,59 +226,50 @@ func move_npc():
 		dir = (curent_tarrget.position - position).normalized()
 
 	return dir
-
-
-func get_valid_fields(current_feld, color_celle):
+	
+	
+func get_valid_fields():
 	var valid_fields = []
-	for free_feld in map.array_floor_with_portal_id:
-		if current_feld == free_feld[1] and map.get_cell_source_id(free_feld[0]) not in [color_celle, 5]:
-			valid_fields.append(free_feld[0])
+	print(feld)
+	for felt_cords in map.dict_floor_with_portal_id[str(feld)]:
+		if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
+			valid_fields.append(felt_cords)
+	print(valid_fields.size())
 	return valid_fields
 
 	
 func set_random_direction():
+	curent_tarrget = null
 	var new_feld_pos = Vector2.ZERO
-	var rand_modus = 1
-	if curent_tarrget and [map.local_to_map(curent_tarrget.position), feld] in map.array_floor_with_portal_id: 
-		rand_modus = 2
-	else: 
-		rand_modus = 1
-	
-	if rand_modus == 1 and not map.array_floor_with_portal_id.is_empty():
-		var valid_fields = get_valid_fields(feld, color_cell)
+	var valid_bomb_list = level.get_node("Bomben").get_children().filter(func(v): v.clean)
+	var power_ups = level.get_node("PowerUP").get_children()
+	var candidates = valid_bomb_list + power_ups
+
+	if not candidates.is_empty():
+		curent_tarrget = candidates.pick_random()
+		
+	if curent_tarrget and map.local_to_map(curent_tarrget.position) in map.dict_floor_with_portal_id[str(feld)]: 
+		random = randi_range(1,2)
+		if random == 1:
+			curent_tarrget = null
+	if curent_tarrget == null and not map.dict_floor_with_portal_id[str(feld)].is_empty():
+		####### noch nicht performant genug ######
+		var valid_fields = get_valid_fields()
+		##########################################
 				
+		random = 1
 		if not valid_fields.is_empty():
 			selected_field_on_map = valid_fields.pick_random()
 			new_feld_pos = map.map_to_local(selected_field_on_map)
-			random = 1
 			curent_direction = (new_feld_pos - position).normalized()
-			curent_tarrget = null
 			return
 		elif level.get_node("loby").tp_mode:
 			selected_field_on_map = null
-			random = 1
 			curent_direction = Vector2(-1, -1).normalized()
-			curent_tarrget = null
 			tp_feld_aufsuchen = true
 			return
 
-	elif rand_modus == 2:
-		var valid_bomb_list = level.get_node("Bomben").get_children().filter(func(v): v.clean)
-		var power_ups = level.get_node("PowerUP").get_children()
-		var candidates = valid_bomb_list + power_ups
 
-		if not candidates.is_empty():
-			curent_tarrget = candidates.pick_random()
-			random = randi_range(1, 2)
-			if random == 1:
-				curent_tarrget = null
-				curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-				return
-		
-	random = 1
-	curent_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()		
-	
-	
 @rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false
