@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://fv2dn4il1f71"]
+[gd_scene load_steps=4 format=3 uid="uid://fv2dn4il1f71"]
 
 [ext_resource type="Script" uid="uid://mkc1g7xiq0ep" path="res://scripts/floor.gd" id="1_6wjps"]
 [ext_resource type="TileSet" uid="uid://cjt3ud8m2ug5l" path="res://resources/tilesets/floor.tres" id="1_hsdqa"]
@@ -7,7 +7,6 @@
 [node name="floor" type="TileMapLayer"]
 texture_filter = 1
 texture_repeat = 2
-tile_map_data = PackedByteArray("AAAVAAQAAAADAAAAAAAYAAQAAAADAAAAAAAUAAUAAAAAAAMAAAAVAAUAAAABAAEAAAAWAAUAAAABAAMAAAAXAAUAAAABAAMAAAAYAAUAAAACAAIAAAAVAAYAAAADAAIAAAAXAAcAAAADAAMAAAA=")
 tile_set = ExtResource("1_hsdqa")
 use_kinematic_bodies = true
 navigation_enabled = false

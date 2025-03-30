@@ -9,6 +9,7 @@ var standart_powerup_spawn_time = 10
 var standart_bomben_spawn_time = 5
 var standart_coin_spawn_time = 5
 var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
+@export	var map_faktor = 2
 
 
 @onready var main = get_parent().get_parent()
@@ -98,16 +99,20 @@ func _ready():
 		var argument_wert = args[args.find("-map") + 1] # Wert des spezifischen Arguments
 		if argument_wert == "2":
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
-			$loby.map_faktor = argument_wert.to_int()
+			Global.map_faktor = argument_wert.to_int()
+			$loby.set_map_faktor.rpc(Global.map_faktor)
 		elif argument_wert == "3":
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Normale Map")
-			$loby.map_faktor = argument_wert.to_int()
+			Global.map_faktor = argument_wert.to_int()
+			$loby.set_map_faktor.rpc(Global.map_faktor)
 		elif argument_wert == "5":
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große Map")
-			$loby.map_faktor = argument_wert.to_int()
+			Global.map_faktor = argument_wert.to_int()
+			$loby.set_map_faktor.rpc(Global.map_faktor)
 		else:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
-			$loby.map_faktor = 2
+			Global.map_faktor = 2
+			$loby.set_map_faktor.rpc(Global.map_faktor)
 			
 	
 func set_vs_mode(mode):

@@ -13,8 +13,6 @@ var difficulty_id = 0
 var count_settime = 0
 var count_map_size = 1
 
-var map_faktor = 2
-
 var blue_team_cound = 0
 var red_team_cound = 0
 var vaild_team = true
@@ -266,8 +264,8 @@ func _on_enter_pressed():
 			get_parent().spawn_npc()
 		update_player_counters(true)
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			map_set.rpc(map_faktor)
-			get_parent().map_enden = get_parent().get_node("floor").map_to_local(Global.Spielfeld_Size)
+			set_map_faktor.rpc(Global.map_faktor)
+			get_parent().map_enden = get_parent().get_node("floor").map_to_local(Global.Standard_Spielfeld_Size*get_parent().map_faktor)
 		
 
 func _on_random_pressed():
@@ -437,19 +435,22 @@ func _on_map_pressed():
 	count_map_size += 1
 	if count_map_size == 1:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine  Map")
-		map_faktor = 2
+		Global.map_faktor = 2
+		set_map_faktor.rpc(Global.map_faktor)
 	if count_map_size == 2:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Normale  Map")
-		map_faktor = 3
+		Global.map_faktor = 3
+		set_map_faktor.rpc(Global.map_faktor)
 	if count_map_size == 3:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große  Map")
-		map_faktor = 5
+		Global.map_faktor = 5
+		set_map_faktor.rpc(Global.map_faktor)
 		count_map_size = 0
 		
 
 @rpc("any_peer","call_local")
-func map_set(factor):
-	Global.Spielfeld_Size = Global.Standard_Spielfeld_Size*factor
+func set_map_faktor(factor):
+	get_parent().map_faktor = factor
 
 
 func _on_team_toggled(toggled_on):

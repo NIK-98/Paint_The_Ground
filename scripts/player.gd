@@ -68,16 +68,16 @@ func _physics_process(_delta):
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
 		for i in map.array_floor:
-			pos_array.append(map.map_to_local(i))
+			var map_pos = map.map_to_local(i)
+			if wall.get_cell_source_id(wall.local_to_map(map_pos)) != 0:
+				pos_array.append(map_pos)
 		position = pos_array.pick_random()
-		if level.get_node("loby").tp_mode and feld == 0:
-			feld = map.get_field_of_tile(map.local_to_map(position))
-	if not map.array_floor.is_empty() and not map.array_floor_with_portal_id.is_empty():
+	if not map.array_floor.is_empty():
 		feld = map.get_field_of_tile(map.local_to_map(position))
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			map_enden = map.map_to_local(Global.Spielfeld_Size)
+			map_enden = map.map_to_local(Global.Standard_Spielfeld_Size*level.map_faktor)
 			main.get_node("CanvasLayer/change").visible = true
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:

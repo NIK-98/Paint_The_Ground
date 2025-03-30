@@ -59,16 +59,16 @@ func _physics_process(delta):
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
 		for i in map.array_floor:
-			pos_array.append(map.map_to_local(i))
+			var map_pos = map.map_to_local(i)
+			if wall.get_cell_source_id(wall.local_to_map(map_pos)) != 0:
+				pos_array.append(map_pos)
 		position = pos_array.pick_random()
-		if level.get_node("loby").tp_mode:
-			feld = map.get_field_of_tile(map.local_to_map(position))
-	if not map.array_floor.is_empty() and not map.array_floor_with_portal_id.is_empty():
+	if not map.array_floor.is_empty():
 		feld = map.get_field_of_tile(map.local_to_map(position))
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
-			map_enden = map.map_to_local(Global.Spielfeld_Size)
+			map_enden = map.map_to_local(Global.Standard_Spielfeld_Size*level.map_faktor)
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
 			if not tp_feld_aufsuchen:
@@ -230,10 +230,10 @@ func move_npc():
 	
 func get_valid_fields():
 	var valid_fields = []
-	print(feld)
-	for felt_cords in map.dict_floor_with_portal_id[str(feld)]:
-		if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
-			valid_fields.append(felt_cords)
+	for felder in map.array_floor:
+		if map.get_field_of_tile(felder) == feld:
+			if map.get_cell_source_id(felder) not in [color_cell, 5]:
+				valid_fields.append(felder)
 	return valid_fields
 
 	
@@ -247,11 +247,11 @@ func set_random_direction():
 	if not candidates.is_empty():
 		curent_tarrget = candidates.pick_random()
 		
-	if curent_tarrget and map.local_to_map(curent_tarrget.position) in map.dict_floor_with_portal_id[str(feld)]: 
+	if curent_tarrget and map.get_field_of_tile(map.local_to_map(curent_tarrget.position)) == feld: 
 		random = randi_range(1,2)
 		if random == 1:
 			curent_tarrget = null
-	if curent_tarrget == null and not map.dict_floor_with_portal_id[str(feld)].is_empty():
+	if curent_tarrget == null:
 		####### noch nicht performant genug ######
 		var valid_fields = get_valid_fields()
 		##########################################
