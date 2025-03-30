@@ -10,9 +10,6 @@ var portal_path = []
 var array_floor = []
 var array_floor_with_portal_id = []
 var dict_floor_with_portal_id = {
-	"0": {
-		
-	},
 	"1": {
 		
 	},
@@ -46,7 +43,7 @@ func level_bereit_check():
 	if bereit_count == len(get_parent().playerlist):
 		get_parent().start_button_gedrückt.rpc()
 		bereit_count = 0
-		
+
 
 func normal_floor(filds:= Vector2i(2,2)):
 	var teiler_x = 0
@@ -57,9 +54,6 @@ func normal_floor(filds:= Vector2i(2,2)):
 	array_floor = []
 	array_floor_with_portal_id = []
 	dict_floor_with_portal_id = {
-		"0": {
-			
-		},
 		"1": {
 			
 		},
@@ -109,9 +103,6 @@ func tp_floor(filds:= Vector2i(2,2)):
 	max_portal_ids = filds.x*filds.y
 	array_floor_with_portal_id = []
 	dict_floor_with_portal_id = {
-		"0": {
-			
-		},
 		"1": {
 			
 		},
@@ -177,6 +168,16 @@ func tp_floor(filds:= Vector2i(2,2)):
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
 				
+			
+			
+func get_next_field(current_feld: int):
+	var next_fields = []
+	for fields in range(1,max_portal_ids+1):
+		if fields == current_feld:
+			continue
+		next_fields.append(fields)
+	return next_fields.pick_random()
+	
 			
 func tp_to(pos: Vector2, current_feld: int):
 	var map_pos = local_to_map(pos)

@@ -25,7 +25,7 @@ var input_mode = 0 # 0=pc 1=controller
 var zoom_old = 1
 const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
-@export var feld = 0
+@export var feld = 1
 var pos_array = []
 var set_pos = false
 @export var paint_radius = Global.painting_rad
@@ -70,8 +70,8 @@ func _physics_process(_delta):
 		for i in map.array_floor:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
-		if level.get_node("loby").tp_mode and feld == 0:
-			feld = map.get_tp_feld(position)[1]
+	if not map.array_floor.is_empty():
+		feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
