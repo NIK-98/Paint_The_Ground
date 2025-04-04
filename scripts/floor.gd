@@ -8,18 +8,17 @@ var portal_path = []
 @onready var wall = get_node("../wall")
 
 var array_floor = []
-var array_floor_with_portal_id = []
 var dict_floor_with_portal_id = {
-	"1": {
+	1: {
 		
 	},
-	"2": {
+	2: {
 		
 	},
-	"3": {
+	3: {
 		
 	},
-	"4": {
+	4: {
 		
 	}
 }
@@ -52,18 +51,17 @@ func normal_floor(filds:= Vector2i(2,2)):
 	var portal_id = portal_id_spalte
 	max_portal_ids = filds.x*filds.y
 	array_floor = []
-	array_floor_with_portal_id = []
 	dict_floor_with_portal_id = {
-		"1": {
+		1: {
 			
 		},
-		"2": {
+		2: {
 			
 		},
-		"3": {
+		3: {
 			
 		},
-		"4": {
+		4: {
 			
 		}
 	}
@@ -81,14 +79,13 @@ func normal_floor(filds:= Vector2i(2,2)):
 					portal_id += 1
 			
 			if portal_id == 1:
-				dict_floor_with_portal_id["1"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[1][Vector2i(x,y)] = portal_id
 			if portal_id == 2:
-				dict_floor_with_portal_id["2"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[2][Vector2i(x,y)] = portal_id
 			if portal_id == 3:
-				dict_floor_with_portal_id["3"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[3][Vector2i(x,y)] = portal_id
 			if portal_id == 4:
-				dict_floor_with_portal_id["4"][Vector2i(x,y)] = portal_id
-			array_floor_with_portal_id.append([Vector2i(x,y),portal_id])
+				dict_floor_with_portal_id[4][Vector2i(x,y)] = portal_id
 			array_floor.append(Vector2i(x,y))
 	BetterTerrain.set_cells(self, array_floor, 0)
 	BetterTerrain.update_terrain_cells(self, array_floor)
@@ -101,18 +98,17 @@ func tp_floor(filds:= Vector2i(2,2)):
 	var portal_id_spalte = 1
 	var portal_id = portal_id_spalte
 	max_portal_ids = filds.x*filds.y
-	array_floor_with_portal_id = []
 	dict_floor_with_portal_id = {
-		"1": {
+		1: {
 			
 		},
-		"2": {
+		2: {
 			
 		},
-		"3": {
+		3: {
 			
 		},
-		"4": {
+		4: {
 			
 		}
 	}
@@ -135,14 +131,13 @@ func tp_floor(filds:= Vector2i(2,2)):
 					continue
 					
 			if portal_id == 1:
-				dict_floor_with_portal_id["1"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[1][Vector2i(x,y)] = portal_id
 			if portal_id == 2:
-				dict_floor_with_portal_id["2"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[2][Vector2i(x,y)] = portal_id
 			if portal_id == 3:
-				dict_floor_with_portal_id["3"][Vector2i(x,y)] = portal_id
+				dict_floor_with_portal_id[3][Vector2i(x,y)] = portal_id
 			if portal_id == 4:
-				dict_floor_with_portal_id["4"][Vector2i(x,y)] = portal_id
-			array_floor_with_portal_id.append([Vector2i(x,y),portal_id])
+				dict_floor_with_portal_id[4][Vector2i(x,y)] = portal_id
 			array_floor.append(Vector2i(x,y))
 	
 	BetterTerrain.set_cells(self,array_floor,0)
@@ -157,13 +152,13 @@ func tp_floor(filds:= Vector2i(2,2)):
 	
 	#create portall
 	for ids in range(1,max_portal_ids+1):
-		for teile in array_floor_with_portal_id:
-			if teile[1] != ids:
+		for teile in dict_floor_with_portal_id[ids]:
+			if dict_floor_with_portal_id[ids].get(teile) != ids:
 				continue
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+0),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+0),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+0,teile[0].y+1),5)
-			BetterTerrain.set_cell(self,Vector2i(teile[0].x+1,teile[0].y+1),5)
+			BetterTerrain.set_cell(self,Vector2i(teile.x+0,teile.y+0),5)
+			BetterTerrain.set_cell(self,Vector2i(teile.x+1,teile.y+0),5)
+			BetterTerrain.set_cell(self,Vector2i(teile.x+0,teile.y+1),5)
+			BetterTerrain.set_cell(self,Vector2i(teile.x+1,teile.y+1),5)
 			break
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
@@ -185,7 +180,7 @@ func tp_to(pos: Vector2, current_feld: int):
 		return []
 	var feld_pos = -1
 	var ziel_portal = null
-	for portal in dict_floor_with_portal_id[str(current_feld)]:
+	for portal in dict_floor_with_portal_id[current_feld]:
 		if map_pos == portal:
 			feld_pos = current_feld
 			var valid_fields = []
@@ -198,7 +193,7 @@ func tp_to(pos: Vector2, current_feld: int):
 				break
 	if ziel_portal == null:
 		return [map_to_local(Vector2i(0, 0)), feld_pos]
-	for portal in dict_floor_with_portal_id[str(ziel_portal[1])]:
+	for portal in dict_floor_with_portal_id[ziel_portal[1]]:
 		return [map_to_local(portal), feld_pos]
 	return []
 	
@@ -215,7 +210,7 @@ func tp_to_signal(npc: CharacterBody2D, pos: Vector2, current_feld: int):
 func is_portal_id_ok(map_pos: Vector2i,feld: int):
 	if not get_parent().get_node("loby").tp_mode:
 		return true
-	if [map_pos,feld] in array_floor_with_portal_id:
+	if map_pos in dict_floor_with_portal_id[feld]:
 		return true
 	else:
 		return false
@@ -223,13 +218,13 @@ func is_portal_id_ok(map_pos: Vector2i,feld: int):
 
 func get_tp_feld(pos: Vector2):
 	var map_pos = local_to_map(pos)
-	if map_pos in dict_floor_with_portal_id["1"]:
+	if map_pos in dict_floor_with_portal_id[1]:
 		return [map_pos,1]
-	elif map_pos in dict_floor_with_portal_id["2"]:
+	elif map_pos in dict_floor_with_portal_id[2]:
 		return [map_pos,2]
-	elif map_pos in dict_floor_with_portal_id["3"]:
+	elif map_pos in dict_floor_with_portal_id[3]:
 		return [map_pos,3]
-	elif map_pos in dict_floor_with_portal_id["4"]:
+	elif map_pos in dict_floor_with_portal_id[4]:
 		return [map_pos,4]
 				
 			

@@ -57,7 +57,6 @@ func _ready():
 	$CanvasLayer/Los.visible = false
 	if not level.get_node("loby").vs_mode:
 		color_change()
-	reset_physics_interpolation()
 
 
 func _physics_process(_delta):
@@ -67,7 +66,8 @@ func _physics_process(_delta):
 		score_counter()
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
-		for i in map.array_floor:
+		var map_pos = map.dict_floor_with_portal_id[randi_range(1,4)]
+		for i in map_pos:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
 	if not map.array_floor.is_empty():
@@ -122,7 +122,6 @@ func _process(delta):
 			if velocity.x != 0 or velocity.y != 0:
 				paint()
 			score_counter()
-			
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
@@ -229,7 +228,7 @@ func _input(event):
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 	
-
+	
 func score_counter():
 	score = len(map.get_used_cells_by_id(color_cell))
 	

@@ -55,7 +55,8 @@ func _physics_process(delta):
 		score_counter()
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
-		for i in map.array_floor:
+		var map_pos = map.dict_floor_with_portal_id[randi_range(1,4)]
+		for i in map_pos:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
 		if not map.array_floor.is_empty():
@@ -87,7 +88,7 @@ func _physics_process(delta):
 			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
 					return
-				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon_npc(powerups)
+				level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(name)).clear_icon(powerups)
 		
 
 func _process(delta):
@@ -226,7 +227,9 @@ func get_valid_fields():
 	while iteration_count < 5:
 		iteration_count += 1
 		if valid_fields.is_empty():
-			for felt_cords in map.dict_floor_with_portal_id[str(feld)]:
+			if not level.get_node("loby").tp_mode:
+				feld = map.get_next_field(feld)
+			for felt_cords in map.dict_floor_with_portal_id[feld]:
 				if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
 					valid_fields.append(felt_cords)
 		if not valid_fields.is_empty():

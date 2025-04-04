@@ -1,53 +1,70 @@
 extends HBoxContainer
 
+@onready var animation_player: AnimationPlayer = $TextureRect/AnimationPlayer
+@onready var animation_player_2: AnimationPlayer = $TextureRect2/AnimationPlayer2
+@onready var animation_player_3: AnimationPlayer = $TextureRect3/AnimationPlayer3
+
 var is_npc = false
+var cached_textures = {
+	"speedup": preload("res://assets/powerups/speedup.png"),
+	"bigrad": preload("res://assets/powerups/bigrad.png"),
+	"protect": preload("res://assets/powerups/protect.png"),
+	"empty": preload("res://assets/powerups/empty.png")
+}
 
 
 @rpc("any_peer","call_local")
 func animate_rest_time(powerup):
 	if powerup == 0:
-		$TextureRect/AnimationPlayer.play("rest")
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			play_animation_on_server.rpc_id(1,animation_player, "rest")
 	if powerup == 1:
-		$TextureRect2/AnimationPlayer2.play("rest2")
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			play_animation_on_server.rpc_id(1,animation_player_2, "rest2")
 	if powerup == 2:
-		$TextureRect3/AnimationPlayer3.play("rest3")
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			play_animation_on_server.rpc_id(1,animation_player_3, "rest3")
 		
 		
 
 @rpc("any_peer","call_local")
 func update_icon(powerups):
 	if powerups[0][1] == true and powerups[0][0] == 0:
-		$TextureRect.texture = load("res://assets/powerups/speedup.png")
-		$TextureRect/AnimationPlayer.stop()
+		$TextureRect.texture = cached_textures["speedup"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player)
 	if powerups[1][1] == true and powerups[1][0] == 1:
-		$TextureRect2.texture = load("res://assets/powerups/bigrad.png")
-		$TextureRect2/AnimationPlayer2.stop()
+		$TextureRect2.texture = cached_textures["bigrad"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player_2)
 	if powerups[2][1] == true and powerups[2][0] == 2:
-		$TextureRect3.texture = load("res://assets/powerups/protect.png")
-		$TextureRect3/AnimationPlayer3.stop()
+		$TextureRect3.texture = cached_textures["protect"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player_3)
 
 
 
 @rpc("any_peer","call_local")
 func clear_icon(powerups):
 	if powerups[0][1] == false and powerups[0][0] == -1:
-		$TextureRect.texture = load("res://assets/powerups/empty.png")
-		$TextureRect/AnimationPlayer.stop()
+		$TextureRect.texture = cached_textures["empty"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player)
 	if powerups[1][1] == false and powerups[1][0] == -1:
-		$TextureRect2.texture = load("res://assets/powerups/empty.png")
-		$TextureRect2/AnimationPlayer2.stop()
+		$TextureRect2.texture = cached_textures["empty"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player_2)
 	if powerups[2][1] == false and powerups[2][0] == -1:
-		$TextureRect3.texture = load("res://assets/powerups/empty.png")
-		$TextureRect3/AnimationPlayer3.stop()
-				
+		$TextureRect3.texture = cached_textures["empty"]
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			stop_animation_on_server.rpc_id(1,animation_player_3)
+		
 
-func clear_icon_npc(powerups):
-	if powerups[0][1] == false and powerups[0][0] == -1:
-		$TextureRect.texture = load("res://assets/powerups/empty.png")
-		$TextureRect/AnimationPlayer.stop()
-	if powerups[1][1] == false and powerups[1][0] == -1:
-		$TextureRect2.texture = load("res://assets/powerups/empty.png")
-		$TextureRect2/AnimationPlayer2.stop()
-	if powerups[2][1] == false and powerups[2][0] == -1:
-		$TextureRect3.texture = load("res://assets/powerups/empty.png")
-		$TextureRect3/AnimationPlayer3.stop()
+@rpc("call_local")
+func play_animation_on_server(APlayer:AnimationPlayer, animation_name: String):
+	APlayer.play(animation_name)
+	
+
+@rpc("call_local")
+func stop_animation_on_server(APlayer:AnimationPlayer):
+	APlayer.stop()

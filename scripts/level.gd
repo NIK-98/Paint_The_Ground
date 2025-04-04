@@ -340,11 +340,11 @@ func reset_bomben():
 	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
-
-
+	
+	
 func spawn_new_bombe():
 	for i in range(Global.Spawn_bomben_limit):
-		var pos = map.map_to_local(map.array_floor.pick_random())
+		var pos = map.map_to_local(map.dict_floor_with_portal_id[randi_range(1,4)].keys().pick_random())
 		for child in Bomben.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
@@ -364,7 +364,7 @@ func reset_powerup():
 
 func spawn_new_powerup():
 	for i in range(Global.Spawn_powerup_limit):
-		var pos = map.map_to_local(map.array_floor.pick_random())
+		var pos = map.map_to_local(map.dict_floor_with_portal_id[randi_range(1,4)].keys().pick_random())
 		var new_auswahl = powerup_auswahl.pick_random()
 		for child in power_up.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
@@ -386,7 +386,7 @@ func reset_coins():
 
 func spawn_new_coins():
 	for i in range(Global.Spawn_coins_limit):
-		var pos = map.map_to_local(map.array_floor.pick_random())
+		var pos = map.map_to_local(map.dict_floor_with_portal_id[randi_range(1,4)].keys().pick_random())
 		for child in coins.get_children():
 			if child.position.distance_to(pos) < spawn_distance_bombe and child.position.distance_to(pos) < spawn_distance_power_up and child.position.distance_to(pos) < spawn_distance_coins:
 				return
