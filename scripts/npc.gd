@@ -24,7 +24,7 @@ var curent_tarrget = null
 const cooldown_time_tp = 20
 var feld = 1
 var tp_cool_down = cooldown_time_tp
-var tp_feld_aufsuchen = false
+var portal_free = true
 var pos_array = []
 var	set_pos = false
 var selected_field_on_map = null
@@ -59,7 +59,7 @@ func _physics_process(delta):
 		for i in map_pos:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
-		if not map.array_floor.is_empty():
+		if not map.array_floor.is_empty() and map.get_tp_feld(position) != null:
 			feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
@@ -67,9 +67,8 @@ func _physics_process(delta):
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if not tp_feld_aufsuchen:
-				if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field():
-					set_random_direction()
+			if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field() or map.is_vaild_portal(position):
+				set_random_direction()
 			velocity = move_npc()*SPEED		
 			move_and_slide()
 			
@@ -99,17 +98,16 @@ func _process(delta):
 			score_counter()
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
-				delta = 0
 				if round(tp_cool_down) <= 0:
-					if not tp_feld_aufsuchen:
-						curent_tarrget = null
-					tp_feld_aufsuchen = true
-				if level.get_node("loby").tp_mode:
-					if tp_feld_aufsuchen or (curent_tarrget == null and selected_field_on_map == null):
-						if not map.tp_to_signal(self,position,feld).is_empty():
-							tp_feld_aufsuchen = false
-							tp_cool_down = cooldown_time_tp
-							feld = map.get_tp_feld(position)[1]
+					curent_tarrget = null
+				if portal_free and map.is_vaild_portal(position):
+					portal_free = false
+					tp_cool_down = cooldown_time_tp
+					feld = map.get_next_field(feld)
+					map.tp_to(self, feld)
+					feld = map.get_tp_feld(position)[1]
+				if not portal_free and not map.is_vaild_portal(position):
+					portal_free = true
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true
 				aktivate_power(0)
@@ -119,8 +117,7 @@ func _process(delta):
 			if not powerups[2][2] and powerups[2][0] != -1:#drites powerup
 				powerups[2][2] = true
 				aktivate_power(2)
-				
-	
+		
 
 func aktivate_power(index: int):
 	var new_timer_power_up = timer_power_up.instantiate()
@@ -205,10 +202,6 @@ func score_counter():
 func move_npc():
 	var dir: Vector2
 	if curent_tarrget == null:
-		if tp_feld_aufsuchen:
-			curent_direction = Vector2(-1,-1).normalized()
-			dir = curent_direction
-			return dir
 		random = 1
 		
 	if random == 1:
@@ -223,27 +216,18 @@ func move_npc():
 	
 func get_valid_fields():
 	var valid_fields = []
-	var iteration_count = 0
-	while iteration_count < 5:
-		iteration_count += 1
-		if valid_fields.is_empty():
-			if not level.get_node("loby").tp_mode:
-				feld = map.get_next_field(feld)
-			for felt_cords in map.dict_floor_with_portal_id[feld]:
-				if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
-					valid_fields.append(felt_cords)
-		if not valid_fields.is_empty():
-			return valid_fields
-		elif not level.get_node("loby").tp_mode and valid_fields.is_empty():
-			feld = map.get_next_field(feld)
-		
+	for felt_cords in map.dict_floor_with_portal_id[feld]:
+		if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
+			valid_fields.append(felt_cords)
+	if not level.get_node("loby").tp_mode and valid_fields.is_empty():
+		feld = map.get_next_field(feld)
 	return valid_fields
 
 
 func is_vaild_field():
 	if selected_field_on_map == null:
 		return false
-	elif map.get_cell_source_id(selected_field_on_map) in [color_cell, 5]:
+	elif map.get_cell_source_id(selected_field_on_map) == color_cell:
 		return false
 	else:
 		return true
@@ -256,8 +240,7 @@ func set_random_direction():
 	var power_ups = level.get_node("PowerUP").get_children()
 	var candidates = valid_bomb_list + power_ups
 	var valid_fields = get_valid_fields()
-	random = [1,2].pick_random()
-			
+	random = [1,2].pick_random()	
 	if not valid_fields.is_empty():
 		if random == 2 and not candidates.is_empty():
 			curent_tarrget = candidates.pick_random()
@@ -269,9 +252,10 @@ func set_random_direction():
 	elif not level.get_node("loby").tp_mode and valid_fields.is_empty():
 		selected_field_on_map = null
 		curent_direction = Vector2.ZERO
-	elif level.get_node("loby").tp_mode:
+	elif level.get_node("loby").tp_mode and valid_fields.is_empty():
 		curent_direction = Vector2(-1, -1).normalized()
-		tp_feld_aufsuchen = true
+		if map.is_vaild_portal(position):
+			portal_free = true
 		return
 
 

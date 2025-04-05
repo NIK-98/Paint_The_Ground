@@ -29,6 +29,7 @@ var tp_cool_down = cooldown_time_tp
 var pos_array = []
 var set_pos = false
 @export var paint_radius = Global.painting_rad
+var portal_free = true
 
 @export var magnet = true
 
@@ -70,7 +71,7 @@ func _physics_process(_delta):
 		for i in map_pos:
 			pos_array.append(map.map_to_local(i))
 		position = pos_array.pick_random()
-	if not map.array_floor.is_empty():
+	if not map.array_floor.is_empty() and map.get_tp_feld(position) != null:
 		feld = map.get_tp_feld(position)[1]
 	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
 		if not Gametriggerstart:
@@ -125,10 +126,15 @@ func _process(delta):
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
-					if not map.tp_to_signal(self,position,feld).is_empty():
+					if portal_free and map.is_vaild_portal(position):
+						portal_free = false
 						tp_cool_down = cooldown_time_tp
 						Global.tp_sound = true
+						feld = map.get_next_field(feld)
+						map.tp_to(self, feld)
 						feld = map.get_tp_feld(position)[1]
+					if not portal_free and not map.is_vaild_portal(position):
+						portal_free = true
 
 			if not powerups[0][2] and powerups[0][0] != -1:#erstes powerup
 				powerups[0][2] = true

@@ -1,7 +1,5 @@
 extends TileMapLayer
 
-signal npc_teleported(npc, target_pos)
-
 var bereit_count = 0
 var portal_path = []
 
@@ -173,39 +171,18 @@ func get_next_field(current_feld: int):
 		next_fields.append(fields)
 	return next_fields.pick_random()
 	
-			
-func tp_to(pos: Vector2, current_feld: int):
+
+func tp_to(player: CharacterBody2D, next_feld: int):
+	player.position = map_to_local(dict_floor_with_portal_id[next_feld].keys()[0])
+
+
+func is_vaild_portal(pos: Vector2):
 	var map_pos = local_to_map(pos)
-	if get_cell_source_id(map_pos) != 5:
-		return []
-	var feld_pos = -1
-	var ziel_portal = null
-	for portal in dict_floor_with_portal_id[current_feld]:
-		if map_pos == portal:
-			feld_pos = current_feld
-			var valid_fields = []
-			for f in range(1, max_portal_ids + 1):
-				if f != feld_pos:
-					valid_fields.append(f)	
-			var end_portal = valid_fields.pick_random()
-			if [feld_pos, end_portal] in portal_path:
-				ziel_portal = [feld_pos, end_portal]
-				break
-	if ziel_portal == null:
-		return [map_to_local(Vector2i(0, 0)), feld_pos]
-	for portal in dict_floor_with_portal_id[ziel_portal[1]]:
-		return [map_to_local(portal), feld_pos]
-	return []
-	
-
-func tp_to_signal(npc: CharacterBody2D, pos: Vector2, current_feld: int):
-	var result = tp_to(pos,current_feld)
-	if not result.is_empty():
-		emit_signal("npc_teleported", npc, result[0])
-		return result
+	if get_cell_source_id(map_pos) == 5:
+		return true
 	else:
-		return result
-
+		return false
+		
 
 func is_portal_id_ok(map_pos: Vector2i,feld: int):
 	if not get_parent().get_node("loby").tp_mode:
@@ -226,12 +203,10 @@ func get_tp_feld(pos: Vector2):
 		return [map_pos,3]
 	elif map_pos in dict_floor_with_portal_id[4]:
 		return [map_pos,4]
+	else:
+		return null
 				
 			
 
 func get_felder_summe():
 	return array_floor.size()
-
-
-func _on_npc_teleported(npc: Variant, target_pos: Variant) -> void:
-	npc.global_position = target_pos
