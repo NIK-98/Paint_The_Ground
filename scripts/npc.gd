@@ -216,6 +216,8 @@ func move_npc():
 	
 func get_valid_fields():
 	var valid_fields = []
+	if not level.get_node("loby").tp_mode:
+		feld = map.get_next_field(feld)
 	for felt_cords in map.dict_floor_with_portal_id[feld]:
 		if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
 			valid_fields.append(felt_cords)
