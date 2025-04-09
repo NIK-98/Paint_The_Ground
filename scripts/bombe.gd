@@ -17,6 +17,8 @@ var offset_y: int
 var distance_sqr: int
 var clean = false
 
+var id: int = 0
+
 
 func _ready():
 	set_process(false)
@@ -29,13 +31,13 @@ func _process(_delta):
 				$Area2D/CollisionShape2D.disabled = true
 				$bum.play("bum")
 			if not $bum.is_playing():
-				aktivate_bombe.rpc(celle,explode_pos,feld)
+				aktivate_bombe.rpc(celle,explode_pos,feld,id)
 				queue_free()
 				return
 		
 
 @rpc("any_peer", "call_local")
-func aktivate_bombe(cell: int, pos: Vector2, feld_id: int):
+func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 	var tile_position: Vector2i = map.local_to_map(pos)
 	var block_cells = level.block_cells
 	for x in range(-bomb_radius, bomb_radius):
@@ -52,6 +54,10 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int):
 						continue
 					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
+					if cell_source_id != 0:
+						level.update_score(player_id,cell_source_id)
+					else:
+						level.update_score(player_id,0)
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
 	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
@@ -64,6 +70,7 @@ func _on_area_2d_area_entered(area):
 		celle = area.get_parent().color_cell
 		clean = true
 		feld = area.get_parent().feld
+		id = area.get_parent().name.to_int() 
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
 		set_process(true)

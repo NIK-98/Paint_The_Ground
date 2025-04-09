@@ -34,6 +34,10 @@ var loaded = false
 var last_runde = false
 var start_gedrückt = 0
 
+@export var change_score_dict = {}
+var created_score_dict = false
+
+
 @export var time = 0
 @export var bomb_time = 0
 @export var start_time = 0
@@ -129,6 +133,44 @@ func set_coin_mode(mode):
 func set_shop_mode(mode):	
 	$loby.shop_mode = mode
 	
+
+func create_change_score_dict():
+	change_score_dict.clear()
+	for p in $Players.get_children():
+		change_score_dict[p.name.to_int()] = {}
+		for celle in range(1,5):
+			change_score_dict[p.name.to_int()][celle] = 0
+		change_score_dict[p.name.to_int()][0] = 0
+		
+
+func clear_change_score_dict(id: int):
+	for celle in range(1,5):
+		change_score_dict[id][celle] = 0
+	change_score_dict[id][0] = 0
+
+
+func update_score(id: int, cell: int):
+	change_score_dict[id][cell] += 1
+	
+	
+	
+func get_changed_cell_from_other_players(id: int):
+	var change_cell_count = 0
+	for p in $Players.get_children():
+		change_cell_count += change_score_dict[id][p.color_cell]
+	return change_cell_count
+	
+		
+@rpc("any_peer","call_local")
+func score_update(id: int, cell: int):
+	if change_score_dict.is_empty():
+		return
+	for p in $Players.get_children():
+		if p.name.to_int() == id:
+			p.score += change_score_dict[id][0]+get_changed_cell_from_other_players(id)
+		elif change_score_dict[id][p.color_cell] > 0:
+			p.score -= change_score_dict[id][p.color_cell]
+	
 	
 func update_player_list(id: int, join: bool):
 	if join:
@@ -198,7 +240,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	$loby.reset_loby()
 	game_update()
-	
+		
 	
 func game_update():
 	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
@@ -279,6 +321,7 @@ func add_player(id: int):
 		
 	elif $loby.coin_mode and $loby.shop_mode:
 		reset_shop_and_coins.rpc_id(id)
+	
 		
 	
 @rpc("call_local")
@@ -587,6 +630,9 @@ func start_button_gedrückt():
 @rpc("any_peer","call_local")
 func start_game():
 	start_gedrückt += 1
+	if not created_score_dict:
+		create_change_score_dict()
+	created_score_dict = true
 	if start_gedrückt == len(playerlist):
 		$loby.visible = false
 		$Timerrestart.start()

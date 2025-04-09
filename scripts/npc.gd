@@ -47,7 +47,7 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
-	
+			
 	
 func _physics_process(delta):
 	if not loaded:
@@ -169,16 +169,23 @@ func paint():
 				var cell_id = map.get_cell_source_id(new_pos)
 				var wall_cell_id = wall.get_cell_source_id(new_pos)
 				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
-					if cell_id == -1 and wall_cell_id == -1:
+					if wall_cell_id != -1:
 						continue
+					if cell_id != 0:
+						level.update_score(name.to_int(),cell_id)
+					else:
+						level.update_score(name.to_int(),0)
 					paint_array.append(new_pos)
 
 	BetterTerrain.set_cells(map, paint_array, color_cell)
 	BetterTerrain.update_terrain_cells(map, paint_array)
-	
-	
+
+
 func score_counter():
-	score = len(map.get_used_cells_by_id(color_cell))
+	#score = len(map.get_used_cells_by_id(color_cell))
+	if not level.change_score_dict.is_empty():
+		level.score_update(name.to_int(),color_cell)
+		level.clear_change_score_dict(name.to_int())
 	
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):

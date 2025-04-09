@@ -233,10 +233,13 @@ func _input(event):
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-	
-	
+		
+		
 func score_counter():
-	score = len(map.get_used_cells_by_id(color_cell))
+	#score = len(map.get_used_cells_by_id(color_cell))
+	if not level.change_score_dict.is_empty():
+		level.score_update.rpc(name.to_int(),color_cell)
+		level.clear_change_score_dict(name.to_int())
 	
 	if name.to_int() != multiplayer.get_unique_id():
 		return
@@ -281,10 +284,14 @@ func paint():
 				var cell_id = map.get_cell_source_id(new_pos)
 				var wall_cell_id = wall.get_cell_source_id(new_pos)
 				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
-					if cell_id == -1 and wall_cell_id == -1:
+					if wall_cell_id != -1:
 						continue
+					if cell_id != 0:
+						level.update_score(name.to_int(),cell_id)
+					else:
+						level.update_score(name.to_int(),0)
 					paint_array.append(new_pos)
-
+	
 	BetterTerrain.set_cells(map, paint_array, color_cell)
 	BetterTerrain.update_terrain_cells(map, paint_array)
 
