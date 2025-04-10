@@ -173,8 +173,7 @@ func paint():
 						continue
 					if cell_id != 0:
 						level.update_score(name.to_int(),cell_id)
-					else:
-						level.update_score(name.to_int(),0)
+					level.update_score(name.to_int(),0)
 					paint_array.append(new_pos)
 
 	BetterTerrain.set_cells(map, paint_array, color_cell)
@@ -183,9 +182,6 @@ func paint():
 
 func score_counter():
 	#score = len(map.get_used_cells_by_id(color_cell))
-	if not level.change_score_dict.is_empty():
-		level.score_update(name.to_int(),color_cell)
-		level.clear_change_score_dict(name.to_int())
 	
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):

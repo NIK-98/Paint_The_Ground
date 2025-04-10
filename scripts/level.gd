@@ -152,23 +152,14 @@ func clear_change_score_dict(id: int):
 func update_score(id: int, cell: int):
 	change_score_dict[id][cell] += 1
 	
-	
-	
-func get_changed_cell_from_other_players(id: int):
-	var change_cell_count = 0
-	for p in $Players.get_children():
-		change_cell_count += change_score_dict[id][p.color_cell]
-	return change_cell_count
-	
 		
-@rpc("any_peer","call_local")
-func score_update(id: int, cell: int):
+func score_update(id: int):
 	if change_score_dict.is_empty():
 		return
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
-			p.score += change_score_dict[id][0]+get_changed_cell_from_other_players(id)
-		elif change_score_dict[id][p.color_cell] > 0:
+			p.score += change_score_dict[id][0]
+		else:
 			p.score -= change_score_dict[id][p.color_cell]
 	
 	
@@ -234,7 +225,10 @@ func _process(_delta):
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
 		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
-		set_process(false)
+	if not change_score_dict.is_empty():
+		for p in $Players.get_children():
+			score_update(p.name.to_int())
+			clear_change_score_dict(p.name.to_int())
 	
 	
 func _physics_process(_delta):

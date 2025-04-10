@@ -54,10 +54,11 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 						continue
 					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
+					
 					if cell_source_id != 0:
-						level.update_score(player_id,cell_source_id)
-					else:
-						level.update_score(player_id,0)
+						level.update_score(player_id, cell_source_id)
+					level.update_score(player_id, 0)
+						
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
 	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)

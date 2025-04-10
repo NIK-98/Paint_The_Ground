@@ -237,9 +237,6 @@ func _input(event):
 		
 func score_counter():
 	#score = len(map.get_used_cells_by_id(color_cell))
-	if not level.change_score_dict.is_empty():
-		level.score_update.rpc(name.to_int(),color_cell)
-		level.clear_change_score_dict(name.to_int())
 	
 	if name.to_int() != multiplayer.get_unique_id():
 		return
@@ -288,8 +285,7 @@ func paint():
 						continue
 					if cell_id != 0:
 						level.update_score(name.to_int(),cell_id)
-					else:
-						level.update_score(name.to_int(),0)
+					level.update_score(name.to_int(),0)
 					paint_array.append(new_pos)
 	
 	BetterTerrain.set_cells(map, paint_array, color_cell)
