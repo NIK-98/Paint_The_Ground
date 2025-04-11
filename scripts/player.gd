@@ -236,8 +236,6 @@ func _input(event):
 		
 		
 func score_counter():
-	#score = len(map.get_used_cells_by_id(color_cell))
-	
 	if name.to_int() != multiplayer.get_unique_id():
 		return
 			

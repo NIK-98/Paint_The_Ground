@@ -181,8 +181,6 @@ func paint():
 
 
 func score_counter():
-	#score = len(map.get_used_cells_by_id(color_cell))
-	
 	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
 		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
 			return

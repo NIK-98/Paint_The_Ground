@@ -35,7 +35,7 @@ var last_runde = false
 var start_gedrückt = 0
 
 @export var change_score_dict = {}
-var created_score_dict = false
+@export var created_score_dict = false
 
 
 @export var time = 0
@@ -141,12 +141,6 @@ func create_change_score_dict():
 		for celle in range(1,5):
 			change_score_dict[p.name.to_int()][celle] = 0
 		change_score_dict[p.name.to_int()][0] = 0
-		
-
-func clear_change_score_dict(id: int):
-	for celle in range(1,5):
-		change_score_dict[id][celle] = 0
-	change_score_dict[id][0] = 0
 
 
 func update_score(id: int, cell: int):
@@ -159,8 +153,10 @@ func score_update(id: int):
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
 			p.score += change_score_dict[id][0]
+			change_score_dict[id][0] = 0
 		else:
 			p.score -= change_score_dict[id][p.color_cell]
+			change_score_dict[id][p.color_cell] = 0
 	
 	
 func update_player_list(id: int, join: bool):
@@ -204,8 +200,6 @@ func set_npc_settings():
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP-Mode!"
 		if $loby.vs_mode and $loby.tp_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP/VS-Mode!"
-		
-		
 
 
 @rpc("any_peer","call_local")
@@ -213,7 +207,6 @@ func is_server_run_game():
 	Max_clients = 0
 	main.get_node("CanvasLayer2/Control/UI").game_started = false
 	main.get_node("CanvasLayer2/Control/UI").set_process(false)
-	
 	
 	
 func _process(_delta):
@@ -228,9 +221,8 @@ func _process(_delta):
 	if not change_score_dict.is_empty():
 		for p in $Players.get_children():
 			score_update(p.name.to_int())
-			clear_change_score_dict(p.name.to_int())
-	
-	
+			
+			
 func _physics_process(_delta):
 	$loby.reset_loby()
 	game_update()
@@ -316,7 +308,6 @@ func add_player(id: int):
 	elif $loby.coin_mode and $loby.shop_mode:
 		reset_shop_and_coins.rpc_id(id)
 	
-		
 	
 @rpc("call_local")
 func remove_exiting_coins():
@@ -370,8 +361,7 @@ func del_text_tap(id: int):
 	if not get_node("Werten/PanelContainer/Wertung/name").has_node(str(id)):
 		return
 	get_node("Werten/PanelContainer/Wertung/name").get_node(str(id)).queue_free()
-			
-			
+					
 
 func reset_bomben():
 	for c in range(Bomben.get_child_count()):
