@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var timer_power_up: PackedScene
 
 
+var count_gegner_cellen = {1:0,2:0,3:0,4:0}
+var count_cellen = 0
 var score = 0
 var color_cell = 0
 var loaded = false
@@ -172,8 +174,8 @@ func paint():
 					if wall_cell_id != -1:
 						continue
 					if cell_id != 0:
-						level.update_score(name.to_int(),cell_id)
-					level.update_score(name.to_int(),0)
+						count_gegner_cellen[cell_id] += 1
+					count_cellen += 1
 					paint_array.append(new_pos)
 
 	BetterTerrain.set_cells(map, paint_array, color_cell)

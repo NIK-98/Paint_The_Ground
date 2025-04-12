@@ -34,9 +34,6 @@ var loaded = false
 var last_runde = false
 var start_gedrückt = 0
 
-@export var change_score_dict = {}
-@export var created_score_dict = false
-
 
 @export var time = 0
 @export var bomb_time = 0
@@ -133,31 +130,23 @@ func set_coin_mode(mode):
 func set_shop_mode(mode):	
 	$loby.shop_mode = mode
 	
-
-func create_change_score_dict():
-	change_score_dict.clear()
-	for p in $Players.get_children():
-		change_score_dict[p.name.to_int()] = {}
-		for celle in range(1,5):
-			change_score_dict[p.name.to_int()][celle] = 0
-		change_score_dict[p.name.to_int()][0] = 0
-
-
-func update_score(id: int, cell: int):
-	change_score_dict[id][cell] += 1
 	
-		
+@rpc("authority", "reliable")
 func score_update(id: int):
-	if change_score_dict.is_empty():
-		return
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
-			p.score += change_score_dict[id][0]
-			change_score_dict[id][0] = 0
+			p.score += p.count_cellen
+			p.count_cellen = 0
 		else:
-			p.score -= change_score_dict[id][p.color_cell]
-			change_score_dict[id][p.color_cell] = 0
-	
+			p.score -= $Players.get_node(str(id)).count_gegner_cellen[p.color_cell]
+			$Players.get_node(str(id)).count_gegner_cellen[p.color_cell] = 0
+		update_client_scores.rpc(p.score, p.name.to_int())
+
+
+@rpc("any_peer", "call_local", "reliable")
+func update_client_scores(score: int, id: int):
+	$Players.get_node(str(id)).score = score
+						
 	
 func update_player_list(id: int, join: bool):
 	if join:
@@ -218,9 +207,7 @@ func _process(_delta):
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
 		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
-	if not change_score_dict.is_empty():
-		for p in $Players.get_children():
-			score_update(p.name.to_int())
+		set_process(false)
 			
 			
 func _physics_process(_delta):
@@ -240,6 +227,11 @@ func game_update():
 			$TimerCoin.wait_time = 2
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
+		for p in $Players.get_children():
+			if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+				score_update(p.name.to_int())
+			else:
+				score_update.rpc_id(1, p.name.to_int())
 		
 		
 @rpc("any_peer","call_local")
@@ -614,9 +606,6 @@ func start_button_gedrückt():
 @rpc("any_peer","call_local")
 func start_game():
 	start_gedrückt += 1
-	if not created_score_dict:
-		create_change_score_dict()
-	created_score_dict = true
 	if start_gedrückt == len(playerlist):
 		$loby.visible = false
 		$Timerrestart.start()

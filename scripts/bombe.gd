@@ -40,6 +40,7 @@ func _process(_delta):
 func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 	var tile_position: Vector2i = map.local_to_map(pos)
 	var block_cells = level.block_cells
+		
 	for x in range(-bomb_radius, bomb_radius):
 		offset_x = x + tile_position.x
 		for y in range(-bomb_radius, bomb_radius):
@@ -55,9 +56,10 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
 					
-					if cell_source_id != 0:
-						level.update_score(player_id, cell_source_id)
-					level.update_score(player_id, 0)
+					if multiplayer.get_unique_id() == player_id:
+						if cell_source_id != 0:
+							level.get_node("Players").get_node(str(player_id)).count_gegner_cellen[cell_source_id] += 1
+						level.get_node("Players").get_node(str(player_id)).count_cellen += 1
 						
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
