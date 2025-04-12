@@ -56,10 +56,9 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 					if not map.is_portal_id_ok(new_pos, feld_id):
 						continue
 					
-					if multiplayer.get_unique_id() == player_id:
-						if cell_source_id != 0:
-							level.get_node("Players").get_node(str(player_id)).count_gegner_cellen[cell_source_id] += 1
-						level.get_node("Players").get_node(str(player_id)).count_cellen += 1
+					if cell_source_id != 0:
+						level.get_node("Players").get_node(str(player_id)).count_gegner_cellen[cell_source_id] += 1
+					level.get_node("Players").get_node(str(player_id)).count_cellen += 1
 						
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
