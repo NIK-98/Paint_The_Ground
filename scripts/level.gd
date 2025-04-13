@@ -131,7 +131,7 @@ func set_shop_mode(mode):
 	$loby.shop_mode = mode
 	
 	
-@rpc("authority", "reliable")
+@rpc("any_peer","call_local")
 func score_update(id: int):
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
@@ -140,12 +140,6 @@ func score_update(id: int):
 		else:
 			p.score -= $Players.get_node(str(id)).count_gegner_cellen[p.color_cell]
 			$Players.get_node(str(id)).count_gegner_cellen[p.color_cell] = 0
-		update_client_scores.rpc(p.score, p.name.to_int())
-
-
-@rpc("any_peer", "call_local", "reliable")
-func update_client_scores(score: int, id: int):
-	$Players.get_node(str(id)).score = score
 						
 	
 func update_player_list(id: int, join: bool):
@@ -207,7 +201,8 @@ func _process(_delta):
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
 		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
-		set_process(false)
+	for p in $Players.get_children():
+		score_update.rpc(p.name.to_int())
 			
 			
 func _physics_process(_delta):
@@ -227,11 +222,6 @@ func game_update():
 			$TimerCoin.wait_time = 2
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
-		for p in $Players.get_children():
-			if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-				score_update(p.name.to_int())
-			else:
-				score_update.rpc_id(1, p.name.to_int())
 		
 		
 @rpc("any_peer","call_local")
