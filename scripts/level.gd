@@ -131,7 +131,7 @@ func set_shop_mode(mode):
 	$loby.shop_mode = mode
 	
 	
-@rpc("any_peer","call_local")
+@rpc("call_local")
 func score_update(id: int):
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
@@ -193,6 +193,9 @@ func is_server_run_game():
 	
 	
 func _process(_delta):
+	if not multiplayer.is_server() and not OS.has_feature("dedicated_server"):
+		set_process(false)
+		return
 	if not loaded and not get_tree().paused and (multiplayer.is_server() or OS.has_feature("dedicated_server")):
 		loaded = true
 		$Timer.connect("timeout", _on_timer_timeout)
@@ -514,17 +517,10 @@ func del_player(id: int):
 
 @rpc("any_peer","call_local")
 func cell_blocker(block: bool, cell: int):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-		if block:
-			block_cells.append(cell)
-		else:
-			block_cells.erase(cell)
-		update_cell_blocker.rpc(block_cells)
-			
-	
-@rpc("any_peer","call_local")		
-func update_cell_blocker(list: Array):
-	block_cells = list
+	if block:
+		block_cells.append(cell)
+	else:
+		block_cells.erase(cell)
 		
 		
 func _on_timer_timeout():

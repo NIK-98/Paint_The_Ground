@@ -36,7 +36,7 @@ func _process(_delta):
 				return
 		
 
-@rpc("any_peer", "call_local")
+@rpc("call_local")
 func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 	var tile_position: Vector2i = map.local_to_map(pos)
 	var block_cells = level.block_cells

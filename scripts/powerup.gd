@@ -27,7 +27,7 @@ func _process(_delta):
 			queue_free()
 			return
 	
-@rpc("any_peer","call_local")
+@rpc("call_local")
 func aktivate_powerup(player_id: int):
 	if Players.get_node(str(player_id)).get_node("powertimers").get_child_count() == 3:
 		return
@@ -46,8 +46,7 @@ func aktivate_powerup(player_id: int):
 				Players.get_node(str(player_id)).powerups[powerupid][1] = true
 		if powerupid == 2: # unübermalbares färben
 			if not Players.get_node(str(player_id)).powerups[powerupid][0] == powerupid:
-				if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-					level.cell_blocker.rpc(true, Players.get_node(str(player_id)).color_cell)
+				level.cell_blocker.rpc(true, Players.get_node(str(player_id)).color_cell)
 				Players.get_node(str(player_id)).powerups[powerupid][0] = powerupid
 				Players.get_node(str(player_id)).powerups[powerupid][1] = true
 	
