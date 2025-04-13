@@ -6,12 +6,15 @@ extends Control
 
 var save_shop_path = "user://saveshop.save"
 var reseted = false
+var item_geted = false
 
 
 func _on_back_pressed() -> void:
 	Global.ui_sound = true
 	$CanvasLayer.visible = false
-	get_parent().get_node("money/coin_display").saveplayer(false)
+	if item_geted:
+		item_geted = false
+		get_parent().get_node("money/coin_display").saveplayer(false)
 	if not FileAccess.file_exists(save_shop_path):
 		get_parent().save_game("saveshop", save_shop_path)
 	else:
@@ -52,6 +55,7 @@ func _on_reset_pressed() -> void:
 		get_parent().get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
 		return
 	reseted = true
+	item_geted = false
 	for i in v_box_container.get_children():
 		if i.is_in_group("saveshop"):
 			i.set_process(true)	

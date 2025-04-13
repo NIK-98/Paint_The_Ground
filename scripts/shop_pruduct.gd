@@ -79,18 +79,21 @@ func _on_buy_pressed() -> void:
 			aktuel += 2
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
+			shop.item_geted = true
 	elif shop_id == 1: #Big Radius shop
 		if main.get_node("money/coin_display").remove_money(300):
 			main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] += 3
 			aktuel += 3
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
+			shop.item_geted = true
 	elif shop_id == 2: #Unbesiegbarkeits Shop
 		if main.get_node("money/coin_display").remove_money(500):
 			main.get_node("Level/level/Players").get_node(str(multiplayer.get_unique_id())).power_time[shop_id] += 4
 			aktuel += 2
 			aktuel_text = str(aktuel," Sec.")
 			label.text = aktuel_text
+			shop.item_geted = true
 			
 
 func _restore_shop() -> void:
