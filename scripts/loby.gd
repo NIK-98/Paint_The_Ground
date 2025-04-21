@@ -443,7 +443,7 @@ func _on_map_pressed():
 		map_faktor = 3
 	if count_map_size == 3:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große  Map")
-		map_faktor = 5
+		map_faktor = 4
 		count_map_size = 0
 		
 

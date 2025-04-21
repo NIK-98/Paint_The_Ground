@@ -169,6 +169,8 @@ func get_next_field(current_feld: int):
 		if fields == current_feld:
 			continue
 		next_fields.append(fields)
+	if next_fields.is_empty():
+		return null
 	return next_fields.pick_random()
 	
 

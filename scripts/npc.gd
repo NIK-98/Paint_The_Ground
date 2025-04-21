@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
+@onready var player = get_parent().get_node("1")
 @onready var coins = get_parent().get_parent().get_node("Coins")
 @export var timer_power_up: PackedScene
 
@@ -23,13 +24,14 @@ var SPEED = first_speed
 var curent_bomb = null
 var curent_powerup = null
 var curent_tarrget = null
-const cooldown_time_tp = 20
+const cooldown_time_tp = 10
 var feld = 1
 var tp_cool_down = cooldown_time_tp
 var portal_free = true
 var pos_array = []
 var	set_pos = false
 var selected_field_on_map = null
+var npc_cellen = [2,3,4]
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -102,7 +104,7 @@ func _process(delta):
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
 					curent_tarrget = null
-				if portal_free and map.is_vaild_portal(position):
+				if (portal_free and map.is_vaild_portal(position)):
 					portal_free = false
 					tp_cool_down = cooldown_time_tp
 					feld = map.get_next_field(feld)
@@ -219,34 +221,57 @@ func move_npc():
 	
 func get_valid_fields():
 	var valid_fields = []
+	var curent_pos = map.local_to_map(position)
+	if feld == null:
+		return valid_fields
 	if not level.get_node("loby").tp_mode:
-		feld = map.get_next_field(feld)
+		if player.velocity == Vector2.ZERO:
+			feld = map.get_next_field(feld)
+		else:
+			feld = player.feld
+	if feld == null:
+		return valid_fields
 	for felt_cords in map.dict_floor_with_portal_id[feld]:
-		if map.get_cell_source_id(felt_cords) not in [color_cell, 5]:
-			valid_fields.append(felt_cords)
+		if player.score > 400:
+			if map.get_cell_source_id(felt_cords) not in npc_cellen and map.get_cell_source_id(felt_cords) != 0 and abs(felt_cords-curent_pos).length() <= 200:
+				valid_fields.append(felt_cords)
+		else:
+			if map.get_cell_source_id(felt_cords) not in npc_cellen and abs(felt_cords-curent_pos).length() <= 200:
+				valid_fields.append(felt_cords)
 	if not level.get_node("loby").tp_mode and valid_fields.is_empty():
-		feld = map.get_next_field(feld)
+		if player.velocity == Vector2.ZERO:
+			feld = map.get_next_field(feld)
+		else:
+			feld = player.feld
 	return valid_fields
 
 
 func is_vaild_field():
 	if selected_field_on_map == null:
 		return false
-	elif map.get_cell_source_id(selected_field_on_map) == color_cell:
+	elif BetterTerrain.get_cell(map,selected_field_on_map) == color_cell:
 		return false
 	else:
 		return true
 	
 	
-func set_random_direction():
+func set_random_direction(auto_mode: bool = true):
 	curent_tarrget = null
 	var new_feld_pos = Vector2.ZERO
 	var valid_bomb_list = level.get_node("Bomben").get_children().filter(func(v): v.clean)
 	var power_ups = level.get_node("PowerUP").get_children()
 	var candidates = valid_bomb_list + power_ups
-	var valid_fields = get_valid_fields()
-	random = [1,2].pick_random()	
-	if not valid_fields.is_empty():
+	var valid_fields = get_valid_fields()	
+	for power in power_ups:
+		if power.powerupid == 2:
+			random = 2
+			curent_tarrget = power
+			return
+	if auto_mode:
+		random = [1,2].pick_random()
+	else:
+		random = 2
+	if not valid_fields.is_empty() and tp_cool_down > 0:
 		if random == 2 and not candidates.is_empty():
 			curent_tarrget = candidates.pick_random()
 			return
@@ -257,7 +282,7 @@ func set_random_direction():
 	elif not level.get_node("loby").tp_mode and valid_fields.is_empty():
 		selected_field_on_map = null
 		curent_direction = Vector2.ZERO
-	elif level.get_node("loby").tp_mode and valid_fields.is_empty():
+	elif level.get_node("loby").tp_mode and (valid_fields.is_empty() or tp_cool_down <= 0):
 		curent_direction = Vector2(-1, -1).normalized()
 		if map.is_vaild_portal(position):
 			portal_free = true
@@ -279,6 +304,7 @@ func reset_player_vars():
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("npc") or area.get_parent().is_in_group("player"):
+		set_random_direction(false)
 		if $powertimers.has_node("0"):
 			return
 		SPEED = first_speed
