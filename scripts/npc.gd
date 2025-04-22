@@ -56,7 +56,6 @@ func _ready():
 func _physics_process(delta):
 	if not loaded:
 		loaded = true
-		score_counter()
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
 		var map_pos = map.dict_floor_with_portal_id[randi_range(1,4)]
@@ -97,9 +96,7 @@ func _physics_process(delta):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if velocity.x != 0 or velocity.y != 0:
-				paint()
-			score_counter()
+			paint()
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
@@ -182,26 +179,6 @@ func paint():
 
 	BetterTerrain.set_cells(map, paint_array, color_cell)
 	BetterTerrain.update_terrain_cells(map, paint_array)
-
-
-func score_counter():
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
-			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung(name.to_int(), score)
-	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
-			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung(name.to_int(), score)
-	
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
-			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var(name.to_int(), score)
-	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
-			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var(name.to_int(), score)
 	
 	
 func move_npc():

@@ -66,7 +66,6 @@ func _physics_process(_delta):
 	if not loaded:
 		loaded = true
 		sync_hide_win_los_meldung.rpc(name.to_int())
-		score_counter()
 	if not set_pos and not map.array_floor.is_empty():
 		set_pos = true
 		var map_pos = map.dict_floor_with_portal_id[randi_range(1,4)]
@@ -122,9 +121,7 @@ func magnet_trigger(id: int):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if velocity.x != 0 or velocity.y != 0:
-				paint()
-			score_counter()
+			paint()
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
@@ -235,29 +232,6 @@ func _input(event):
 		# Zoom-Grenzen anwenden
 		camera.zoom.x = clamp(camera.zoom.x, min_zoom, max_zoom)
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
-		
-		
-func score_counter():
-	if name.to_int() != multiplayer.get_unique_id():
-		return
-			
-	if level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(name)):
-			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(name)).wertung.rpc(name.to_int(), score)
-	elif level.get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer/Wertung/werte").has_node(str(team)):
-			return
-		level.get_node("Werten/PanelContainer/Wertung/werte").get_node(str(team)).wertung.rpc(name.to_int(), score)
-		
-	if level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(name)):
-			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(name)).update_var.rpc(name.to_int(), score)
-	elif level.get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and level.get_node("loby").vs_mode:
-		if not level.get_node("Werten/PanelContainer2/visual").has_node(str(team)):
-			return
-		level.get_node("Werten/PanelContainer2/visual").get_node(str(team)).update_var.rpc(name.to_int(), score)
 		
 
 func paint():

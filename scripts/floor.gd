@@ -2,6 +2,7 @@ extends TileMapLayer
 
 var bereit_count = 0
 var portal_path = []
+var felder_summe = 0
 
 @onready var wall = get_node("../wall")
 
@@ -30,6 +31,7 @@ func reset_floor():
 		tp_floor()
 	else:
 		normal_floor()
+	felder_summe = get_felder_summe()
 	wall.add_wall()
 	level_bereit_check.rpc_id(1)
 			

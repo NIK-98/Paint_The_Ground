@@ -140,6 +140,24 @@ func score_update(id: int):
 		else:
 			p.score -= $Players.get_node(str(id)).count_gegner_cellen[p.color_cell]
 			$Players.get_node(str(id)).count_gegner_cellen[p.color_cell] = 0
+		
+		if get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not get_node("loby").vs_mode:
+			if not get_node("Werten/PanelContainer/Wertung/werte").has_node(str(p.name)):
+				return
+			get_node("Werten/PanelContainer/Wertung/werte").get_node(str(p.name)).wertung(p.name.to_int(), p.score)
+		elif get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and get_node("loby").vs_mode:
+			if not get_node("Werten/PanelContainer/Wertung/werte").has_node(str(p.team)):
+				return
+			get_node("Werten/PanelContainer/Wertung/werte").get_node(str(p.team)).wertung(p.name.to_int(), p.score)
+			
+		if get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not get_node("loby").vs_mode:
+			if not get_node("Werten/PanelContainer2/visual").has_node(str(p.name)):
+				return
+			get_node("Werten/PanelContainer2/visual").get_node(str(p.name)).update_var(p.name.to_int(), p.score)
+		elif get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and get_node("loby").vs_mode:
+			if not get_node("Werten/PanelContainer2/visual").has_node(str(p.team)):
+				return
+			get_node("Werten/PanelContainer2/visual").get_node(str(p.team)).update_var(p.name.to_int(), p.score)
 						
 	
 func update_player_list(id: int, join: bool):
