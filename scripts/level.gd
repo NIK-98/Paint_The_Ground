@@ -10,7 +10,8 @@ var standart_bomben_spawn_time = 5
 var standart_coin_spawn_time = 5
 var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
-
+@onready var werte: VBoxContainer = $Werten/PanelContainer/Wertung/werte
+@onready var visual: HBoxContainer = $Werten/PanelContainer2/visual
 @onready var main = get_parent().get_parent()
 var player_sceen: PackedScene = preload("res://sceens/player.tscn")
 var score_label: PackedScene = preload("res://sceens/score_label.tscn")
@@ -131,7 +132,7 @@ func set_shop_mode(mode):
 	$loby.shop_mode = mode
 	
 	
-@rpc("call_local")
+@rpc("authority","call_local","reliable")
 func score_update(id: int):
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
@@ -141,24 +142,16 @@ func score_update(id: int):
 			p.score -= $Players.get_node(str(id)).count_gegner_cellen[p.color_cell]
 			$Players.get_node(str(id)).count_gegner_cellen[p.color_cell] = 0
 		
-		if get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and not get_node("loby").vs_mode:
-			if not get_node("Werten/PanelContainer/Wertung/werte").has_node(str(p.name)):
-				return
-			get_node("Werten/PanelContainer/Wertung/werte").get_node(str(p.name)).wertung(p.name.to_int(), p.score)
-		elif get_node("Werten/PanelContainer/Wertung/werte").get_child_count() > 0 and get_node("loby").vs_mode:
-			if not get_node("Werten/PanelContainer/Wertung/werte").has_node(str(p.team)):
-				return
-			get_node("Werten/PanelContainer/Wertung/werte").get_node(str(p.team)).wertung(p.name.to_int(), p.score)
+		if werte.get_child_count() > 0 and not get_node("loby").vs_mode and werte.has_node(str(p.name)):
+			werte.get_node(str(p.name)).wertung(p.name.to_int(), p.score)
+		elif werte.get_child_count() > 0 and get_node("loby").vs_mode and werte.has_node(str(p.team)):
+			werte.get_node(str(p.team)).wertung(p.name.to_int(), p.score)
 			
-		if get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and not get_node("loby").vs_mode:
-			if not get_node("Werten/PanelContainer2/visual").has_node(str(p.name)):
-				return
-			get_node("Werten/PanelContainer2/visual").get_node(str(p.name)).update_var(p.name.to_int(), p.score)
-		elif get_node("Werten/PanelContainer2/visual").get_child_count() > 0 and get_node("loby").vs_mode:
-			if not get_node("Werten/PanelContainer2/visual").has_node(str(p.team)):
-				return
-			get_node("Werten/PanelContainer2/visual").get_node(str(p.team)).update_var(p.name.to_int(), p.score)
-						
+		if visual.get_child_count() > 0 and not get_node("loby").vs_mode and visual.has_node(str(p.name)):
+			visual.get_node(str(p.name)).update_var(p.name.to_int(), p.score)
+		elif visual.get_child_count() > 0 and get_node("loby").vs_mode and visual.has_node(str(p.team)):
+			visual.get_node(str(p.team)).update_var(p.name.to_int(), p.score)
+					
 	
 func update_player_list(id: int, join: bool):
 	if join:

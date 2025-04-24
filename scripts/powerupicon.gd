@@ -16,14 +16,11 @@ var cached_textures = {
 @rpc("any_peer","call_local")
 func animate_rest_time(powerup):
 	if powerup == 0:
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			play_animation_on_server.rpc_id(1,animation_player, "rest")
+		play_animation_on_server(animation_player, "rest")
 	if powerup == 1:
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			play_animation_on_server.rpc_id(1,animation_player_2, "rest2")
+		play_animation_on_server(animation_player_2, "rest2")
 	if powerup == 2:
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			play_animation_on_server.rpc_id(1,animation_player_3, "rest3")
+		play_animation_on_server(animation_player_3, "rest3")
 		
 		
 
@@ -31,16 +28,13 @@ func animate_rest_time(powerup):
 func update_icon(powerups):
 	if powerups[0][1] == true and powerups[0][0] == 0:
 		$TextureRect.texture = cached_textures["speedup"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player)
+		stop_animation_on_server(animation_player)
 	if powerups[1][1] == true and powerups[1][0] == 1:
 		$TextureRect2.texture = cached_textures["bigrad"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player_2)
+		stop_animation_on_server(animation_player_2)
 	if powerups[2][1] == true and powerups[2][0] == 2:
 		$TextureRect3.texture = cached_textures["protect"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player_3)
+		stop_animation_on_server(animation_player_3)
 
 
 
@@ -48,23 +42,18 @@ func update_icon(powerups):
 func clear_icon(powerups):
 	if powerups[0][1] == false and powerups[0][0] == -1:
 		$TextureRect.texture = cached_textures["empty"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player)
+		stop_animation_on_server(animation_player)
 	if powerups[1][1] == false and powerups[1][0] == -1:
 		$TextureRect2.texture = cached_textures["empty"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player_2)
+		stop_animation_on_server(animation_player_2)
 	if powerups[2][1] == false and powerups[2][0] == -1:
 		$TextureRect3.texture = cached_textures["empty"]
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			stop_animation_on_server.rpc_id(1,animation_player_3)
+		stop_animation_on_server(animation_player_3)
 		
 
-@rpc("call_local")
 func play_animation_on_server(APlayer:AnimationPlayer, animation_name: String):
 	APlayer.play(animation_name)
 	
 
-@rpc("call_local")
 func stop_animation_on_server(APlayer:AnimationPlayer):
 	APlayer.stop()
