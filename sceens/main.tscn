@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=33 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" uid="uid://cfh8aw7r685qm" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
 [ext_resource type="PackedScene" uid="uid://f6j1ndwi7ix8" path="res://sceens/shop.tscn" id="10_3akkr"]
+[ext_resource type="PackedScene" uid="uid://ww55w1pk4cxx" path="res://addons/license_me/gui/LicenseMeGUI.tscn" id="10_p26c0"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 [ext_resource type="PackedScene" uid="uid://cqyj7kymieubh" path="res://sceens/keyboard.tscn" id="17_o8byl"]
@@ -364,6 +365,18 @@ theme_override_colors/font_pressed_color = Color(1, 0.890196, 0.282353, 1)
 text = "Shop
 "
 
+[node name="Lizenzen" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_w0b7n")
+theme_override_colors/font_hover_pressed_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_colors/font_hover_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.277528, 0.277528, 0.277528, 1)
+theme_override_colors/font_focus_color = Color(0.513233, 0.513233, 0.513233, 1)
+theme_override_colors/font_pressed_color = Color(0.513726, 0.513726, 0.513726, 1)
+text = "Lizenzen
+"
+
 [node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_2bw1u")
@@ -373,6 +386,11 @@ text = "Zurück"
 layout_mode = 2
 theme = SubResource("Theme_hq385")
 text = "Beenden"
+
+[node name="LicenseMeGUI" parent="CanvasLayer/Menu" instance=ExtResource("10_p26c0")]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
 
 [node name="akzeptieren" parent="CanvasLayer" instance=ExtResource("8_177q6")]
 visible = false
@@ -436,9 +454,13 @@ layer = 9
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop" to="." method="_on_shop_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Lizenzen" to="." method="_on_lizenzen_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Lizenzen" to="." method="_on_lizenzen_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Lizenzen" to="." method="_on_lizenzen_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Zurück" to="." method="_on_zurück_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
+[connection signal="close_triggered" from="CanvasLayer/Menu/LicenseMeGUI" to="." method="_on_license_me_gui_close_triggered"]

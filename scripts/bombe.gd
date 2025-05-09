@@ -3,6 +3,7 @@ extends Node2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
+@onready var players = get_parent().get_parent().get_node("Players")
 
 const bomb_radius: int = 6
 var explode_pos = null
@@ -57,8 +58,8 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 						continue
 					
 					if cell_source_id != 0:
-						level.get_node("Players").get_node(str(player_id)).count_gegner_cellen[cell_source_id] += 1
-					level.get_node("Players").get_node(str(player_id)).count_cellen += 1
+						players.get_node(str(player_id)).count_gegner_cellen[cell_source_id] += 1
+					players.get_node(str(player_id)).count_cellen += 1
 						
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)

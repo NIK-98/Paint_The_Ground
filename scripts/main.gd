@@ -10,6 +10,8 @@ const server_browser_new: PackedScene = preload("res://sceens/server_browser.tsc
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
 @onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop
 @onready var keyboard: Control = $CanvasLayer/keyboard
+@onready var license_me_gui: PanelContainer = $CanvasLayer/Menu/LicenseMeGUI
+@onready var lizenzen: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Lizenzen
 
 const passw = "ffw49w3rwhfrw8"
 
@@ -65,6 +67,9 @@ func _input(event: InputEvent) -> void:
 			Global.trigger_host_focus = false
 			if $CanvasLayer2/Control/UI.visible:
 				$CanvasLayer2/Control/UI.esc_is_pressing = true
+	if (event.is_action_pressed("exit") or event.is_action_pressed("exit_con")) and license_me_gui.visible:
+		license_me_gui.visible = false
+		lizenzen.grab_focus()
 				
 	
 func _notification(what):
@@ -140,7 +145,7 @@ func load_game(group: String, path: String):
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
-
+		
 
 func _on_back_pressed():
 	Global.ui_sound = true
@@ -333,3 +338,22 @@ func _on_leave_pressed() -> void:
 
 func _on_leave_released() -> void:
 	Input.action_release("exit")
+
+
+func _on_lizenzen_pressed() -> void:
+	license_me_gui.visible = true
+	license_me_gui.get_node("MC/VB/Tittle/close").grab_focus()
+
+
+func _on_lizenzen_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_lizenzen_mouse_entered() -> void:
+	Global.ui_hover_sound = true
+
+
+func _on_license_me_gui_close_triggered() -> void:
+	license_me_gui.visible = false
+	lizenzen.grab_focus()
