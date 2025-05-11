@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://b11rxl4ut885l"]
 
 [ext_resource type="Script" uid="uid://cskem3sm52d66" path="res://scripts/trailer.gd" id="1_anicl"]
-[ext_resource type="VideoStream" uid="uid://d4cyxtec1q8at" path="res://assets/trailer/PTGTrailer.ogv" id="2_s5btk"]
+[ext_resource type="VideoStream" uid="uid://ee1x4lcacv2q" path="res://assets/trailer/PTGTrailer.ogv" id="2_mmjuo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb8yi"]
 
@@ -77,7 +77,7 @@ layout_mode = 0
 offset_top = 37.0
 offset_right = 1280.0
 offset_bottom = 757.0
-stream = ExtResource("2_s5btk")
+stream = ExtResource("2_mmjuo")
 volume_db = -5.0
 bus = &"music"
 
