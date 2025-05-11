@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cny2f4chevd1r"]
+[gd_scene load_steps=32 format=3 uid="uid://cny2f4chevd1r"]
 
 [ext_resource type="Script" uid="uid://cfh8aw7r685qm" path="res://scripts/main.gd" id="1_jo5ss"]
 [ext_resource type="PackedScene" uid="uid://bm6tjn54utlnw" path="res://sceens/ui.tscn" id="2_gk4y4"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b66h85qrle3os" path="res://assets/controll/exit.png" id="4_nuuj8"]
 [ext_resource type="Texture2D" uid="uid://b4lxws5t5vtjj" path="res://assets/controll/change_controll.png" id="5_321n0"]
 [ext_resource type="PackedScene" uid="uid://c8nb1u01xg65s" path="res://sceens/joy.tscn" id="6_oe035"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_buwn4"]
 [ext_resource type="Texture2D" uid="uid://dcv3sqwpfh0ga" path="res://assets/controll/back.png" id="8_40dan"]
 [ext_resource type="PackedScene" uid="uid://cm0bg75ggl3jp" path="res://sceens/akzeptieren.tscn" id="8_177q6"]
 [ext_resource type="PackedScene" uid="uid://cplkk5xrb2ltq" path="res://sceens/coin_display.tscn" id="8_y3nry"]
@@ -14,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cib66xypuplv1" path="res://assets/controll/Tap.png" id="9_jd08x"]
 [ext_resource type="PackedScene" uid="uid://cnccknl6kw5j3" path="res://sceens/sounds.tscn" id="9_s2wik"]
 [ext_resource type="PackedScene" uid="uid://f6j1ndwi7ix8" path="res://sceens/shop.tscn" id="10_3akkr"]
-[ext_resource type="PackedScene" uid="uid://ww55w1pk4cxx" path="res://addons/license_me/gui/LicenseMeGUI.tscn" id="10_p26c0"]
+[ext_resource type="PackedScene" uid="uid://cco0rdxcn2lsb" path="res://sceens/license.tscn" id="10_p26c0"]
 [ext_resource type="PackedScene" uid="uid://df63gdj4k26fk" path="res://sceens/Grafik.tscn" id="11_5flgc"]
 [ext_resource type="PackedScene" uid="uid://bfmrdi2wbhcxg" path="res://sceens/control.tscn" id="12_v5gxd"]
 [ext_resource type="PackedScene" uid="uid://cqyj7kymieubh" path="res://sceens/keyboard.tscn" id="17_o8byl"]
@@ -86,7 +85,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_wlmbe"]
-default_font = ExtResource("7_buwn4")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -116,7 +114,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_sfvyx"]
-default_font = ExtResource("7_buwn4")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -146,7 +143,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_w0b7n"]
-default_font = ExtResource("7_buwn4")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -176,7 +172,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_hq385"]
-default_font = ExtResource("7_buwn4")
 Button/colors/font_color = Color(0.513726, 0, 0, 1)
 Button/colors/font_focus_color = Color(1, 0, 0, 1)
 Button/colors/font_hover_color = Color(1, 0, 0, 1)
@@ -206,7 +201,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_2bw1u"]
-default_font = ExtResource("7_buwn4")
 Button/colors/font_color = Color(0.482353, 0.243137, 0, 1)
 Button/colors/font_focus_color = Color(1, 0.529412, 0, 1)
 Button/colors/font_hover_color = Color(1, 0.529412, 0, 1)
@@ -246,7 +240,6 @@ offset_bottom = 218.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.382202, 0.750876, 0.945563, 1)
 theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("7_buwn4")
 theme_override_font_sizes/font_size = 42
 script = ExtResource("3_mf30v")
 
@@ -298,9 +291,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 905.714
-offset_top = 720.0
+offset_top = 681.429
 offset_right = 905.714
-offset_bottom = 720.0
+offset_bottom = 681.429
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -387,11 +380,6 @@ layout_mode = 2
 theme = SubResource("Theme_hq385")
 text = "Beenden"
 
-[node name="LicenseMeGUI" parent="CanvasLayer/Menu" instance=ExtResource("10_p26c0")]
-visible = false
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 2
-
 [node name="akzeptieren" parent="CanvasLayer" instance=ExtResource("8_177q6")]
 visible = false
 
@@ -429,6 +417,8 @@ layout_mode = 1
 
 [node name="shop" parent="." instance=ExtResource("10_3akkr")]
 
+[node name="License" parent="." instance=ExtResource("10_p26c0")]
+
 [node name="CanvasLayer3" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 9
@@ -463,4 +453,3 @@ layer = 9
 [connection signal="focus_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Menu/PanelContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
-[connection signal="close_triggered" from="CanvasLayer/Menu/LicenseMeGUI" to="." method="_on_license_me_gui_close_triggered"]

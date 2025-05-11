@@ -16,9 +16,6 @@ var map_enden = Vector2.ZERO
 @export var color_cell = 0
 var loaded = false
 var Gametriggerstart = false
-var count_gegner_cellen = {1:0,2:0,3:0,4:0}
-@export var count_cellen = 0
-@export var score = 0
 var d_score = 0 # Durchschnitz score einer runde
 var move = Vector2i.ZERO
 var player_spawn_grenze = 200
@@ -105,7 +102,7 @@ func _physics_process(_delta):
 			if get_node("CanvasLayer/Winner").visible:
 				d_score = 0
 				for d in get_parent().get_children():
-					d_score += d.score
+					d_score += d.score[d.color_cell]
 				d_score /= len(get_parent().get_children())
 				main.get_node("money/coin_display").set_money(d_score)
 	
@@ -121,7 +118,7 @@ func magnet_trigger(id: int):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			paint()
+			paint(color_cell)
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
@@ -234,7 +231,7 @@ func _input(event):
 		camera.zoom.y = clamp(camera.zoom.y, min_zoom, max_zoom)
 		
 
-func paint():
+func paint(current_cell: int):
 	var tile_position: Vector2i = map.local_to_map(Vector2(position.x + ($Color.size.x / 2), position.y + ($Color.size.y / 2)))
 	var paint_array: Array = []
 	var paint_radius_sqr: float = paint_radius * paint_radius
@@ -257,9 +254,10 @@ func paint():
 				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
 					if wall_cell_id != -1:
 						continue
-					if cell_id != 0:
-						count_gegner_cellen[cell_id] += 1
-					count_cellen += 1
+					if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+						if cell_id != 0:
+							level.count_cellen[current_cell][cell_id] += 1
+						level.count_cellen[current_cell][current_cell] += 1
 					paint_array.append(new_pos)
 	
 	BetterTerrain.set_cells(map, paint_array, color_cell)
@@ -298,7 +296,7 @@ func color_change():
 @rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false
-	score = 0
+	level.score[color_cell] = 0
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
 	loaded = false

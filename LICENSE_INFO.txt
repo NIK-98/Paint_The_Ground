@@ -1,7 +1,22 @@
-This game uses Godot Engine, available under the following license:
+Lizenzangaben für "Paint The Ground"
+1. Godot Engine Lizenz
+Dieses Spiel wurde mit der Godot Engine entwickelt, die unter der MIT-Lizenz veröffentlicht wurde.
+Mehr Informationen zur Lizenz findest du hier:
+https://docs.godotengine.org/de/4.3/about/complying_with_licenses.html
+License Steht auch am ende des textes!
 
-Copyright (c) 2014-present Godot Engine contributors.
-Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+2. BetterTerrain Plugin
+Das BetterTerrain Plugin ist unter der Unlicense-Lizenz veröffentlicht.
+Mehr Informationen: - https://godotengine.org/asset-library/asset/1806
+					- https://github.com/Portponky/better-terrain
+
+3. Lizenz für das Spiel + MIT License
+- "Paint The Ground" ist unter der MIT-Lizenz lizenziert.
+Mehr Informationen: https://de.wikipedia.org/wiki/MIT-Lizenz
+
+MIT License
+
+Copyright (c) 2025 NIK-98
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

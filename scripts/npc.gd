@@ -8,9 +8,6 @@ extends CharacterBody2D
 @export var timer_power_up: PackedScene
 
 
-var count_gegner_cellen = {1:0,2:0,3:0,4:0}
-var count_cellen = 0
-var score = 0
 var color_cell = 0
 var loaded = false
 var npc_spawn_grenze = 200
@@ -96,7 +93,7 @@ func _physics_process(delta):
 func _process(delta):
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			paint()
+			paint(color_cell)
 			if level.get_node("loby").tp_mode:
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
@@ -149,7 +146,7 @@ func color_change():
 			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)	
 	
 
-func paint():
+func paint(current_cell: int):
 	var tile_position: Vector2i = map.local_to_map(Vector2(position.x + ($Color.size.x / 2), position.y + ($Color.size.y / 2)))
 	var paint_array: Array = []
 	var paint_radius_sqr: float = paint_radius * paint_radius
@@ -173,8 +170,8 @@ func paint():
 					if wall_cell_id != -1:
 						continue
 					if cell_id != 0:
-						count_gegner_cellen[cell_id] += 1
-					count_cellen += 1
+						level.count_cellen[current_cell][cell_id] += 1
+					level.count_cellen[current_cell][current_cell] += 1
 					paint_array.append(new_pos)
 
 	BetterTerrain.set_cells(map, paint_array, color_cell)
@@ -209,7 +206,7 @@ func get_valid_fields():
 	if feld == null:
 		return valid_fields
 	for felt_cords in map.dict_floor_with_portal_id[feld]:
-		if player.score > 400:
+		if level.score[player.color_cell] > 400:
 			if map.get_cell_source_id(felt_cords) not in npc_cellen and map.get_cell_source_id(felt_cords) != 0 and abs(felt_cords-curent_pos).length() <= 200:
 				valid_fields.append(felt_cords)
 		else:
@@ -269,7 +266,7 @@ func set_random_direction(auto_mode: bool = true):
 @rpc("any_peer","call_local")
 func reset_player_vars():
 	ende = false
-	score = 0
+	level.score[color_cell] = 0
 	powerups = [[-1,false,false],[-1,false,false],[-1,false,false]]
 	paint_radius = Global.painting_rad
 	loaded = false

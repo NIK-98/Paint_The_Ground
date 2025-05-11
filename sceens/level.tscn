@@ -1,17 +1,13 @@
-[gd_scene load_steps=45 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=41 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" uid="uid://ku5xol5aaorn" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://qup2aib2321s" path="res://sceens/wall.tscn" id="3_0fgwu"]
 [ext_resource type="PackedScene" uid="uid://chp0vp0g2i1r8" path="res://sceens/wertung_visuel.tscn" id="4_682dc"]
 [ext_resource type="PackedScene" uid="uid://fv2dn4il1f71" path="res://sceens/floor.tscn" id="5_h5l3x"]
-[ext_resource type="FontFile" uid="uid://bfcryq868krcb" path="res://resources/fonts/AniMeMatrix-MB_EN.ttf" id="9_5ce5b"]
 [ext_resource type="Script" uid="uid://bbkn4ls2gx5dk" path="res://scripts/scoreboard.gd" id="9_7agv8"]
-[ext_resource type="FontFile" uid="uid://duruk2ikhrr3f" path="res://resources/fonts/JOKERMAN.ttf" id="10_m88af"]
 [ext_resource type="Script" uid="uid://dxwod30wvlimo" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
 [ext_resource type="Script" uid="uid://blb7iaragtg4v" path="res://scripts/Enter.gd" id="15_unqr3"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="18_c4hof"]
-[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="18_pn6tv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmhvs"]
 content_margin_left = 15.0
@@ -71,7 +67,6 @@ corner_radius_bottom_left = 15
 shadow_size = 15
 
 [sub_resource type="Theme" id="Theme_ohkoe"]
-default_font = ExtResource("18_c4hof")
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_5uolv")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_5uolv")
@@ -109,7 +104,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_5fqms"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -151,7 +145,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_mpmer"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -182,7 +175,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_4phi6"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -213,7 +205,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_meekn"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -244,7 +235,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_x68ue"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -274,7 +264,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_pxkww"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -289,7 +278,6 @@ Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
 Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 
 [sub_resource type="Theme" id="Theme_gf1a3"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -324,7 +312,6 @@ expand_margin_bottom = 15.0
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_dox0w")
 
 [sub_resource type="LabelSettings" id="LabelSettings_k4y7c"]
-font = ExtResource("18_pn6tv")
 font_size = 70
 font_color = Color(0.909804, 0.505882, 0, 1)
 outline_size = 10
@@ -346,7 +333,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_gixap"]
-default_font = ExtResource("18_c4hof")
 Button/colors/font_color = Color(1, 0, 0, 1)
 Button/colors/font_focus_color = Color(0.592157, 0, 0, 1)
 Button/colors/font_hover_color = Color(0.592157, 0, 0, 1)
@@ -361,14 +347,12 @@ Button/styles/normal = SubResource("StyleBoxFlat_kngc3")
 Button/styles/pressed = SubResource("StyleBoxFlat_gqje5")
 
 [sub_resource type="LabelSettings" id="LabelSettings_35yls"]
-font = ExtResource("18_pn6tv")
 font_size = 50
 font_color = Color(1, 1, 0, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k53ee"]
-font = ExtResource("18_pn6tv")
 font_size = 60
 font_color = Color(0.824396, 0, 0.152995, 1)
 outline_size = 10
@@ -468,6 +452,12 @@ properties/29/replication_mode = 1
 properties/30/path = NodePath("loby:tp_mode")
 properties/30/spawn = true
 properties/30/replication_mode = 1
+properties/31/path = NodePath(".:score")
+properties/31/spawn = true
+properties/31/replication_mode = 1
+properties/32/path = NodePath(".:count_cellen")
+properties/32/spawn = true
+properties/32/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -516,7 +506,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.681535, 0.372164, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 50
-theme_override_fonts/font = ExtResource("9_5ce5b")
 theme_override_font_sizes/font_size = 80
 text = "!!!Gib Alles!!!"
 
@@ -596,7 +585,6 @@ offset_bottom = 768.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("10_m88af")
 theme_override_font_sizes/font_size = 42
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -608,7 +596,6 @@ offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("10_m88af")
 theme_override_font_sizes/font_size = 42
 
 [node name="start_in" type="Label" parent="CanvasLayer" groups=["time"]]
@@ -620,7 +607,6 @@ offset_bottom = 464.0
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("9_5ce5b")
 theme_override_font_sizes/font_size = 80
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -648,7 +634,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1.54018e-06, 0.812671, 0.957266, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 42
 text = "!!!!Spieler!!!!!"
 horizontal_alignment = 1
@@ -757,7 +742,6 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 40
 text = "Kein Spieler Bereit!"
 horizontal_alignment = 1
@@ -771,7 +755,6 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 45
 text = "Lade Map..."
 horizontal_alignment = 1
@@ -821,7 +804,6 @@ offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 70
 text = "1"
 
@@ -834,7 +816,6 @@ offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0.470588, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 70
 text = "VS"
 
@@ -847,7 +828,6 @@ offset_bottom = 100.0
 theme_override_colors/font_color = Color(0, 0.749, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("18_c4hof")
 theme_override_font_sizes/font_size = 70
 text = "0"
 
@@ -902,7 +882,6 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 70
 text = "Spieler:"
 horizontal_alignment = 1
@@ -930,7 +909,6 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.875741, 0.875922, 0.0329965, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 41
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -958,7 +936,6 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.87451, 0.87451, 0.0313726, 1)
 theme_override_constants/line_spacing = 3
 theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 60
 
 [node name="Score0" type="Label" parent="Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0"]
@@ -966,7 +943,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.823529, 0, 0.152941, 1)
 theme_override_colors/font_outline_color = Color(0.87451, 0.87451, 0.0313726, 1)
 theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("18_pn6tv")
 theme_override_font_sizes/font_size = 60
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]

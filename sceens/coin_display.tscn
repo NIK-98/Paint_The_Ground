@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cplkk5xrb2ltq"]
+[gd_scene load_steps=5 format=3 uid="uid://cplkk5xrb2ltq"]
 
 [ext_resource type="Texture2D" uid="uid://dyy13j4oujxvf" path="res://assets/coin/coin.png" id="1_2enk4"]
 [ext_resource type="Script" uid="uid://cegbqgso55b5t" path="res://scripts/coin_display.gd" id="1_h43b0"]
-[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="2_b4crp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wylrv"]
 bg_color = Color(0.759156, 0.701252, 7.70092e-07, 1)
@@ -20,7 +19,6 @@ shadow_color = Color(0.583, 0.475, 0, 0.643)
 shadow_size = 20
 
 [sub_resource type="Theme" id="Theme_3qags"]
-default_font = ExtResource("2_b4crp")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 50
 
@@ -51,7 +49,6 @@ offset_bottom = 124.0
 theme_override_colors/font_color = Color(0.65149, 0.350493, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("2_b4crp")
 theme_override_font_sizes/font_size = 40
 text = "!!!Coins Gesichert!!!"
 horizontal_alignment = 1

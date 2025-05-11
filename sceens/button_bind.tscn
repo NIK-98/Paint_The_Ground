@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://c64bvuv6igryb"]
+[gd_scene load_steps=13 format=3 uid="uid://c64bvuv6igryb"]
 
 [ext_resource type="Script" uid="uid://bppiitst1wmb3" path="res://scripts/button_bind.gd" id="1_s8ryp"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="2_mqv6f"]
 
 [sub_resource type="Theme" id="Theme_0ryx2"]
 Label/font_sizes/font_size = 100
@@ -56,7 +55,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_stn64"]
-default_font = ExtResource("2_mqv6f")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -88,7 +86,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_lqhro"]
-default_font = ExtResource("2_mqv6f")
 Button/colors/font_color = Color(0.769831, 0.470353, 0, 1)
 Button/colors/font_focus_color = Color(0.414142, 0.243807, 9.62615e-08, 1)
 Button/colors/font_hover_color = Color(0.415686, 0.243137, 0, 1)

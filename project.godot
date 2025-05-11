@@ -18,16 +18,11 @@ boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 boot_splash/image="res://assets/icon/ptg.png"
 config/icon="res://assets/icon/ptg.png"
 boot_splash/minimum_display_time=3000
-license/type="COPYRIGHT"
-license/print_engine_license_in_console=true
-license/project_name="Paint The Ground"
-license/year=2025
 
 [autoload]
 
 Global="*res://scripts/Global.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
-LicenseMe="*res://addons/license_me/singleton.gd"
 
 [debug]
 
@@ -53,7 +48,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addons/license_me/plugin.cfg")
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 
 [file_customization]
 

@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2gfhlsojwpgw"]
+[gd_scene load_steps=9 format=3 uid="uid://d2gfhlsojwpgw"]
 
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="1_s0u26"]
 [ext_resource type="Script" uid="uid://d0ox47sijgaev" path="res://scripts/server_display.gd" id="2_gdsdh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1n6yb"]
@@ -11,7 +10,6 @@ texture_margin_bottom = 25.0
 modulate_color = Color(0.360784, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_bse12"]
-default_font = ExtResource("1_s0u26")
 Label/colors/font_color = Color(0.91474, 0.717148, 7.70092e-07, 1)
 Label/constants/outline_size = 15
 Label/font_sizes/font_size = 45

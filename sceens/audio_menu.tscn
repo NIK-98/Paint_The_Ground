@@ -1,7 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://dfqq0gn33scbo"]
+[gd_scene load_steps=29 format=3 uid="uid://dfqq0gn33scbo"]
 
 [ext_resource type="Script" uid="uid://vs2ij1x6rpk4" path="res://scripts/audio_menu.gd" id="1_wxnn5"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="2_2548e"]
 [ext_resource type="Texture2D" uid="uid://csqsdosrja8ia" path="res://assets/audio_menu/slider.png" id="2_bnt2n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4hv"]
@@ -113,7 +112,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_ragmk"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -147,7 +145,6 @@ shadow_size = 5
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_s1w0h")
 
 [sub_resource type="Theme" id="Theme_6upcp"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -184,7 +181,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_bhj18"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -221,7 +217,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_yrrdl"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
 Button/colors/font_focus_color = Color(0.433069, 0.241361, 1, 1)
 Button/colors/font_hover_color = Color(0.431373, 0.243137, 1, 1)
@@ -258,7 +253,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_w4qkv"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
 Button/colors/font_focus_color = Color(1, 1, 0, 1)
 Button/colors/font_hover_color = Color(1, 1, 0, 1)
@@ -324,7 +318,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_brld1"]
-default_font = ExtResource("2_2548e")
 Button/colors/font_color = Color(0.572549, 0, 0, 1)
 Button/colors/font_focus_color = Color(1, 0, 0, 1)
 Button/colors/font_hover_color = Color(1, 0, 0, 1)

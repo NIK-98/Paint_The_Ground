@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqyj7kymieubh"]
+[gd_scene load_steps=11 format=3 uid="uid://cqyj7kymieubh"]
 
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="1_qk78u"]
 [ext_resource type="Script" uid="uid://crf8o8msnqjx1" path="res://scripts/keyboard.gd" id="2_l0vlm"]
 [ext_resource type="Texture2D" uid="uid://brmpjvcw8fqp3" path="res://assets/controll/clear.png" id="4_wyo3i"]
 
@@ -49,7 +48,6 @@ corner_radius_bottom_left = 25
 shadow_size = 40
 
 [sub_resource type="Theme" id="Theme_8a4ba"]
-default_font = ExtResource("1_qk78u")
 default_font_size = 25
 Button/colors/font_color = Color(0.174614, 7.41214e-06, 0.745617, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
@@ -79,7 +77,7 @@ LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_outline_color = Color(0.629675, 0.629675, 0.629675, 1)
 LineEdit/constants/outline_size = 10
 LineEdit/font_sizes/font_size = 50
-LineEdit/fonts/font = ExtResource("1_qk78u")
+LineEdit/fonts/font = null
 LineEdit/styles/focus = SubResource("StyleBoxFlat_ccwga")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_ccwga")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ccwga")

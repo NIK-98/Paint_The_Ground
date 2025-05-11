@@ -10,8 +10,7 @@ const server_browser_new: PackedScene = preload("res://sceens/server_browser.tsc
 @onready var akzeptieren: CenterContainer = $CanvasLayer/akzeptieren
 @onready var shop: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Shop
 @onready var keyboard: Control = $CanvasLayer/keyboard
-@onready var license_me_gui: PanelContainer = $CanvasLayer/Menu/LicenseMeGUI
-@onready var lizenzen: Button = $CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Lizenzen
+@onready var license_info: Control = $License
 
 const passw = "ffw49w3rwhfrw8"
 
@@ -26,6 +25,7 @@ func _ready():
 	new_browser.offset_bottom = 883.0
 	$CanvasLayer2/Control.add_child(new_browser)
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		OS.request_permissions()
 		get_tree().set_auto_accept_quit(false)
 	shop.visible = false
 	if not OS.has_feature("dedicated_server"):
@@ -67,9 +67,6 @@ func _input(event: InputEvent) -> void:
 			Global.trigger_host_focus = false
 			if $CanvasLayer2/Control/UI.visible:
 				$CanvasLayer2/Control/UI.esc_is_pressing = true
-	if (event.is_action_pressed("exit") or event.is_action_pressed("exit_con")) and license_me_gui.visible:
-		license_me_gui.visible = false
-		lizenzen.grab_focus()
 				
 	
 func _notification(what):
@@ -222,11 +219,9 @@ func _on_change_pressed():
 
 func _on_audio_pressed():
 	Global.ui_sound = true
-	Global.trigger_audio_menu = true
 	$Audio_menu.back.grab_focus()
 	$Audio_menu/CanvasLayer.visible = true	
 	$CanvasLayer/Menu.visible = false
-	Global.trigger_audio_menu = false
 
 
 func _on_audio_mouse_entered():
@@ -258,11 +253,9 @@ func _on_zurück_focus_entered():
 
 func _on_grafik_pressed():
 	Global.ui_sound = true
-	Global.trigger_grafik_menu = true
 	$Grafik.back.grab_focus()
 	$Grafik/CanvasLayer.visible = true	
 	$CanvasLayer/Menu.visible = false
-	Global.trigger_grafik_menu = false
 
 
 func _on_grafik_focus_entered():
@@ -276,11 +269,9 @@ func _on_grafik_mouse_entered():
 
 func _on_eingabe_pressed() :
 	Global.ui_sound = true
-	Global.trigger_input_menu = true
 	$Control.back.grab_focus()
 	$Control/CanvasLayer.visible = true	
 	$CanvasLayer/Menu.visible = false
-	Global.trigger_input_menu = false
 
 
 func _on_eingabe_focus_entered():
@@ -315,11 +306,9 @@ func _on_deleteuser_mouse_entered() -> void:
 
 func _on_shop_pressed() -> void:
 	Global.ui_sound = true
-	Global.trigger_shop_menu = true
 	$shop.back.grab_focus()
 	$shop/CanvasLayer.visible = true	
 	$CanvasLayer/Menu.visible = false
-	Global.trigger_shop_menu = false
 
 
 func _on_shop_focus_entered() -> void:
@@ -341,19 +330,9 @@ func _on_leave_released() -> void:
 
 
 func _on_lizenzen_pressed() -> void:
-	license_me_gui.visible = true
-	license_me_gui.get_node("MC/VB/Tittle/close").grab_focus()
-
-
-func _on_lizenzen_focus_entered() -> void:
-	if not Global.trigger_host_focus:
-		Global.ui_hover_sound = true
-
-
-func _on_lizenzen_mouse_entered() -> void:
-	Global.ui_hover_sound = true
-
-
-func _on_license_me_gui_close_triggered() -> void:
-	license_me_gui.visible = false
-	lizenzen.grab_focus()
+	Global.ui_sound = true
+	license_info.get_node("CanvasLayer").visible = true
+	license_info.get_node("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/CenterContainer/VBoxContainer/back").grab_focus()
+	$CanvasLayer/Menu.visible = false
+	
+	

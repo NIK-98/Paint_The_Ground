@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://bfmrdi2wbhcxg"]
+[gd_scene load_steps=19 format=3 uid="uid://bfmrdi2wbhcxg"]
 
 [ext_resource type="Script" uid="uid://bu4nmcexh88ng" path="res://scripts/control.gd" id="1_7db0h"]
 [ext_resource type="PackedScene" uid="uid://c64bvuv6igryb" path="res://sceens/button_bind.tscn" id="2_wi46l"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="3_mxtyy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txcqd"]
 bg_color = Color(0.136623, 0.372036, 0.999999, 1)
@@ -84,7 +83,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_bfs8x"]
-default_font = ExtResource("3_mxtyy")
 Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
 Button/colors/font_focus_color = Color(1, 1, 0, 1)
 Button/colors/font_hover_color = Color(1, 1, 0, 1)
@@ -146,7 +144,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_rx656"]
-default_font = ExtResource("3_mxtyy")
 Button/colors/font_color = Color(0.572549, 0, 0, 1)
 Button/colors/font_focus_color = Color(1, 0, 0, 1)
 Button/colors/font_hover_color = Color(1, 0, 0, 1)

@@ -32,6 +32,8 @@ var Max_clients = 4
 var loaded_seson = false
 var loaded = false
 @export var block_cells = []
+@export var count_cellen = {1:{1:0,2:0,3:0,4:0},2:{1:0,2:0,3:0,4:0},3:{1:0,2:0,3:0,4:0},4:{1:0,2:0,3:0,4:0}}
+@export var score = {1:0,2:0,3:0,4:0}
 var last_runde = false
 var start_gedrückt = 0
 
@@ -133,24 +135,24 @@ func set_shop_mode(mode):
 	
 	
 @rpc("authority","call_local","reliable")
-func score_update(id: int):
+func score_update(id: int, cell: int):
 	for p in $Players.get_children():
 		if p.name.to_int() == id:
-			p.score += p.count_cellen
-			p.count_cellen = 0
+			score[p.color_cell] += count_cellen[p.color_cell][p.color_cell]
+			count_cellen[p.color_cell][p.color_cell] = 0
 		else:
-			p.score -= $Players.get_node(str(id)).count_gegner_cellen[p.color_cell]
-			$Players.get_node(str(id)).count_gegner_cellen[p.color_cell] = 0
+			score[p.color_cell] -= count_cellen[cell][p.color_cell]
+			count_cellen[cell][p.color_cell] = 0
 		
 		if werte.get_child_count() > 0 and not get_node("loby").vs_mode and werte.has_node(str(p.name)):
-			werte.get_node(str(p.name)).wertung(p.name.to_int(), p.score)
+			werte.get_node(str(p.name)).wertung(p.name.to_int(), score[p.color_cell])
 		elif werte.get_child_count() > 0 and get_node("loby").vs_mode and werte.has_node(str(p.team)):
-			werte.get_node(str(p.team)).wertung(p.name.to_int(), p.score)
+			werte.get_node(str(p.team)).wertung(p.name.to_int(), score[p.color_cell])
 			
 		if visual.get_child_count() > 0 and not get_node("loby").vs_mode and visual.has_node(str(p.name)):
-			visual.get_node(str(p.name)).update_var(p.name.to_int(), p.score)
+			visual.get_node(str(p.name)).update_var(p.name.to_int(), score[p.color_cell])
 		elif visual.get_child_count() > 0 and get_node("loby").vs_mode and visual.has_node(str(p.team)):
-			visual.get_node(str(p.team)).update_var(p.name.to_int(), p.score)
+			visual.get_node(str(p.team)).update_var(p.name.to_int(), score[p.color_cell])
 					
 	
 func update_player_list(id: int, join: bool):
@@ -216,7 +218,7 @@ func _process(_delta):
 		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
 	for p in $Players.get_children():
-		score_update.rpc(p.name.to_int())
+		score_update.rpc(p.name.to_int(), p.color_cell)
 			
 			
 func _physics_process(_delta):

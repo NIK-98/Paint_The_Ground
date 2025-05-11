@@ -1,9 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://f6j1ndwi7ix8"]
+[gd_scene load_steps=17 format=3 uid="uid://f6j1ndwi7ix8"]
 
 [ext_resource type="Script" uid="uid://u6e2pvmuhcod" path="res://scripts/shop.gd" id="1_0aqeh"]
-[ext_resource type="FontFile" uid="uid://b0kj87r0irtvg" path="res://resources/fonts/AGENCYB.TTF" id="1_duihy"]
 [ext_resource type="PackedScene" uid="uid://dqxkyvgtpdc7s" path="res://sceens/shop_pruduct.tscn" id="2_vy1mv"]
-[ext_resource type="FontFile" uid="uid://ciijjbxlx6xl7" path="res://resources/fonts/COOPBL.ttf" id="7_alpq7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7th"]
 bg_color = Color(0.136623, 0.372036, 0.999999, 1)
@@ -73,7 +71,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_pc433"]
-default_font = ExtResource("7_alpq7")
 Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
 Button/colors/font_focus_color = Color(1, 1, 0, 1)
 Button/colors/font_hover_color = Color(1, 1, 0, 1)
@@ -104,9 +101,9 @@ expand_margin_right = 35.0
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qk70"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8o6kf"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m752r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv3nb"]
 bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
 border_width_left = 15
 border_width_top = 15
@@ -119,7 +116,7 @@ corner_radius_bottom_right = 150
 shadow_color = Color(0, 0.282, 0.196, 0.757)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lqpe"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cy7s"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -134,7 +131,7 @@ corner_radius_bottom_left = 1024
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1q4ux"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mq6r5"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -150,7 +147,6 @@ shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
 [sub_resource type="Theme" id="Theme_llhdh"]
-default_font = ExtResource("7_alpq7")
 Button/colors/font_color = Color(0.572549, 0, 0, 1)
 Button/colors/font_focus_color = Color(1, 0, 0, 1)
 Button/colors/font_hover_color = Color(1, 0, 0, 1)
@@ -159,10 +155,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 0, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_8o6kf")
+Button/styles/hover = SubResource("StyleBoxFlat_xv3nb")
+Button/styles/normal = SubResource("StyleBoxFlat_3cy7s")
+Button/styles/pressed = SubResource("StyleBoxFlat_mq6r5")
 
 [node name="shop" type="Control"]
 process_mode = 3
@@ -203,7 +199,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.718737, 0.638787, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("1_duihy")
 theme_override_font_sizes/font_size = 80
 text = "Shop"
 horizontal_alignment = 1

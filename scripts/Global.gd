@@ -13,11 +13,7 @@ var count_npcs = 1
 var speed_npcs = 800.0
 var speed_player = 800.0
 var painting_rad = 2
-var trigger_audio_menu = false
 var trigger_host_focus = false
-var trigger_grafik_menu = false
-var trigger_input_menu = false
-var trigger_shop_menu = false
 
 var music1_sound = false
 var stop_main_theama = false
