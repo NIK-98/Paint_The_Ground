@@ -162,7 +162,7 @@ func tp_floor(filds:= Vector2i(2,2)):
 			break
 	
 	BetterTerrain.update_terrain_cells(self, array_floor)
-				
+			
 			
 			
 func get_next_field(current_feld: int):

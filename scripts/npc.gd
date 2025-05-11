@@ -146,7 +146,7 @@ func color_change():
 			get_node("Name").set("theme_override_colors/font_color",Color.DEEP_SKY_BLUE)	
 	
 
-func paint(current_cell: int):
+func paint(_current_cell: int):
 	var tile_position: Vector2i = map.local_to_map(Vector2(position.x + ($Color.size.x / 2), position.y + ($Color.size.y / 2)))
 	var paint_array: Array = []
 	var paint_radius_sqr: float = paint_radius * paint_radius
@@ -166,14 +166,12 @@ func paint(current_cell: int):
 				new_pos = Vector2i(offset_x, offset_y)
 				var cell_id = map.get_cell_source_id(new_pos)
 				var wall_cell_id = wall.get_cell_source_id(new_pos)
-				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
-					if wall_cell_id != -1:
-						continue
-					if cell_id != 0:
-						level.count_cellen[current_cell][cell_id] += 1
-					level.count_cellen[current_cell][current_cell] += 1
+				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and wall_cell_id == -1 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
+					#if cell_id != 0:####docch noch fehlerhaft
+						#level.count_cellen[current_cell][cell_id] += 1
+					#level.count_cellen[current_cell][current_cell] += 1
 					paint_array.append(new_pos)
-
+	
 	BetterTerrain.set_cells(map, paint_array, color_cell)
 	BetterTerrain.update_terrain_cells(map, paint_array)
 	
