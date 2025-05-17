@@ -102,7 +102,7 @@ func no_players():
 		get_tree().paused = true
 	if get_parent().get_node("Scoreboard/CanvasLayer").visible or get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_child_count() > 1:
 		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
@@ -127,7 +127,7 @@ func no_players():
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
 	else:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Kein Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		

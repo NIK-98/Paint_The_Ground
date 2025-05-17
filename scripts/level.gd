@@ -187,7 +187,7 @@ func set_npc_settings():
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.visible = false
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.disabled = true
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.disabled = true
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Kein Spieler Bereit!"
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()," Spieler Bereit!")
 		if $loby.vs_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "VS-Mode!"
 		if $loby.tp_mode:
