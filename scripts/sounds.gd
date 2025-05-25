@@ -4,15 +4,20 @@ extends Control
 func _physics_process(_delta):
 	sounds(Global.hit_sound, Global.powerup_sound, Global.bombe_sound, Global.ui_sound, Global.ui_hover_sound, Global.coin_sound, Global.tp_sound)
 	if Global.music1_sound:
-		if $Music1.playing:
+		if $Music1.playing or $game1.playing:
 			$Music1.stop()
-		$Music1.play()
+			$game1.stop()
+		if Global.selected_music_sound == Global.tracks[0]:
+			$Music1.play()
+		if Global.selected_music_sound == Global.tracks[1]:
+			$game1.play()
 		Global.music1_sound = false
 	if Global.stop_main_theama:
 		Global.stop_main_theama = false
-		if $Music1.playing:
+		if $Music1.playing or $game1.playing:
 			$Music1.stop()
-	
+			$game1.stop()
+		
 
 func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool, ui_sound: bool, ui_hover_sound: bool, coin_sound: bool, tp_sound: bool):
 	if hit_sound:
@@ -51,3 +56,11 @@ func sounds(hit_sound: bool, powerup_sound: bool, bombe_sound: bool, ui_sound: b
 		$Tp.play()
 		Global.tp_sound = false
 	
+
+
+func _on_music_1_finished() -> void:
+	Global.music1_replay = true
+
+
+func _on_game_1_finished() -> void:
+	Global.music1_replay = true

@@ -13,12 +13,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not video_stream_player.is_playing():
 		ui.trailer_on = false
-		Global.music1_sound = true
+		Global.music1_replay = true
 		queue_free()
 
 
 func _on_button_pressed() -> void:
 	ui.trailer_on = false
-	Global.music1_sound = true
+	Global.music1_replay = true
 	ui.get_node("Panel/CenterContainer/Net/Options/Option1/o1/Host").grab_focus()
 	queue_free()

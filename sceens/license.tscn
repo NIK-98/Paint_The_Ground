@@ -140,6 +140,7 @@ theme_override_constants/separation = 35
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(800, 300)
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 editable = false
 emoji_menu_enabled = false
 selecting_enabled = false

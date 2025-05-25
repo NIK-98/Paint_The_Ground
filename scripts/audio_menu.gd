@@ -1,11 +1,12 @@
 extends Control
 
-@onready var master = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/master_text/master"
-@onready var effects = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Effecte_text/effects"
-@onready var music = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/music_text/music"
-@onready var ui = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/UI_text/UI
+@onready var master = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/master_text/master"
+@onready var effects = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Effecte_text/effects"
+@onready var music = $"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/music_text/music"
+@onready var ui = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UI_text/UI
 @onready var main = $"/root/main/"
 @onready var back = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/Back
+@onready var select: Button = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music_select/select
 
 var master_bus = AudioServer.get_bus_index("Master")
 var effects_bus = AudioServer.get_bus_index("Effects")
@@ -15,6 +16,8 @@ var master_volume = 0
 var effects_volume = 0
 var music_volume = 0
 var ui_volume = 0
+var music_count = 0
+var music_select = "Track1"
 
 var save_audio_setting_path = "user://saveaudiosettings.save"
 
@@ -30,7 +33,9 @@ func save():
 		"master_volume" : master_volume,
 		"effects_volume" : effects_volume,
 		"music_volume" : music_volume,
-		"ui_volume" : ui_volume
+		"ui_volume" : ui_volume,
+		"music_count" : music_count,
+		"music_select" : music_select
 	}
 	return save_dict
 	
@@ -51,7 +56,13 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(ui_bus, ui.value)
 		music.value = music_volume
 		AudioServer.set_bus_volume_db(music_bus, music.value)
-		set_process(false)
+		select.text = music_select
+		select_music()
+		return
+	if Global.music1_replay:
+		Global.music1_replay = false
+		select_music()
+		Global.music1_sound = true
 
 		
 func _on_master_value_changed(value):
@@ -193,3 +204,35 @@ func _on_music_mouse_entered():
 func _on_music_focus_entered():
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Global.ui_hover_sound = true
+
+
+func _on_select_pressed() -> void:
+	music_count += 1
+	if music_count > 2:
+		music_count = 0
+	select_music()
+	Global.music1_sound = true
+	
+
+func select_music():
+	if music_count == 0:#track 1
+		music_select = "Track1"
+		select.text = music_select
+		Global.selected_music_sound = Global.tracks[0]
+	elif music_count == 1:#track 2
+		music_select = "Track2"
+		select.text = music_select
+		Global.selected_music_sound = Global.tracks[1]
+	elif music_count == 2:#zufallstrack
+		music_select = "Zufall"
+		select.text = music_select
+		Global.selected_music_sound = Global.tracks.pick_random()
+		
+		
+func _on_select_focus_entered() -> void:
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		Global.ui_hover_sound = true
+
+
+func _on_select_mouse_entered() -> void:
+	Global.ui_hover_sound = true
