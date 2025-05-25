@@ -521,7 +521,7 @@ layout_mode = 2
 theme = SubResource("Theme_ragmk")
 theme_override_font_sizes/font_size = 35
 text = "Song 
-auswahl
+Auswahl
 |
 \\/"
 horizontal_alignment = 1
