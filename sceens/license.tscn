@@ -20,7 +20,7 @@ shadow_size = 90
 
 [sub_resource type="LabelSettings" id="LabelSettings_nr7e0"]
 font_size = 45
-font_color = Color(0.791999, 0.791999, 0.791999, 1)
+font_color = Color(0.69765, 0.494659, 0.034193, 1)
 outline_size = 25
 outline_color = Color(0, 0, 0, 1)
 
@@ -126,9 +126,11 @@ theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Lizenzen_Info"
+text = "Lizenzen Info
+-------------------------------------------------------"
 label_settings = SubResource("LabelSettings_nr7e0")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -140,11 +142,19 @@ theme_override_constants/separation = 35
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(800, 300)
 layout_mode = 2
+theme_override_colors/background_color = Color(0.137255, 0.372549, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.778717, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 editable = false
 emoji_menu_enabled = false
 selecting_enabled = false
 virtual_keyboard_enabled = false
+wrap_mode = 1
+indent_wrapped_lines = true
+scroll_smooth = true
+scroll_v_scroll_speed = 40.0
 
 [node name="back" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
