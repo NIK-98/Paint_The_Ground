@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnccknl6kw5j3"]
+[gd_scene load_steps=11 format=3 uid="uid://cnccknl6kw5j3"]
 
 [ext_resource type="AudioStream" uid="uid://cfom65o7vq6fk" path="res://assets/sounds/Paint_The_Ground_game.ogg" id="1_2t7wr"]
 [ext_resource type="Script" uid="uid://1qwcl5hyqtl8" path="res://scripts/sounds.gd" id="1_okjby"]
 [ext_resource type="AudioStream" uid="uid://cjrfuob28jqje" path="res://assets/sounds/Paint_The_Ground_Sound_loop_Version.ogg" id="3_rog8y"]
 [ext_resource type="AudioStream" uid="uid://bt1ompa8o70qe" path="res://assets/sounds/effects/hit.ogg" id="3_vcsxs"]
 [ext_resource type="AudioStream" uid="uid://b24q2ut8ket3l" path="res://assets/sounds/effects/powerup.ogg" id="4_pmq6h"]
+[ext_resource type="AudioStream" uid="uid://dm5dddtvbtlba" path="res://assets/sounds/Paint_The_Ground_Moving_Sound.ogg" id="4_uxvu7"]
 [ext_resource type="AudioStream" uid="uid://b1y2r7s2c31ju" path="res://assets/sounds/effects/bombe.ogg" id="5_iahqh"]
 [ext_resource type="AudioStream" uid="uid://cvw8osh4j0qi6" path="res://assets/sounds/UI/UI.ogg" id="6_imvmc"]
 [ext_resource type="AudioStream" uid="uid://7sbghgnpl62a" path="res://assets/sounds/effects/coin.ogg" id="7_35lw8"]
@@ -27,6 +28,11 @@ bus = &"music"
 
 [node name="game1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rog8y")
+volume_db = 2.0
+bus = &"music"
+
+[node name="game2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_uxvu7")
 volume_db = 2.0
 bus = &"music"
 
@@ -65,3 +71,4 @@ bus = &"Effects"
 
 [connection signal="finished" from="Music1" to="." method="_on_music_1_finished"]
 [connection signal="finished" from="game1" to="." method="_on_game_1_finished"]
+[connection signal="finished" from="game2" to="." method="_on_game_1_finished"]

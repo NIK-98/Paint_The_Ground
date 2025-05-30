@@ -20,7 +20,7 @@ var trigger_input_menu = false
 var trigger_shop_menu = false
 
 
-const tracks = ["res://assets/sounds/Paint_The_Ground_game.ogg","res://assets/sounds/Paint_The_Ground_Sound_loop_Version.ogg"]
+const tracks = ["res://assets/sounds/Paint_The_Ground_game.ogg","res://assets/sounds/Paint_The_Ground_Sound_loop_Version.ogg","res://assets/sounds/Paint_The_Ground_Moving_Sound.ogg"]
 var music1_sound = false
 var music1_replay = false
 var selected_music_sound = "res://assets/sounds/Paint_The_Ground_game.ogg"

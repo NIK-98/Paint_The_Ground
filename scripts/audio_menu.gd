@@ -208,7 +208,7 @@ func _on_music_focus_entered():
 
 func _on_select_pressed() -> void:
 	music_count += 1
-	if music_count > 2:
+	if music_count > 3:
 		music_count = 0
 	select_music()
 	Global.music1_sound = true
@@ -223,7 +223,11 @@ func select_music():
 		music_select = "Track2"
 		select.text = music_select
 		Global.selected_music_sound = Global.tracks[1]
-	elif music_count == 2:#zufallstrack
+	elif music_count == 2:#track 3
+		music_select = "Track3"
+		select.text = music_select
+		Global.selected_music_sound = Global.tracks[2]
+	elif music_count == 3:#zufallstrack
 		music_select = "Zufall"
 		select.text = music_select
 		Global.selected_music_sound = Global.tracks.pick_random()
