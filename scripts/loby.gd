@@ -65,11 +65,11 @@ func _ready():
 func update_player_wait(positive: bool):
 	if positive:
 		player_wait_count += 1
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 	if not positive and player_wait_count > 0:
 		player_wait_count -= 1
 		if player_wait_count != 0:
-			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Player bereit!")
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 
 	
 @rpc("any_peer","call_local")	
@@ -182,7 +182,7 @@ func update_player_counters(connected: bool):
 @rpc("any_peer","call_local")
 func update_rady_status():
 	if player_conect_count == player_wait_count and not vs_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			Global.trigger_host_focus = true
@@ -193,7 +193,7 @@ func update_rady_status():
 			get_parent().map.reset_floor.rpc()
 			reset_wait_count.rpc()
 	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Player bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			Global.trigger_host_focus = true

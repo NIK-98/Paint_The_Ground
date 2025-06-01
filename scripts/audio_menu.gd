@@ -207,6 +207,7 @@ func _on_music_focus_entered():
 
 
 func _on_select_pressed() -> void:
+	Global.ui_sound = true
 	music_count += 1
 	if music_count > 3:
 		music_count = 0
