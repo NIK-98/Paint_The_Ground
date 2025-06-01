@@ -213,4 +213,6 @@ func get_tp_feld(pos: Vector2):
 			
 
 func get_felder_summe():
-	return array_floor.size()
+	if not get_parent().get_node("loby").tp_mode:
+		return array_floor.size()
+	return array_floor.size() - 4*4

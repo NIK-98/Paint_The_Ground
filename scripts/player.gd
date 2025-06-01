@@ -71,7 +71,7 @@ func _physics_process(_delta):
 		position = pos_array.pick_random()
 	if not map.array_floor.is_empty() and map.get_tp_feld(position) != null:
 		feld = map.get_tp_feld(position)[1]
-	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
+	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Spieler bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map_enden = map.map_to_local(Global.Spielfeld_Size)

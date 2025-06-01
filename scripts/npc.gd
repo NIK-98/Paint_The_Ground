@@ -61,13 +61,13 @@ func _physics_process(delta):
 		position = pos_array.pick_random()
 		if not map.array_floor.is_empty() and map.get_tp_feld(position) != null:
 			feld = map.get_tp_feld(position)[1]
-	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Player bereit!":
+	if level.get_node("loby/CenterContainer/HBoxContainer/VBoxContainer/Warten").text == "Alle Spieler bereit!":
 		if not Gametriggerstart:
 			Gametriggerstart = true
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field() or map.is_vaild_portal(position):
+			if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field():
 				set_random_direction()
 			velocity = move_npc()*SPEED		
 			move_and_slide()
@@ -233,8 +233,10 @@ func set_random_direction(auto_mode: bool = true):
 	var valid_bomb_list = level.get_node("Bomben").get_children().filter(func(v): v.clean)
 	var power_ups = level.get_node("PowerUP").get_children()
 	var candidates = valid_bomb_list + power_ups
-	var valid_fields = get_valid_fields()	
+	var valid_fields = get_valid_fields()
 	for power in power_ups:
+		if map.get_tp_feld(power.position)[1] != feld:
+			continue
 		if power.powerupid == 2:
 			random = 2
 			curent_tarrget = power
@@ -246,7 +248,9 @@ func set_random_direction(auto_mode: bool = true):
 	if not valid_fields.is_empty() and tp_cool_down > 0:
 		if random == 2 and not candidates.is_empty():
 			curent_tarrget = candidates.pick_random()
-			return
+			if map.get_tp_feld(curent_tarrget.position)[1] == feld:
+				return
+			random = 1
 		selected_field_on_map = valid_fields.pick_random()
 		new_feld_pos = map.map_to_local(selected_field_on_map)
 		curent_direction = (new_feld_pos - position).normalized()
@@ -256,8 +260,7 @@ func set_random_direction(auto_mode: bool = true):
 		curent_direction = Vector2.ZERO
 	elif level.get_node("loby").tp_mode and (valid_fields.is_empty() or tp_cool_down <= 0):
 		curent_direction = Vector2(-1, -1).normalized()
-		if map.is_vaild_portal(position):
-			portal_free = true
+		portal_free = true
 		return
 
 
