@@ -29,7 +29,7 @@ var tp_marker = false
 var pos_array = []
 var	set_pos = false
 var selected_field_on_map = null
-var npc_cellen = [2,3,4]
+var npc_team_nodes = []
 @export var paint_radius = Global.painting_rad
 
 var magnet = true
@@ -49,6 +49,8 @@ func _ready():
 		if i.is_in_group("npc"):
 			i.get_node("Name").text = str("NPC",npc_count)
 			npc_count += 1
+			if i.team != player.team:
+				npc_team_nodes.append(i)
 			
 	
 func _physics_process(delta):
@@ -202,16 +204,14 @@ func get_valid_fields():
 			feld = player.feld
 	if feld == null:
 		return valid_fields
-	for felt_cords in map.dict_floor_with_portal_id[feld]:
-		if level.score[player.color_cell] > 400 and map.get_cell_source_id(felt_cords) == player.color_cell:
-			valid_fields.append(felt_cords)
-			tp_marker = false
-		elif map.get_cell_source_id(felt_cords) == player.color_cell or map.get_cell_source_id(felt_cords) == 0:
-			valid_fields.append(felt_cords)
-			tp_marker = false
+	if not level.get_node("loby").vs_mode:
+		valid_fields = get_valid_fields_help_func(valid_fields, player)
+	else:
+		if team == player.team:
+			valid_fields = get_valid_fields_help_func(valid_fields, npc_team_nodes.pick_random())
 		else:
-			tp_marker = true
-			curent_direction = Vector2(-1, -1).normalized()
+			valid_fields = get_valid_fields_help_func(valid_fields, player)
+				
 	if not level.get_node("loby").tp_mode and valid_fields.is_empty():
 		if player.velocity == Vector2.ZERO:
 			feld = map.get_next_field(feld)
@@ -219,6 +219,20 @@ func get_valid_fields():
 			feld = player.feld
 	return valid_fields
 
+
+func get_valid_fields_help_func(vaild_field_array: Array, tarrget_player: CharacterBody2D):
+	for felt_cords in map.dict_floor_with_portal_id[feld]:
+		if level.score[tarrget_player.color_cell] > 400 and map.get_cell_source_id(felt_cords) == tarrget_player.color_cell:
+			vaild_field_array.append(felt_cords)
+			tp_marker = false
+		elif map.get_cell_source_id(felt_cords) == tarrget_player.color_cell or map.get_cell_source_id(felt_cords) == 0:
+			vaild_field_array.append(felt_cords)
+			tp_marker = false
+		else:
+			tp_marker = true
+			curent_direction = Vector2(-1, -1).normalized()
+	return vaild_field_array
+	
 
 func is_vaild_field():
 	if selected_field_on_map == null:
