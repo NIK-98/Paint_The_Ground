@@ -25,6 +25,7 @@ const cooldown_time_tp = 10
 var feld = 1
 var tp_cool_down = cooldown_time_tp
 var portal_free = true
+var tp_marker = false
 var pos_array = []
 var	set_pos = false
 var selected_field_on_map = null
@@ -98,7 +99,8 @@ func _process(delta):
 				tp_cool_down -= delta
 				if round(tp_cool_down) <= 0:
 					curent_tarrget = null
-				if (portal_free and map.is_vaild_portal(position)):
+				if ((portal_free or tp_marker) and map.is_vaild_portal(position)):
+					tp_marker = false
 					portal_free = false
 					tp_cool_down = cooldown_time_tp
 					feld = map.get_next_field(feld)
@@ -180,20 +182,17 @@ func move_npc():
 	var dir: Vector2
 	if curent_tarrget == null:
 		random = 1
-		
 	if random == 1:
 		#direction_wahrlos
 		dir = curent_direction
 	elif random == 2:
 		#direction_tarrget
 		dir = (curent_tarrget.position - position).normalized()
-
 	return dir
 	
 	
 func get_valid_fields():
 	var valid_fields = []
-	var curent_pos = map.local_to_map(position)
 	if feld == null:
 		return valid_fields
 	if not level.get_node("loby").tp_mode:
@@ -204,12 +203,15 @@ func get_valid_fields():
 	if feld == null:
 		return valid_fields
 	for felt_cords in map.dict_floor_with_portal_id[feld]:
-		if level.score[player.color_cell] > 400:
-			if map.get_cell_source_id(felt_cords) not in npc_cellen and map.get_cell_source_id(felt_cords) != 0 and abs(felt_cords-curent_pos).length() <= 200:
-				valid_fields.append(felt_cords)
+		if level.score[player.color_cell] > 400 and map.get_cell_source_id(felt_cords) == player.color_cell:
+			valid_fields.append(felt_cords)
+			tp_marker = false
+		elif map.get_cell_source_id(felt_cords) == player.color_cell or map.get_cell_source_id(felt_cords) == 0:
+			valid_fields.append(felt_cords)
+			tp_marker = false
 		else:
-			if map.get_cell_source_id(felt_cords) not in npc_cellen and abs(felt_cords-curent_pos).length() <= 200:
-				valid_fields.append(felt_cords)
+			tp_marker = true
+			curent_direction = Vector2(-1, -1).normalized()
 	if not level.get_node("loby").tp_mode and valid_fields.is_empty():
 		if player.velocity == Vector2.ZERO:
 			feld = map.get_next_field(feld)
@@ -245,7 +247,7 @@ func set_random_direction(auto_mode: bool = true):
 		random = [1,2].pick_random()
 	else:
 		random = 2
-	if not valid_fields.is_empty() and tp_cool_down > 0:
+	if not valid_fields.is_empty() and round(tp_cool_down) > 0:
 		if random == 2 and not candidates.is_empty():
 			curent_tarrget = candidates.pick_random()
 			if map.get_tp_feld(curent_tarrget.position)[1] == feld:
@@ -258,11 +260,10 @@ func set_random_direction(auto_mode: bool = true):
 	elif not level.get_node("loby").tp_mode and valid_fields.is_empty():
 		selected_field_on_map = null
 		curent_direction = Vector2.ZERO
-	elif level.get_node("loby").tp_mode and (valid_fields.is_empty() or tp_cool_down <= 0):
+	elif level.get_node("loby").tp_mode and (valid_fields.is_empty() or round(tp_cool_down) <= 0):
 		curent_direction = Vector2(-1, -1).normalized()
-		portal_free = true
 		return
-
+	
 
 @rpc("any_peer","call_local")
 func reset_player_vars():
