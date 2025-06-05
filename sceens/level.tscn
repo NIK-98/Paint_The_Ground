@@ -458,6 +458,18 @@ properties/31/replication_mode = 1
 properties/32/path = NodePath(".:count_cellen")
 properties/32/spawn = true
 properties/32/replication_mode = 1
+properties/33/path = NodePath("Werten/PanelContainer/Wertung/name:position")
+properties/33/spawn = true
+properties/33/replication_mode = 1
+properties/34/path = NodePath("Werten/PanelContainer/Wertung/powerlist:position")
+properties/34/spawn = true
+properties/34/replication_mode = 1
+properties/35/path = NodePath("Werten/PanelContainer/Wertung/werte:position")
+properties/35/spawn = true
+properties/35/replication_mode = 1
+properties/36/path = NodePath("Werten/PanelContainer2/visual:position")
+properties/36/spawn = true
+properties/36/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")

@@ -11,6 +11,8 @@ var standart_coin_spawn_time = 5
 var powerup_auswahl = [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2]
 
 @onready var werte: VBoxContainer = $Werten/PanelContainer/Wertung/werte
+@onready var namenlist: VBoxContainer = $Werten/PanelContainer/Wertung/name
+@onready var powerlist: VBoxContainer = $Werten/PanelContainer/Wertung/powerlist
 @onready var visual: HBoxContainer = $Werten/PanelContainer2/visual
 @onready var main = get_parent().get_parent()
 var player_sceen: PackedScene = preload("res://sceens/player.tscn")
@@ -236,6 +238,7 @@ func game_update():
 			$TimerCoin.wait_time = 2
 			update_lastrund.rpc()
 		update_timer_texte.rpc(time, bomb_time, start_time)
+		sort_score_list.rpc()
 		
 		
 @rpc("any_peer","call_local")
@@ -252,8 +255,28 @@ func update_lastrund():
 	$CanvasLayer/Bomb_time.set("theme_override_colors/font_color",Color.CRIMSON)
 	await get_tree().create_timer(2).timeout
 	$Werten/CenterContainer/Letzen_sec.visible = false
-		
-		
+	
+
+@rpc("any_peer","call_local")
+func sort_score_list():
+	var new_order = []
+	for i in werte.get_children():
+		new_order.append([i.name,i.text.to_int()])
+	new_order.sort_custom(sort_ascending_score_list)
+	var lists = [werte, powerlist, namenlist, visual]
+	for list in lists:
+		for l in list.get_children():
+			for o in new_order:
+				if o.has(l.name):
+					list.move_child(l,new_order.find(o))
+				
+
+func sort_ascending_score_list(a, b):
+	if a[1] > b[1]:
+		return true
+	return false
+
+
 func verbindung_verloren():
 	if multiplayer:
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
