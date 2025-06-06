@@ -77,6 +77,8 @@ func _ready():
 		add_player(id)
 
 
+	if OS.has_feature("dedicated_server"):
+		Max_clients = 5
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
 		
