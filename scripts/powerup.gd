@@ -5,7 +5,7 @@ extends Node2D
 @onready var Players = get_parent().get_parent().get_node("Players")
 
 
-var explode_pos = null
+var explode_pos = 0
 var id = 0
 @export var powerupid = 0
 
@@ -17,11 +17,10 @@ func _ready():
 		$Sprite2D.texture = load("res://assets/powerups/bigrad.png")
 	if powerupid == 2: # unübermalbares färben
 		$Sprite2D.texture = load("res://assets/powerups/protect.png")
-	set_process(false)
 		
 
 func _process(_delta):
-	if explode_pos != null:
+	if typeof(explode_pos) != 2:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			aktivate_powerup.rpc(id)
 			queue_free()
@@ -51,10 +50,14 @@ func aktivate_powerup(player_id: int):
 				Players.get_node(str(player_id)).powerups[powerupid][1] = true
 	
 	
+@rpc("any_peer","call_local")
+func set_explode_pos(pos: Vector2, what_id: int):
+	explode_pos = pos
+	id = what_id
+	
+	
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
-		explode_pos = area.get_parent().position
-		id = area.get_parent().name.to_int()
+		set_explode_pos.rpc(area.get_parent().position, area.get_parent().name.to_int())
 		if not area.get_parent().is_in_group("npc") and id == multiplayer.get_unique_id():
 			Global.powerup_sound = true
-		set_process(true)

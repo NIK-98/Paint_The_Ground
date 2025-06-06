@@ -8,11 +8,12 @@ extends CanvasLayer
 @export var coin_mode = false
 @export var shop_mode = false
 @export var solo_mode = false
+@export var server_first_start = false
+@export var player_ready = 0
 @onready var difficulty = $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed
 var difficulty_id = 0
 var count_settime = 0
 var count_map_size = 1
-
 var map_faktor = 2
 
 var blue_team_cound = 0
@@ -68,8 +69,7 @@ func update_player_wait(positive: bool):
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 	if not positive and player_wait_count > 0:
 		player_wait_count -= 1
-		if player_wait_count != 0:
-			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 
 	
 @rpc("any_peer","call_local")	
@@ -79,12 +79,48 @@ func namen_text_update(id, text):
 		
 @rpc("any_peer","call_local")
 func update_player_count(positiv: bool):
-	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+	if multiplayer.is_server():
 		get_parent().set_coin_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen").button_pressed)
 		get_parent().set_shop_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset").button_pressed)
 		get_parent().set_solo_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 		get_parent().set_tp_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/portal").button_pressed)
+	var args = OS.get_cmdline_args()
+	if OS.has_feature("dedicated_server") and args.has("-tp"):
+		var argument_wert = args[args.find("-tp") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_tp_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_tp_mode(false)
+	
+	if OS.has_feature("dedicated_server") and args.has("-vs"):
+		var argument_wert = args[args.find("-vs") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_vs_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_vs_mode(false)
+			
+	if OS.has_feature("dedicated_server") and args.has("-no_players"):
+		var argument_wert = args[args.find("-no_players") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_solo_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_solo_mode(false)
+			
+	if OS.has_feature("dedicated_server") and args.has("-coinsreset"):
+		var argument_wert = args[args.find("-coinsreset") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_coin_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_coin_mode(false)
+			
+	if OS.has_feature("dedicated_server") and args.has("-shopreset"):
+		var argument_wert = args[args.find("-shopreset") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_shop_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_shop_mode(false)
+			
 	if solo_mode:
 		get_parent().is_server_run_game.rpc()
 	if positiv:
@@ -168,11 +204,8 @@ func exit(msg: String, show_msg: bool):
 
 func update_player_counters(connected: bool):
 	if not connected:
-		if $CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible or get_parent().get_node("Scoreboard/CanvasLayer").visible:
-			update_player_count.rpc(false)
-		else:
-			update_player_count.rpc(false)
-			update_player_wait.rpc(false)
+		update_player_count.rpc(false)
+		update_player_wait.rpc(false)
 	else:
 		update_player_wait.rpc(true)
 	update_rady_status.rpc()
@@ -190,8 +223,7 @@ func update_rady_status():
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
-			get_parent().map.reset_floor.rpc()
-			reset_wait_count.rpc()
+			server_first_start = true
 	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
 		if multiplayer.is_server():
@@ -201,12 +233,17 @@ func update_rady_status():
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
 			vor_start_trigger()
-			get_parent().map.reset_floor.rpc()
-			reset_wait_count.rpc()
+			server_first_start = true
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
 		no_players()
 
 
+func start_ext_server():
+	server_set_map()
+	get_parent().map.reset_floor.rpc()
+	reset_wait_count.rpc()
+	
+			
 func reset_loby():
 	if OS.has_feature("dedicated_server"):
 		if multiplayer.get_peers().is_empty() and is_running:
@@ -265,11 +302,17 @@ func _on_enter_pressed():
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
 		update_player_counters(true)
-		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
-			map_set.rpc(map_faktor)
-			get_parent().map_enden = get_parent().get_node("floor").map_to_local(Global.Spielfeld_Size)
+		vor_start_trigger()
+		if multiplayer.is_server():
+			server_first_start = true
+			server_set_map()
+			
 		
-
+func server_set_map():
+	map_set.rpc(map_faktor)
+	get_parent().map_enden = get_parent().get_node("floor").map_to_local(Global.Spielfeld_Size)
+		
+		
 func _on_random_pressed():
 	Global.ui_sound = true
 	namen.shuffle()
@@ -361,8 +404,26 @@ func _on_enter_focus_entered():
 		Global.ui_hover_sound = true
 
 
+@rpc("any_peer","call_local")
+func set_player_rady(rady: bool):
+	if rady:
+		player_ready += 1
+	elif player_ready > 0:
+		player_ready -= 1
+		
+		
 func _on_start_pressed():
 	Global.ui_sound = true
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "Beenden":
+		if server_first_start and not OS.has_feature("dedicated_server") and player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
+			$CenterContainer/HBoxContainer/team.visible = false
+			set_player_rady.rpc(true)
+			return
+		if player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
+			return
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "start":
+		$CenterContainer/HBoxContainer/VBoxContainer/warte_map.visible = true
 	if vs_mode and player_wait_count > 1:
 		check_teams()
 		if not vaild_team:
@@ -378,7 +439,6 @@ func _on_start_pressed():
 		if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 			exit("Kein Mitspieler auf dem Server Gefunden!", true)
 			return
-	vor_start_trigger()
 	get_parent().main.get_node("Grafik").zoom_option.visible = true
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
@@ -387,8 +447,8 @@ func _on_start_pressed():
 	
 	
 func vor_start_trigger():
-	$CenterContainer/HBoxContainer/VBoxContainer/warte_map.visible = true
-	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
+	$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Bereit"
+	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
 	
 	

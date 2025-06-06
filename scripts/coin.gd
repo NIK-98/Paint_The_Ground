@@ -10,21 +10,16 @@ const ROW_SPEED = 750
 var SPEED = ROW_SPEED
 
 
-var explode_pos = null
+var explode_pos = 0
 var id = 0
 
 var magnet_id = 0
 const row_magnet_craft = 350
 var magnet_craft = row_magnet_craft
-			
-			
-func _ready():
-	set_process(false)
 	
 
-
 func _process(_delta):
-	if explode_pos != null:
+	if typeof(explode_pos) != 2:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			if not $Area2D/CollisionShape2D.disabled:
 				$Area2D/CollisionShape2D.disabled = true
@@ -44,13 +39,17 @@ func _physics_process(delta: float) -> void:
 		velocity = position.direction_to(level.get_node("Players").get_node(str(magnet_id)).position)*SPEED
 		move_and_slide()
 		
+		
+@rpc("any_peer","call_local")
+func set_explode_pos(pos: Vector2, what_id: int):
+	explode_pos = pos
+	id = what_id
+	
 	
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
-		explode_pos = area.get_parent().position
-		id = area.get_parent().name.to_int()
+		set_explode_pos.rpc(area.get_parent().position, area.get_parent().name.to_int())
 		magnet_id = -1
 		if not area.get_parent().is_in_group("npc") and id == multiplayer.get_unique_id():
 			Global.coin_sound = true
 			level.main.get_node("money/coin_display").set_money(coin_set_value)
-		set_process(true)

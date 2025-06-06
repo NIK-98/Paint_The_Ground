@@ -470,6 +470,12 @@ properties/35/replication_mode = 1
 properties/36/path = NodePath("Werten/PanelContainer2/visual:position")
 properties/36/spawn = true
 properties/36/replication_mode = 1
+properties/37/path = NodePath("loby:server_first_start")
+properties/37/spawn = true
+properties/37/replication_mode = 1
+properties/38/path = NodePath("loby:player_ready")
+properties/38/spawn = true
+properties/38/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -783,7 +789,7 @@ text = "start"
 
 [node name="team" type="Button" parent="loby/CenterContainer/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(307, 510)
+custom_minimum_size = Vector2(307, 600)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_gf1a3")

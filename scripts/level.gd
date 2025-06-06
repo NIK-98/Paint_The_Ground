@@ -115,6 +115,21 @@ func _ready():
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
 			$loby.map_faktor = 2
 			
+	if OS.has_feature("dedicated_server") and args.has("-tp"):
+		var argument_wert = args[args.find("-tp") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			set_tp_mode(true)
+		elif argument_wert == "false":
+			set_tp_mode(false)
+	
+	if OS.has_feature("dedicated_server") and args.has("-vs"):
+		var argument_wert = args[args.find("-vs") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			set_vs_mode(true)
+		elif argument_wert == "false":
+			set_vs_mode(false)
+			
+			
 	
 func set_vs_mode(mode):
 	$loby.vs_mode = mode
@@ -157,14 +172,23 @@ func score_update(id: int, cell: int):
 	
 func update_player_list(id: int, join: bool):
 	if join:
-		playerlist.append(id)
+		player_list_update.rpc(id,join)
 		print(str("Peer: ",id," Connected!"))
 	else:
-		playerlist.erase(id)
+		player_list_update.rpc(id,join)
+		$loby.set_player_rady.rpc(false)
 		print(str("Peer: ",id," Disconnected!"))
 		$loby.update_player_counters(false)
 	
 			
+
+@rpc("any_peer","call_local")
+func player_list_update(id: int, join: bool):
+	if join:
+		playerlist.append(id)
+	else:
+		playerlist.erase(id)
+		
 
 @rpc("any_peer","call_local")
 func set_npc_settings():
@@ -219,6 +243,13 @@ func _process(_delta):
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
 	for p in $Players.get_children():
 		score_update(p.name.to_int(), p.color_cell)
+	if $loby.server_first_start and playerlist.size() == $loby.player_ready and playerlist.size() > 0:
+		$loby.server_first_start = false
+		if OS.has_feature("dedicated_server"):
+			$loby.start_ext_server()
+		else:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			
 			
 func _physics_process(_delta):

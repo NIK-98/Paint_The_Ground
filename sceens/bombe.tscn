@@ -19,6 +19,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Area2D/CollisionShape2D:disabled")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:process_mode")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="Animation" id="Animation_i7s23"]
 length = 0.001

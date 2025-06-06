@@ -6,7 +6,7 @@ extends Node2D
 @onready var players = get_parent().get_parent().get_node("Players")
 
 const bomb_radius: int = 6
-var explode_pos = null
+var explode_pos = 0
 var celle: int = 0
 var feld: int = 0
 
@@ -19,14 +19,10 @@ var distance_sqr: int
 var clean = false
 
 var id: int = 0
-
-
-func _ready():
-	set_process(false)
 	
 		
 func _process(_delta):
-	if explode_pos != null:
+	if typeof(explode_pos) != 2:
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 			if not $Area2D/CollisionShape2D.disabled:
 				$Area2D/CollisionShape2D.disabled = true
@@ -62,14 +58,18 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
 	explode_pos = null
 		
+
+@rpc("any_peer","call_local")
+func set_explode(pos: Vector2, cell: int, new_feld: int, cleaning: bool, what_id: int):
+	explode_pos = pos
+	celle = cell
+	feld = new_feld
+	clean = cleaning
+	id = what_id
+		
 		
 func _on_area_2d_area_entered(area):
 	if area.get_parent().is_in_group("player"):
-		explode_pos = area.get_parent().position
-		celle = area.get_parent().color_cell
-		clean = true
-		feld = area.get_parent().feld
-		id = area.get_parent().name.to_int() 
+		set_explode.rpc(area.get_parent().position, area.get_parent().color_cell, area.get_parent().feld, true, area.get_parent().name.to_int())
 		if not area.get_parent().is_in_group("npc") and area.get_parent().name.to_int() == multiplayer.get_unique_id():
 			Global.bombe_sound = true
-		set_process(true)
