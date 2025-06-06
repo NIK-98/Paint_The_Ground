@@ -184,8 +184,6 @@ func server_exit():
 			if m == 1:
 				get_parent().del_score("Blue")
 				get_parent().del_score_visuel("Blue")
-	multiplayer.peer_connected.disconnect(get_parent().add_player)
-	multiplayer.peer_disconnected.disconnect(get_parent().del_player)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
@@ -222,6 +220,9 @@ func update_rady_status():
 			$"CenterContainer/HBoxContainer/VBoxContainer/start".grab_focus()
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
+			if player_conect_count < 1:
+				server_exit()
+				return
 			vor_start_trigger()
 			server_first_start = true
 	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
@@ -414,6 +415,9 @@ func set_player_rady(rady: bool):
 		
 func _on_start_pressed():
 	Global.ui_sound = true
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text == "Beenden":
+		server_exit()
+		return
 	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "Beenden":
 		if server_first_start and not OS.has_feature("dedicated_server") and player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
@@ -447,8 +451,12 @@ func _on_start_pressed():
 	
 	
 func vor_start_trigger():
-	$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Bereit"
-	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+	if player_conect_count == 1 and player_wait_count == 1:
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+	else:
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Bereit"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
 	
 	

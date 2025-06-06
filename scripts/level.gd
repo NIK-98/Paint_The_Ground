@@ -250,10 +250,10 @@ func _process(_delta):
 		else:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+	$loby.reset_loby()
 			
 			
 func _physics_process(_delta):
-	$loby.reset_loby()
 	game_update()
 		
 	
