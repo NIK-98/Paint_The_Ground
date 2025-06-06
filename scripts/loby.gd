@@ -146,13 +146,14 @@ func no_players():
 		$CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = false
 		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = false
 		return
-	$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
-	if vs_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
-	if tp_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP-Mode!"
-	if vs_mode and tp_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP/VS-Mode!"
+	if solo_mode:
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Modus!"
+		if vs_mode:
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo VS-Mode!"
+		if tp_mode:
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP-Mode!"
+		if vs_mode and tp_mode:
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP/VS-Mode!"
 	
 	if not $CenterContainer/HBoxContainer/VBoxContainer/start.visible:
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = true
@@ -309,6 +310,8 @@ func _on_enter_pressed():
 			get_parent().spawn_npc()
 		update_player_counters(true)
 		vor_start_trigger()
+		if not solo_mode and player_conect_count == 1 and player_wait_count == 1:
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
 		if not server_first_start:
 			set_server_first_start.rpc(true)
 		if multiplayer.is_server():
@@ -428,6 +431,14 @@ func set_server_first_start(mode: bool):
 	
 func _on_start_pressed():
 	Global.ui_sound = true
+	if vs_mode and player_wait_count > 1:
+		check_teams()
+		if not vaild_team:
+			blue_team_cound = 0
+			red_team_cound = 0
+			vaild_team = false
+			OS.alert("Nur ein Team erkannt!", "Server Meldung")
+			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/start.text == "Beenden":
 		server_exit()
 		return
@@ -467,7 +478,7 @@ func _on_start_pressed():
 	
 	
 func vor_start_trigger():
-	if player_conect_count == 1 and player_wait_count == 1:
+	if player_conect_count == 1 and player_wait_count == 1 and not solo_mode:
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 	else:

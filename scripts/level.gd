@@ -194,7 +194,7 @@ func player_list_update(id: int, join: bool):
 
 @rpc("any_peer","call_local")
 func set_npc_settings():
-	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server"):
+	if multiplayer.get_peers().is_empty() and not OS.has_feature("dedicated_server") and $loby.solo_mode:
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = false
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = false
 		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
