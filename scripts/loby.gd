@@ -66,10 +66,8 @@ func _ready():
 func update_player_wait(positive: bool):
 	if positive:
 		player_wait_count += 1
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 	if not positive and player_wait_count > 0:
 		player_wait_count -= 1
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_wait_count, " Spieler bereit!")
 
 	
 @rpc("any_peer","call_local")	
@@ -129,6 +127,9 @@ func update_player_count(positiv: bool):
 		player_conect_count -= 1
 		if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
 			no_players()
+		if not OS.has_feature("dedicated_server") and not multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
+			$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
 		
 
@@ -212,7 +213,7 @@ func update_player_counters(connected: bool):
 
 @rpc("any_peer","call_local")
 func update_rady_status():
-	if player_conect_count == player_wait_count and not vs_mode:
+	if player_conect_count == player_ready and not vs_mode:
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
@@ -224,8 +225,7 @@ func update_rady_status():
 				server_exit()
 				return
 			vor_start_trigger()
-			server_first_start = true
-	elif player_conect_count == player_wait_count and vs_mode and vaild_team:
+	elif player_conect_count == player_ready and vs_mode and vaild_team:
 		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
@@ -233,10 +233,15 @@ func update_rady_status():
 			$"CenterContainer/HBoxContainer/VBoxContainer/start".grab_focus()
 			Global.trigger_host_focus = false
 		if OS.has_feature("dedicated_server"):
+			if player_conect_count < 1:
+				server_exit()
+				return
 			vor_start_trigger()
-			server_first_start = true
 	if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
 		no_players()
+	if not OS.has_feature("dedicated_server") and not multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1 and not get_parent().loaded_seson and len(get_parent().playerlist) <= 1:
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 
 
 func start_ext_server():
@@ -304,8 +309,9 @@ func _on_enter_pressed():
 			get_parent().spawn_npc()
 		update_player_counters(true)
 		vor_start_trigger()
+		if not server_first_start:
+			set_server_first_start.rpc(true)
 		if multiplayer.is_server():
-			server_first_start = true
 			server_set_map()
 			
 		
@@ -409,10 +415,17 @@ func _on_enter_focus_entered():
 func set_player_rady(rady: bool):
 	if rady:
 		player_ready += 1
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, " Spieler bereit!")
 	elif player_ready > 0:
 		player_ready -= 1
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, " Spieler bereit!")
 		
 		
+@rpc("any_peer","call_local")
+func set_server_first_start(mode: bool):
+	server_first_start = mode
+	
+	
 func _on_start_pressed():
 	Global.ui_sound = true
 	if $CenterContainer/HBoxContainer/VBoxContainer/start.text == "Beenden":
@@ -423,11 +436,14 @@ func _on_start_pressed():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
 			$CenterContainer/HBoxContainer/team.visible = false
 			set_player_rady.rpc(true)
+			update_rady_status.rpc()
 			return
 		if player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
+			update_rady_status.rpc()
 			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "start":
 		$CenterContainer/HBoxContainer/VBoxContainer/warte_map.visible = true
+	update_rady_status.rpc()
 	if vs_mode and player_wait_count > 1:
 		check_teams()
 		if not vaild_team:

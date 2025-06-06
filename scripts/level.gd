@@ -244,7 +244,7 @@ func _process(_delta):
 	for p in $Players.get_children():
 		score_update(p.name.to_int(), p.color_cell)
 	if $loby.server_first_start and playerlist.size() == $loby.player_ready and playerlist.size() > 0:
-		$loby.server_first_start = false
+		$loby.set_server_first_start.rpc(false)
 		if OS.has_feature("dedicated_server"):
 			$loby.start_ext_server()
 		else:
