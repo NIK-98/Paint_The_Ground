@@ -15,6 +15,8 @@ var difficulty_id = 0
 var count_settime = 0
 var count_map_size = 1
 var map_faktor = 2
+@export var rady_and_wait = []
+@export var wait = []
 
 var blue_team_cound = 0
 var red_team_cound = 0
@@ -77,6 +79,19 @@ func namen_text_update(id, text):
 		
 @rpc("any_peer","call_local")
 func update_player_count(positiv: bool):
+	if positiv:
+		player_conect_count += 1
+	if not positiv and player_conect_count > 0:
+		player_conect_count -= 1
+		if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
+			no_players()
+		if not OS.has_feature("dedicated_server") and not multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
+			$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+
+		
+@rpc("any_peer","call_local")
+func update_options():
 	if multiplayer.is_server():
 		get_parent().set_coin_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen").button_pressed)
 		get_parent().set_shop_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset").button_pressed)
@@ -121,17 +136,7 @@ func update_player_count(positiv: bool):
 			
 	if solo_mode:
 		get_parent().is_server_run_game.rpc()
-	if positiv:
-		player_conect_count += 1
-	if not positiv and player_conect_count > 0:
-		player_conect_count -= 1
-		if multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
-			no_players()
-		if not OS.has_feature("dedicated_server") and not multiplayer.is_server() and player_wait_count <= 1 and player_conect_count == 1:
-			$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
-			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
-		
-		
+					
 
 func no_players():
 	if not visible:
@@ -139,7 +144,7 @@ func no_players():
 		get_tree().paused = true
 	if get_parent().get_node("Scoreboard/CanvasLayer").visible or get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_child_count() > 1:
 		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
@@ -165,7 +170,7 @@ func no_players():
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
 	else:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
@@ -200,18 +205,37 @@ func exit(msg: String, show_msg: bool):
 	if multiplayer:
 		for i in multiplayer.get_peers():
 			get_parent().kicked(i, msg, show_msg)
-	
-
-func update_player_counters(connected: bool):
-	if not connected:
-		update_player_count.rpc(false)
-		update_player_wait.rpc(false)
-	else:
-		update_player_wait.rpc(true)
+		
+		
+func update_player_counter(connected: bool, vaild_whait: bool, vaild_count: bool, vaild_rady: bool):
+	if vaild_whait:
+		update_player_wait.rpc(connected)
+	if vaild_count:
+		update_player_count.rpc(connected)
+	if vaild_rady:
+		set_player_rady.rpc(connected)
+	update_options.rpc()
 	update_rady_status.rpc()
 	if vs_mode:
 		check_team()
 
+
+@rpc("any_peer","call_local")
+func set_wait_rady(id: int, mode: bool):
+	if mode:
+		rady_and_wait.append(id)
+	else:
+		rady_and_wait.erase(id)
+	
+
+@rpc("any_peer","call_local")
+func set_wait(id: int, mode: bool):
+	if mode:
+		wait.append(id)
+	else:
+		wait.erase(id)
+	
+	
 @rpc("any_peer","call_local")
 func update_rady_status():
 	if player_conect_count == player_ready and not vs_mode:
@@ -308,10 +332,13 @@ func _on_enter_pressed():
 		if player_conect_count == 1 and get_parent().get_node("Players").has_node("1") and not get_parent().loaded_seson:
 			get_parent().loaded_seson = true
 			get_parent().spawn_npc()
-		update_player_counters(true)
+		set_wait.rpc(multiplayer.get_unique_id(), true)
+		update_player_counter(true, true, false, false)
 		vor_start_trigger()
 		if not solo_mode and player_conect_count == 1 and player_wait_count == 1:
-			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler gefunden!")
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
+			$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		if not server_first_start:
 			set_server_first_start.rpc(true)
 		if multiplayer.is_server():
@@ -446,7 +473,8 @@ func _on_start_pressed():
 		if server_first_start and not OS.has_feature("dedicated_server") and player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
 			$CenterContainer/HBoxContainer/team.visible = false
-			set_player_rady.rpc(true)
+			set_wait_rady.rpc(multiplayer.get_unique_id(), true)
+			update_player_counter(true, false, false, true)
 			update_rady_status.rpc()
 			return
 		if player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
@@ -475,6 +503,7 @@ func _on_start_pressed():
 	reset_wait_count.rpc()
 	if $CenterContainer/HBoxContainer/team.visible:
 		set_visiblity.rpc("loby/CenterContainer/HBoxContainer/team", false)
+	$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
 	
 	
 func vor_start_trigger():
@@ -496,6 +525,9 @@ func start_trigger():
 @rpc("any_peer","call_local")
 func reset_wait_count():
 	player_wait_count = 0
+	player_ready = 0
+	rady_and_wait = []
+	wait = []
 	get_parent().main.get_node("CanvasLayer2/Control/UI").game_started = true
 	
 	

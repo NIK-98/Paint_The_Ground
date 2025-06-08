@@ -52,7 +52,6 @@ func _enter_tree():
 func _ready():
 	if name.to_int() == multiplayer.get_unique_id():
 		camera.make_current()
-	level.get_node("loby").update_player_count.rpc_id(multiplayer.get_unique_id(), true)
 	$CanvasLayer/Winner.visible = false
 	$CanvasLayer/Los.visible = false
 	if not level.get_node("loby").vs_mode:

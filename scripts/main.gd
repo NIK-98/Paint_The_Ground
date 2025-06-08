@@ -12,6 +12,7 @@ const server_browser_new: PackedScene = preload("res://sceens/server_browser.tsc
 @onready var keyboard: Control = $CanvasLayer/keyboard
 @onready var license_info: Control = $License
 
+
 const passw = "ffw49w3rwhfrw8"
 
 var controll_switcher = false

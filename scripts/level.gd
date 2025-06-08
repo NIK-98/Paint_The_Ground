@@ -34,7 +34,7 @@ var Max_clients = 4
 var loaded_seson = false
 var loaded = false
 @export var block_cells = []
-@export var count_cellen = {1:{1:0,2:0,3:0,4:0},2:{1:0,2:0,3:0,4:0},3:{1:0,2:0,3:0,4:0},4:{1:0,2:0,3:0,4:0}} ####docch noch fehlerhaft
+@export var count_cellen = {1:{1:0,2:0,3:0,4:0},2:{1:0,2:0,3:0,4:0},3:{1:0,2:0,3:0,4:0},4:{1:0,2:0,3:0,4:0}}
 @export var score = {1:0,2:0,3:0,4:0}
 var last_runde = false
 var start_gedrückt = 0
@@ -175,13 +175,14 @@ func score_update(id: int, cell: int):
 func update_player_list(id: int, join: bool):
 	if join:
 		player_list_update.rpc(id,join)
+		$loby.update_player_counter(true, false, true, false)
 		print(str("Peer: ",id," Connected!"))
 	else:
 		player_list_update.rpc(id,join)
-		$loby.set_player_rady.rpc(false)
+		$loby.update_player_counter(false, id in $loby.wait, true, id in $loby.rady_and_wait)
+		if $loby.rady_and_wait.size() < 1 and not $loby.solo_mode:
+			update_anwesend.rpc()
 		print(str("Peer: ",id," Disconnected!"))
-		$loby.update_player_counters(false)
-	
 			
 
 @rpc("any_peer","call_local")
@@ -215,14 +216,21 @@ func set_npc_settings():
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.visible = false
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/settime.disabled = true
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.disabled = true
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()," Spieler Anwesend!")
-		if $loby.vs_mode:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "VS-Mode!"
-		if $loby.tp_mode:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP-Mode!"
-		if $loby.vs_mode and $loby.tp_mode:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "TP/VS-Mode!"
+	update_anwesend()
 
+
+@rpc("any_peer","call_local")
+func update_anwesend():
+	if $loby.wait.size() <= 1 and $loby.solo_mode:
+		return
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Mitspieler!")
+	if $loby.vs_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," VS-Mode Mitspieler!")
+	if $loby.tp_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP-Mode Mitspieler!")
+	if $loby.vs_mode and $loby.tp_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP/VS-Mode Mitspieler !")
+		
 
 @rpc("any_peer","call_local")
 func is_server_run_game():
@@ -250,8 +258,15 @@ func _process(_delta):
 		if OS.has_feature("dedicated_server"):
 			$loby.start_ext_server()
 		else:
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
-			$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+			if not $loby.solo_mode and $loby.player_conect_count > 1 and $loby.player_wait_count > 1:
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+			if not $loby.solo_mode and $loby.player_conect_count <= 1 and $loby.player_wait_count <= 1:
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
+			if $loby.solo_mode:
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 	$loby.reset_loby()
 			
 			
@@ -292,17 +307,18 @@ func update_lastrund():
 
 @rpc("any_peer","call_local")
 func sort_score_list():
-	var new_order = []
-	for i in werte.get_children():
-		new_order.append([i.name,i.text.to_int()])
-	new_order.sort_custom(sort_ascending_score_list)
-	var lists = [werte, powerlist, namenlist, visual]
-	for list in lists:
-		for l in list.get_children():
-			for o in new_order:
-				if o.has(l.name):
-					list.move_child(l,new_order.find(o))
-				
+	if $CanvasLayer/Time.visible:
+		var new_order = []
+		for i in werte.get_children():
+			new_order.append([i.name,i.text.to_int()])
+		new_order.sort_custom(sort_ascending_score_list)
+		var lists = [werte, powerlist, namenlist, visual]
+		for list in lists:
+			for l in list.get_children():
+				for o in new_order:
+					if o.has(l.name):
+						list.move_child(l,new_order.find(o))
+					
 
 func sort_ascending_score_list(a, b):
 	if a[1] > b[1]:

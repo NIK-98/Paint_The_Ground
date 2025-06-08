@@ -476,6 +476,18 @@ properties/37/replication_mode = 1
 properties/38/path = NodePath("loby:player_ready")
 properties/38/spawn = true
 properties/38/replication_mode = 1
+properties/39/path = NodePath("loby:player_conect_count")
+properties/39/spawn = true
+properties/39/replication_mode = 1
+properties/40/path = NodePath("loby:player_wait_count")
+properties/40/spawn = true
+properties/40/replication_mode = 1
+properties/41/path = NodePath("loby:rady_and_wait")
+properties/41/spawn = true
+properties/41/replication_mode = 1
+properties/42/path = NodePath("loby:wait")
+properties/42/spawn = true
+properties/42/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -964,7 +976,7 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
 
 [node name="Timer" type="Timer" parent="." groups=["timer"]]
-wait_time = 120.0
+wait_time = 5.0
 
 [node name="Timerende" type="Timer" parent="."]
 wait_time = 3.0

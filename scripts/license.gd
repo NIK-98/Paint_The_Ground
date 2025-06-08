@@ -6,15 +6,18 @@ var licenses = Engine.get_copyright_info()
 var lic_copy_path_mobile = "/storage/emulated/0/Android/data/de.niklas.nrw.pth/files/LICENSE_INFO.txt"
 var lic_copy_path_pc = "user://LICENSE_INFO.txt"
 var credits_path = "user://CREDITS.txt"
+var loaded = false
 
 
-func _ready() -> void:
-	write_credits_file()
-	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		copy_licens(lic_copy_path_mobile)
-	if OS.get_name() == "Windows" or OS.get_name() == "Linux":
-		copy_licens(lic_copy_path_pc)
-
+func _process(_delta: float) -> void:
+	if not loaded:
+		loaded = true
+		write_credits_file()
+		if OS.get_name() == "Android" or OS.get_name() == "iOS":
+			copy_licens(lic_copy_path_mobile)
+		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
+			copy_licens(lic_copy_path_pc)
+			
 
 func copy_licens(file_path: String):
 	var file = FileAccess.open("res://LICENSE_INFO.txt", FileAccess.READ)

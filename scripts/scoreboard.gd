@@ -114,7 +114,9 @@ func _on_restart_pressed():
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
 		return
-	$"../loby".update_player_counters(true)
+	$"../loby".set_wait_rady.rpc(multiplayer.get_unique_id(), true)
+	$"../loby".set_wait.rpc(multiplayer.get_unique_id(), true)
+	$"../loby".update_player_counter(true,true,false,true)
 	get_parent().reset_vars_level.rpc_id(1)
 	set_visiblety.rpc_id(1,"../loby", true)
 	$CanvasLayer.visible = false
