@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 			copy_licens(lic_copy_path_pc)
 	if $CanvasLayer.visible:
-		text_edit.scroll_vertical += 0.001
+		text_edit.scroll_vertical += 0.005
 		if text_edit.scroll_vertical >= text_edit.get_v_scroll_bar().max_value-10 or not $CanvasLayer.visible:
 			text_edit.scroll_vertical = 0.0
 		
