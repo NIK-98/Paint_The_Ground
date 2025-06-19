@@ -7,6 +7,7 @@ var lic_copy_path_mobile = "/storage/emulated/0/Android/data/de.niklas.nrw.pth/f
 var lic_copy_path_pc = "user://LICENSE_INFO.txt"
 var credits_path = "user://CREDITS.txt"
 var loaded = false
+var ende_text = "#################ENDE#################"
 
 
 func _process(_delta: float) -> void:
@@ -17,6 +18,11 @@ func _process(_delta: float) -> void:
 			copy_licens(lic_copy_path_mobile)
 		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 			copy_licens(lic_copy_path_pc)
+	if $CanvasLayer.visible:
+		text_edit.scroll_vertical += 0.001
+		if text_edit.scroll_vertical >= text_edit.get_v_scroll_bar().max_value-10 or not $CanvasLayer.visible:
+			text_edit.scroll_vertical = 0.0
+		
 			
 
 func copy_licens(file_path: String):
@@ -57,6 +63,7 @@ func write_credits_file() -> void:
 
 	if file:
 		file.store_string("=== CREDITS ===\n\n")
+		file.store_string("Created by NIK-DEV!\n")
 		file.store_string("Powered by Godot Engine\n\n")
 		
 		# Lizenzinformationen abrufen und speichern
@@ -84,8 +91,12 @@ func write_credits_file() -> void:
 		file.store_string("License Text:\n" + license_texts + "\n\n")
 			
 		
-		file.store_string("Thank you to all contributors and open-source projects!\n")
+		file.store_string("Thank you to all contributors and open-source projects!\n"+ende_text)
 		file.close()
 		print("CREDITS file successfully written to: " + credits_path)
 	else:
 		print("Error: Unable to create CREDITS file.")
+
+
+func _on_canvas_layer_visibility_changed() -> void:
+	text_edit.scroll_vertical = 0.0
