@@ -27,10 +27,14 @@ var max_portal_ids: int
 
 func _physics_process(_delta: float) -> void:
 	if Global.trigger_look:
-		Global.trigger_look = false
-		set_tile_set(load(Global.look_set_ground[Global.trigger_look_id]))
-		wall.set_tile_set(load(Global.look_set_wall[Global.trigger_look_id]))
+		call_deferred("set_look")
+		
 
+func set_look():
+	Global.trigger_look = false
+	set_tile_set(load(Global.look_set_ground[Global.trigger_look_id]))
+	wall.set_tile_set(load(Global.look_set_wall[Global.trigger_look_id]))
+	
 
 @rpc("any_peer","call_local")
 func reset_floor():
