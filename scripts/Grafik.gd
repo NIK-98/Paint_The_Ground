@@ -12,6 +12,7 @@ extends Control
 @onready var zoom_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 @onready var zoom_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ZOOM_MAX
 @onready var zoom = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Zoom
+@onready var ingameopt: OptionButton = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/ingameopt
 
 var trailer = preload("res://sceens/trailer.tscn")
 
@@ -33,6 +34,7 @@ var v_sync_mode = false
 var fps_display_mode = false
 var einleitugs_display_mode = true
 var fullscreen_mode = true
+var select_opt_id = 0
 var max_frams = 200
 var max_zoom = 0.6
 var standard_zoom = 0.6
@@ -77,6 +79,7 @@ func _process(_delta):
 			v_sync.visible = false
 		_on_fps_value_changed(max_frams)
 		_on_zoom_value_changed(max_zoom)
+		_on_ingameopt_item_selected(select_opt_id)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
 		einleitung.set_pressed_no_signal(einleitugs_display_mode)
 		
@@ -103,7 +106,8 @@ func save():
 		"max_frams" : max_frams,
 		"fps_display_mode" : fps_display_mode,
 		"einleitugs_display_mode" : einleitugs_display_mode,
-		"max_zoom" : max_zoom
+		"max_zoom" : max_zoom,
+		"select_opt_id" : select_opt_id
 	}
 	return save_dict
 		
@@ -279,3 +283,10 @@ func _on_zoom_value_changed(value: float) -> void:
 		zoom_max.text = "Max Zoom"
 		zoom.value = value
 		max_zoom = zoom.max_value
+
+
+func _on_ingameopt_item_selected(index: int) -> void:
+	select_opt_id = index
+	ingameopt.select(select_opt_id)
+	Global.trigger_look_id = select_opt_id
+	Global.trigger_look = true

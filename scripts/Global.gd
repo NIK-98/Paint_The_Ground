@@ -18,6 +18,10 @@ var trigger_host_focus = false
 var trigger_grafik_menu = false
 var trigger_input_menu = false
 var trigger_shop_menu = false
+var trigger_look = false
+var trigger_look_id = 0
+var look_set_wall = ["res://resources/tilesets/wall.tres","res://resources/tilesets/wall2.tres"]
+var look_set_ground = ["res://resources/tilesets/floor.tres","res://resources/tilesets/floor2.tres"]
 
 
 const tracks = ["res://assets/sounds/Paint_The_Ground_game.ogg","res://assets/sounds/Paint_The_Ground_Sound_loop_Version.ogg","res://assets/sounds/Paint_The_Ground_Moving_Sound.ogg"]

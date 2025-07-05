@@ -458,8 +458,11 @@ layer = 7
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
@@ -603,6 +606,20 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_um8il")
 theme_override_styles/normal = SubResource("StyleBoxFlat_7jfqw")
 text = "Einleitungs Video beim Starten"
 
+[node name="ingameopt" type="OptionButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_ffbtd")
+theme_override_constants/outline_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_vddqa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ojarn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fgfog")
+selected = 0
+item_count = 2
+popup/item_0/text = "Standard Aussehen"
+popup/item_0/id = 0
+popup/item_1/text = "Pixel Aussehen"
+popup/item_1/id = 1
+
 [node name="Reset" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_mco8h")
@@ -642,6 +659,7 @@ text = "Zurück"
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Einleitung" to="." method="_on_einleitung_toggled"]
+[connection signal="item_selected" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/ingameopt" to="." method="_on_ingameopt_item_selected"]
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/Reset" to="." method="_on_reset_pressed"]
