@@ -244,7 +244,7 @@ func _on_host_connect_mouse_entered():
 
 
 func _on_host_connect_focus_entered():
-	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and loaded:
 		Global.ui_hover_sound = true
 
 

@@ -151,6 +151,10 @@ func _on_reset_pressed():
 	music.value = music_volume
 	AudioServer.set_bus_volume_db(music_bus, music.value)
 	Global.akzept = ""
+	music_count = 0
+	music_select = "Track1"
+	select_music()
+	Global.music1_sound = true
 
 
 func _on_reset_mouse_entered():

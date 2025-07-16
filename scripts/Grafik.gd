@@ -12,8 +12,14 @@ extends Control
 @onready var zoom_option = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 @onready var zoom_max = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ZOOM_MAX
 @onready var zoom = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Zoom
-@onready var ingameopt: OptionButton = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/ingameopt
+@onready var ingameopt: Button = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/ingameopt
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
+
+const opt_ids = {0:"Standard Aussehen",#aussehen
+				 1:"Pixel Aussehen"
+				}
+			
 var trailer = preload("res://sceens/trailer.tscn")
 
 @onready var main = get_parent()
@@ -34,7 +40,8 @@ var v_sync_mode = false
 var fps_display_mode = false
 var einleitugs_display_mode = true
 var fullscreen_mode = true
-var select_opt_id = 0
+var select_opt_id = opt_ids[0]#aussehen id
+var opt_id_count = 0#aussehen count
 var max_frams = 200
 var max_zoom = 0.6
 var standard_zoom = 0.6
@@ -79,7 +86,7 @@ func _process(_delta):
 			v_sync.visible = false
 		_on_fps_value_changed(max_frams)
 		_on_zoom_value_changed(max_zoom)
-		_on_ingameopt_item_selected(select_opt_id)
+		set_opt_id_idx(opt_id_count)
 		fps_anzeige.set_pressed_no_signal(fps_display_mode)
 		einleitung.set_pressed_no_signal(einleitugs_display_mode)
 		
@@ -107,7 +114,8 @@ func save():
 		"fps_display_mode" : fps_display_mode,
 		"einleitugs_display_mode" : einleitugs_display_mode,
 		"max_zoom" : max_zoom,
-		"select_opt_id" : select_opt_id
+		"select_opt_id" : select_opt_id,
+		"opt_id_count" : opt_id_count
 	}
 	return save_dict
 		
@@ -126,7 +134,8 @@ func Add_Resolutions():
 
 
 func _on_option_button_item_selected(index):
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	reset = false
 	var ID = option_button.get_item_text(index)
 	id = index
@@ -148,7 +157,8 @@ func Set_Resulutuns_text():
 			
 
 func _on_full_screen_toggled(toggled_on):
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	reset = false
 	if toggled_on:
 		fullscreen_mode = true
@@ -192,12 +202,15 @@ func _on_reset_pressed():
 	_on_v_sync_toggled(false)
 	_on_einleitung_toggled(true)
 	_on_fps_anzeige_toggled(false)
+	opt_id_count = 0
+	set_opt_id_idx(opt_id_count)
 	reset = true
 	Global.akzept = ""
 
 
 func _on_v_sync_toggled(toggled_on: bool) -> void:
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	reset = false
 	if toggled_on:
 		v_sync_mode = true
@@ -238,7 +251,8 @@ func _on_focus_entered():
 
 
 func _on_fps_value_changed(value):
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	if value < framelimiter:
 		Engine.max_fps = value
 		fps_max.text = str(int(value), " Max FPS")
@@ -252,7 +266,8 @@ func _on_fps_value_changed(value):
 
 
 func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	reset = false
 	if toggled_on:
 		fps_display_mode = true
@@ -263,7 +278,7 @@ func _on_fps_anzeige_toggled(toggled_on: bool) -> void:
 
 
 func _on_einleitung_toggled(toggled_on: bool) -> void:
-	if visible:
+	if canvas_layer.visible:
 		Global.ui_sound = true
 	reset = false
 	if toggled_on:
@@ -274,7 +289,8 @@ func _on_einleitung_toggled(toggled_on: bool) -> void:
 
 
 func _on_zoom_value_changed(value: float) -> void:
-	Global.ui_sound = true
+	if canvas_layer.visible:
+		Global.ui_sound = true
 	if value < limit_zoom:
 		zoom_max.text = str("Zoom von ",value)
 		zoom.value = value
@@ -285,8 +301,21 @@ func _on_zoom_value_changed(value: float) -> void:
 		max_zoom = zoom.max_value
 
 
-func _on_ingameopt_item_selected(index: int) -> void:
-	select_opt_id = index
-	ingameopt.select(select_opt_id)
-	Global.trigger_look_id = select_opt_id
+func _on_ingameopt_pressed(load: bool = false) -> void:
+	if canvas_layer.visible:
+		Global.ui_sound = true
+	opt_id_count += 1
+	if opt_id_count > 1:
+		opt_id_count = 0
+	set_opt_id_idx(opt_id_count)
+	
+	
+func set_opt_id_idx(idx: int):
+	if idx == 0:
+		select_opt_id = opt_ids.keys().get(idx)
+		ingameopt.text = opt_ids[idx]
+	elif idx == 1:
+		select_opt_id = opt_ids.keys().get(idx)
+		ingameopt.text = opt_ids[idx]
+	Global.trigger_look_id = idx
 	Global.trigger_look = true
