@@ -20,5 +20,5 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	ui.trailer_on = false
 	Global.music1_replay = true
-	ui.get_node("Panel/CenterContainer/Net/Options/Option1/o1/Host").grab_focus()
+	ui.get_node("Panel/CenterContainer/Net/Options/Host_Connect").grab_focus()
 	queue_free()

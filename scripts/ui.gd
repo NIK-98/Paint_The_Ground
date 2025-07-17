@@ -12,6 +12,7 @@ var Max_clients = 4
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
+@onready var main = get_parent().get_parent().get_parent()
 @onready var popup_edit = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard/PanelContainer/CenterContainer/VBoxContainer/popup_edit")
 @onready var keyboard = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard")
 @onready var versions_info = $Versions_Info
@@ -244,7 +245,7 @@ func _on_host_connect_mouse_entered():
 
 
 func _on_host_connect_focus_entered():
-	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and loaded:
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and loaded and main.has_node("CanvasLayer3") and main.get_node("CanvasLayer3").get_child_count() == 0:
 		Global.ui_hover_sound = true
 
 
