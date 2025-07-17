@@ -335,5 +335,12 @@ func _on_lizenzen_pressed() -> void:
 	license_info.get_node("CanvasLayer").visible = true
 	license_info.get_node("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/CenterContainer/VBoxContainer/back").grab_focus()
 	$CanvasLayer/Menu.visible = false
-	
-	
+
+
+func _on_lizenzen_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+
+func _on_lizenzen_mouse_entered() -> void:
+	Global.ui_hover_sound = true
