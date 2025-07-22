@@ -3,6 +3,7 @@ extends Button
 var load_folder = "user://load_folder"
 var first_save = false
 @onready var load_menue_canvas = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+@onready var scoreboard = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("Scoreboard")
 		
 
 func _process(_delta: float) -> void:

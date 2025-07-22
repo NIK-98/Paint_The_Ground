@@ -45,6 +45,7 @@ var start_gedrückt = 0
 @export var start_time = 0
 
 @export var playerlist = []
+@export var playernamelist = []
 var list_player_id_and_pos = []
 
 func _ready():
@@ -195,6 +196,21 @@ func player_list_update(id: int, join: bool):
 		playerlist.append(id)
 	else:
 		playerlist.erase(id)
+
+
+@rpc("any_peer","call_local")
+func player_name_list_update(namen: String, join: bool):
+	if join:
+		playernamelist.append(namen)
+	else:
+		playernamelist.erase(namen)
+		
+
+func update_player_name_list(namen: String, join: bool):
+	if join:
+		player_name_list_update.rpc(namen,join)
+	else:
+		player_name_list_update.rpc(namen,join)
 		
 
 @rpc("any_peer","call_local")
@@ -510,6 +526,7 @@ func spawn_npc():
 				$loby.join_blue(new_npc.name.to_int())
 			add_power_icons(new_npc.name, true)
 			add_text_tap(new_npc.name.to_int(), str("NPC",i+1))
+			update_player_name_list(str("NPC",i+1),true)
 		Global.ui_sound = true
 		if $loby.vs_mode:
 			$loby.check_team()
@@ -593,6 +610,7 @@ func del_player(id: int):
 	if not get_node("Players").has_node(str(id)):
 		return
 	update_player_list(id, false)
+	update_player_name_list(get_node("Players").get_node(str(id)).get_node("Name").text,false)
 	get_node("Players").get_node(str(id)).queue_free()
 	del_text_tap(id)
 	if not $loby.vs_mode:

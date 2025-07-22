@@ -492,6 +492,9 @@ properties/42/replication_mode = 1
 properties/43/path = NodePath("loby:load_mode")
 properties/43/spawn = true
 properties/43/replication_mode = 1
+properties/44/path = NodePath(".:playernamelist")
+properties/44/spawn = true
+properties/44/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")

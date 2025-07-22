@@ -2,13 +2,13 @@ extends Control
 
 @onready var loby = get_parent()
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
-var load_path = "user://load_folder/save.save"
 var load_folder = "user://load_folder"
 var files: PackedStringArray
 var added_saves = false
 var loaded = false
 var first_button_name = ""
 var load_sceen = preload("res://sceens/load.tscn")
+var have_data = false
 @onready var v_box_container = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
 @onready var scroll_container: ScrollContainer = $CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer
 @onready var timer: Timer = $Timer
@@ -41,11 +41,16 @@ func _process(_delta: float) -> void:
 					if v_box_container.get_child_count() == 0:
 						no_load.visible = true
 						scroll_container.visible = false
-						timer.start()
-						
+						timer.start()	
 					if v_box_container.get_child_count() > 0:
+						have_data = true
 						v_box_container.get_child(0).first_save = true
 						first_button_name = v_box_container.get_child(0).name
+				if v_box_container.get_child_count() == 0 and have_data:
+					have_data = false
+					no_load.visible = true
+					scroll_container.visible = false
+					timer.start()
 			else:
 				Global.load_menu_showed = false
 				queue_free()

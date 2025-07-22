@@ -76,6 +76,8 @@ func update_player_wait(positive: bool):
 @rpc("any_peer","call_local")	
 func namen_text_update(id, text):
 	get_parent().get_node("Players").get_node(str(id)).get_node("Name").text = text
+	if multiplayer.is_server() or get_parent().get_node("Players").has_node("2"):
+		get_parent().update_player_name_list(text,true)
 
 		
 @rpc("any_peer","call_local")
@@ -200,6 +202,8 @@ func server_exit():
 			if m == 1:
 				get_parent().del_score("Blue")
 				get_parent().del_score_visuel("Blue")
+	var timesys = Time.get_datetime_dict_from_system()
+	get_parent().get_node("Scoreboard").save_scoreboard(str(get_parent().get_node("Scoreboard").load_folder,"/",timesys["day"],".",timesys["month"],".",timesys["year"],",",timesys["hour"],"_",timesys["minute"],"_",timesys["second"]))
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()
