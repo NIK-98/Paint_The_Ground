@@ -5,6 +5,7 @@ extends CanvasLayer
 @export var is_running = false
 @export var vs_mode = false
 @export var tp_mode = false
+@export var load_mode = false
 @export var coin_mode = false
 @export var shop_mode = false
 @export var solo_mode = false
@@ -98,6 +99,7 @@ func update_options():
 		get_parent().set_solo_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 		get_parent().set_tp_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/portal").button_pressed)
+		get_parent().set_load_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden").button_pressed)
 	var args = OS.get_cmdline_args()
 	if OS.has_feature("dedicated_server") and args.has("-tp"):
 		var argument_wert = args[args.find("-tp") + 1] # Wert des spezifischen Arguments
@@ -133,6 +135,13 @@ func update_options():
 			get_parent().set_shop_mode(true)
 		elif argument_wert == "false":
 			get_parent().set_shop_mode(false)
+	
+	if OS.has_feature("dedicated_server") and args.has("-load"):
+		var argument_wert = args[args.find("-load") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_load_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_load_mode(false)
 			
 	if solo_mode:
 		get_parent().is_server_run_game.rpc()
@@ -706,4 +715,5 @@ func edit_text_select():
 		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.parent_fild_length = $CenterContainer/HBoxContainer/VBoxContainer/name_input.max_length
 		get_parent().main.get_node("CanvasLayer2/Control/UI").popup_edit.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text
 		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.last_focus_path = $CenterContainer/HBoxContainer/VBoxContainer/name_input.get_path()
-	get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected = true
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		get_parent().main.get_node("CanvasLayer2/Control/UI").keyboard.selected = true

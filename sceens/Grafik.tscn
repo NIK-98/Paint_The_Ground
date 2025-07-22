@@ -19,9 +19,9 @@ expand_margin_right = 30.0
 shadow_color = Color(0.0375193, 0.275378, 1, 0.6)
 shadow_size = 90
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qk70"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nrhyu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m752r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skc28"]
 bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
 border_width_left = 15
 border_width_top = 15
@@ -34,7 +34,7 @@ corner_radius_bottom_right = 150
 shadow_color = Color(0, 0.282, 0.196, 0.757)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lqpe"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8c67q"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -49,7 +49,7 @@ corner_radius_bottom_left = 1024
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1q4ux"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhgc3"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -64,9 +64,9 @@ corner_radius_bottom_left = 1024
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6oyfx"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdyvp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6suxm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_my6mm"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -91,17 +91,17 @@ Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/h_separation = 10
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_nrhyu")
+Button/styles/hover = SubResource("StyleBoxFlat_skc28")
+Button/styles/normal = SubResource("StyleBoxFlat_8c67q")
+Button/styles/pressed = SubResource("StyleBoxFlat_uhgc3")
 CheckBox/icons/checked = ExtResource("3_e5k8t")
 CheckBox/icons/unchecked = ExtResource("4_5a07j")
-CheckBox/styles/focus = SubResource("StyleBoxEmpty_6oyfx")
-CheckBox/styles/hover = SubResource("StyleBoxFlat_m752r")
-CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_6suxm")
-CheckBox/styles/normal = SubResource("StyleBoxFlat_m752r")
-CheckBox/styles/pressed = SubResource("StyleBoxFlat_m752r")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_cdyvp")
+CheckBox/styles/hover = SubResource("StyleBoxFlat_skc28")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_my6mm")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_skc28")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_skc28")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxu7j"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
@@ -154,9 +154,9 @@ expand_margin_right = 35.0
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hl4ox"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ybqmu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tekwa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpxtc"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -182,17 +182,17 @@ Button/constants/h_separation = 10
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
 Button/icons/icon = null
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_nrhyu")
+Button/styles/hover = SubResource("StyleBoxFlat_skc28")
+Button/styles/normal = SubResource("StyleBoxFlat_8c67q")
+Button/styles/pressed = SubResource("StyleBoxFlat_uhgc3")
 CheckBox/icons/checked = ExtResource("3_e5k8t")
 CheckBox/icons/unchecked = ExtResource("4_5a07j")
-CheckBox/styles/focus = SubResource("StyleBoxEmpty_hl4ox")
-CheckBox/styles/hover = SubResource("StyleBoxFlat_m752r")
-CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_tekwa")
-CheckBox/styles/normal = SubResource("StyleBoxFlat_m752r")
-CheckBox/styles/pressed = SubResource("StyleBoxFlat_m752r")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_ybqmu")
+CheckBox/styles/hover = SubResource("StyleBoxFlat_skc28")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_hpxtc")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_skc28")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_skc28")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wno52"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
@@ -245,7 +245,7 @@ expand_margin_right = 35.0
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rweet"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ejtc"]
 
 [sub_resource type="Theme" id="Theme_ffbtd"]
 Button/colors/font_color = Color(0.284398, 0.000272228, 0.877517, 1)
@@ -256,15 +256,15 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 45
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_nrhyu")
+Button/styles/hover = SubResource("StyleBoxFlat_skc28")
+Button/styles/normal = SubResource("StyleBoxFlat_8c67q")
+Button/styles/pressed = SubResource("StyleBoxFlat_uhgc3")
 OptionButton/icons/arrow = ExtResource("5_btqo4")
-OptionButton/styles/focus = SubResource("StyleBoxEmpty_rweet")
-OptionButton/styles/hover = SubResource("StyleBoxFlat_m752r")
-OptionButton/styles/normal = SubResource("StyleBoxFlat_m752r")
-OptionButton/styles/pressed = SubResource("StyleBoxFlat_m752r")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_8ejtc")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_skc28")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_skc28")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_skc28")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vddqa"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
@@ -326,14 +326,14 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.431373, 0.243137, 1, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_nrhyu")
+Button/styles/hover = SubResource("StyleBoxFlat_skc28")
+Button/styles/normal = SubResource("StyleBoxFlat_8c67q")
+Button/styles/pressed = SubResource("StyleBoxFlat_uhgc3")
 Label/colors/font_color = Color(0.286275, 0, 0.878431, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 20
-Label/styles/normal = SubResource("StyleBoxFlat_2lqpe")
+Label/styles/normal = SubResource("StyleBoxFlat_8c67q")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnuje"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
@@ -353,7 +353,7 @@ expand_margin_bottom = 50.0
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hw7ff"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_017j5"]
 bg_color = Color(7.33994e-07, 0.31624, 0.142891, 1)
 border_width_bottom = 2
 border_color = Color(0, 0.486275, 0.333333, 1)
@@ -366,7 +366,7 @@ shadow_color = Color(0.87451, 0.501961, 0, 0.768627)
 shadow_size = 5
 
 [sub_resource type="Theme" id="Theme_7f03j"]
-HSlider/styles/grabber_area = SubResource("StyleBoxFlat_hw7ff")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_017j5")
 
 [sub_resource type="Theme" id="Theme_mco8h"]
 Button/colors/font_color = Color(0.647059, 0.647059, 0, 1)
@@ -377,14 +377,14 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 1, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
-Button/styles/focus = SubResource("StyleBoxEmpty_6qk70")
-Button/styles/hover = SubResource("StyleBoxFlat_m752r")
-Button/styles/normal = SubResource("StyleBoxFlat_2lqpe")
-Button/styles/pressed = SubResource("StyleBoxFlat_1q4ux")
+Button/styles/focus = SubResource("StyleBoxEmpty_nrhyu")
+Button/styles/hover = SubResource("StyleBoxFlat_skc28")
+Button/styles/normal = SubResource("StyleBoxFlat_8c67q")
+Button/styles/pressed = SubResource("StyleBoxFlat_uhgc3")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xusv"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t7yaw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4d68"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onuns"]
 bg_color = Color(2.40654e-08, 0.280974, 0.196912, 1)
 border_width_left = 15
 border_width_top = 15
@@ -397,7 +397,7 @@ corner_radius_bottom_right = 150
 shadow_color = Color(0, 0.282, 0.196, 0.757)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wh4pv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vvqb"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -412,7 +412,7 @@ corner_radius_bottom_left = 1024
 shadow_color = Color(0.099, 0.67, 1, 0.854)
 shadow_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we7ou"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvmku"]
 bg_color = Color(0, 0.647733, 0.903827, 1)
 border_width_left = 15
 border_width_top = 15
@@ -436,10 +436,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 0, 0, 1)
 Button/constants/outline_size = 20
 Button/font_sizes/font_size = 35
-Button/styles/focus = SubResource("StyleBoxEmpty_3xusv")
-Button/styles/hover = SubResource("StyleBoxFlat_p4d68")
-Button/styles/normal = SubResource("StyleBoxFlat_wh4pv")
-Button/styles/pressed = SubResource("StyleBoxFlat_we7ou")
+Button/styles/focus = SubResource("StyleBoxEmpty_t7yaw")
+Button/styles/hover = SubResource("StyleBoxFlat_onuns")
+Button/styles/normal = SubResource("StyleBoxFlat_4vvqb")
+Button/styles/pressed = SubResource("StyleBoxFlat_pvmku")
 
 [node name="Grafik" type="Control" groups=["savegrafik"]]
 process_mode = 3

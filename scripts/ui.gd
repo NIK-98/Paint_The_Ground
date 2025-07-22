@@ -12,6 +12,7 @@ var Max_clients = 4
 @onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
+@onready var runde_laden = $Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden
 @onready var main = get_parent().get_parent().get_parent()
 @onready var popup_edit = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard/PanelContainer/CenterContainer/VBoxContainer/popup_edit")
 @onready var keyboard = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard")
@@ -33,6 +34,7 @@ var tp_mode = false
 var coin_mode = false
 var shop_mode = false
 var solo_mode = false
+var load_mode = false
 var trailer_on = true
 var host_mode = false
 
@@ -52,6 +54,7 @@ func save():
 		"coin_mode" : coin_mode,
 		"shop_mode" : shop_mode,
 		"solo_mode" : solo_mode,
+		"load_mode" : load_mode,
 		"trailer_on" : trailer_on,
 		"host_mode" : host_mode
 	}
@@ -95,6 +98,10 @@ func _process(_delta):
 			alleine_spielen.set_pressed(true)
 		else:
 			alleine_spielen.set_pressed(false)
+		if load_mode:
+			runde_laden.set_pressed(true)
+		else:
+			runde_laden.set_pressed(false)
 		if host_mode:
 			$Panel/CenterContainer/Net/Options/Option1.hide()
 			$Panel/CenterContainer/Net/Options/Option2.show()
@@ -351,7 +358,8 @@ func edit_text_select():
 		keyboard.parent_fild_length = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.max_length
 		popup_edit.text = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
 		keyboard.last_focus_path = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.get_path()
-	keyboard.selected = true
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		keyboard.selected = true
 			
 
 
@@ -376,3 +384,10 @@ func _on_portal_toggled(toggled_on: bool) -> void:
 		tp_mode = true
 	else:
 		tp_mode = false
+
+
+func _on_runde_laden_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		load_mode = true
+	else:
+		load_mode = false

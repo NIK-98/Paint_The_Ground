@@ -268,6 +268,11 @@ layout_mode = 2
 theme = SubResource("Theme_rsc3b")
 text = "Alleine_Spielen"
 
+[node name="Runde_laden" type="CheckBox" parent="Panel/CenterContainer/Net/Options/Option1/o2"]
+layout_mode = 2
+theme = SubResource("Theme_rsc3b")
+text = "Runde_laden"
+
 [node name="anleitung" type="Button" parent="Panel/CenterContainer/Net/Options/Option1"]
 layout_mode = 2
 theme = SubResource("Theme_8c3yx")
@@ -396,6 +401,9 @@ theme_override_font_sizes/font_size = 30
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_mouse_entered"]
 [connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen" to="." method="_on_alleine_spielen_toggled"]
+[connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden" to="." method="_on_mouse_entered"]
+[connection signal="toggled" from="Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden" to="." method="_on_runde_laden_toggled"]
 [connection signal="focus_entered" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_focus_entered"]
 [connection signal="mouse_entered" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_mouse_entered"]
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option1/anleitung" to="." method="_on_anleitung_pressed"]

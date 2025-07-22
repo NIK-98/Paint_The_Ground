@@ -1,9 +1,10 @@
-[gd_scene load_steps=41 format=3 uid="uid://cdp31movrikk0"]
+[gd_scene load_steps=42 format=3 uid="uid://cdp31movrikk0"]
 
 [ext_resource type="Script" uid="uid://ku5xol5aaorn" path="res://scripts/level.gd" id="1_5145t"]
 [ext_resource type="PackedScene" uid="uid://qup2aib2321s" path="res://sceens/wall.tscn" id="3_0fgwu"]
 [ext_resource type="PackedScene" uid="uid://chp0vp0g2i1r8" path="res://sceens/wertung_visuel.tscn" id="4_682dc"]
 [ext_resource type="PackedScene" uid="uid://fv2dn4il1f71" path="res://sceens/floor.tscn" id="5_h5l3x"]
+[ext_resource type="PackedScene" uid="uid://lj6p8ju6xlhv" path="res://sceens/load_menue.tscn" id="8_lxpmp"]
 [ext_resource type="Script" uid="uid://bbkn4ls2gx5dk" path="res://scripts/scoreboard.gd" id="9_7agv8"]
 [ext_resource type="Script" uid="uid://dxwod30wvlimo" path="res://scripts/loby.gd" id="14_vxhbj"]
 [ext_resource type="Texture2D" uid="uid://66pot33mfidy" path="res://assets/background/menu.png" id="15_qppgb"]
@@ -488,6 +489,9 @@ properties/41/replication_mode = 1
 properties/42/path = NodePath("loby:wait")
 properties/42/spawn = true
 properties/42/replication_mode = 1
+properties/43/path = NodePath("loby:load_mode")
+properties/43/spawn = true
+properties/43/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
@@ -860,6 +864,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 70
 text = "0"
+
+[node name="load_menue" parent="loby" instance=ExtResource("8_lxpmp")]
 
 [node name="Scoreboard" type="Control" parent="."]
 process_mode = 3

@@ -18,6 +18,7 @@ var trigger_host_focus = false
 var trigger_grafik_menu = false
 var trigger_input_menu = false
 var trigger_shop_menu = false
+var load_menu_showed = false
 var trigger_look = false
 var trigger_look_id = 0
 var look_set_wall = ["res://resources/tilesets/wall.tres","res://resources/tilesets/wall2.tres"]
@@ -39,3 +40,5 @@ var tp_sound = false
 
 var menu = false
 var akzept = ""
+
+var load_score_path = ""

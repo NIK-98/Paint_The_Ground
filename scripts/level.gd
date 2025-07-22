@@ -151,6 +151,10 @@ func set_coin_mode(mode):
 
 func set_shop_mode(mode):	
 	$loby.shop_mode = mode
+
+
+func set_load_mode(mode):	
+	$loby.load_mode = mode
 	
 	
 func score_update(id: int, cell: int):

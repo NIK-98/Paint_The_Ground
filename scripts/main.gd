@@ -186,10 +186,13 @@ func _on_beenden_pressed():
 func _on_zurück_pressed():
 	Global.ui_sound = true
 	$CanvasLayer/Menu.visible = false
+	
 	if get_node("Level").get_child_count() <= 0 and $CanvasLayer2.visible:
 		Global.trigger_host_focus = true
 		$CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Host_Connect.grab_focus()
 		Global.trigger_host_focus = false
+	elif multiplayer.has_multiplayer_peer() and Global.load_menu_showed:
+		get_node(str("Level/level/loby/load_menue/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/",get_node("Level/level/loby/load_menue").first_button_name)).grab_focus()
 	elif multiplayer.has_multiplayer_peer() and get_node("Level").get_child_count() > 0 and get_node("Level/level/Scoreboard/CanvasLayer").visible:
 		Global.trigger_host_focus = true
 		get_node("Level/level/Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").grab_focus()
