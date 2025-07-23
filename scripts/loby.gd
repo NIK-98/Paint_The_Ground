@@ -202,8 +202,9 @@ func server_exit():
 			if m == 1:
 				get_parent().del_score("Blue")
 				get_parent().del_score_visuel("Blue")
-	var timesys = Time.get_datetime_dict_from_system()
-	get_parent().get_node("Scoreboard").save_scoreboard(str(get_parent().get_node("Scoreboard").load_folder,"/",timesys["day"],".",timesys["month"],".",timesys["year"],",",timesys["hour"],"_",timesys["minute"],"_",timesys["second"]))
+	if not get_parent().get_node("Scoreboard").Scoreboard_List.is_empty():
+		var timesys = Time.get_datetime_dict_from_system()
+		get_parent().get_node("Scoreboard").save_scoreboard(str(get_parent().get_node("Scoreboard").load_folder,"/",timesys["day"],".",timesys["month"],".",timesys["year"],",",timesys["hour"],"_",timesys["minute"],"_",timesys["second"],".save"))
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	get_parent().wechsel_sceene_wenn_server_disconected()

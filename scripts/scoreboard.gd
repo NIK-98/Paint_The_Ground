@@ -4,13 +4,14 @@ extends Control
 var first_select_button = false
 var loaded = false
 var load_folder = "user://load_folder"
+const passw = "ffw49w3rwhfrw8"
 		
 
 func save_scoreboard(save_path: String):
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists(load_folder):
 		dir.make_dir(load_folder)
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.WRITE, passw)
 	var data = {
 		"Scoreboard_List":Scoreboard_List
 	}
@@ -19,7 +20,7 @@ func save_scoreboard(save_path: String):
 
 
 func load_scoreboard(load_path: String):
-	var file = FileAccess.open(load_path, FileAccess.READ)
+	var file = FileAccess.open_encrypted_with_pass(load_path, FileAccess.READ, passw)
 	var json = JSON.new()
 	var result = json.parse(file.get_as_text())
 	var new_scoreboard = []
@@ -72,7 +73,7 @@ func set_name_color_eintrag():
 	for eintrag in range(len(Scoreboard_List)):
 		for n in get_parent().get_node("Players").get_children():
 			if not get_parent().get_node("loby").vs_mode:
-				if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text and get_parent().playernamelist.has(Scoreboard_List[eintrag][1]):
+				if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == get_parent().get_node("Players").get_node(str(n.name)).get_node("Name").text and Scoreboard_List[eintrag][1] in get_parent().playernamelist:
 					sync_name_color_eintrag.rpc(n.name, eintrag)
 			else:
 				if get_node(str("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer",eintrag,"/name",eintrag)).text == "Red":
