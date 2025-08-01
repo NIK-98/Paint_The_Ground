@@ -21,7 +21,6 @@ func _ready() -> void:
 		dir.make_dir(load_folder)
 		
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Global.akzept != "!!Coins Löschen!!" and Global.akzept != "!!Shop Zurücksetzen!!" and Global.akzept != "!!Shop und Coins Zurücksetzen!!":
 		if OS.has_feature("dedicated_server") or multiplayer.is_server():
@@ -59,8 +58,6 @@ func _process(_delta: float) -> void:
 		else:
 			Global.load_menu_showed = false
 			queue_free()
-		
-		
 
 
 func _on_timer_timeout() -> void:
