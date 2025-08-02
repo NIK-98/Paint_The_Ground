@@ -117,22 +117,7 @@ func _ready():
 		else:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine Map")
 			$loby.map_faktor = 2
-			
-	if OS.has_feature("dedicated_server") and args.has("-tp"):
-		var argument_wert = args[args.find("-tp") + 1] # Wert des spezifischen Arguments
-		if argument_wert == "true":
-			set_tp_mode(true)
-		elif argument_wert == "false":
-			set_tp_mode(false)
-	
-	if OS.has_feature("dedicated_server") and args.has("-vs"):
-		var argument_wert = args[args.find("-vs") + 1] # Wert des spezifischen Arguments
-		if argument_wert == "true":
-			set_vs_mode(true)
-		elif argument_wert == "false":
-			set_vs_mode(false)
-			
-			
+				
 	
 func set_vs_mode(mode):
 	$loby.vs_mode = mode

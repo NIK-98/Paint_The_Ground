@@ -140,9 +140,14 @@ func update_options():
 	
 	if OS.has_feature("dedicated_server") and args.has("-load"):
 		var argument_wert = args[args.find("-load") + 1] # Wert des spezifischen Arguments
-		if argument_wert == "true":
+		if not argument_wert.is_empty():
 			get_parent().set_load_mode(true)
-		elif argument_wert == "false":
+			Global.load_score_path = str(argument_wert)
+			if not FileAccess.file_exists(Global.load_score_path):
+				prints("Falsche Pfad eingabe. \nDatei kann nicht gefunden werden. \nPfad muss mit <user://> ohne < und > begginnen!")
+				Global.load_score_path = ""
+				get_parent().set_load_mode(false)
+		elif argument_wert.is_empty():
 			get_parent().set_load_mode(false)
 			
 	if solo_mode:
