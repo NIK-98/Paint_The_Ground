@@ -80,11 +80,13 @@ vertical_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 237)
 layout_mode = 2
+size_flags_vertical = 3
 follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 50
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

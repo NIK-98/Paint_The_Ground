@@ -42,3 +42,4 @@ var menu = false
 var akzept = ""
 
 var load_score_path = ""
+var ui_focus = false

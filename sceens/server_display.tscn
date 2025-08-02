@@ -108,5 +108,6 @@ theme = SubResource("Theme_r21rg")
 text = "Join"
 
 [connection signal="focus_entered" from="Join" to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="Join" to="." method="_on_join_focus_exited"]
 [connection signal="mouse_entered" from="Join" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
