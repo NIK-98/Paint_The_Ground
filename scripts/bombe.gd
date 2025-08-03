@@ -48,10 +48,10 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
 				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
 				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and wall_cell_source_id == -1 and cell_source_id not in block_cells and cell_source_id != cell and map.is_portal_id_ok(new_pos, feld_id):		
-					#if multiplayer.is_server() or OS.has_feature("dedicated_server"):####docch noch fehlerhaft
-						#if cell_source_id != 0:
-							#level.count_cellen[cell][cell_source_id] += 1
-						#level.count_cellen[cell][cell] += 1
+					if multiplayer.is_server() or OS.has_feature("dedicated_server"):####doch noch fehlerhaft
+						if cell_source_id != 0:
+							level.count_cellen[cell][cell_source_id] += 1
+						level.count_cellen[cell][cell] += 1
 						
 					bomb_array.push_back(new_pos)
 	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)

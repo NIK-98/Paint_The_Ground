@@ -199,6 +199,9 @@ func _notification(what):
 			
 
 func server_exit():
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		for p in get_parent().get_node("Players").get_children():
+			get_parent().score_update(p.name.to_int(), p.color_cell)
 	if vs_mode:
 		for m in range(2):
 			if m == 0:

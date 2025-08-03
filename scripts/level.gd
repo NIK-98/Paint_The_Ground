@@ -146,11 +146,11 @@ func set_load_mode(mode):
 func score_update(id: int, cell: int):
 	for p in $Players.get_children():
 		#####doch noch fehlerhaft
-		#score[p.color_cell] += count_cellen[p.color_cell][p.color_cell]
-		#count_cellen[p.color_cell][p.color_cell] = 0
-		#score[p.color_cell] -= count_cellen[cell][p.color_cell]
-		#count_cellen[cell][p.color_cell] = 0
-		score[p.color_cell] = len(map.get_used_cells_by_id(p.color_cell))		
+		score[p.color_cell] += count_cellen[p.color_cell][p.color_cell]
+		count_cellen[p.color_cell][p.color_cell] = 0
+		score[p.color_cell] -= count_cellen[cell][p.color_cell]
+		count_cellen[cell][p.color_cell] = 0
+			
 		if werte.get_child_count() > 0 and not get_node("loby").vs_mode and werte.has_node(str(p.name)):
 			werte.get_node(str(p.name)).wertung(p.name.to_int(), score[p.color_cell])
 		elif werte.get_child_count() > 0 and get_node("loby").vs_mode and werte.has_node(str(p.team)):
@@ -256,6 +256,7 @@ func _process(_delta):
 		$Timerpower.connect("timeout", _on_timerpower_timeout)
 		$TimerCoin.connect("timeout", _on_timercoin_timeout)
 		$Timerrestart.connect("timeout", _on_timerrestart_timeout)
+	
 	for p in $Players.get_children():
 		score_update(p.name.to_int(), p.color_cell)
 	if $loby.server_first_start and playerlist.size() == $loby.player_ready and playerlist.size() > 0:
@@ -666,6 +667,9 @@ func _on_timercoin_timeout():
 func _on_timerende_timeout():
 	$Timerende.stop()
 	stoped_game.rpc()
+	if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+		for p in $Players.get_children():
+			score_update(p.name.to_int(), p.color_cell)
 	get_node("Scoreboard").update_scoreboard()
 	$Scoreboard.set_visiblety.rpc("CanvasLayer", true)
 	if not main.get_node("CanvasLayer/Menu").visible:
