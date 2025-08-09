@@ -239,28 +239,43 @@ func paint(current_cell: int):
 	var offset_x: int
 	var offset_y: int
 	var distance_sqr: float
-
-	for x in range(-paint_radius, paint_radius):
-		offset_x = x + tile_position.x
-		for y in range(-paint_radius, paint_radius):
-			offset_y = y + tile_position.y
-			distance_sqr = x * x + y * y
-			
-			if distance_sqr < paint_radius_sqr:
-				new_pos = Vector2i(offset_x, offset_y)
-				var cell_id = map.get_cell_source_id(new_pos)
-				var wall_cell_id = wall.get_cell_source_id(new_pos)
-				if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and wall_cell_id == -1 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
-					if multiplayer.is_server() or OS.has_feature("dedicated_server"):####doch noch fehlerhaft
-						if cell_id != 0:
-							level.count_cellen[current_cell][cell_id] += 1
-						level.count_cellen[current_cell][current_cell] += 1
-					paint_array.append(new_pos)
 	
-	BetterTerrain.set_cells(map, paint_array, color_cell)
-	BetterTerrain.update_terrain_cells(map, paint_array)
+	if level.bomb_dict.is_empty():
+		for x in range(-paint_radius, paint_radius):
+			offset_x = x + tile_position.x
+			for y in range(-paint_radius, paint_radius):
+				offset_y = y + tile_position.y
+				distance_sqr = x * x + y * y
+				
+				if distance_sqr < paint_radius_sqr:
+					new_pos = Vector2i(offset_x, offset_y)
+					var cell_id = map.get_cell_source_id(new_pos)
+					var wall_cell_id = wall.get_cell_source_id(new_pos)
+					if cell_id != -1 and cell_id != 5 and wall_cell_id != 0 and wall_cell_id == -1 and cell_id != color_cell and cell_id not in block_cells and map.is_portal_id_ok(new_pos, feld):
+						if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+							if cell_id != 0:
+								level.score[cell_id] -= 1
+								level.score[current_cell] += 1
+							else:
+								level.score[current_cell] += 1
+						paint_array.append(new_pos)
+		BetterTerrain.set_cells(map, paint_array, color_cell)
+		BetterTerrain.update_terrain_cells(map, paint_array)
+	else:
+		if multiplayer.is_server() or OS.has_feature("dedicated_server"):
+			var bomb_cell = level.bomb_dict.keys()[0]
+			explode_bomb.rpc(bomb_cell)
+			for cell in level.score.keys():
+				level.score[cell] += level.bomb_dict["score"][cell]
+			level.bomb_dict = {}
 
+	
+@rpc("any_peer","call_local")
+func explode_bomb(cell: int):
+	BetterTerrain.set_cells(map, level.bomb_dict[cell], cell)
+	BetterTerrain.update_terrain_cells(map, level.bomb_dict[cell])
 		
+	
 func color_change():
 	for i in range(len(get_parent().get_children())):
 		if get_parent().get_node(str(name)) != null and i == 0:

@@ -3,7 +3,6 @@ extends Node2D
 @onready var map = get_parent().get_parent().get_node("floor")
 @onready var wall = get_parent().get_parent().get_node("wall")
 @onready var level = get_parent().get_parent()
-@onready var players = get_parent().get_parent().get_node("Players")
 
 const bomb_radius: int = 6
 var explode_pos = 0
@@ -17,6 +16,7 @@ var offset_x: int
 var offset_y: int
 var distance_sqr: int
 var clean = false
+var score_change = {1:0,2:0,3:0,4:0}
 
 var id: int = 0
 	
@@ -48,14 +48,16 @@ func aktivate_bombe(cell: int, pos: Vector2, feld_id: int, player_id: int):
 				var cell_source_id = BetterTerrain.get_cell(map,new_pos)
 				var wall_cell_source_id = BetterTerrain.get_cell(wall,new_pos)
 				if cell_source_id != -1 and cell_source_id != 5 and wall_cell_source_id != 0 and wall_cell_source_id == -1 and cell_source_id not in block_cells and cell_source_id != cell and map.is_portal_id_ok(new_pos, feld_id):		
-					if multiplayer.is_server() or OS.has_feature("dedicated_server"):####doch noch fehlerhaft
+					if multiplayer.is_server() or OS.has_feature("dedicated_server"):
 						if cell_source_id != 0:
-							level.count_cellen[cell][cell_source_id] += 1
-						level.count_cellen[cell][cell] += 1
+							score_change[cell_source_id] -= 1
+							score_change[cell] += 1
+						else:
+							score_change[cell] += 1
 						
 					bomb_array.push_back(new_pos)
-	BetterTerrain.call_deferred("set_cells",map,bomb_array,cell)
-	BetterTerrain.call_deferred("update_terrain_cells",map,bomb_array)
+	level.bomb_dict[cell] = bomb_array
+	level.bomb_dict["score"] = score_change
 	explode_pos = null
 		
 
