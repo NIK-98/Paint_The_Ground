@@ -517,7 +517,6 @@ func _on_start_pressed():
 		if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
 			exit("Kein Mitspieler auf dem Server Gefunden!", true)
 			return
-	get_parent().main.get_node("Grafik").zoom_option.visible = true
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
 	if $CenterContainer/HBoxContainer/team.visible:
@@ -548,6 +547,7 @@ func reset_wait_count():
 	rady_and_wait = []
 	wait = []
 	get_parent().main.get_node("CanvasLayer2/Control/UI").game_started = true
+	get_parent().main.get_node("Grafik").zoom_option.visible = true
 	
 	
 @rpc("any_peer","call_local")
