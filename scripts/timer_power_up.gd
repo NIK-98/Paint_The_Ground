@@ -11,13 +11,15 @@ func _process(_delta: float) -> void:
 	if not trigger_rest_animate and multiplayer.multiplayer_peer != null and (Player.name.to_int() == multiplayer.get_unique_id() or Player.name.to_int() == 2 or Player.name.to_int() == 3 or Player.name.to_int() == 4) and round(time_left) == 3:
 		trigger_rest_animate = true
 		level.get_node("Werten/PanelContainer/Wertung/powerlist").get_node(str(Player.name)).animate_rest_time.rpc(create_id)
-
+			
 
 func _on_timeout():
+	stop()
+	reset()
 	queue_free()
 
 
-func _exit_tree():
+func reset():
 	name = str(create_id)
 	if multiplayer.multiplayer_peer != null and (Player.name.to_int() == multiplayer.get_unique_id() or Player.name.to_int() == 2 or Player.name.to_int() == 3 or Player.name.to_int() == 4):
 		if Player.powerups[name.to_int()][0] == 0:

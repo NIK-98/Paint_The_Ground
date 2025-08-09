@@ -86,6 +86,7 @@ func _physics_process(delta):
 			ende = true
 			for c in $powertimers.get_children():
 				c.stop()
+				c.reset()
 				c.queue_free()
 			if level.get_node("Werten/PanelContainer/Wertung/powerlist").get_child_count() > 0:
 				if not level.get_node("Werten/PanelContainer/Wertung/powerlist").has_node(str(name)):
