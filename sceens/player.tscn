@@ -86,7 +86,7 @@ color = Color(0, 0, 0, 1)
 visible = false
 offset_right = 64.0
 offset_bottom = 64.0
-color = Color(0.294118, 0.537255, 1, 0.486275)
+color = Color(0.0917474, 0.406136, 0.999996, 0.596078)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
