@@ -213,6 +213,14 @@ func set_npc_settings():
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP-Mode!"
 		if $loby.vs_mode and $loby.tp_mode:
 			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo TP/VS-Mode!"
+		if $loby.eis_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Eis-Mode!"
+		if $loby.tp_mode and $loby.eis_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Eis/TP-Mode!"
+		if $loby.vs_mode and $loby.eis_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Eis/VS-Mode!"
+		if $loby.vs_mode and $loby.eis_mode and $loby.tp_mode:
+			$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = "Solo Eis/TP/VS-Mode!"
 	else:
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/npcs.disabled = true
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed.disabled = true
@@ -234,7 +242,15 @@ func update_anwesend():
 	if $loby.tp_mode:
 		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP-Mode Mitspieler!")
 	if $loby.vs_mode and $loby.tp_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP/VS-Mode Mitspieler !")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP/VS-Mode Mitspieler!")
+	if $loby.eis_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis-Mode Mitspieler!")
+	if $loby.tp_mode and $loby.eis_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP-Mode Mitspieler!")
+	if $loby.vs_mode and $loby.eis_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/VS-Mode Mitspieler!")
+	if $loby.vs_mode and $loby.eis_mode and $loby.tp_mode:
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP/VS-Mode Mitspieler!")
 		
 
 @rpc("any_peer","call_local")
