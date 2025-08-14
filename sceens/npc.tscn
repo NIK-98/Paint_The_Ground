@@ -39,6 +39,12 @@ offset_right = 48.0
 offset_bottom = 48.0
 color = Color(0, 0, 0, 1)
 
+[node name="freez_color" type="ColorRect" parent="."]
+visible = false
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.294493, 0.539002, 1, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_teehr")
@@ -54,5 +60,9 @@ wait_time = 0.2
 
 [node name="powertimers" type="Node" parent="."]
 
+[node name="freez_time" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="TimerresetSPEED" to="." method="_on_timerreset_speed_timeout"]
+[connection signal="timeout" from="freez_time" to="." method="_on_freez_time_timeout"]

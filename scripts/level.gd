@@ -26,9 +26,11 @@ var coin: PackedScene = preload("res://sceens/coin.tscn")
 @onready var map = get_node("floor")
 @onready var wall = get_node("wall")
 @onready var bombe = preload("res://sceens/bombe.tscn")
+@onready var freez_ball = preload("res://sceens/freez_ball.tscn")
 @onready var npc = preload("res://sceens/npc.tscn")
 @onready var power_up = $PowerUP
 @onready var Bomben = get_node("Bomben")
+@onready var freez_balls = get_node("FreezBalls")
 @export var map_enden = Vector2.ZERO
 var Max_clients = 4
 var loaded_seson = false
@@ -434,6 +436,12 @@ func reset_bomben():
 	for c in range(Bomben.get_child_count()):
 		if Bomben.get_child(c).is_in_group("boom"):
 			Bomben.get_child(c).queue_free()
+			
+
+func reset_freez_ball():
+	for c in range(freez_balls.get_child_count()):
+		if freez_balls.get_child(c).is_in_group("freez"):
+			freez_balls.get_child(c).queue_free()
 	
 	
 func spawn_new_bombe():
@@ -448,6 +456,15 @@ func spawn_new_bombe():
 		new_bombe.name = "bombe"
 		new_bombe.position = pos
 		Bomben.add_child(new_bombe, true)
+		
+
+func spawn_new_freez_ball(count: int = 1):
+	for i in range(count):
+		var pos = map.map_to_local(map.dict_floor_with_portal_id[randi_range(1,4)].keys().pick_random())
+		var new_freez_ball = freez_ball.instantiate()
+		new_freez_ball.name = "freez_ball"
+		new_freez_ball.position = pos
+		freez_balls.add_child(new_freez_ball, true)
 		
 
 func reset_powerup():
@@ -622,6 +639,7 @@ func reset_vars_level():
 		reset_powerup()
 		reset_bomben()
 		reset_coins()
+		reset_freez_ball()
 	
 	
 	
@@ -695,6 +713,10 @@ func set_visiblety(nodepath: String, mode: bool):
 			
 
 func _on_timerrestart_timeout():
+	if $loby.tp_mode:
+		spawn_new_freez_ball(4)
+	else:
+		spawn_new_freez_ball(2)
 	$Timerrestart.stop()
 	$Timer.start()
 	$Timerbomb.start()

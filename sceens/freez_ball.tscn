@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://knlsv3by3pmf"]
+
+[ext_resource type="Script" uid="uid://d2iogmvu10tx8" path="res://scripts/freez_ball.gd" id="1_n8fif"]
+[ext_resource type="Texture2D" uid="uid://7rdde6gr45hq" path="res://assets/effect_obj/freez.png" id="2_s4rid"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6x6eu"]
+radius = 33.2415
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8fif"]
+radius = 45.1774
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s4rid"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:process_mode")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="freez_ball" type="CharacterBody2D" groups=["freez"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_n8fif")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_s4rid")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6x6eu")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_n8fif")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_s4rid")

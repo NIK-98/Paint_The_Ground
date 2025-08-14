@@ -22,6 +22,7 @@ var player_spawn_grenze = 200
 var ende = false
 var input_mode = 0 # 0=pc 1=controller
 var zoom_old = 1
+var freez = false
 const cooldown_time_tp = 1
 var tp_cool_down = cooldown_time_tp
 @export var feld = 1
@@ -77,7 +78,7 @@ func _physics_process(_delta):
 			main.get_node("CanvasLayer/change").visible = true
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if name.to_int() == multiplayer.get_unique_id():
+			if name.to_int() == multiplayer.get_unique_id() and not freez:
 				moving()
 					
 				velocity = move*SPEED
@@ -317,6 +318,7 @@ func reset_player_vars():
 	pos_array = []
 	set_pos = false
 	feld = 0
+	freez = false
 	
 
 func _on_area_2d_area_entered(area: Area2D):
@@ -329,6 +331,11 @@ func _on_area_2d_area_entered(area: Area2D):
 		$TimerresetSPEED.start()
 		Global.hit_sound = true
 		$slow_color.visible = true
+	if area.get_parent().is_in_group("freez"):
+		if not freez:
+			freez = true
+			$freez_time.start()
+			$freez_color.visible = true
 		
 
 func _on_timerreset_speed_timeout():
@@ -338,3 +345,9 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
+
+
+func _on_freez_time_timeout() -> void:
+	$freez_time.stop()
+	$freez_color.visible = false
+	freez = false

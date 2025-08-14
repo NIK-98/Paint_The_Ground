@@ -521,6 +521,12 @@ spawn_path = NodePath("../Bomben")
 _spawnable_scenes = PackedStringArray("uid://caksg6votg50o")
 spawn_path = NodePath("../Coins")
 
+[node name="FreezBalls" type="Node" parent="."]
+
+[node name="FreezBallsSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://knlsv3by3pmf")
+spawn_path = NodePath("../FreezBalls")
+
 [node name="Players" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

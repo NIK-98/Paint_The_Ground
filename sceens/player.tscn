@@ -49,6 +49,9 @@ properties/11/replication_mode = 1
 properties/12/path = NodePath(".:color_cell")
 properties/12/spawn = true
 properties/12/replication_mode = 1
+properties/13/path = NodePath("freez_color:visible")
+properties/13/spawn = true
+properties/13/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -78,6 +81,12 @@ offset_top = 16.0
 offset_right = 48.0
 offset_bottom = 48.0
 color = Color(0, 0, 0, 1)
+
+[node name="freez_color" type="ColorRect" parent="."]
+visible = false
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.294118, 0.537255, 1, 0.486275)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 32)
@@ -159,6 +168,9 @@ warte auf wertung!"
 [node name="TimerresetSPEED" type="Timer" parent="."]
 wait_time = 0.2
 
+[node name="freez_time" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="powertimers" type="Node" parent="."]
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -166,3 +178,4 @@ replication_config = SubResource("SceneReplicationConfig_ktm87")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="TimerresetSPEED" to="." method="_on_timerreset_speed_timeout"]
+[connection signal="timeout" from="freez_time" to="." method="_on_freez_time_timeout"]

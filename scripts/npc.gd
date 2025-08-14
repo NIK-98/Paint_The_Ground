@@ -13,6 +13,7 @@ var loaded = false
 var npc_spawn_grenze = 200
 var Gametriggerstart = false
 var ende = false
+var freez = false
 var map_enden = Vector2.ZERO
 var curent_direction = Vector2.ZERO
 var random = 1
@@ -70,16 +71,17 @@ func _physics_process(delta):
 			map_enden = map.map_to_local(Global.Spielfeld_Size)
 	if level.get_node("CanvasLayer/Time").visible:
 		if level.get_node("CanvasLayer/Time").text.to_int() > 0:
-			if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field():
-				set_random_direction()
-			velocity = move_npc()*SPEED		
-			move_and_slide()
-			
-			if magnet:
-				for c in coins.get_children():
-					var coin_dist = position.distance_to(c.position)
-					if coin_dist < c.magnet_craft and c.magnet_id == 0:
-						c.magnet_id = name.to_int()
+			if not freez:
+				if is_on_wall() or is_on_ceiling() or is_on_floor() or not is_vaild_field():
+					set_random_direction()
+				velocity = move_npc()*SPEED		
+				move_and_slide()
+				
+				if magnet:
+					for c in coins.get_children():
+						var coin_dist = position.distance_to(c.position)
+						if coin_dist < c.magnet_craft and c.magnet_id == 0:
+							c.magnet_id = name.to_int()
 				
 					
 		elif level.get_node("CanvasLayer/Time").text.to_int() == 0 and not ende:
@@ -300,6 +302,7 @@ func reset_player_vars():
 	pos_array = []
 	set_pos = false
 	feld = 0
+	freez = false
 	
 
 func _on_area_2d_area_entered(area: Area2D):
@@ -312,6 +315,11 @@ func _on_area_2d_area_entered(area: Area2D):
 		$TimerresetSPEED.stop()
 		$TimerresetSPEED.start()
 		$slow_color.visible = true
+	if area.get_parent().is_in_group("freez"):
+		if not freez:
+			freez = true
+			$freez_time.start()
+			$freez_color.visible = true
 		
 		
 func _on_timerreset_speed_timeout():
@@ -321,3 +329,9 @@ func _on_timerreset_speed_timeout():
 		SPEED = first_speed
 		$TimerresetSPEED.stop()
 		$slow_color.visible = false
+
+
+func _on_freez_time_timeout() -> void:
+	$freez_time.stop()
+	$freez_color.visible = false
+	freez = false
