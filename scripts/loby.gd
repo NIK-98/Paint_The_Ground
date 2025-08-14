@@ -5,6 +5,7 @@ extends CanvasLayer
 @export var is_running = false
 @export var vs_mode = false
 @export var tp_mode = false
+@export var eis_mode = false
 @export var load_mode = false
 @export var coin_mode = false
 @export var shop_mode = false
@@ -101,6 +102,7 @@ func update_options():
 		get_parent().set_solo_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen").button_pressed)
 		get_parent().set_vs_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/vs").button_pressed)
 		get_parent().set_tp_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/portal").button_pressed)
+		get_parent().set_eis_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/eis").button_pressed)
 		get_parent().set_load_mode(get_parent().main.get_node("CanvasLayer2/Control/UI/Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden").button_pressed)
 	var args = OS.get_cmdline_args()
 	if OS.has_feature("dedicated_server") and args.has("-tp"):
@@ -137,6 +139,13 @@ func update_options():
 			get_parent().set_shop_mode(true)
 		elif argument_wert == "false":
 			get_parent().set_shop_mode(false)
+		
+	if OS.has_feature("dedicated_server") and args.has("-eis"):
+		var argument_wert = args[args.find("-eis") + 1] # Wert des spezifischen Arguments
+		if argument_wert == "true":
+			get_parent().set_eis_mode(true)
+		elif argument_wert == "false":
+			get_parent().set_eis_mode(false)
 	
 	if OS.has_feature("dedicated_server") and args.has("-load"):
 		var argument_wert = args[args.find("-load") + 1] # Wert des spezifischen Arguments

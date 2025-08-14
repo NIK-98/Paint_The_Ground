@@ -127,6 +127,10 @@ func set_vs_mode(mode):
 
 func set_tp_mode(mode):
 	$loby.tp_mode = mode
+
+
+func set_eis_mode(mode):
+	$loby.eis_mode = mode
 	
 
 func set_solo_mode(mode):
@@ -710,13 +714,28 @@ func set_visiblety(nodepath: String, mode: bool):
 			obj.visible = mode
 		else:	
 			obj.visible = mode
-			
+		
 
-func _on_timerrestart_timeout():
+func setup_freez_ball(map_faktor: int):	
 	if $loby.tp_mode:
-		spawn_new_freez_ball(4)
+		if map_faktor == 2:
+			spawn_new_freez_ball(4)
+		if map_faktor == 3:
+			spawn_new_freez_ball(5)
+		if map_faktor == 4:
+			spawn_new_freez_ball(6)
 	else:
-		spawn_new_freez_ball(2)
+		if map_faktor == 2:
+			spawn_new_freez_ball(2)
+		if map_faktor == 3:
+			spawn_new_freez_ball(3)
+		if map_faktor == 4:
+			spawn_new_freez_ball(4)
+		
+		
+func _on_timerrestart_timeout():
+	if $loby.eis_mode:
+		setup_freez_ball($loby.map_faktor)
 	$Timerrestart.stop()
 	$Timer.start()
 	$Timerbomb.start()

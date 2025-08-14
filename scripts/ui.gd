@@ -13,6 +13,7 @@ var Max_clients = 4
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
 @onready var runde_laden = $Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden
+@onready var eis = $Panel/CenterContainer/Net/Options/Option1/o2/eis
 @onready var main = get_parent().get_parent().get_parent()
 @onready var popup_edit = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard/PanelContainer/CenterContainer/VBoxContainer/popup_edit")
 @onready var keyboard = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard")
@@ -31,6 +32,7 @@ var server_port_to_connect_to = ""
 var game_started = false
 var vs_mode = false
 var tp_mode = false
+var eis_mode = false
 var coin_mode = false
 var shop_mode = false
 var solo_mode = false
@@ -56,7 +58,8 @@ func save():
 		"solo_mode" : solo_mode,
 		"load_mode" : load_mode,
 		"trailer_on" : trailer_on,
-		"host_mode" : host_mode
+		"host_mode" : host_mode,
+		"eis_mode" : eis_mode
 	}
 	return save_dict
 	
@@ -102,6 +105,10 @@ func _process(_delta):
 			runde_laden.set_pressed(true)
 		else:
 			runde_laden.set_pressed(false)
+		if eis_mode:
+			eis.set_pressed(true)
+		else:
+			eis.set_pressed(false)
 		if host_mode:
 			$Panel/CenterContainer/Net/Options/Option1.hide()
 			$Panel/CenterContainer/Net/Options/Option2.show()
@@ -391,3 +398,10 @@ func _on_runde_laden_toggled(toggled_on: bool) -> void:
 		load_mode = true
 	else:
 		load_mode = false
+
+
+func _on_eis_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		eis_mode = true
+	else:
+		eis_mode = false

@@ -495,6 +495,9 @@ properties/43/replication_mode = 1
 properties/44/path = NodePath(".:bomb_dict")
 properties/44/spawn = true
 properties/44/replication_mode = 1
+properties/45/path = NodePath("loby:eis_mode")
+properties/45/spawn = true
+properties/45/replication_mode = 1
 
 [node name="level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_5145t")
