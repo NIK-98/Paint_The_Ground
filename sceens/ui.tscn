@@ -214,6 +214,7 @@ layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "11111"
+placeholder_text = "11111"
 alignment = 1
 max_length = 5
 expand_to_text_length = true
@@ -235,6 +236,7 @@ layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "Server"
+placeholder_text = "Server"
 alignment = 1
 max_length = 7
 virtual_keyboard_enabled = false
@@ -368,11 +370,22 @@ layout_mode = 2
 theme = SubResource("Theme_4377g")
 theme_override_font_sizes/font_size = 85
 text = "11111"
+placeholder_text = "11111"
 alignment = 1
 max_length = 5
 expand_to_text_length = true
 virtual_keyboard_enabled = false
 select_all_on_focus = true
+
+[node name="SPRACHE" type="Button" parent="."]
+layout_mode = 2
+offset_left = 520.0
+offset_top = 120.0
+offset_right = 760.0
+offset_bottom = 192.0
+theme = SubResource("Theme_8c3yx")
+theme_override_font_sizes/font_size = 30
+text = "SPRACHE"
 
 [node name="Versions_Info" type="Label" parent="."]
 layout_mode = 0
@@ -422,3 +435,6 @@ theme_override_font_sizes/font_size = 30
 [connection signal="pressed" from="Panel/CenterContainer/Net/Options/Option2/o2/Connect" to="." method="_on_connect_pressed"]
 [connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote" to="." method="_on_input_gui_input"]
 [connection signal="gui_input" from="Panel/CenterContainer/Net/Options/Option2/o4/port" to="." method="_on_input_gui_input"]
+[connection signal="focus_entered" from="SPRACHE" to="." method="_on_sprache_focus_entered"]
+[connection signal="mouse_entered" from="SPRACHE" to="." method="_on_sprache_mouse_entered"]
+[connection signal="pressed" from="SPRACHE" to="." method="_on_sprache_pressed"]

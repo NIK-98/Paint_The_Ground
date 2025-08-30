@@ -51,7 +51,7 @@ var start_gedrückt = 0
 var list_player_id_and_pos = []
 
 func _ready():
-	main.set_language()
+	main.set_language(Global.sprachen[Global.current_sprache_idx][0])
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true

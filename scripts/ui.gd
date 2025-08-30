@@ -18,6 +18,8 @@ var Max_clients = 4
 @onready var popup_edit = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard/PanelContainer/CenterContainer/VBoxContainer/popup_edit")
 @onready var keyboard = get_parent().get_parent().get_parent().get_node("CanvasLayer/keyboard")
 @onready var versions_info = $Versions_Info
+@onready var sprache: Button = $SPRACHE
+var sprach_idx = 0
 var trailer = preload("res://sceens/trailer.tscn")
 
 var save_path = "user://savetemp.save"
@@ -59,14 +61,14 @@ func save():
 		"load_mode" : load_mode,
 		"trailer_on" : trailer_on,
 		"host_mode" : host_mode,
-		"eis_mode" : eis_mode
+		"eis_mode" : eis_mode,
+		"sprach_idx" : sprach_idx
 	}
 	return save_dict
 	
 	
 func _ready():
 	name = "UI"
-	main.set_language()
 	versions_info.text = tr("Versions_Info")+str(ProjectSettings.get("application/config/version"))
 	get_tree().paused = true
 	
@@ -75,6 +77,9 @@ func _process(_delta):
 	if not loaded:
 		loaded = true
 		name = "UI"
+		sprache.text = Global.sprachen[sprach_idx][1]
+		Global.current_sprache_idx = sprach_idx
+		main.set_language(Global.sprachen[Global.current_sprache_idx][0])
 		for n in get_parent().get_children():
 			if n.is_in_group("SB"):
 				get_parent().move_child(n,get_parent().get_child_count())
@@ -406,3 +411,28 @@ func _on_eis_toggled(toggled_on: bool) -> void:
 		eis_mode = true
 	else:
 		eis_mode = false
+
+
+func _on_sprache_pressed() -> void:
+	Global.ui_sound = true
+	prints(sprach_idx)
+	sprach_idx += 1
+	if sprach_idx == 0:
+		Global.current_sprache_idx = sprach_idx
+	elif sprach_idx == 1:
+		Global.current_sprache_idx = sprach_idx
+	elif sprach_idx == 2:
+		Global.current_sprache_idx = sprach_idx
+	elif sprach_idx == 3:
+		Global.current_sprache_idx = 0
+		sprach_idx = 0
+	sprache.text = Global.sprachen[Global.current_sprache_idx][1]
+	main.set_language(Global.sprachen[Global.current_sprache_idx][0])
+
+
+func _on_sprache_focus_entered() -> void:
+	if not Global.trigger_host_focus:
+		Global.ui_hover_sound = true
+
+func _on_sprache_mouse_entered() -> void:
+	Global.ui_hover_sound = true

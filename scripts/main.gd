@@ -37,8 +37,6 @@ func _ready():
 		load_game("saveinputsettings", save_input_setting_path)
 		load_game("saveshop", save_shop_path)
 		await get_tree().process_frame
-		if FileAccess.file_exists(save_path):
-			DirAccess.remove_absolute(save_path)
 		return
 	var args = OS.get_cmdline_args()
 	if args.has("-p"):
@@ -72,8 +70,11 @@ func _input(event: InputEvent) -> void:
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
-		if FileAccess.file_exists(save_path):
+		if not FileAccess.file_exists(save_path):
+			save_game("Persist", save_path)
+		else:
 			DirAccess.remove_absolute(save_path)
+			save_game("Persist", save_path)
 			
 	
 func save_game(group: String, path: String):
@@ -172,8 +173,11 @@ func _on_beenden_pressed():
 	await get_tree().create_timer(0.1).timeout
 	if $CanvasLayer2/Control/UI.esc_is_pressing and get_node("Level").get_child_count() <= 0:
 		$CanvasLayer2/Control/UI.esc_is_pressing = false
-		if FileAccess.file_exists(save_path):
+		if not FileAccess.file_exists(save_path):
+			save_game("Persist", save_path)
+		else:
 			DirAccess.remove_absolute(save_path)
+			save_game("Persist", save_path)
 		get_tree().quit()
 		return
 	if get_node("Level").get_child_count() > 0:
