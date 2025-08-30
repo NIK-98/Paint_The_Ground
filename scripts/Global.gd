@@ -23,7 +23,7 @@ var trigger_look = false
 var trigger_look_id = 0
 var look_set_wall = ["res://resources/tilesets/wall.tres","res://resources/tilesets/wall2.tres"]
 var look_set_ground = ["res://resources/tilesets/floor.tres","res://resources/tilesets/floor2.tres"]
-var sprachen = [["automatic","🌎Auto🌎"],["de","🌎Deutsch🌎"],["en","🌎English🌎"]]
+var sprachen = [["automatic","🌐 Auto 🌐"],["de","🌐 Deutsch 🌐"],["en","🌐 English 🌐"]]
 var current_sprache_idx = 0
 
 
