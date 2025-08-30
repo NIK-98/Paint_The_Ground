@@ -66,7 +66,8 @@ func save():
 	
 func _ready():
 	name = "UI"
-	versions_info.text = str("Entwickler: Nik-Dev\nVersion: ", ProjectSettings.get("application/config/version"))
+	main.set_language()
+	versions_info.text = tr("Versions_Info")+str(ProjectSettings.get("application/config/version"))
 	get_tree().paused = true
 	
 	

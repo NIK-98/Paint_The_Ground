@@ -126,8 +126,7 @@ theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Lizenzen Info
--------------------------------------------------------"
+text = "Lizenzeninfo"
 label_settings = SubResource("LabelSettings_nr7e0")
 horizontal_alignment = 1
 vertical_alignment = 1

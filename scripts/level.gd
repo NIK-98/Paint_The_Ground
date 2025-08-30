@@ -51,6 +51,7 @@ var start_gedrückt = 0
 var list_player_id_and_pos = []
 
 func _ready():
+	main.set_language()
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/name_input.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 	$loby/CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
@@ -236,21 +237,21 @@ func set_npc_settings():
 func update_anwesend():
 	if $loby.wait.size() <= 1 and $loby.solo_mode:
 		return
-	$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Mitspieler!")
+	$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1,tr(" Mitspieler!"))
 	if $loby.vs_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," VS-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," VS-Mode",tr(" Mitspieler!"))
 	if $loby.tp_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP-Mode",tr(" Mitspieler!"))
 	if $loby.vs_mode and $loby.tp_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP/VS-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," TP/VS-Mode",tr(" Mitspieler!"))
 	if $loby.eis_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis-Mode",tr(" Mitspieler!"))
 	if $loby.tp_mode and $loby.eis_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP-Mode",tr(" Mitspieler!"))
 	if $loby.vs_mode and $loby.eis_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/VS-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/VS-Mode",tr(" Mitspieler!"))
 	if $loby.vs_mode and $loby.eis_mode and $loby.tp_mode:
-		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP/VS-Mode Mitspieler!")
+		$loby/CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(playerlist.size()-1," Eis/TP/VS-Mode",tr(" Mitspieler!"))
 		
 
 @rpc("any_peer","call_local")
@@ -280,13 +281,13 @@ func _process(_delta):
 			$loby.start_ext_server()
 		else:
 			if not $loby.solo_mode and $loby.player_conect_count > 1 and $loby.player_wait_count > 1:
-				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Start")
 				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			if not $loby.solo_mode and $loby.player_conect_count <= 1 and $loby.player_wait_count <= 1:
-				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Beenden")
 				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			if $loby.solo_mode:
-				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = "start"
+				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Start")
 				$loby/CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 	$loby.reset_loby()
 			
@@ -313,7 +314,7 @@ func game_update():
 @rpc("any_peer","call_local")
 func update_timer_texte(t, t_bomb, t_start):
 	$CanvasLayer/Time.text = str(round(t))
-	$CanvasLayer/Bomb_time.text = str(round(t_bomb), " sec. bis zur nächsten Bomben verteilung!")
+	$CanvasLayer/Bomb_time.text = str(round(t_bomb), tr(" sec. bis zur nächsten Bomben verteilung!"))
 	$CanvasLayer/start_in.text = str("Start in ", round(t_start), " Sec.")
 
 			
@@ -350,7 +351,7 @@ func sort_ascending_score_list(a, b):
 func verbindung_verloren():
 	if multiplayer:
 		multiplayer.server_disconnected.disconnect(verbindung_verloren)
-		OS.alert("Multiplayer Server wurde beendet.", "Server Meldung")
+		OS.alert(tr("Multiplayer Server wurde beendet."), tr("Server Meldung"))
 		wechsel_sceene_wenn_server_disconected()
 		return
 	
@@ -369,10 +370,10 @@ func voll(msg: String):
 
 func add_player(id: int):
 	if $loby.solo_mode:
-		voll.rpc_id(id, "Zutritt verweigert!")
+		voll.rpc_id(id, tr("Zutritt verweigert!"))
 		return
 	if len(multiplayer.get_peers()) >= Max_clients:
-		voll.rpc_id(id, "Server Voll!")
+		voll.rpc_id(id, tr("Server Voll!"))
 		return
 	$loby.is_running = true
 	update_player_list(id, true)

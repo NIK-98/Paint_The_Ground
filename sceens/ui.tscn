@@ -165,7 +165,7 @@ layout_mode = 2
 layout_mode = 2
 theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 75
-text = "Host/Join Umschalten"
+text = "Umschalten"
 script = ExtResource("4_34vsx")
 
 [node name="Option1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options"]
@@ -186,6 +186,7 @@ text = "Host:"
 horizontal_alignment = 1
 
 [node name="Host" type="Button" parent="Panel/CenterContainer/Net/Options/Option1/o1"]
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_8c3yx")
@@ -304,6 +305,7 @@ text = "Join:"
 horizontal_alignment = 1
 
 [node name="Connect" type="Button" parent="Panel/CenterContainer/Net/Options/Option2/o2"]
+custom_minimum_size = Vector2(455, 0)
 layout_mode = 2
 theme = SubResource("Theme_8c3yx")
 theme_override_font_sizes/font_size = 85
@@ -319,7 +321,7 @@ theme_override_colors/font_color = Color(1, 0.788235, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 35
 theme_override_font_sizes/font_size = 65
-text = "Addresse"
+text = "Adresse"
 horizontal_alignment = 1
 
 [node name="remote1" type="HBoxContainer" parent="Panel/CenterContainer/Net/Options/Option2/o3"]

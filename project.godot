@@ -318,6 +318,10 @@ const_right_stick_left={
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://resources/translate/de-en.de.translation", "res://resources/translate/de-en.en.translation")
+
 [physics]
 
 2d/run_on_separate_thread=true

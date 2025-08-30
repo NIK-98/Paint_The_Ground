@@ -70,9 +70,9 @@ func _process(_delta):
 		name = "Grafik"
 		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 			for i in Resolutions.keys():
-				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, " Gerät"):
+				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Gerät")):
 					break
-				Resolutions[str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, " Gerät")] = DisplayServer.screen_get_size()
+				Resolutions[str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Gerät"))] = DisplayServer.screen_get_size()
 			Add_Resolutions()
 			full_screen.set_pressed_no_signal(fullscreen_mode)
 			_on_full_screen_toggled(fullscreen_mode)
@@ -193,7 +193,7 @@ func _on_reset_pressed():
 	fps_max.text = "Unbegrenzt FPS"
 	fps.value = fps.max_value
 	max_frams = fps.max_value
-	zoom_max.text = str("Zoom von ",standard_zoom)
+	zoom_max.text = str(tr("Zoom von "),standard_zoom)
 	zoom.value = standard_zoom
 	max_zoom = zoom.max_value
 	fps_anzeige.set_pressed_no_signal(false)
@@ -292,7 +292,7 @@ func _on_zoom_value_changed(value: float) -> void:
 	if canvas_layer.visible:
 		Global.ui_sound = true
 	if value < limit_zoom:
-		zoom_max.text = str("Zoom von ",value)
+		zoom_max.text = str(tr("Zoom von "),value)
 		zoom.value = value
 		max_zoom = value
 	else:

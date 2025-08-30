@@ -56,7 +56,7 @@ func sync_list(NewScoreEintrag: Array):
 			var newnode = get_node("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer0").duplicate()
 			$"CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/".add_child(newnode)
 			newnode.name = str("HBoxContainer",eintrag)
-			newnode.get_node("Platz0").text = str("Platz ",eintrag+1,":")
+			newnode.get_node("Platz0").text = str(tr("Platz "),eintrag+1,":")
 			newnode.get_node("Platz0").name = str("Platz",eintrag)
 			newnode.get_node("name0").name = str("name",eintrag)
 			newnode.get_node("Score0").name = str("Score",eintrag)
@@ -104,18 +104,18 @@ func update_scoreboard():
 func update_eigene_anzeige():
 	if not get_parent().get_node("loby").vs_mode:
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node(str(multiplayer.get_unique_id())).text)
-		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
+		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str(tr("Spieler: "),get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 	else:
 		if get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).team == "Red":
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node("Red").text)
-			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
+			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str(tr("Spieler: "),get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 		elif get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).team == "Blue":
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.text = str(get_parent().get_node("Werten/PanelContainer/Wertung/werte").get_node("Blue").text)
-			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str("Spieler: ",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
+			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.text = str(tr("Spieler: "),get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Name").text)
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/score.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 			$CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Spieler.set("theme_override_colors/font_color",get_parent().get_node("Players").get_node(str(multiplayer.get_unique_id())).get_node("Color").color)
 			
@@ -130,10 +130,10 @@ func _process(_delta):
 func _on_restart_pressed():
 	Global.ui_sound = true
 	if get_parent().get_node("loby").player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
-		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
+		get_parent().get_node("loby").exit(tr("Kein Mitspieler auf dem Server Gefunden!"), true)
 		return
 	if get_parent().get_node("loby").player_conect_count <= 1 and OS.has_feature("dedicated_server"):
-		get_parent().get_node("loby").exit("Kein Mitspieler auf dem Server Gefunden!", true)
+		get_parent().get_node("loby").exit(tr("Kein Mitspieler auf dem Server Gefunden!"), true)
 		return
 	$"../loby".set_wait_rady.rpc(multiplayer.get_unique_id(), true)
 	$"../loby".set_wait.rpc(multiplayer.get_unique_id(), true)

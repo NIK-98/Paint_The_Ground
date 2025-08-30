@@ -133,7 +133,7 @@ offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
 text = "Drücke die Exit Taste zum verlassen oder
-warte auf wertung!"
+warte auf die wertung!"
 
 [node name="Los" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -149,8 +149,7 @@ offset_right = 1118.0
 offset_bottom = 529.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 145
-text = "Verloren
-"
+text = "Verloren"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -163,7 +162,7 @@ offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
 text = "Drücke die Exit Taste zum verlassen oder
-warte auf wertung!"
+warte auf die wertung!"
 
 [node name="TimerresetSPEED" type="Timer" parent="."]
 wait_time = 0.2

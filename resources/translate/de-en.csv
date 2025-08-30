@@ -1,0 +1,134 @@
+Key,de,en
+de,Deutsch (de),German (de)
+en,Englisch (en),English (en)
+"Neues
+Spiel","Neues
+Spiel","New
+Game"
+Umschalten,Join/Host Umschalten,Join/Host toggle
+Host,Host,Host
+Port,Port,Port
+Server,Server,Server
+"Anlei-
+tung","Anlei-
+tung",Guide
+Alleine_Spielen,Alleine_Spielen,Alone_Play
+Runde_laden,Runde_laden,loading a round
+Join,Join,Join
+Adresse,Adresse,Address
+Beitreten,Beitreten,Join
+Alle,Alle,All
+Coins Löschen,Coins Löschen,Delete Coins
+!Coins Löschen!,!Coins Löschen!,!Delete Coins!
+Lizenzen,Mitwirkende,Credits
+Audio,Audio,Audio
+Grafik,Grafik,Graphics
+Eingabe,Eingabe,Input
+Ja,Ja,Yes
+Nein,Nein,No
+Gesamt Lautstärke,Gesamt Lautstärke,Master Volume
+Effekt Lautstärke,Effekt Lautstärke,Effect Volume
+UI Lautstärke,UI Lautstärke,UI Volume
+Musik Lautstärke,Musik Lautstärke,Music Volume
+SongA,"Song 
+Auswahl
+|
+\/","Song 
+Selection
+|
+\/"
+Zurück,Zurück,Back
+Vollbild,Vollbild,Fullscreen
+FPS Anzeige,FPS Anzeige,FPS Display
+Unbegrenzt FPS,Unbegrenzt FPS,Unlimited FPS
+Einleitungs Video beim Starten,Einleitungs Video beim Starten,Tutorial on launch
+Standard Aussehen,Standard Aussehen,Default look
+Pixel Aussehen,Pixel Aussehen,Pixel look
+Aktionen,Aktionen,Actions
+Rechts,Rechts,Right
+Links,Links,Left
+Hoch,Hoch,Up
+Runter,Runter,Down
+Menü,Menü,Menu
+Abbrechen,Abbrechen,Cancel
+Spieler,Spieler,Player
+Händigkeit,Händigkeit,Handedness
+ Mitspieler!, Mitspieler!, Teammates!
+Scroll hoch,Scroll hoch,Scroll up
+Scroll runter,Scroll rununter,Scroll down
+Bestätigen,Bestätigen,Confirm
+Oben Rechts,Oben Rechts,Top Right
+Neben Spieler Liste,Neben Spieler Liste,Next to Player List
+Spieler-Liste,Spieler-Liste,Player-List
+Beenden,Beenden,Quit
+Zufalls Name,Zufalls Name,Random Name
+Normal,Normal,Normal
+Schwer,Schwer,Hard
+Einfach,Einfach,Easy
+Kleine  Map,Kleine  Map,Small  Map
+Normale  Map,Normale  Map,Normal  Map
+Große  Map,Große  Map,Large  Map
+"Team
+Farbe
+Wälen
+durch
+drücken!","Team
+Farbe
+Wälen
+durch
+drücken!","Team
+color
+select
+by
+pressing!"
+ Spieler bereit!, Spieler bereit!, players ready!
+Alle Spieler bereit!,Alle Spieler bereit!,All players ready!
+Bereit,Bereit,Ready
+ sec. bis zur nächsten Bomben verteilung!, sec. bis zur nächsten Bomben verteilung!, sec. until the next bomb distribution!
+Platz,Platz,Place
+Bestenliste,Bestenliste,Leaderboard
+Laden,Laden,Load
+Spielen,Spielen,Play
+Gewonnen,Gewonnen,Victory
+Verloren,Verloren,Game Over
+!!!Gib Alles!!!,!!!Gib Alles!!!,!!!Give it your all!!!
+"Drücke die Exit Taste zum verlassen oder
+warte auf die wertung!","Drücke die Exit Taste zum verlassen oder
+warte auf die wertung!","Press the Exit button to leave or
+wait for the score!"
+Mitspieler,Mitspieler,Teammates
+Alle Server,Alle Server,All Servers
+Versions_Info,"Entwickler: Nik-Dev
+Version: ","Developer: Nik-Dev
+Version: "
+Beitreten,Beitreten,Join
+Oben Links,Oben Links,Top Left
+!!Coins Löschen!!,!!Coins Löschen!!,!!Delete Coins!!
+!!Shop Zurücksetzen!!,!!Shop Zurücksetzen!!,!!Reset Shop!!
+!!Shop und Coins Zurücksetzen!!,!!Shop und Coins Zurücksetzen!!,!!Reset Shop and Coins!!
+Mitte Rechts(UI),Mitte Rechts(UI),Center Right(UI)
+ Gerät, Gerät, Device
+Lizenzeninfo,"Mitwirkende
+-------------------------------------------------------","Credits
+-------------------------------------------------------"
+Verbindung Selber beendet!,Verbindung Selber beendet!,Connection terminated by user!
+Kein Mitspieler auf dem Server Gefunden!,Kein Mitspieler auf dem Server Gefunden!,No other players found on the server!
+Server beendet!,Server beendet!,Server shut down!
+Server Meldung,Server Meldung,Server message
+Bitte Namen Eingeben!,Bitte Namen Eingeben!,Please enter a name!
+Name Exsistiert Schon!,Name Exsistiert Schon!,Name already exists!
+Nur ein Team erkannt!,Nur ein Team erkannt!,Only one team detected!
+Multiplayer Server wurde beendet.,Multiplayer Server wurde beendet.,Multiplayer server has been shut down.
+Server Voll!,Server Voll!,Server full!
+Zutritt verweigert!,Zutritt verweigert!,Access denied!
+!!!!Spieler!!!!,!!!!Spieler!!!!,!!!!Player!!!!
+Zoom von ,Zoom von ,Zoom from 
+!!!Coins Gesichert!!!,!!!Coins Gesichert!!!,!!!Coins Saved!!!
+Spieler: ,Spieler: ,Player: 
+Neues Spiel,Neues Spiel,New Game
+Platz ,Platz ,Rank 
+!Bestenliste Auswahl!,!Bestenliste Auswahl!,High score selection!
+Keine daten! ,"Keine daten!
+Fenster schließt in ","No data!
+Window closes in "
+Platz 1:,Platz 1:,Rank 1:

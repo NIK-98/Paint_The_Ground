@@ -177,7 +177,7 @@ func _on_beenden_pressed():
 		get_tree().quit()
 		return
 	if get_node("Level").get_child_count() > 0:
-		get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
+		get_node("Level/level/loby").exit(tr("Verbindung Selber beendet!"), true)
 		
 	$CanvasLayer/Menu.visible = false
 	Global.akzept = ""
@@ -347,3 +347,11 @@ func _on_lizenzen_focus_entered() -> void:
 
 func _on_lizenzen_mouse_entered() -> void:
 	Global.ui_hover_sound = true
+	
+
+func set_language(language := "automatic"):
+	if language == "automatic":
+		var preferred_language = OS.get_locale_language()
+		TranslationServer.set_locale(preferred_language)
+	else:
+		TranslationServer.set_locale(language)

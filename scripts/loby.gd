@@ -169,7 +169,7 @@ func no_players():
 		get_tree().paused = true
 	if get_parent().get_node("Scoreboard/CanvasLayer").visible or get_parent().get_node("Tap/CenterContainer/PanelContainer/VBoxContainer").get_child_count() > 1:
 		get_parent().get_node("Scoreboard/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/restart").text = "Beenden"
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1,tr(" Mitspieler!"))
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer.visible = false
@@ -203,7 +203,7 @@ func no_players():
 		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Enter.visible = true
 		$CenterContainer/HBoxContainer/VBoxContainer/Random.visible = true
 	else:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1,tr(" Mitspieler!"))
 		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
@@ -211,7 +211,7 @@ func no_players():
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_WM_GO_BACK_REQUEST or (what == NOTIFICATION_APPLICATION_FOCUS_OUT and (OS.get_name() == "Android" or OS.get_name() == "iOS")):
-		exit("Verbindung Selber beendet!", true)
+		exit(tr("Verbindung Selber beendet!"), true)
 		return
 			
 
@@ -236,7 +236,7 @@ func exit(msg: String, show_msg: bool):
 	if OS.has_feature("dedicated_server"):
 		return
 	if multiplayer and multiplayer.is_server():
-		OS.alert("Server beendet!", "Server Meldung")
+		OS.alert(tr("Server beendet!"), tr("Server Meldung"))
 		server_exit()
 	if multiplayer:
 		for i in multiplayer.get_peers():
@@ -275,7 +275,7 @@ func set_wait(id: int, mode: bool):
 @rpc("any_peer","call_local")
 func update_rady_status():
 	if player_conect_count == player_ready and not vs_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = tr("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			Global.trigger_host_focus = true
@@ -287,7 +287,7 @@ func update_rady_status():
 				return
 			vor_start_trigger()
 	elif player_conect_count == player_ready and vs_mode and vaild_team:
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str("Alle Spieler bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = tr("Alle Spieler bereit!")
 		if multiplayer.is_server():
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 			Global.trigger_host_focus = true
@@ -338,14 +338,14 @@ func check_teams():
 func _on_enter_pressed():
 	Global.ui_sound = true
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.is_empty():
-		OS.alert("Bitte Namen Eingeben!", "Server Meldung")
+		OS.alert(tr("Bitte Namen Eingeben!"), tr("Server Meldung"))
 		return
 	$CenterContainer/HBoxContainer/VBoxContainer/name_input.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.lstrip(" ")
 	$CenterContainer/HBoxContainer/VBoxContainer/name_input.text = $CenterContainer/HBoxContainer/VBoxContainer/name_input.text.rstrip(" ")
 	
 	for i in get_parent().get_node("Players").get_children():
 		if i.get_node("Name").text == $CenterContainer/HBoxContainer/VBoxContainer/name_input.text:
-			OS.alert("Name Exsistiert Schon!", "Server Meldung")
+			OS.alert(tr("Name Exsistiert Schon!"), tr("Server Meldung"))
 			return
 	if $CenterContainer/HBoxContainer/VBoxContainer/name_input.text != "":
 		get_parent().is_server_run_game.rpc()
@@ -372,8 +372,8 @@ func _on_enter_pressed():
 		update_player_counter(true, true, false, false)
 		vor_start_trigger()
 		if not solo_mode and player_conect_count == 1 and player_wait_count == 1:
-			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1," Mitspieler!")
-			$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+			$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(get_parent().playerlist.size()-1,tr(" Mitspieler!"))
+			$CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Beenden")
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		if not server_first_start:
 			set_server_first_start.rpc(true)
@@ -481,10 +481,10 @@ func _on_enter_focus_entered():
 func set_player_rady(rady: bool):
 	if rady:
 		player_ready += 1
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, " Spieler bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, tr(" Spieler bereit!"))
 	elif player_ready > 0:
 		player_ready -= 1
-		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, " Spieler bereit!")
+		$CenterContainer/HBoxContainer/VBoxContainer/Warten.text = str(player_ready, tr(" Spieler bereit!"))
 		
 		
 @rpc("any_peer","call_local")
@@ -500,12 +500,12 @@ func _on_start_pressed():
 			blue_team_cound = 0
 			red_team_cound = 0
 			vaild_team = false
-			OS.alert("Nur ein Team erkannt!", "Server Meldung")
+			OS.alert(tr("Nur ein Team erkannt!"), tr("Server Meldung"))
 			return
-	if $CenterContainer/HBoxContainer/VBoxContainer/start.text == "Beenden":
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text == tr("Beenden"):
 		server_exit()
 		return
-	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "Beenden":
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != tr("Beenden"):
 		if server_first_start and not OS.has_feature("dedicated_server") and player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
 			$CenterContainer/HBoxContainer/VBoxContainer/start.visible = false
 			$CenterContainer/HBoxContainer/team.visible = false
@@ -516,7 +516,7 @@ func _on_start_pressed():
 		if player_ready != get_parent().playerlist.size() and get_parent().playerlist.size() > 0:
 			update_rady_status.rpc()
 			return
-	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != "start":
+	if $CenterContainer/HBoxContainer/VBoxContainer/start.text != tr("Start"):
 		$CenterContainer/HBoxContainer/VBoxContainer/warte_map.visible = true
 	update_rady_status.rpc()
 	if vs_mode and player_wait_count > 1:
@@ -525,14 +525,14 @@ func _on_start_pressed():
 			blue_team_cound = 0
 			red_team_cound = 0
 			vaild_team = false
-			OS.alert("Nur ein Team erkannt!", "Server Meldung")
+			OS.alert(tr("Nur ein Team erkannt!"), tr("Server Meldung"))
 			return
 	if not $CenterContainer/HBoxContainer/VBoxContainer/Warten.text.begins_with("Solo"):
 		if player_conect_count <= 1 and not get_parent().get_node("Players").has_node("2") and not OS.has_feature("dedicated_server"):
-			exit("Kein Mitspieler auf dem Server Gefunden!", true)
+			exit(tr("Kein Mitspieler auf dem Server Gefunden!"), true)
 			return
 		if player_conect_count <= 1 and OS.has_feature("dedicated_server"):
-			exit("Kein Mitspieler auf dem Server Gefunden!", true)
+			exit(tr("Kein Mitspieler auf dem Server Gefunden!"), true)
 			return
 	get_parent().map.reset_floor.rpc()
 	reset_wait_count.rpc()
@@ -543,10 +543,10 @@ func _on_start_pressed():
 	
 func vor_start_trigger():
 	if player_conect_count == 1 and player_wait_count == 1 and not solo_mode:
-		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Beenden"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Beenden")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 	else:
-		$CenterContainer/HBoxContainer/VBoxContainer/start.text = "Bereit"
+		$CenterContainer/HBoxContainer/VBoxContainer/start.text = tr("Bereit")
 		$CenterContainer/HBoxContainer/VBoxContainer/start.visible = true
 		
 	
@@ -599,13 +599,13 @@ func _on_map_pressed():
 	Global.ui_sound = true
 	count_map_size += 1
 	if count_map_size == 1:
-		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Kleine  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = tr("Kleine  Map")
 		map_faktor = 2
 	if count_map_size == 2:
-		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Normale  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = tr("Normale  Map")
 		map_faktor = 3
 	if count_map_size == 3:
-		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = str("Große  Map")
+		$CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Map.text = tr("Große  Map")
 		map_faktor = 4
 		count_map_size = 0
 		

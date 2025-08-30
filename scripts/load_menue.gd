@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 			else:
 				Global.load_menu_showed = false
 				queue_free()
-			no_load.text = str("Keine daten!\nFenster schließt in ",int(round(timer.time_left))," Sec.")
+			no_load.text = str(tr("Keine daten! "),int(round(timer.time_left))," Sec.")
 				
 		else:
 			Global.load_menu_showed = false
