@@ -283,6 +283,7 @@ func _on_einleitung_toggled(toggled_on: bool) -> void:
 	reset = false
 	if toggled_on:
 		einleitugs_display_mode = true
+		main.get_node("CanvasLayer2/Control/UI").trailer_on = true
 	else:
 		einleitugs_display_mode = false
 		main.get_node("CanvasLayer2/Control/UI").trailer_on = false
