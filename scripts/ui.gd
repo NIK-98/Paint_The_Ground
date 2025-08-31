@@ -69,7 +69,6 @@ func save():
 	
 func _ready():
 	name = "UI"
-	versions_info.text = tr("Versions_Info")+str(ProjectSettings.get("application/config/version"))
 	get_tree().paused = true
 	
 	
@@ -80,6 +79,7 @@ func _process(_delta):
 		sprache.text = Global.sprachen[sprach_idx][1]
 		Global.current_sprache_idx = sprach_idx
 		main.set_language(Global.sprachen[Global.current_sprache_idx][0])
+		versions_info.text = tr("Versions_Info")+str(ProjectSettings.get("application/config/version"))
 		for n in get_parent().get_children():
 			if n.is_in_group("SB"):
 				get_parent().move_child(n,get_parent().get_child_count())
@@ -428,6 +428,8 @@ func _on_sprache_pressed() -> void:
 		sprach_idx = 0
 	sprache.text = Global.sprachen[Global.current_sprache_idx][1]
 	main.set_language(Global.sprachen[Global.current_sprache_idx][0])
+	
+	versions_info.text = tr("Versions_Info")+str(ProjectSettings.get("application/config/version"))
 
 
 func _on_sprache_focus_entered() -> void:
