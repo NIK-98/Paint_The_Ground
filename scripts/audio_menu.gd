@@ -233,7 +233,7 @@ func select_music():
 		select.text = music_select
 		Global.selected_music_sound = Global.tracks[2]
 	elif music_count == 3:#zufallstrack
-		music_select = "Zufall"
+		music_select = tr("Zufall")
 		select.text = music_select
 		Global.selected_music_sound = Global.tracks.pick_random()
 		

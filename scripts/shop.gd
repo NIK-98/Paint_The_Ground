@@ -49,7 +49,7 @@ func _on_reset_mouse_entered() -> void:
 func _on_reset_pressed() -> void:
 	if Global.akzept.is_empty():
 		Global.ui_sound = true
-		Global.akzept = "Shop Zurücksetzen"
+		Global.akzept = "Shop Zuruecksetzen"
 		$CanvasLayer.visible = false
 		get_parent().get_node("CanvasLayer/akzeptieren").visible = true
 		get_parent().get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()

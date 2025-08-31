@@ -778,7 +778,7 @@ custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_x68ue")
-text = "Bestätigen"
+text = "Bestaetigen"
 script = ExtResource("15_unqr3")
 
 [node name="Warten" type="Label" parent="loby/CenterContainer/HBoxContainer/VBoxContainer"]
@@ -836,9 +836,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4n6q3")
 toggle_mode = true
 text = "Team
 Farbe
-Wälen
+Waelen
 durch
-drücken!"
+drueecken!"
 
 [node name="red" type="Label" parent="loby/CenterContainer/HBoxContainer/team"]
 layout_mode = 0

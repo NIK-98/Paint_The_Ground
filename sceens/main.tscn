@@ -341,7 +341,7 @@ layout_mode = 2
 [node name="deleteuser" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_hq385")
-text = "!Coins Löschen!"
+text = "!Coins Loeschen!"
 
 [node name="Shop" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 visible = false
@@ -369,7 +369,7 @@ text = "Lizenzen"
 [node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_2bw1u")
-text = "Zurück"
+text = "Zurueck"
 
 [node name="Beenden" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2

@@ -18,18 +18,18 @@ Join,Join,Join
 Adresse,Adresse,Address
 Beitreten,Beitreten,Join
 Alle,Alle,All
-Coins Löschen,Coins Löschen,Delete Coins
-!Coins Löschen!,!Coins Löschen!,!Delete Coins!
+Coins Loeschen,Coins Löschen,Delete Coins
+!Coins Loeschen!,!Coins Löschen!,!Delete Coins!
 Lizenzen,Mitwirkende,Credits
 Audio,Audio,Audio
 Grafik,Grafik,Graphics
 Eingabe,Eingabe,Input
 Ja,Ja,Yes
 Nein,Nein,No
-Gesamt Lautstärke,Gesamt Lautstärke,Master Volume
-Effekt Lautstärke,Effekt Lautstärke,Effect Volume
-UI Lautstärke,UI Lautstärke,UI Volume
-Musik Lautstärke,Musik Lautstärke,Music Volume
+Gesamt Lautstaerke,Gesamt Lautstärke,Master Volume
+Effekt Lautstaerke,Effekt Lautstärke,Effect Volume
+UI Lautstaerke,UI Lautstärke,UI Volume
+Musik Lautstaerke,Musik Lautstärke,Music Volume
 SongA,"Song 
 Auswahl
 |
@@ -37,7 +37,7 @@ Auswahl
 Selection
 |
 \/"
-Zurück,Zurück,Back
+Zurueck,Zurück,Back
 Vollbild,Vollbild,Fullscreen
 FPS Anzeige,FPS Anzeige,FPS Display
 Unbegrenzt FPS,Unbegrenzt FPS,Unlimited FPS
@@ -49,14 +49,14 @@ Rechts,Rechts,Right
 Links,Links,Left
 Hoch,Hoch,Up
 Runter,Runter,Down
-Menü,Menü,Menu
+Menue,Menü,Menu
 Abbrechen,Abbrechen,Cancel
 Spieler,Spieler,Player
-Händigkeit,Händigkeit,Handedness
+Haendigkeit,Händigkeit,Handedness
  Mitspieler!, Mitspieler!, Teammates!
 Scroll hoch,Scroll hoch,Scroll up
 Scroll runter,Scroll rununter,Scroll down
-Bestätigen,Bestätigen,Confirm
+Bestaetigen,Bestätigen,Confirm
 Oben Rechts,Oben Rechts,Top Right
 Neben Spieler Liste,Neben Spieler Liste,Next to Player List
 Spieler-Liste,Spieler-Liste,Player-List
@@ -70,9 +70,9 @@ Normale  Map,Normale  Map,Normal  Map
 Große  Map,Große  Map,Large  Map
 "Team
 Farbe
-Wälen
+Waelen
 durch
-drücken!","Team
+drueecken!","Team
 Farbe
 Wälen
 durch
@@ -84,7 +84,7 @@ pressing!"
  Spieler bereit!, Spieler bereit!, players ready!
 Alle Spieler bereit!,Alle Spieler bereit!,All players ready!
 Bereit,Bereit,Ready
- sec. bis zur nächsten Bomben verteilung!, sec. bis zur nächsten Bomben verteilung!, sec. until the next bomb distribution!
+ sec. bis zur naechsten Bomben verteilung!, sec. bis zur nächsten Bomben verteilung!, sec. until the next bomb distribution!
 Platz,Platz,Place
 Bestenliste,Bestenliste,Leaderboard
 Laden,Laden,Load
@@ -92,7 +92,7 @@ Spielen,Spielen,Play
 Gewonnen,Gewonnen,Victory
 Verloren,Verloren,Game Over
 !!!Gib Alles!!!,!!!Gib Alles!!!,!!!Give it your all!!!
-"Drücke die Exit Taste zum verlassen oder
+"Druecke die Exit Taste zum verlassen oder
 warte auf die wertung!","Drücke die Exit Taste zum verlassen oder
 warte auf die wertung!","Press the Exit button to leave or
 wait for the score!"
@@ -103,11 +103,11 @@ Version: ","Developer: Nik-Dev
 Version: "
 Beitreten,Beitreten,Join
 Oben Links,Oben Links,Top Left
-!!Coins Löschen!!,!!Coins Löschen!!,!!Delete Coins!!
-!!Shop Zurücksetzen!!,!!Shop Zurücksetzen!!,!!Reset Shop!!
-!!Shop und Coins Zurücksetzen!!,!!Shop und Coins Zurücksetzen!!,!!Reset Shop and Coins!!
+!!Coins Loeschen!!,!!Coins Löschen!!,!!Delete Coins!!
+!!Shop Zuruecksetzen!!,!!Shop Zurücksetzen!!,!!Reset Shop!!
+!!Shop und Coins Zuruecksetzen!!,!!Shop und Coins Zurücksetzen!!,!!Reset Shop and Coins!!
 Mitte Rechts(UI),Mitte Rechts(UI),Center Right(UI)
- Gerät, Gerät, Device
+ Geraet, Gerät, Device
 Lizenzeninfo,"Mitwirkende
 -------------------------------------------------------","Credits
 -------------------------------------------------------"
@@ -132,3 +132,9 @@ Keine daten! ,"Keine daten!
 Fenster schließt in ","No data!
 Window closes in "
 Platz 1:,Platz 1:,Rank 1:
+Zufall,Zufall,Random
+Shop Zuruecksetzen,Shop Zurücksetzen,Reset Shop
+Standard Audio,Standard Audio,Default Audio
+Standard Grafik,Standard Grafik,Default Grafics
+Standard Eingabe,Standard Eingabe,Default Input
+Coins_Loeschen,Coins_Löschen,Coins_Reset

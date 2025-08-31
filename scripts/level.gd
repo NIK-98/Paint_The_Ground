@@ -314,7 +314,7 @@ func game_update():
 @rpc("any_peer","call_local")
 func update_timer_texte(t, t_bomb, t_start):
 	$CanvasLayer/Time.text = str(round(t))
-	$CanvasLayer/Bomb_time.text = str(round(t_bomb), tr(" sec. bis zur nächsten Bomben verteilung!"))
+	$CanvasLayer/Bomb_time.text = str(round(t_bomb), tr(" sec. bis zur naechsten Bomben verteilung!"))
 	$CanvasLayer/start_in.text = str("Start in ", round(t_start), " Sec.")
 
 			
@@ -401,21 +401,21 @@ func add_player(id: int):
 	
 @rpc("call_local")
 func remove_exiting_coins():
-	Global.akzept = "!!Coins Löschen!!"
+	Global.akzept = "!!Coins Loeschen!!"
 	main.get_node("CanvasLayer/akzeptieren").visible = true
 	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
 	
 
 @rpc("call_local")
 func reset_shop():
-	Global.akzept = "!!Shop Zurücksetzen!!"
+	Global.akzept = "!!Shop Zuruecksetzen!!"
 	main.get_node("CanvasLayer/akzeptieren").visible = true
 	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
 	
 	
 @rpc("call_local")
 func reset_shop_and_coins():
-	Global.akzept = "!!Shop und Coins Zurücksetzen!!"
+	Global.akzept = "!!Shop und Coins Zuruecksetzen!!"
 	main.get_node("CanvasLayer/akzeptieren").visible = true
 	main.get_node("CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja").grab_focus()
 	

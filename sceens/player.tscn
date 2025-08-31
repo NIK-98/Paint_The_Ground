@@ -132,7 +132,7 @@ offset_right = 1097.0
 offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen oder
+text = "Druecke die Exit Taste zum verlassen oder
 warte auf die wertung!"
 
 [node name="Los" type="ColorRect" parent="CanvasLayer"]
@@ -161,7 +161,7 @@ offset_right = 1097.0
 offset_bottom = 771.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 46
-text = "Drücke die Exit Taste zum verlassen oder
+text = "Druecke die Exit Taste zum verlassen oder
 warte auf die wertung!"
 
 [node name="TimerresetSPEED" type="Timer" parent="."]

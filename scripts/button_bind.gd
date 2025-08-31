@@ -35,7 +35,7 @@ var X_Box_button_names = {
 	JOY_BUTTON_Y: "Y",
 	JOY_BUTTON_BACK: "BACK",
 	JOY_BUTTON_GUIDE: "HOME",
-	JOY_BUTTON_START: "MENÜ",
+	JOY_BUTTON_START: "MENUE",
 	JOY_BUTTON_LEFT_STICK: "LEFT STICK",
 	JOY_BUTTON_RIGHT_STICK: "RIGHT STICK",
 	JOY_BUTTON_LEFT_SHOULDER: "LB",
@@ -83,15 +83,15 @@ func set_aktion_name():
 		"scrolldown":
 			label.text = "Scroll runter"
 		"exit":
-			label.text = "Menü"
+			label.text = "Menue"
 		"cancel":
 			label.text = "Abbrechen"
 		"Info":
 			label.text = "Spieler-Liste"
 		"modus":
-			label.text = "Händigkeit"
+			label.text = "Haendigkeit"
 		"ui_accept":
-			label.text = "Bestätigen"
+			label.text = "Bestaetigen"
 			
 			
 	match aktion_controler_name:
@@ -108,15 +108,15 @@ func set_aktion_name():
 		"scrolldown_con":
 			label.text = "Scroll runter"
 		"exit_con":
-			label.text = "Menü"
+			label.text = "Menue"
 		"cancel_con":
 			label.text = "Abbrechen"
 		"Info_con":
 			label.text = "Spieler-Liste"
 		"modus_con":
-			label.text = "Händigkeit"
+			label.text = "Haendigkeit"
 		"ui_accept":
-			label.text = "Bestätigen"
+			label.text = "Bestaetigen"
 	
 	
 func _ready() -> void:

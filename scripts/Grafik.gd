@@ -70,9 +70,9 @@ func _process(_delta):
 		name = "Grafik"
 		if OS.get_name() == "Windows" or OS.get_name() == "Linux":
 			for i in Resolutions.keys():
-				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Gerät")):
+				if i == str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Geraet")):
 					break
-				Resolutions[str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Gerät"))] = DisplayServer.screen_get_size()
+				Resolutions[str(DisplayServer.screen_get_size().x,"x",DisplayServer.screen_get_size().y, tr(" Geraet"))] = DisplayServer.screen_get_size()
 			Add_Resolutions()
 			full_screen.set_pressed_no_signal(fullscreen_mode)
 			_on_full_screen_toggled(fullscreen_mode)

@@ -23,7 +23,7 @@ func _on_ja_pressed() -> void:
 		Global.akzept = ""
 		label.text = ""
 		Global.menu = false
-	if Global.akzept == "Coins Löschen":
+	if Global.akzept == "Coins Loeschen":
 		main._on_deleteuser_pressed()
 		get_parent().get_node("Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		get_parent().get_node("Menu").visible = true
@@ -51,24 +51,24 @@ func _on_ja_pressed() -> void:
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Coins Löschen!!":
+	if Global.akzept == "!!Coins Loeschen!!":
 		main.get_node("money/coin_display").remove_money(main.get_node("money/coin_display").coins)
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "Shop Zurücksetzen":
+	if Global.akzept == "Shop Zuruecksetzen":
 		main.get_node("shop")._on_reset_pressed()
 		main.get_node("shop/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Reset").grab_focus()
 		main.get_node("shop/CanvasLayer").visible = true
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Shop Zurücksetzen!!":
+	if Global.akzept == "!!Shop Zuruecksetzen!!":
 		main.get_node("shop")._on_reset_pressed()
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Shop und Coins Zurücksetzen!!":
+	if Global.akzept == "!!Shop und Coins Zuruecksetzen!!":
 		main.get_node("shop")._on_reset_pressed()
 		main.get_node("money/coin_display").remove_money(main.get_node("money/coin_display").coins)
 		visible = false
@@ -84,7 +84,7 @@ func _on_nein_pressed() -> void:
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "Coins Löschen":
+	if Global.akzept == "Coins Loeschen":
 		get_parent().get_node("Menu/PanelContainer/VBoxContainer/Beenden").grab_focus()
 		get_parent().get_node("Menu").visible = true
 		visible = false
@@ -108,23 +108,23 @@ func _on_nein_pressed() -> void:
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Coins Löschen!!":
+	if Global.akzept == "!!Coins Loeschen!!":
 		main.get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "Shop Zurücksetzen":
+	if Global.akzept == "Shop Zuruecksetzen":
 		main.get_node("shop/CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Reset").grab_focus()
 		main.get_node("shop/CanvasLayer").visible = true
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Shop Zurücksetzen!!":
+	if Global.akzept == "!!Shop Zuruecksetzen!!":
 		main.get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		visible = false
 		Global.akzept = ""
 		label.text = ""
-	if Global.akzept == "!!Shop und Coins Zurücksetzen!!":
+	if Global.akzept == "!!Shop und Coins Zuruecksetzen!!":
 		main.get_node("Level/level/loby").exit("Verbindung Selber beendet!", true)
 		visible = false
 		Global.akzept = ""

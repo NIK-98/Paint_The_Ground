@@ -630,7 +630,7 @@ theme_override_constants/outline_size = 30
 theme_override_styles/hover = SubResource("StyleBoxFlat_ojarn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ojarn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ojarn")
-text = "Zurück"
+text = "Zurueck"
 
 [connection signal="focus_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync" to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/V_Sync" to="." method="_on_mouse_entered"]

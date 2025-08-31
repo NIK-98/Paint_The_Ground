@@ -22,7 +22,7 @@ func _ready() -> void:
 		
 		
 func _process(_delta: float) -> void:
-	if Global.akzept != "!!Coins Löschen!!" and Global.akzept != "!!Shop Zurücksetzen!!" and Global.akzept != "!!Shop und Coins Zurücksetzen!!":
+	if Global.akzept != "!!Coins Loeschen!!" and Global.akzept != "!!Shop Zuruecksetzen!!" and Global.akzept != "!!Shop und Coins Zuruecksetzen!!":
 		if OS.has_feature("dedicated_server") or multiplayer.is_server():
 			if not loaded and loby.load_mode and not canvas_layer.visible:
 				loaded = true

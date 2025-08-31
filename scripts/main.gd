@@ -294,7 +294,7 @@ func _on_eingabe_mouse_entered():
 func _on_deleteuser_pressed() -> void:
 	if Global.akzept.is_empty():
 		Global.ui_sound = true
-		Global.akzept = "Coins Löschen"
+		Global.akzept = "Coins Loeschen"
 		$CanvasLayer/Menu.visible = false
 		$CanvasLayer/akzeptieren.visible = true
 		$CanvasLayer/akzeptieren/PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/Ja.grab_focus()
