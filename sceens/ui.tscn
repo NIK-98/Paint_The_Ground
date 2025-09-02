@@ -379,7 +379,7 @@ virtual_keyboard_enabled = false
 select_all_on_focus = true
 
 [node name="SPRACHE" type="Button" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 520.0
 offset_top = 120.0
 offset_right = 870.0

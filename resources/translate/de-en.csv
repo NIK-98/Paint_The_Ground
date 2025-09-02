@@ -12,7 +12,7 @@ Server,Server,Server
 "Anlei-
 tung","Anlei-
 tung",Guide
-Alleine_Spielen,Alleine_Spielen,Alone_Play
+Alleine_Spielen,Alleine_Spielen,Playing_Alone
 Runde_laden,Runde_laden,loading a round
 Join,Join,Join
 Adresse,Adresse,Address
@@ -138,3 +138,5 @@ Standard Audio,Standard Audio,Default Audio
 Standard Grafik,Standard Grafik,Default Grafics
 Standard Eingabe,Standard Eingabe,Default Input
 Coins_Loeschen,Coins_Löschen,Coins_Reset
+Einleitungsvideo,Einleitungsvideo,Introductory video
+Zum Ueberspringen Tippen,Zum Überspringen Tippen,Tap to skip

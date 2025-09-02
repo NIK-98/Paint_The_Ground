@@ -3,27 +3,27 @@
 [ext_resource type="Script" uid="uid://cskem3sm52d66" path="res://scripts/trailer.gd" id="1_anicl"]
 [ext_resource type="VideoStream" uid="uid://ee1x4lcacv2q" path="res://assets/trailer/PTGTrailer.ogv" id="2_mmjuo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb8yi"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxsq1"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7kcg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_grsv2"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5otiu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_stca8"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp7wr"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wy2fu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuell"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g78l"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rcqd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g78l"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuell"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wy2fu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp7wr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_stca8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5otiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_grsv2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7kcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxsq1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb8yi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76mx3"]
 bg_color = Color(0.536, 0.535, 1, 0.595)
@@ -85,17 +85,17 @@ bus = &"music"
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 800.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_lb8yi")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_nxsq1")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_p7kcg")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_grsv2")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5otiu")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_stca8")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_sp7wr")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wy2fu")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_fuell")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_6rcqd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4g78l")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_6rcqd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fuell")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wy2fu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sp7wr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_stca8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5otiu")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_grsv2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_p7kcg")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_nxsq1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lb8yi")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -104,7 +104,7 @@ offset_top = 692.0
 offset_right = 1248.0
 offset_bottom = 746.0
 theme = SubResource("Theme_6tksy")
-text = "Zum Überspringen Tippen"
+text = "Zum Ueberspringen Tippen"
 horizontal_alignment = 1
 vertical_alignment = 1
 

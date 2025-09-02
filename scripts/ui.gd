@@ -83,10 +83,10 @@ func _process(_delta):
 		for n in get_parent().get_children():
 			if n.is_in_group("SB"):
 				get_parent().move_child(n,get_parent().get_child_count())
-		$Panel/CenterContainer/Net/Options/Option2/o4/port.text = connectport
+		$Panel/CenterContainer/Net/Options/Option2/o4/port.text = str(connectport)
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
-		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = port
+		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = str(port)
 		if vs_mode:
 			vs.set_pressed(true)
 		else:
