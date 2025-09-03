@@ -9,7 +9,7 @@ var Max_clients = 4
 @onready var vs = $Panel/CenterContainer/Net/Options/Option1/o2/vs
 @onready var portal = $Panel/CenterContainer/Net/Options/Option1/o2/portal
 @onready var Coins_Loeschen = $Panel/CenterContainer/Net/Options/Option1/o2/Coins_Loeschen
-@onready var namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen
+@onready var server_namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
 @onready var shop_reset = $Panel/CenterContainer/Net/Options/Option1/o2/Shop_Reset
 @onready var alleine_spielen = $Panel/CenterContainer/Net/Options/Option1/o2/Alleine_Spielen
 @onready var runde_laden = $Panel/CenterContainer/Net/Options/Option1/o2/Runde_laden
@@ -62,7 +62,8 @@ func save():
 		"trailer_on" : trailer_on,
 		"host_mode" : host_mode,
 		"eis_mode" : eis_mode,
-		"sprach_idx" : sprach_idx
+		"sprach_idx" : sprach_idx,
+		"server_namen" : server_namen
 	}
 	return save_dict
 	
@@ -84,6 +85,7 @@ func _process(_delta):
 			if n.is_in_group("SB"):
 				get_parent().move_child(n,get_parent().get_child_count())
 		$Panel/CenterContainer/Net/Options/Option2/o4/port.text = str(connectport)
+		$Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text = str(server_namen)
 		$Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text = ip
 		port = str(port)
 		$Panel/CenterContainer/Net/Options/Option1/o1_port/port.text = str(port)
@@ -149,18 +151,19 @@ func _on_host_pressed():
 	Global.ui_sound = true
 	get_tree().paused = false
 			
-	if namen.text.is_empty():
+	if server_namen.is_empty():
 		OS.alert("Bitte Namen Eingeben!", "Server Meldung")
 		get_tree().paused = true
 		return
-	namen.text = namen.text.lstrip(" ")
-	namen.text = namen.text.rstrip(" ")
+	server_namen = server_namen.lstrip(" ")
+	server_namen = server_namen.rstrip(" ")
 		
 	if block_host:
 		get_tree().paused = true
 		return
 		
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+	server_namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 	if not FileAccess.file_exists(save_path):
@@ -206,6 +209,7 @@ func _on_connect_pressed():
 		return
 		
 	port = $Panel/CenterContainer/Net/Options/Option1/o1_port/port.text
+	server_namen = $Panel/CenterContainer/Net/Options/Option1/o1_port/namen.text
 	connectport = $Panel/CenterContainer/Net/Options/Option2/o4/port.text
 	ip = $Panel/CenterContainer/Net/Options/Option2/o3/remote1/Remote.text
 	prints(ip,port)

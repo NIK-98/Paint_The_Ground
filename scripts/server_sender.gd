@@ -23,7 +23,7 @@ func _enter_tree() -> void:
 		
 
 func broadcast():
-	server_info.name = get_parent().get_parent().get_node("UI").namen.text
+	server_info.name = get_parent().get_parent().get_node("UI").server_namen
 	server_info.port = get_parent().get_parent().get_node("UI").port
 	var packetmsg = JSON.stringify(server_info)
 	var packet = packetmsg.to_ascii_buffer()

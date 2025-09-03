@@ -347,23 +347,23 @@ text = "!Coins Loeschen!"
 visible = false
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
-theme_override_colors/font_hover_pressed_color = Color(1, 0.890196, 0.282353, 1)
-theme_override_colors/font_hover_color = Color(1, 0.890196, 0.282353, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.729721, 0.63378, 5.77569e-07, 1)
 theme_override_colors/font_focus_color = Color(1, 0.889502, 0.283117, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.890196, 0.282353, 1)
+theme_override_colors/font_hover_color = Color(1, 0.890196, 0.282353, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.890196, 0.282353, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Shop"
 
 [node name="Lizenzen" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_w0b7n")
-theme_override_colors/font_hover_pressed_color = Color(0.513726, 0.513726, 0.513726, 1)
-theme_override_colors/font_hover_color = Color(0.513726, 0.513726, 0.513726, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.277528, 0.277528, 0.277528, 1)
 theme_override_colors/font_focus_color = Color(0.513233, 0.513233, 0.513233, 1)
 theme_override_colors/font_pressed_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_colors/font_hover_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Lizenzen"
 
 [node name="Zurück" type="Button" parent="CanvasLayer/Menu/PanelContainer/VBoxContainer"]
