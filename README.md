@@ -4,7 +4,7 @@
 -Alle License Infos der Godot Engine, des verwendeten Plugins,
  so wie von godot verwendete bibliotheken.
  Stehen in der "LICENSE_INFO.txt" datei.
--Engine Version: 4.4.1
+-Engine Version: 4.5
 
 Für verbesserungs vorschläge einfach schreiben.
 
